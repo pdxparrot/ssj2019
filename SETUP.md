@@ -1,66 +1,21 @@
-# This document is pretty out of date already :(
+# Project Creation
 
-# Notes
-
-* USE_SPINE in `Project Settings -> Player -> Other Settings -> Configuration -> Scripting Define Symbols` to enable Spine utilities
-* UNITY_POST_PROCESSING_STACK_V2 to enable PostProcessingStack v2
-
-# Script Execution Order
-* pdxpartyparrot.{project}.Loading.LoadingManager
-* pdxpartyparrot.Core.Util.TimeManager
-* pdxpartyparrot.Game.State.GameStateManager
-* Default Scripts
-* pdxpartyparrot.Core.Debug.DebugMenuManager must run last
+* Create a new Unity Project
+* Create .gitignore
+* git init
 
 # Pre-Asset Setup
 
 * Create Assets/csc.rsp
-* Copy Art/Core/pdxparrot.png
-* Copy Art/Core/progress.png
-  * Texture Type: Sprite (2D and UI)
-* Create Data/Audio/main.mixer
-  * 3 Master child groups
-    * Music
-      * Expose the Volume parameter and set it to -5db
-        * Rename it to MusicVolume
-    * SFX
-      * Expose the Volume parameter and set it to 0db
-        * Rename it to SFXVolume
-    * Ambient
-      * Expose the Volume parameter and set it to -10db
-        * Rename it to AmbientVolume
-  * Expose the Master Volume parameter and set it to 0db
-    * Rename it to MasterVolume
+  * -nowarn:0649
 * Create Data/Physics/Frictionless.physicMaterial
   * Static Friction: 0
   * Dynamic Friction: 0
 * Create Data/Physics/Frictionless 2D.physicsMaterial2D
   * Friction: 0
-* Create Data/Input/ServerSpectator.inputactions
-  * Generate C# Class
-    * File: Assets\Scripts\Game\Input\ServerSpectatorControls
-      * Need to create containing directory first
-    * Class Name: ServerSpectatorControls
-    * Namespace: pdxpartyparrot.Game.Input
-    * Generate Events
-    * Generate Interfaces
-  * Action Maps
-    * ServerSpectator
-      * Actions
-        * move forward
-          * press and release w
-        * move backward
-          * press and release s
-        * move left
-          * press and release a
-        * move right
-          * press and release d
-        * move up
-          * press and release space
-        * move down
-          * press and release left shift
-        * look
-          * mouse delta
+* Copy Art/Core/pdxparrot.png
+* Copy Art/Core/progress.png
+  * Texture Type: Sprite (2D and UI)
 
 # Project Setup
 
@@ -69,39 +24,11 @@
   * Version Control Mode: Visible Meta Files
   * Asset Serialization Mode: Force Text
   * Default Behavior Mode: 3D for 3D, 2D for 2D
-  * Line Endings: Windows (or maybe Unix would be cleaner?)
+  * Line Endings: OS Native
 * Graphics Settings
   * Set the Render Pipeline Asset if desired (https://github.com/Unity-Technologies/ScriptableRenderPipeline)
     * This will require creating the asset first, which itself may be configured as desired
 * Input Settings
-* Tags and Layers
-  * Add a PostProcessing layer if it doesn't already exist
-  * Add a NoPhysics layer
-  * Add a Vfx layer
-  * Add a Viewer layer
-  * Add a Player layer
-  * Add a World layer
-  * Add a Weather layer
-* Physics Settings
-  * Set the Default Material to frictionless if desired
-  * Only enable the minimum necessary collisions
-    * **TODO:** water?
-    * Vfx -> Vfx
-    * Viewer -> Weather
-    * Viewer -> World
-    * Player -> Weather
-    * Player -> World
-    * World -> Weather
-* Physics 2D Settings
-  * Set the Default Material to frictionless if desired
-  * Only enable the minimum necessary collisions
-    * **TODO:** water?
-    * Vfx -> Vfx
-    * Viewer -> Weather
-    * Viewer -> World
-    * Player -> Weather
-    * Player -> World
-    * World -> Weather
 * Player Settings
   * Set the Company Name (PDX Party Parrot)
   * Set the Product Name
@@ -115,12 +42,46 @@
   * Scripting Runtime: .NET 4.x
   * Scripting Backend: IL2CPP
   * API Compatability Level: .NET Standard 2.0
+  * C++ Compiler Configuration: Release
   * Active Input Handling: Both
-    * Whenever the new InputSystem handles UI, this can be set to just InputSystem 
+    * Whenever the new InputSystem handles UI, this can be set to just InputSystem
   * Minimum Android API: Marshmallow
+  * Target ARMv7 / ARM64 / x86 Android
+  * Scripting Define Symbols
+    * USE_SPINE if using Spine
+    * UNITY_POST_PROCESSING_STACK_V2 to enable PostProcessingStack v2
+      * **TODO:** is this actually necessary anymore?
 * Preset Manager
 * Quality
 * Script Execution Order
+  * Set in the Script Execution Order section later
+* Tags and Layers
+  * Add a PostProcessing layer if it doesn't already exist
+  * Add a NoPhysics layer
+  * Add a Vfx layer
+  * Add a Viewer layer
+  * Add a Player layer
+  * Add an NPC layer
+  * Add a World layer
+  * Add a Weather layer
+* Physics Settings
+  * Set the Default Material to frictionless if desired
+  * Only enable the minimum necessary collisions
+    * **TODO:** water?
+    * Vfx -> Vfx
+    * Viewer -> Weather, World
+    * Player -> Weather, World, NPC
+    * NPC -> Weather, World
+    * World -> Weather
+* Physics 2D Settings
+  * Set the Default Material to frictionless if desired
+  * Only enable the minimum necessary collisions
+    * **TODO:** water?
+    * Vfx -> Vfx
+    * Viewer -> Weather, World
+    * Player -> Weather, World, NPC
+    * NPC -> Weather, World
+    * World -> Weather
 * TextMesh Pro
   * Import TMP Essentials if not already done
   * Optionally import TMP Examples & Extras if desired
@@ -148,6 +109,57 @@
     * Make sure to run the setup
 * Add Keijiro Kino
   * Add "jp.keijiro.kino.post-processing": "https://github.com/keijiro/kino.git#upm" to package manifest.json dependencies
+
+# Copy over engine Core / Game code
+
+# Script Execution Order
+
+* pdxpartyparrot.{project}.Loading.LoadingManager
+* pdxpartyparrot.Core.Util.TimeManager
+* pdxpartyparrot.Game.State.GameStateManager
+* Default Scripts
+* pdxpartyparrot.Core.Debug.DebugMenuManager must run last
+
+# Pre-Asset Setup (...)
+
+* Create Data/Audio/main.mixer
+  * 3 Master child groups
+    * Music
+      * Expose the Volume parameter and set it to -5db
+        * Rename it to MusicVolume
+    * SFX
+      * Expose the Volume parameter and set it to 0db
+        * Rename it to SFXVolume
+    * Ambient
+      * Expose the Volume parameter and set it to -10db
+        * Rename it to AmbientVolume
+  * Expose the Master Volume parameter and set it to 0db
+    * Rename it to MasterVolume
+* Create Data/Input/ServerSpectator.inputactions
+  * Generate C# Class
+    * File: Assets\Scripts\Game\Input\ServerSpectatorControls
+      * Need to create containing directory first
+    * Class Name: ServerSpectatorControls
+    * Namespace: pdxpartyparrot.Game.Input
+    * Generate Events
+    * Generate Interfaces
+  * Action Maps
+    * ServerSpectator
+      * Actions
+        * move forward
+          * press and release w
+        * move backward
+          * press and release s
+        * move left
+          * press and release a
+        * move right
+          * press and release d
+        * move up
+          * press and release space
+        * move down
+          * press and release left shift
+        * look
+          * mouse delta
 
 # Asset Setup
 
