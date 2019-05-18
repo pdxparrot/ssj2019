@@ -114,26 +114,45 @@
   * DOTween (not Pro)
     * Make sure to run the setup
     * Make sure to create ASMDEF
+* If using Spine, download the latest Spine-Unity package and import it
+  * Assets/Spine* must be added to the .gitignore to prevent committing this
+  * It may be necessary to create an ASMDEF in Spine/Runtime for this package
 
-# Core / Game Scripts
+# Engine Source
 
-* Copy Core / Game Scripts
-  * Cleanup any TODOs as necessary
+## Core Scripts
+
+* Copy Core Scripts
 * Create ASMDEFs
   * Scripts/Core/com.pdxpartyparrot.Core.asmdef
-    * References: Unity.InputSystem, Unity.Postprocessing.Runtime, Unity.TextMeshPro, Kino.Postprocessing
+    * References: Unity.InputSystem, com.unity.multiplayer-hlapi.Runtime, Unity.Postprocessing.Runtime, Unity.TextMeshPro, Kino.Postprocessing
+      * Create and a reference to a spine-unity ASMDEF if necessary
   * Scripts/Core/Editor/com.pdxpartyparrot.Core.Editor
     * Editor platform only
-    * References: com.pdxpartyparrot.Core.asmdef
+    * References: com.pdxpartyparrot.Core.asmdef, Unity.TextMeshPro
+* Clean up TODOs as necessary
+* Remove any FormerlySerializedAs attributes
+
+## Game Scripts
+
+* Copy Game Scripts
+  * Cleanup any TODOs as necessary
+* Create ASMDEFs
   * Scripts/Game/com.pdxpartyparrot.Game.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, Unity.TextMeshPro
   * Scripts/Game/Editor/com.pdxpartyparrot.Game.Editor
     * Editor platform only
     * References: com.pdxpartyparrot.Game.asmdef
+
+## Project Scripts
+
+* Create Loading Manager
+  * Create a new project LoadingManager script that overrides Game LoadingManager
+* Create ASMDEFs
   * Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef, Unity.InputSystem, Unity.TextMeshPro
 
-# Script Execution Order
+# Set Script Execution Order
 
 * pdxpartyparrot.{project}.Loading.LoadingManager
 * pdxpartyparrot.Core.Util.TimeManager
@@ -214,7 +233,6 @@
 
 ## LoadingManager and GameStateManager Prefabs
 
-* Create a new LoadingManager script that overrides Game LoadingManager
 * Create a new GameStateManager script that overrides Game GameStateManager
   * Implement the ShowLoadingScreen/UpdateLoadingScreen methods to call the LoadingManager methods
 * Add a connection to the GameStateManager in the LoadingManager
