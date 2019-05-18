@@ -165,7 +165,7 @@
 # Set Script Execution Order
 
 * pdxpartyparrot.{project}.Loading.LoadingManager
-* pdxpartyparrot.Core.Util.TimeManager
+* pdxpartyparrot.Core.Time.TimeManager
 * pdxpartyparrot.Game.State.GameStateManager
 * Default Scripts
 * pdxpartyparrot.Core.Debug.DebugMenuManager must run last
