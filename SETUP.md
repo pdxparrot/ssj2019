@@ -150,8 +150,11 @@
 * Copy Editor Scripts
 * Create ASMDEF
   * Scripts/Editor/com.pdxpartyparrot.Editor.asmdef
+    * Editor platform only
+* Clean up TODOs as necessary
+* Remove any FormerlySerializedAs attributes
 
-## Project Scripts
+## Initial Project Scripts
 
 * Create Loading Manager
   * Create a new project LoadingManager script that overrides Game LoadingManager
