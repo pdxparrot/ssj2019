@@ -1,0 +1,17 @@
+{
+    "name": "com.pdxpartyparrot.Game.Editor",
+    "references": [
+        "GUID:47c497b1d945c6d4f8656f960caaff48"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}

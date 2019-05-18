@@ -123,7 +123,7 @@
 ## Core Scripts
 
 * Copy Core Scripts
-* Create ASMDEFs
+* Create ASMDEF
   * Scripts/Core/com.pdxpartyparrot.Core.asmdef
     * References: Unity.InputSystem, com.unity.multiplayer-hlapi.Runtime, Unity.Postprocessing.Runtime, Unity.TextMeshPro, Kino.Postprocessing
       * Create and a reference to a spine-unity ASMDEF if necessary
@@ -136,13 +136,20 @@
 ## Game Scripts
 
 * Copy Game Scripts
-  * Cleanup any TODOs as necessary
-* Create ASMDEFs
+* Create ASMDEF
   * Scripts/Game/com.pdxpartyparrot.Game.asmdef
-    * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, Unity.TextMeshPro
+    * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, com.unity.multiplayer-hlapi.Runtime, Unity.TextMeshPro
   * Scripts/Game/Editor/com.pdxpartyparrot.Game.Editor
     * Editor platform only
     * References: com.pdxpartyparrot.Game.asmdef
+* Clean up TODOs as necessary
+* Remove any FormerlySerializedAs attributes
+
+## Editor Scripts
+
+* Copy Editor Scripts
+* Create ASMDEF
+  * Scripts/Editor/com.pdxpartyparrot.Editor.asmdef
 
 ## Project Scripts
 
