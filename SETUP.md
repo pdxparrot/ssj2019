@@ -49,8 +49,6 @@
   * Target ARMv7 / ARM64 / x86 Android
   * Scripting Define Symbols
     * USE_SPINE if using Spine
-    * UNITY_POST_PROCESSING_STACK_V2 to enable PostProcessingStack v2
-      * **TODO:** is this actually necessary anymore?
 * Preset Manager
 * Quality
 * Script Execution Order
@@ -91,26 +89,49 @@
 # Packages
 
 * Update default packages
+* Remove default packages
+  * Ads
+  * Analytics Library
+  * In App Purchasing
+  * Unity Collaborate
 * Add release packages
   * Asset Bundle Browser
-  * Cinemachine
+  * Core RP Library
+  * Multiplayer HLAPI
+    * **TODO:** This is deprecated and should be replaced
   * Post Processing
   * ProBuilder
+  * Shader Graph
 * Add preview packages
+  * Android Logcat if building for Android
   * Input System (https://github.com/Unity-Technologies/InputSystem)
   * ProGrids
-  * Render-Pipelines.Core
-  * HD/Lightweight Render Pipeline (whichever best fits the project)
+  * HD/Lightweight Render Pipeline (optional - whichever best fits the project)
   * Burst/Entities (if using ECS)
-  * Shader Graph
-* Add desired assets
-  * ConsoleE (optional now that Unity has built-in recompile settings)
-  * DOTween (not Pro)
-    * Make sure to run the setup
 * Add Keijiro Kino
   * Add "jp.keijiro.kino.post-processing": "https://github.com/keijiro/kino.git#upm" to package manifest.json dependencies
+* Add desired assets
+  * DOTween (not Pro)
+    * Make sure to run the setup
+    * Make sure to create ASMDEF
 
-# Copy over engine Core / Game code
+# Core / Game Scripts
+
+* Copy Core / Game Scripts
+  * Cleanup any TODOs as necessary
+* Create ASMDEFs
+  * Scripts/Core/com.pdxpartyparrot.Core.asmdef
+    * References: Unity.InputSystem, Unity.Postprocessing.Runtime, Unity.TextMeshPro, Kino.Postprocessing
+  * Scripts/Core/Editor/com.pdxpartyparrot.Core.Editor
+    * Editor platform only
+    * References: com.pdxpartyparrot.Core.asmdef
+  * Scripts/Game/com.pdxpartyparrot.Game.asmdef
+    * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, Unity.TextMeshPro
+  * Scripts/Game/Editor/com.pdxpartyparrot.Game.Editor
+    * Editor platform only
+    * References: com.pdxpartyparrot.Game.asmdef
+  * Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
+    * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef, Unity.InputSystem, Unity.TextMeshPro
 
 # Script Execution Order
 
@@ -120,7 +141,7 @@
 * Default Scripts
 * pdxpartyparrot.Core.Debug.DebugMenuManager must run last
 
-# Pre-Asset Setup (...)
+# Asset Setup
 
 * Create Data/Audio/main.mixer
   * 3 Master child groups
@@ -160,23 +181,8 @@
           * press and release left shift
         * look
           * mouse delta
-
-# Asset Setup
-
 * Data/Prefabs/Input/EventSystem.prefab
   * Create using default EventSystem that gets added automatically when adding a UI object
-* Scripts/Core/com.pdxpartyparrot.Core.asmdef
-  * References: Unity.InputSystem, Unity.Postprocessing.Runtime, Unity.TextMeshPro, Kino.Postprocessing
-* Scripts/Core/Editor/com.pdxpartyparrot.Core.Editor
-  * Editor platform only
-  * References: com.pdxpartyparrot.Core.asmdef
-* Scripts/Game/com.pdxpartyparrot.Game.asmdef
-  * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, Unity.TextMeshPro
-* Scripts/Game/Editor/com.pdxpartyparrot.Game.Editor
-  * Editor platform only
-  * References: com.pdxpartyparrot.Game.asmdef
-* Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
-  * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef, Unity.InputSystem, Unity.TextMeshPro
 
 ## Manager Prefabs Setup
 
