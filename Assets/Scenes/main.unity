@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 93781025}
   - component: {fileID: 93781027}
   - component: {fileID: 93781026}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 695438963}
   - component: {fileID: 695438962}
   - component: {fileID: 695438961}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Status
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +447,7 @@ GameObject:
   m_Component:
   - component: {fileID: 943229324}
   - component: {fileID: 943229323}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -500,7 +500,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1061986263}
   - component: {fileID: 1061986262}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LoadingScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,6 +548,7 @@ GameObject:
   - component: {fileID: 1111408402}
   - component: {fileID: 1111408401}
   - component: {fileID: 1111408400}
+  - component: {fileID: 1111408403}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -620,6 +621,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1111408403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111408399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da7c48d1b1813b4fac54ac52b56adae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _aspectWidth: 16
+  _aspectHeight: 9
+  _targetAspectRatio: 0
 --- !u!1 &1240364568
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,7 +647,7 @@ GameObject:
   - component: {fileID: 1240364569}
   - component: {fileID: 1240364571}
   - component: {fileID: 1240364570}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -707,7 +723,7 @@ GameObject:
   - component: {fileID: 1591844075}
   - component: {fileID: 1591844077}
   - component: {fileID: 1591844076}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -864,7 +880,7 @@ GameObject:
   - component: {fileID: 1860782797}
   - component: {fileID: 1860782799}
   - component: {fileID: 1860782798}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -939,7 +955,7 @@ GameObject:
   - component: {fileID: 1880580795}
   - component: {fileID: 1880580797}
   - component: {fileID: 1880580796}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

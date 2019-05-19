@@ -45,5 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneName: main_menu
   _makeSceneActive: 0
-  _menuPrefab: {fileID: 0}
+  _menuPrefab: {fileID: 8352289956213582818, guid: d56c823a564112b4a8243ecc30e15f59,
+    type: 3}
   _music: {fileID: 0}

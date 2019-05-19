@@ -2,6 +2,7 @@
 using pdxpartyparrot.Core.UI;
 
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace pdxpartyparrot.Game.Menu
@@ -24,6 +25,18 @@ namespace pdxpartyparrot.Game.Menu
             } else {
                 _initialSelection.Select();
                 _initialSelection.Highlight();
+            }
+        }
+
+        private void OnEnable()
+        {
+            InputManager.Instance.EventSystem.UIModule.cancel.action.performed += OnCancel;
+        }
+
+        private void OnDisable()
+        {
+            if(InputManager.HasInstance) {
+                InputManager.Instance.EventSystem.UIModule.cancel.action.performed -= OnCancel;
             }
         }
 
@@ -50,5 +63,17 @@ namespace pdxpartyparrot.Game.Menu
             _initialSelection.Select();
             _initialSelection.Highlight();
         }
+
+#region Event Handlers
+        public virtual void OnBack()
+        {
+            Owner.PopPanel();
+        }
+
+        public virtual void OnCancel(InputAction.CallbackContext context)
+        {
+            OnBack();
+        }
+#endregion
     }
 }

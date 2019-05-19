@@ -1,6 +1,7 @@
 # TODO
 
 * Having the ability to generate a lot of the inital data / prefabs would make this a lot faster
+* https://docs.unity3d.com/Packages/com.unity.inputsystem@0.2/changelog/CHANGELOG.html
 
 # Project Creation
 
@@ -8,7 +9,7 @@
 * Create .gitignore
 * git init
 
-# Pre-Asset Setup
+# Pre-Setup
 
 * Create Assets/csc.rsp
   * -nowarn:0649
@@ -47,8 +48,7 @@
   * Scripting Backend: IL2CPP
   * API Compatability Level: .NET Standard 2.0
   * C++ Compiler Configuration: Release
-  * Active Input Handling: Both
-    * Whenever the new InputSystem handles UI, this can be set to just InputSystem
+  * Active Input Handling: InputSystem (Preview)
   * Minimum Android API: Marshmallow
   * Target ARMv7 / ARM64 / x86 Android
   * Scripting Define Symbols
@@ -169,7 +169,7 @@
   * Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef, Unity.InputSystem
 
-# Set Script Execution Order
+## Set Script Execution Order
 
 * TextMeshPro
 * InputSystem PlayerInput
@@ -180,7 +180,7 @@
 * pdxpartyparrot.Core.Debug.DebugMenuManager
   * This must be run last
 
-# Asset Setup
+# Engine Asset Setup
 
 * Create Data/Animation/empty.controller Animation Controller
 * Create Data/Audio/main.mixer Mixer
@@ -228,9 +228,7 @@
 * Data/Prefabs/Input/EventSystem.prefab
   * Create using default EventSystem that gets added automatically when adding a UI object
   * Replace Standalone Input Module with InputSystemUIInputModule
-  * Add Core.EventSystemHelper script to this
-  * **TODO:** https://docs.unity3d.com/Packages/com.unity.inputsystem@0.2/changelog/CHANGELOG.html
-    * Do we not need an inputactions asset anymore??
+  * Add EventSystemHelper script to this
 * Create Data/Prefabs/Lighting/GlobalLighting.prefab
   * Add a Direction Light under this
     * Set X Rotation to 45
@@ -313,20 +311,21 @@
 
 * Create and save a new scene (Scenes/splash.unity)
   * The only object in the scene should be a Main Camera
-    * Clear Flags: Solid Color
-    * Background: Opaque Black
-    * Culling Mask: Nothing
-    * Projection: Orthographic
-    * Uncheck Occlusion Culling
-    * Disable HDR
-    * Disable MSAA
-    * Leave the Audio Listener attached to the camera for audio to work
+* Setup the camera in the scene
+  * Clear Flags: Solid Color
+  * Background: Opaque Black
+  * Culling Mask: Nothing
+  * Projection: Orthographic
+  * Uncheck Occlusion Culling
+  * Disable HDR
+  * Disable MSAA
+  * Leave the Audio Listener attached to the camera for audio to work
   * Add the UICameraAspectRatio component to the camera
-  * Remove the Skybox Material
-  * Environment Lighting Source: Color
-  * Disable Realtime Global Illumination
-  * Disable Baked Global Illumination
-  * Disable Auto Generate lighting
+* Remove the Skybox Material
+* Environment Lighting Source: Color
+* Disable Realtime Global Illumination
+* Disable Baked Global Illumination
+* Disable Auto Generate lighting
 * Add the scene to the Build Settings and ensure that it is Scene 0
 * Add a new GameObject to the scene (SplashScreen) and add the SplashScreen component to it
 * Attach the camera to the Camera field of the SplashScreen component
@@ -347,6 +346,7 @@
   * Disable HDR
   * Disable MSAA
   * Leave the Audio Listener attached to the camera for audio to work
+  * Add the UICameraAspectRatio component to the camera
 * Remove the Skybox Material
 * Environment Lighting Source: Color
 * Disable Realtime Global Illumination
@@ -357,6 +357,7 @@
 ## Loading Screen Setup
 
 * Add a new LoadingScreen object to the scene with the LoadingScreen component
+  * Layer: UI
   * Add a new Canvas object below the LoadingScreen and attach it to the LoadingScreen
     * UI Scale Mode: Scale With Screen Size
     * Reference Resolution: 1280x720
@@ -406,60 +407,73 @@
 
 # Main Menu Setup
 
-* Create a new MainMenu script that overrides the Game MenuPanel
-  * Add a public void OnPlay() method that does nothing
-  * Add a public void OnCredits() method that does nothing
-  * Add a public void OnQuitGame() method that calls Application.Quit()
-* Create an empty Prefab and add the Game Menu component to it
+* Create a new MainMenu script that overrides the Game MainMenu
+* Create a MainMenu Prefab in Prefabs/Menus and add the Game Menu component to it
   * Layer: UI
-  * Render Mode: Screen Space - Overlay
-  * UI Scale Mode: Scale With Screen Size
-  * Reference Resolution: 1280x720
-  * Match Width Or Height: 0.5
-* Add a Panel under the Canvas (Main)
-  * Remove the Image
-  * Add a Vertical Layout Group
-    * Spacing: 10
-    * Alignment: Middle Center
-    * Child Controls Width / Height
-    * Force Expand nothing
-  * Add the MainMenu script
-    * Set Owner to the Menu object
-    * Set the Main Panel on the Menu object to the Main panel
-* Add a Button under the Main panel (Play)
-  * Normal Color: (255, 0, 255, 255)
-  * Highlight Color: (0, 255, 0, 255)
-  * Add an On Click handler that calls the MainMenu OnPlay method
-  * Add a Layout Element to the Button
-    * Preferred Width: 200
-    * Preferred Height: 50
-  * Replace the Text under the Button with a TextMeshPro - Text
-    * Text: "Play"
-    * Center the text
-    * Disable Raycast Target
-  * Set the Main Menu Initial Selection to the Play Button
-* Duplicate the Play Button (Credits)
-  * Set the On Click handler to the MainMenu OnCredits method
-  * Set the Text to "Credits"
-* Duplicate the Credits Button (Quit)
-  * Set the On Click handler to the MainMenu OnQuitGame method
-  * Set the Text to "Quit"
-* Add a field for the MainMenu to the MainMenuState and connect it on the prefab
-  * OnEnter create the menu prefab with the UIManager
-  * OnExit destroy the menu prefab
-  * OnResume activate the menu prefab
-  * OnPause deactivate the menu prefab
+  * Add a Canvas under the prefab
+    * UI Scale Mode: Scale With Screen Size
+    * Reference Resolution: 1280x720
+    * Match Width Or Height: 0.5
+    * Set the Canvas on the Menu object
+  * Add a Panel under the Canvas (Main)
+    * Remove the Image
+    * Add a Vertical Layout Group
+      * Spacing: 10
+      * Alignment: Middle Center
+      * Child Controls Width / Height
+      * No Child Force Expand
+    * Add the MainMenu script to the panel
+      * Set Owner to the Menu object
+      * Set the Main Panel on the Menu object to the Main panel
+  * Add a Button (TextMeshPro) under the Main panel (Start)
+    * Normal Color: (255, 0, 255, 255)
+    * Highlight Color: (0, 255, 0, 255)
+    * Add an On Click handler that calls the MainMenu OnStart method
+    * Add a Button Helper to the button and setup EffectTriggers to play the hover and click audio
+    * Add a Layout Element to the Button
+      * Preferred Width: 200
+      * Preferred Height: 50
+      * Text: "Start"
+      * Center the text
+      * Disable Raycast Target
+    * Set the Main Menu Initial Selection to the Start Button
+  * **TODO:** Multiplayer
+  * **TODO:** Character Select
+  * Duplicate the Play Button (High Scores)
+    * Set the On Click handler to the MainMenu OnHighScores method
+    * Set the Text to "High Scores"
+    * **TODO:** Setup the High Scores panel
+  * Duplicate the Play Button (Credits)
+    * Set the On Click handler to the MainMenu OnCredits method
+    * Set the Text to "Credits"
+    * **TODO:** Setup the Credis panel
+  * Duplicate the Credits Button (Quit)
+    * Set the On Click handler to the MainMenu OnQuitGame method
+    * Set the Text to "Quit"
+  * Attach the MainMenu prefab to the MainMenuState Menu Prefab
 
 ## Main Menu Scene Setup
 
-* Do not add a Main Camera to these scenes
 * Create and save a new scene (Scenes/main_menu.unity)
-  * Remove all default objects from the scene
-  * Environment Lighting Source: Color
-  * Disable Realtime Global Illumination
-  * Disable Baked Global Illumination
-  * Disable Auto Generate lighting
-  * Add a new Canvas object (TitleScreen) to the scene
+  * The only object in the scene should be a camera
+* Setup the camera in the scene
+  * Clear Flags: Solid Color
+  * Background: Opaque Black
+  * Culling Mask: Everything
+  * Projection: Orthographic
+  * Uncheck Occlusion Culling
+  * Disable HDR
+  * Disable MSAA
+  * Remove the Audio Listener
+* Remove the Skybox Material
+* Environment Lighting Source: Color
+* Disable Realtime Global Illumination
+* Disable Baked Global Illumination
+* Disable Auto Generate lighting
+* Add the scene to the Build Settings
+* Add a new TitleScreen object to the scene
+  * Layer: UI
+  * Add a new Canvas object below the TitleScreen
     * UI Scale Mode: Scale With Screen Size
     * Reference Resolution: 1280x720
     * Match Width Or Height: 0.5
@@ -468,15 +482,17 @@
   * Add a Panel under the Canvas
     * Disable Raycast Target
     * Color: (255, 0, 0, 255)
-  * Add a TextMeshPro - Text (Status) under the Progress Bar
+  * Add a TextMeshPro - Text (Status)
     * Pos Y: 256
     * Text: "Placeholder"
     * Center the text
     * Disable Raycast Target
-* Add the scene to the Build Settings
-* The scene should now load when the main scene is run as long as the name of the scene matches what was set in the MainMenuState prefab
+  * The scene should now load when the main scene is run as long as the name of the scene matches what was set in the MainMenuState prefab
 
 # Initial Game State Setup
+
+## TODO: MainGameState
+## TODO: GameOverState
 
 ## Game Data
 

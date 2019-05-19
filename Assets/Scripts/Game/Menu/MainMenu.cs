@@ -1,7 +1,7 @@
-﻿using pdxpartyparrot.Core.DebugMenu;
-using pdxpartyparrot.Core.UI;
+﻿using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Util;
-using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,31 +10,50 @@ namespace pdxpartyparrot.Game.Menu
 {
     public abstract class MainMenu : MenuPanel
     {
+#region Multiplayer
         [SerializeField]
+        [CanBeNull]
         private Button _multiplayerButton;
 
         [SerializeField]
+        [CanBeNull]
         private MultiplayerMenu _multiplayerPanel;
+#endregion
+
+#region Character Select
+        [SerializeField]
+        [CanBeNull]
+        private Button _characterSelectButton;
 
         [SerializeField]
+        [CanBeNull]
+        private CharacterSelectMenu _characterSelectPanel;
+#endregion
+
+#region High Scores
+        [SerializeField]
+        [CanBeNull]
+        private Button _highScoresButton;
+
+        [SerializeField]
+        [CanBeNull]
         private HighScoresMenu _highScoresPanel;
+#endregion
 
         [SerializeField]
         private CreditsMenu _creditsPanel;
-
-        protected abstract bool UseMultiplayer { get; }
 
         private DebugMenuNode _debugMenuNode;
 
 #region Unity Lifecycle
         protected virtual void Awake()
         {
-            if(UseMultiplayer && null != _multiplayerButton && Application.isEditor) {
-                _multiplayerButton.gameObject.SetActive(true);
-            }
-
             if(null != _multiplayerPanel) {
                 _multiplayerPanel.gameObject.SetActive(false);
+            }
+
+            if(null != _characterSelectPanel) {
+                _characterSelectPanel.gameObject.SetActive(false);
             }
 
             if(null != _highScoresPanel) {
@@ -55,16 +74,18 @@ namespace pdxpartyparrot.Game.Menu
 #endregion
 
 #region Event Handlers
-        // these are all just demo methods
-        public void OnPlay()
+        public virtual void OnStart()
         {
-            // TODO: this takes in the main game state now
-            //GameStateManager.Instance.StartLocal();
         }
 
         public void OnMultiplayer()
         {
             Owner.PushPanel(_multiplayerPanel);
+        }
+
+        public void OnCharacterSelect()
+        {
+            Owner.PushPanel(_characterSelectPanel);
         }
 
         public void OnHighScores()

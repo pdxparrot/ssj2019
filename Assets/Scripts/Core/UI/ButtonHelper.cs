@@ -1,4 +1,6 @@
-﻿using pdxpartyparrot.Core.Effects;
+﻿using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.Effects;
 
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,9 +12,11 @@ namespace pdxpartyparrot.Core.UI
     public class ButtonHelper : MonoBehaviour, ISelectHandler, IPointerClickHandler, IPointerEnterHandler
     {
         [SerializeField]
+        [CanBeNull]
         private EffectTrigger _hoverEffectTrigger;
 
         [SerializeField]
+        [CanBeNull]
         private EffectTrigger _clickEffectTrigger;
 
         private Button _button;
@@ -27,7 +31,9 @@ namespace pdxpartyparrot.Core.UI
 #region Event Handlers
         public void OnSelect(BaseEventData eventData)
         {
-            _hoverEffectTrigger.Trigger();
+            if(null != _hoverEffectTrigger) {
+                _hoverEffectTrigger.Trigger();
+            }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -38,7 +44,9 @@ namespace pdxpartyparrot.Core.UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            _clickEffectTrigger.Trigger();
+            if(null != _clickEffectTrigger) {
+                _clickEffectTrigger.Trigger();
+            }
         }
 #endregion
     }

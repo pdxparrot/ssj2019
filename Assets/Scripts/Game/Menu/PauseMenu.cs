@@ -1,10 +1,8 @@
 using pdxpartyparrot.Core;
-using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.State;
 
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.Game.Menu
 {
@@ -18,19 +16,6 @@ namespace pdxpartyparrot.Game.Menu
         {
             _settingsMenu.gameObject.SetActive(false);
         }
-
-        private void OnEnable()
-        {
-            // TODO: this only works the first time? wtf...
-            InputManager.Instance.EventSystem.UIModule.cancel.action.performed += OnCancel;
-        }
-
-        private void OnDisable()
-        {
-            if(InputManager.HasInstance) {
-                InputManager.Instance.EventSystem.UIModule.cancel.action.performed -= OnCancel;
-            }
-        }
 #endregion
 
 #region Event Handlers
@@ -39,7 +24,7 @@ namespace pdxpartyparrot.Game.Menu
             Owner.PushPanel(_settingsMenu);
         }
 
-        public void OnBack()
+        public override void OnBack()
         {
             PartyParrotManager.Instance.TogglePause();
         }
@@ -53,11 +38,6 @@ namespace pdxpartyparrot.Game.Menu
         public void OnQuitGame()
         {
             UnityUtil.Quit();
-        }
-
-        public void OnCancel(InputAction.CallbackContext context)
-        {
-            OnBack();
         }
 #endregion
     }
