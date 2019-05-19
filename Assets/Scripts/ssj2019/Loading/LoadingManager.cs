@@ -4,17 +4,17 @@ using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Loading
 {
-    public sealed class LoadingManager : Game.Loading.LoadingManager<LoadingManager>
+    public sealed class LoadingManager : LoadingManager<LoadingManager>
     {
-        //[Space(10)]
+        [Space(10)]
 
 #region Manager Prefabs
-        /*[Header("Game Manager Prefabs")]
+        [Header("Game Manager Prefabs")]
 
         [SerializeField]
         private GameManager _gameManagerPrefab;
 
-        [SerializeField]
+        /*[SerializeField]
         private PlayerManager _playerManagerPrefab;*/
 #endregion
 
@@ -22,8 +22,8 @@ namespace pdxpartyparrot.ssj2019.Loading
         {
             base.CreateManagers();
 
-            /*GameManager.CreateFromPrefab(_gameManagerPrefab, ManagersContainer);
-            PlayerManager.CreateFromPrefab(_playerManagerPrefab, ManagersContainer);*/
+            GameManager.CreateFromPrefab(_gameManagerPrefab, ManagersContainer);
+            //PlayerManager.CreateFromPrefab(_playerManagerPrefab, ManagersContainer);
         }
     }
 }

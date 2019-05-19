@@ -23,5 +23,5 @@ MonoBehaviour:
   _unpausedSnapshotName: Unpaused
   _pausedSnapshotName: Paused
   _snapshots: []
-  _updateCrossfadeUpdateMs: 100
+  _updateCrossfadeUpdateMs: 50
   _updateMusicTransitionMs: 100

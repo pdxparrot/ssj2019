@@ -29,6 +29,10 @@ namespace pdxpartyparrot.Core.Scenes
             Debug.Log($"Loading scene '{sceneName}'...");
 
             AsyncOperation asyncOp = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            if(null == asyncOp) {
+                yield break;
+            }
+
             while(!asyncOp.isDone) {
                 yield return asyncOp.progress;
             }

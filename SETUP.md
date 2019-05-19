@@ -1,3 +1,7 @@
+# TODO
+
+* Having the ability to generate a lot of the inital data / prefabs would make this a lot faster
+
 # Project Creation
 
 * Create a new Unity Project
@@ -247,6 +251,8 @@
   * Attach each audio source to an audio source on the AudioManager component
 * DebugMenuManager
   * Create an empty Prefab and add the DebugMenuManager component to it
+* EffectsManager
+  * Create an empty Prefab and add the EffectsManager component to it
 * EngineManager
   * Create an empty Prefab and add the PartyParrotManager component to it
   * Create a UIData in Data/Data and attach it to the manager
@@ -254,6 +260,16 @@
       * LiberationSans SDF is currently the default TMP font
   * Attach the frictionless physics materials
   * Set the UI layer to UI
+* GameStateManager
+  * Create an empty Prefab and add the GameStateManager component to it
+  * Create an empty Prefab in Data/Prefabs/State and add the MainMenuState component to it
+    * Set the Scene Name to main_menu
+    * Set the MainMenuState as the Main Menu State Prefab in the GameStateManager
+  * Create an empty Prefab in Data/Prefabs/State and add the NetworkConnectState component to it
+    * Set the NetworkConnectState as the Network Connect State Prefab in the GameStateManager
+  * Create an empty Prefab in Data/Prefabs/State and add the SceneTester component to it
+    * Check Make Scene Active
+    * Set the SceneTester as the Scene Tester Prefab in the GameStateManager
 * InputManager
   * Create an empty Prefab and add the InputManager component to it
   * Attach the EventSystem prefab
@@ -280,25 +296,18 @@
 * ViewerManager
   * Create an empty Prefab and add the ViewerManager component to it
 
-## LoadingManager and GameStateManager Prefabs
+## GameManager
 
-* Create a new GameStateManager script that overrides Game GameStateManager
-  * Implement the ShowLoadingScreen/UpdateLoadingScreen methods to call the LoadingManager methods
-* Add a connection to the GameStateManager in the LoadingManager
-  * Override CreateManagers() in the loading manager to create the GameStateManager prefab
-  * Override OnLoad() in the loadin gmanager to have the GameStateManager transition to the initial state
-* Create an empty Prefab and add the GameStateManager component to it
-* Create a new MainMenuState script that overrides the Game GameState
-* Create an empty Prefab and add the MainMenuState component to it
-  * Set the Scene Name to main_menu
-* Set the MainMenuState as the Initial Game State Prefab in the GameStateManager
-  * Uncheck Make Scene Active
-
-## UIManager Prefab
-
-* Create a new UIManager script that overrides Core UIManager
-* Create an empty Prefab and add the UIManager component to it
-* Add the UIManager to the LoadingManager
+* Create a new GameManager script that overrides the Game GameManager
+  * Implement the required interface
+* Add a connection to the project GameManager in the project LoadingManager
+  * Override CreateManagers() in the loading manager to create the GameManager prefab
+* Create a new GameData script that overrides the Game GameData
+* Create an empty Prefab and add the GameManager component to it
+* Create a GameData in Data/Data and attach it to the manager
+  * Set the Viewer Layer to Viewer
+  * Set the World Layer to World
+  * Configure the Players section as desired
 
 # Splash Scene Setup
 
@@ -309,10 +318,10 @@
     * Culling Mask: Nothing
     * Projection: Orthographic
     * Uncheck Occlusion Culling
-    * Uncheck Allow HDR
-    * Uncheck Allow MSAA
+    * Disable HDR
+    * Disable MSAA
     * Leave the Audio Listener attached to the camera for audio to work
-  * Add the AspectRatio component to the camera
+  * Add the UICameraAspectRatio component to the camera
   * Remove the Skybox Material
   * Environment Lighting Source: Color
   * Disable Realtime Global Illumination
@@ -323,7 +332,7 @@
 * Attach the camera to the Camera field of the SplashScreen component
 * Add whatever splash screen videos to the list of Splash Screens on the SplashScreen component
 * Set the Main Scene Name to match whatever the name of your main scene is
-  * The main scene should also have been added to the Build Settings along with any other required scenes
+  * The main scene should also have been added (or will need to be added) to the Build Settings along with any other required scenes
 
 # Main Scene Setup
 
@@ -335,23 +344,25 @@
   * Culling Mask: Nothing
   * Projection: Orthographic
   * Uncheck Occlusion Culling
-  * Uncheck Allow HDR
-  * Uncheck Allow MSAA
+  * Disable HDR
+  * Disable MSAA
   * Leave the Audio Listener attached to the camera for audio to work
+* Remove the Skybox Material
 * Environment Lighting Source: Color
 * Disable Realtime Global Illumination
 * Disable Baked Global Illumination
 * Disable Auto Generate lighting
+* Add the scene to the Build Settings
 
 ## Loading Screen Setup
 
-* Add a new Canvas object (LoadingScreen) to the scene
-  * UI Scale Mode: Scale With Screen Size
-  * Reference Resolution: 1280x720
-  * Match Width Or Height: 0.5
-  * Remove the Graphic Raycaster
-  * Add the LoadingScreen component
-  * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
+* Add a new LoadingScreen object to the scene with the LoadingScreen component
+  * Add a new Canvas object below the LoadingScreen and attach it to the LoadingScreen
+    * UI Scale Mode: Scale With Screen Size
+    * Reference Resolution: 1280x720
+    * Match Width Or Height: 0.5
+    * Remove the Graphic Raycaster
+    * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
 * Add a Panel under the Canvas
   * Disable Raycast Target
   * Color: (255, 0, 255, 255)
@@ -380,14 +391,16 @@
 * Attach the images to the ProgressBar component
 * Add a TextMeshPro - Text (Status) under the Progress Bar
   * Pos Y: -75
+  * Size: (750, 50)
   * Text: "Loading..."
   * Center the text
   * Disable Raycast Target
-* Attach the Text to the ProgressBar component
+* Attach the Text to the LoadingScreen component
 
 ## Loader Setup
 
-* Add an empty GameObject (Loader) and add the override LoadingManager component to it
+* Add an empty GameObject (Loader) and add the project LoadingManager component to it
+* Attach the Main Camera
 * Attach the LoadingScreen to the Loader
 * Attach the Manager prefabs to the Loader
 

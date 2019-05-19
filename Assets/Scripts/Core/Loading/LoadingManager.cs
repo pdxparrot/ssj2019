@@ -81,6 +81,9 @@ namespace pdxpartyparrot.Core.Loading
 
         [SerializeField]
         private ActorManager _actorManagerPrefab;
+
+        [SerializeField]
+        private EffectsManager _effectsManagerPrefab;
 #endregion
 
         protected GameObject ManagersContainer { get; private set; }
@@ -170,7 +173,7 @@ namespace pdxpartyparrot.Core.Loading
         {
             TimeManager.CreateFromPrefab(_timeManagerPrefab, ManagersContainer);
             AudioManager.CreateFromPrefab(_audioManagerPrefab, ManagersContainer);
-            EffectsManager.Create(ManagersContainer);
+            EffectsManager.CreateFromPrefab(_effectsManagerPrefab, ManagersContainer);
             ObjectPoolManager.CreateFromPrefab(_objectPoolManagerPrefab, ManagersContainer);
             ActorManager.CreateFromPrefab(_actorManagerPrefab, ManagersContainer);
             ViewerManager.CreateFromPrefab(_viewerManagerPrefab, ManagersContainer);
