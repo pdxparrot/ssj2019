@@ -12,6 +12,7 @@ using pdxpartyparrot.Core.Loading;
 using pdxpartyparrot.Core.UI;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Camera;
+using pdxpartyparrot.Game.Network;
 using pdxpartyparrot.Game.Players;
 
 using UnityEngine;

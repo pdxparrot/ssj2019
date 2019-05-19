@@ -9,6 +9,7 @@ using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.Loading;
+using pdxpartyparrot.Game.Network;
 using pdxpartyparrot.Game.UI;
 
 using UnityEngine;

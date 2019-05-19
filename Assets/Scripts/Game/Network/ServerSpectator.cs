@@ -49,7 +49,7 @@ namespace pdxpartyparrot.Game.Network
 #region Unity Lifecycle
         private void Awake()
         {
-            FollowTarget = GetComponent<FollowTarget3D>();
+            FollowTarget = GetComponent<FollowCameraTarget3D>();
 
             _viewer = ViewerManager.Instance.AcquireViewer<ServerSpectatorViewer>(gameObject);
             if(null != _viewer) {
@@ -163,7 +163,7 @@ namespace pdxpartyparrot.Game.Network
                 return;
             }
 
-            if(context.cancelled) {
+            if(context.canceled) {
                 _lastControllerLook = Vector3.zero;
 
                 FollowTarget.LastLookAxes = _lastControllerLook;

@@ -1,6 +1,6 @@
 ﻿#if ENABLE_SERVER_SPECTATOR
 using pdxpartyparrot.Core.Camera;
-using pdxpartyparrot.Game.Actors;
+using pdxpartyparrot.Game.Network;
 
 namespace pdxpartyparrot.Game.Camera
 {

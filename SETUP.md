@@ -8,10 +8,10 @@
 
 * Create Assets/csc.rsp
   * -nowarn:0649
-* Create Data/Physics/Frictionless.physicMaterial
+* Create Data/Physics/frictionless.physicMaterial
   * Static Friction: 0
   * Dynamic Friction: 0
-* Create Data/Physics/Frictionless 2D.physicsMaterial2D
+* Create Data/Physics/frictionless 2D.physicsMaterial2D
   * Friction: 0
 * Copy Art/Core/pdxparrot.png
 * Copy Art/Core/progress.png
@@ -105,9 +105,12 @@
 * Add preview packages
   * Android Logcat if building for Android
   * Input System (https://github.com/Unity-Technologies/InputSystem)
+    * Project Settings -> Input System Package
+      * Create settings asset
   * ProGrids
   * HD/Lightweight Render Pipeline (optional - whichever best fits the project)
   * Burst/Entities (if using ECS)
+  * Visual Effect Graph
 * Add Keijiro Kino
   * Add "jp.keijiro.kino.post-processing": "https://github.com/keijiro/kino.git#upm" to package manifest.json dependencies
 * Add desired assets
@@ -164,15 +167,19 @@
 
 # Set Script Execution Order
 
+* TextMeshPro
+* InputSystem PlayerInput
 * pdxpartyparrot.{project}.Loading.LoadingManager
 * pdxpartyparrot.Core.Time.TimeManager
 * pdxpartyparrot.Game.State.GameStateManager
-* Default Scripts
-* pdxpartyparrot.Core.Debug.DebugMenuManager must run last
+* Default Time
+* pdxpartyparrot.Core.Debug.DebugMenuManager
+  * This must be run last
 
 # Asset Setup
 
-* Create Data/Audio/main.mixer
+* Create Data/Animation/empty.controller Animation Controller
+* Create Data/Audio/main.mixer Mixer
   * 3 Master child groups
     * Music
       * Expose the Volume parameter and set it to -5db
@@ -185,33 +192,42 @@
         * Rename it to AmbientVolume
   * Expose the Master Volume parameter and set it to 0db
     * Rename it to MasterVolume
+  * Add a Lowpass filter to the Master group
+  * Rename the default Snapshot to Unpaused
+  * Create a new Snapshot and name it to Paused
+    * Set the Lowpass filter to 350Hz
+* Copy button-click.mp3 and button-hover.mp3 to Data/Audio/UI
 * Create Data/Input/ServerSpectator.inputactions
   * Generate C# Class
-    * File: Assets\Scripts\Game\Input\ServerSpectatorControls
+    * File: Assets/Scripts/Game/Input/ServerSpectatorControls.cs
       * Need to create containing directory first
     * Class Name: ServerSpectatorControls
     * Namespace: pdxpartyparrot.Game.Input
-    * Generate Events
-    * Generate Interfaces
   * Action Maps
     * ServerSpectator
       * Actions
-        * move forward
+        * move forward button
           * press and release w
-        * move backward
+        * move backward button
           * press and release s
-        * move left
+        * move left button
           * press and release a
-        * move right
+        * move right button
           * press and release d
-        * move up
+        * move up button
           * press and release space
-        * move down
+        * move down button
           * press and release left shift
-        * look
+        * look axis
           * mouse delta
+  * Add ENABLE_SERVER_SPECTATOR to the Scripting Define Symbols
 * Data/Prefabs/Input/EventSystem.prefab
   * Create using default EventSystem that gets added automatically when adding a UI object
+  * Replace Standalone Input Module with InputSystemUIInputModule
+* Create Data/Prefabs/Lighting/GlobalLighting.prefab
+  * Add a Direction Light under this
+    * Set X Rotation to 45
+  * **TODO:** This should get hooked up somewhere, right?
 
 ## Manager Prefabs Setup
 
