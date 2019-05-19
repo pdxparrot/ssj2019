@@ -224,6 +224,9 @@
 * Data/Prefabs/Input/EventSystem.prefab
   * Create using default EventSystem that gets added automatically when adding a UI object
   * Replace Standalone Input Module with InputSystemUIInputModule
+  * Add Core.EventSystemHelper script to this
+  * **TODO:** https://docs.unity3d.com/Packages/com.unity.inputsystem@0.2/changelog/CHANGELOG.html
+    * Do we not need an inputactions asset anymore??
 * Create Data/Prefabs/Lighting/GlobalLighting.prefab
   * Add a Direction Light under this
     * Set X Rotation to 45
@@ -232,9 +235,13 @@
 ## Manager Prefabs Setup
 
 * Managers go in Data/Prefabs/Managers
+* ActorManager
+  * Create an empty Prefab and add the ActorManager component to it
 * AudioManager
   * Create an empty Prefab and add the AudioManager component to it
-  * Attach the main mixer to the prefab Mixer
+  * Create an AudioData in Data/Data and attach it to the manager
+    * Attach the main mixer to the data
+    * Ensure all of the Parameters look correct
   * Add 4 Audio Sources to the prefab
     * Disable Play on Awake
   * Attach each audio source to an audio source on the AudioManager component
@@ -242,18 +249,34 @@
   * Create an empty Prefab and add the DebugMenuManager component to it
 * EngineManager
   * Create an empty Prefab and add the PartyParrotManager component to it
+  * Create a UIData in Data/Data and attach it to the manager
+    * Attach a TMP_Font Asset to the Default font
+      * LiberationSans SDF is currently the default TMP font
   * Attach the frictionless physics materials
   * Set the UI layer to UI
 * InputManager
   * Create an empty Prefab and add the InputManager component to it
   * Attach the EventSystem prefab
+* LocalizationManager
+  * Create an empty Prefab and add the LocalizationManager component to it
+  * Create a LocalizationData in Data/Data and attach it to the manager
 * NetworkManager
   * Create an empty Prefab and add the (not Unity) NetworkManager component to it
   * Uncheck Don't Destroy on Load
 * ObjectPoolManager
   * Create an empty Prefab and add the ObjectPoolManager component to it
+* SaveGameManager
+  * Create an empty Prefab and add the SaveGameManager component to it
+  * Set the Save File Name
 * SceneManager
   * Create an empty Prefab and add the SceneManager component to it
+* SpawnManager
+  * Create an empty Prefab and add the SpawnManager component to it
+  * Create a SpawnData in Data/Data and attach it to the manager
+* TimeManager
+  * Create an empty Prefab and add the TimeManager component to it
+* UIManager
+  * Create an empty Prefab and add the UIManager component to it
 * ViewerManager
   * Create an empty Prefab and add the ViewerManager component to it
 
