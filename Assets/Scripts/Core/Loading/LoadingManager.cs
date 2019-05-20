@@ -142,7 +142,7 @@ namespace pdxpartyparrot.Core.Loading
                 yield return null;
             }
 
-            UpdateLoadingScreen(1.0f, "Loading complete!");
+            UpdateLoadingScreen(1.0f, "Manager loading complete!");
             yield return null;
 
             ShowLoadingScreen(false);

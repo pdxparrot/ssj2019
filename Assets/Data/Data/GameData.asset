@@ -20,4 +20,4 @@ MonoBehaviour:
     m_Bits: 16384
   _viewportSize: 10
   _maxLocalPlayers: 4
-  _gamepadsArePlayers: 1
+  _gamepadsArePlayers: 0

@@ -32,14 +32,14 @@ namespace pdxpartyparrot.Game.State
 
         public override IEnumerator<LoadStatus> OnEnterRoutine()
         {
-            yield return new LoadStatus(0.0f, "Initializing...");
+            yield return new LoadStatus(0.0f, "Initializing main game state...");
 
             IEnumerator<LoadStatus> runner = base.OnEnterRoutine();
             while(runner.MoveNext()) {
                 yield return runner.Current;
             }
 
-            yield return new LoadStatus(0.5f, "Initializing...");
+            yield return new LoadStatus(0.5f, "Initializing main game state...");
 
             runner = InitializeRoutine();
             while(runner.MoveNext()) {
@@ -49,7 +49,7 @@ namespace pdxpartyparrot.Game.State
             Core.Network.NetworkManager.Instance.ServerDisconnectEvent += ServerDisconnectEventHandler;
             Core.Network.NetworkManager.Instance.ClientDisconnectEvent += ClientDisconnectEventHandler;
 
-            yield return new LoadStatus(1.0f, "Done!");
+            yield return new LoadStatus(1.0f, "Main game state initialized!");
         }
 
         public override void OnUpdate(float dt)
@@ -63,7 +63,7 @@ namespace pdxpartyparrot.Game.State
 
         public override IEnumerator<LoadStatus> OnExitRoutine()
         {
-            yield return new LoadStatus(0.0f, "Shutting down...");
+            yield return new LoadStatus(0.0f, "Shutting down main game state...");
 
             if(Core.Network.NetworkManager.HasInstance) {
                 Core.Network.NetworkManager.Instance.ServerDisconnectEvent -= ServerDisconnectEventHandler;
@@ -75,36 +75,36 @@ namespace pdxpartyparrot.Game.State
                 yield return runner.Current;
             }
 
-            yield return new LoadStatus(0.5f, "Shutting down...");
+            yield return new LoadStatus(0.5f, "Shutting down main game state...");
 
             runner = base.OnExitRoutine();
             while(runner.MoveNext()) {
                 yield return runner.Current;
             }
 
-            yield return new LoadStatus(1.0f, "Done!");
+            yield return new LoadStatus(1.0f, "Main game state shutdown!");
         }
 
 #region Initialize
         private IEnumerator<LoadStatus> InitializeRoutine()
         {
-            yield return new LoadStatus(0.0f, "Initializing...");
+            yield return new LoadStatus(0.0f, "Initializing main game state...");
 
             PartyParrotManager.Instance.IsPaused = false;
 
             DebugMenuManager.Instance.ResetFrameStats();
 
-            yield return new LoadStatus(0.25f, "Initializing...");
+            yield return new LoadStatus(0.25f, "Initializing main game state...");
 
             Assert.IsNotNull(GameStateManager.Instance.GameManager);
             GameStateManager.Instance.GameManager.Initialize();
 
-            yield return new LoadStatus(0.75f, "Initializing...");
+            yield return new LoadStatus(0.75f, "Initializing main game state...");
 
             InitializeServer();
             InitializeClient();
 
-            yield return new LoadStatus(1.0f, "Initializing...");
+            yield return new LoadStatus(1.0f, "Initializing main game state...");
         }
 
         protected virtual bool InitializeServer()
@@ -156,12 +156,12 @@ namespace pdxpartyparrot.Game.State
 #region Shutdown
         private IEnumerator<LoadStatus> ShutdownRoutine()
         {
-            yield return new LoadStatus(0.0f, "Shutting down...");
+            yield return new LoadStatus(0.0f, "Shutting down main game state...");
 
             ShutdownClient();
             ShutdownServer();
 
-            yield return new LoadStatus(0.25f, "Shutting down...");
+            yield return new LoadStatus(0.25f, "Shutting down main game state...");
 
             if(GameStateManager.HasInstance) {
                 if(null != GameStateManager.Instance.GameManager) {
@@ -171,11 +171,11 @@ namespace pdxpartyparrot.Game.State
                 GameStateManager.Instance.ShutdownNetwork();
             }
 
-            yield return new LoadStatus(0.75f, "Shutting down...");
+            yield return new LoadStatus(0.75f, "Shutting down main game state...");
 
             PartyParrotManager.Instance.IsPaused = false;
 
-            yield return new LoadStatus(1.0f, "Shutting down...");
+            yield return new LoadStatus(1.0f, "Shutting down main game state...");
         }
 
         protected virtual void ShutdownServer()

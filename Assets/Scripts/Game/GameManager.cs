@@ -1,5 +1,6 @@
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data;
+using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 
@@ -24,6 +25,22 @@ namespace pdxpartyparrot.Game
         public GameData GameData => _gameData;
 
         public abstract bool IsGameOver { get; protected set; }
+
+#region Unity Lifecycle
+        protected virtual void Awake()
+        {
+            GameStateManager.Instance.RegisterGameManager(this);
+        }
+
+        protected override void OnDestroy()
+        {
+            if(GameStateManager.HasInstance) {
+                GameStateManager.Instance.UnregisterGameManager();
+            }
+
+            base.OnDestroy();
+        }
+#endregion
 
         public abstract void Initialize();
 

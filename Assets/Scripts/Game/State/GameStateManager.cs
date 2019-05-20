@@ -157,7 +157,7 @@ namespace pdxpartyparrot.Game.State
 #region State Management
         public void TransitionToInitialStateAsync(Action<GameState> initializeState=null, Action onStateLoaded=null)
         {
-            Debug.Log("Transition to initial state...");
+            Debug.Log("Transition to initial state (main menu)...");
             TransitionStateAsync(_mainMenuStatePrefab, initializeState, onStateLoaded);
         }
 
@@ -179,16 +179,16 @@ namespace pdxpartyparrot.Game.State
             TV gameState = Instantiate(gameStatePrefab, transform);
             initializeState?.Invoke(gameState);
 
-            PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(0.0f, "Loading scene...");
+            PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(0.0f, $"Loading game state scene '{gameState.SceneName}'...");
             yield return null;
 
             IEnumerator<float> runner = gameState.LoadSceneRoutine();
             while(runner.MoveNext()) {
-                PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(runner.Current * 0.5f, "Loading scene...");
+                PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(runner.Current * 0.5f, $"Loading game state scene '{gameState.SceneName}'...");
                 yield return null;
             }
 
-            PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(0.5f, "Scene loaded!");
+            PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(0.5f, $"Game state scene '{gameState.SceneName}' loaded!");
             yield return null;
 
             _currentGameState = gameState;
@@ -201,7 +201,7 @@ namespace pdxpartyparrot.Game.State
                 yield return null;
             }
 
-            PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(1.0f, "Done!");
+            PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(1.0f, "State transition complete!");
             yield return null;
 
             PartyParrotManager.Instance.LoadingManager.ShowLoadingScreen(false);
@@ -222,16 +222,16 @@ namespace pdxpartyparrot.Game.State
             GameState gameState = _currentGameState;
             _currentGameState = null;
 
-            PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(0.0f, "Unloading scene...");
+            PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(0.0f, "Unloading current scene...");
             yield return null;
 
             IEnumerator<float> runner = gameState.UnloadSceneRoutine();
             while(runner.MoveNext()) {
-                PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(runner.Current * 0.5f, "Unloading scene...");
+                PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(runner.Current * 0.5f, "Unloading current scene...");
                 yield return null;
             }
 
-            PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(0.5f, "Unloading scene...");
+            PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(0.5f, "Unloading current scene...");
             yield return null;
 
             IEnumerator<LoadStatus> exitRunner = gameState.OnExitRoutine();
@@ -243,7 +243,7 @@ namespace pdxpartyparrot.Game.State
                 yield return null;
             }
 
-            PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(1.0f, "Done!");
+            PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(1.0f, "Current scene unloaded!");
             yield return null;
 
             // TODO: disable the state, don't destroy it
@@ -364,7 +364,8 @@ namespace pdxpartyparrot.Game.State
             testSceneDebugMenuNode.RenderContentsAction = () => {
                 GUILayout.BeginVertical("Test Scenes", GUI.skin.box);
                     foreach(string sceneName in _sceneTesterStatePrefab.TestScenes) {
-                        if(GUIUtils.LayoutButton($"Load Test Scene {sceneName}")) {
+                        if(GUIUtils.LayoutButton($"Load Test Scene '{sceneName}'")) {
+                            Debug.Log($"Loading test scene '{sceneName}'...");
                             TransitionToInitialStateAsync(null, () => {
                                 PushSubState(_networkConnectStatePrefab, connectState => {
                                         connectState.Initialize(NetworkConnectState.ConnectType.Local, _sceneTesterStatePrefab, state => {

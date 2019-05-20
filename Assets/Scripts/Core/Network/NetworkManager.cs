@@ -355,7 +355,7 @@ namespace pdxpartyparrot.Core.Network
 
         public override void ServerChangeScene(string sceneName)
         {
-            Debug.Log($"[NetworkManager]: Server changing to scene {sceneName}...");
+            Debug.Log($"[NetworkManager]: Server changing to scene '{sceneName}'...");
 
             NetworkServer.SetAllClientsNotReady();
             networkSceneName = sceneName;

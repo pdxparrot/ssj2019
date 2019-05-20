@@ -168,10 +168,10 @@ namespace pdxpartyparrot.Game.UI
         }
 #endregion
 
-        // helper for instantiating UI prefabs under the UI comtainer
+        // helper for instantiating UI prefabs under the UI container
         public TV InstantiateUIPrefab<TV>(TV prefab) where TV: Component
         {
-            return Instantiate(prefab, _uiContainer.transform);
+            return null == prefab ? null : Instantiate(prefab, _uiContainer.transform);
         }
 
 #region Floating Text

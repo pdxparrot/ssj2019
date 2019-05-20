@@ -2,6 +2,8 @@
 
 using System;
 
+using JetBrains.Annotations;
+
 using pdxpartyparrot.Core.Network;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.UI;
@@ -21,8 +23,10 @@ namespace pdxpartyparrot.Game.State
         }
 
         [SerializeField]
+        [CanBeNull]
         private NetworkConnectUI _networkConnectUIPrefab;
 
+        [CanBeNull]
         private NetworkConnectUI _networkConnectUI;
 
         private GameState _gameStatePrefab;
@@ -65,7 +69,9 @@ namespace pdxpartyparrot.Game.State
             base.OnEnter();
 
             _networkConnectUI = UIManager.Instance.InstantiateUIPrefab(_networkConnectUIPrefab);
-            _networkConnectUI.Initialize(this);
+            if(null != _networkConnectUI) {
+                _networkConnectUI.Initialize(this);
+            }
 
             switch(_connectType)
             {
@@ -106,7 +112,7 @@ namespace pdxpartyparrot.Game.State
 
             GameStateManager.Instance.NetworkClient = Core.Network.NetworkManager.Instance.StartHost();
             if(!NetworkClient.active) {
-                _networkConnectUI.SetStatus("Unable to start network host!");
+                SetStatus("Unable to start network host!");
             }
         }
 
@@ -115,16 +121,16 @@ namespace pdxpartyparrot.Game.State
             Core.Network.NetworkManager.Instance.ServerConnectEvent += ServerConnectEventHandler;
 
             if(!Core.Network.NetworkManager.Instance.StartServer()) {
-                _networkConnectUI.SetStatus("Unable to start network server!");
+                SetStatus("Unable to start network server!");
                 return;
             }
 
             if(!Core.Network.NetworkManager.Instance.DiscoverServer()) {
-                _networkConnectUI.SetStatus("Unable to start network server discovery!");
+                SetStatus("Unable to start network server discovery!");
                 return;
             }
 
-            _networkConnectUI.SetStatus("Waiting for players...");
+            SetStatus("Waiting for players...");
         }
 
         private void StartClient()
@@ -132,11 +138,19 @@ namespace pdxpartyparrot.Game.State
             Core.Network.NetworkManager.Instance.Discovery.ReceivedBroadcastEvent += ReceivedBroadcastEventHandler;
 
             if(!Core.Network.NetworkManager.Instance.DiscoverClient()) {
-                _networkConnectUI.SetStatus("Unable to start network client discovery!");
+                SetStatus("Unable to start network client discovery!");
                 return;
             }
 
-            _networkConnectUI.SetStatus("Searching for server...");
+            SetStatus("Searching for server...");
+        }
+
+        private void SetStatus(string status)
+        {
+            Debug.Log(status);
+            if(null != _networkConnectUI) {
+                _networkConnectUI.SetStatus(status);
+            }
         }
 
 #region Event Handlers
@@ -144,7 +158,7 @@ namespace pdxpartyparrot.Game.State
         {
             Core.Network.NetworkManager.Instance.DiscoverStop();
 
-            _networkConnectUI.SetStatus("Client connected, loading scene...");
+            SetStatus($"Client connected, transitioning to game state...");
 
             Core.Network.NetworkManager.Instance.ServerChangeScene(_gameStatePrefab.SceneName);
 
@@ -155,14 +169,14 @@ namespace pdxpartyparrot.Game.State
         {
             Core.Network.NetworkManager.Instance.DiscoverStop();
 
-            _networkConnectUI.SetStatus("Connected, waiting for server...");
+            SetStatus("Connected, waiting for server...");
 
             Core.Network.NetworkManager.Instance.ClientSceneChangedEvent += ClientSceneChangedEventHandler;
         }
 
         private void ClientSceneChangedEventHandler(object sender, ClientSceneEventArgs args)
         {
-            _networkConnectUI.SetStatus("Server ready, loading scene...");
+            SetStatus("Server ready, transitioning to game state...");
 
             GameStateManager.Instance.TransitionStateAsync(_gameStatePrefab, _gameStateInit);
         }
@@ -172,7 +186,7 @@ namespace pdxpartyparrot.Game.State
             Core.Network.NetworkManager.Instance.Discovery.ReceivedBroadcastEvent -= ReceivedBroadcastEventHandler;
             Core.Network.NetworkManager.Instance.DiscoverStop();
 
-            _networkConnectUI.SetStatus($"Found server at {args.EndPoint}, connecting...");
+            SetStatus($"Found server at {args.EndPoint}, connecting...");
 
             Core.Network.NetworkManager.Instance.networkAddress = args.EndPoint.Address.ToString();
             Core.Network.NetworkManager.Instance.networkPort = args.EndPoint.Port;
@@ -181,7 +195,7 @@ namespace pdxpartyparrot.Game.State
 
             GameStateManager.Instance.NetworkClient = Core.Network.NetworkManager.Instance.StartClient();
             if(null == GameStateManager.Instance.NetworkClient) {
-                _networkConnectUI.SetStatus("Unable to start network client!");
+                SetStatus("Unable to start network client!");
                 return;
             }
         }
