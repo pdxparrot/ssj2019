@@ -21,6 +21,8 @@ namespace pdxpartyparrot.Game.Players
         CharacterBehaviorData PlayerBehaviorData { get; }
 
         IReadOnlyCollection<IPlayer> Players { get; }
+
+        void DespawnPlayers();
     }
 
     public abstract class PlayerManager<T, TV> : SingletonBehavior<T>, IPlayerManager where T: PlayerManager<T, TV> where TV: Actor, IPlayer
