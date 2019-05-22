@@ -9,6 +9,7 @@ using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.Game.Data.Characters;
+using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -69,10 +70,18 @@ namespace pdxpartyparrot.Game.Players
             Core.Network.NetworkManager.Instance.ServerAddPlayerEvent += ServerAddPlayerEventHandler;
 
             InitDebugMenu();
+
+            GameStateManager.Instance.RegisterPlayerManager(this);
         }
 
         protected override void OnDestroy()
         {
+            if(GameStateManager.HasInstance) {
+                GameStateManager.Instance.UnregisterPlayerManager();
+            }
+
+            DestroyDebugMenu();
+
             if(Core.Network.NetworkManager.HasInstance) {
                 Core.Network.NetworkManager.Instance.ServerAddPlayerEvent -= ServerAddPlayerEventHandler;
 
@@ -81,8 +90,6 @@ namespace pdxpartyparrot.Game.Players
 
             Destroy(_playerContainer);
             _playerContainer = null;
-
-            DestroyDebugMenu();
 
             base.OnDestroy();
         }

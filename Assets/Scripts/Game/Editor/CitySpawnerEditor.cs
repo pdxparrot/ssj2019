@@ -3,7 +3,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace pdxpartyparrot.ggj2018.Editor
+namespace pdxpartyparrot.Game.Editor
 {
     [CustomEditor(typeof(CitySpawner))]
     public class CitySpawnerEditor : UnityEditor.Editor

@@ -280,6 +280,8 @@ MonoBehaviour:
     type: 3}
   _gameManagerPrefab: {fileID: 3961162130779980102, guid: 5ea398d4d5436a24a8051aef0425f9c0,
     type: 3}
+  _playerManagerPrefab: {fileID: 4161473966796991426, guid: 1224400b947db7d43a9208be5709be6f,
+    type: 3}
 --- !u!1 &695438960
 GameObject:
   m_ObjectHideFlags: 0

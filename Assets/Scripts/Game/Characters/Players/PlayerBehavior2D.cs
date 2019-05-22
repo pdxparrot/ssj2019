@@ -26,7 +26,6 @@ namespace pdxpartyparrot.Game.Characters.Players
         {
             base.Awake();
 
-            Assert.IsTrue(BehaviorData is PlayerBehaviorData2D);
             Assert.IsTrue(Owner is IPlayer);
         }
 
@@ -46,6 +45,8 @@ namespace pdxpartyparrot.Game.Characters.Players
 
         public override void Initialize(ActorBehaviorData behaviorData)
         {
+            Assert.IsTrue(behaviorData is PlayerBehaviorData2D);
+
             base.Initialize(behaviorData);
 
             _moveDirection = Vector3.zero;

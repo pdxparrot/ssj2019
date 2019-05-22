@@ -1,6 +1,7 @@
 # TODO
 
 * Having the ability to generate a lot of the inital data / prefabs would make this a lot faster
+  * https://docs.unity3d.com/ScriptReference/PrefabUtility.html
 * https://docs.unity3d.com/Packages/com.unity.inputsystem@0.2/changelog/CHANGELOG.html
 
 # Project Creation
@@ -167,7 +168,7 @@
   * Create a new project LoadingManager script that overrides Game LoadingManager
 * Create ASMDEFs
   * Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
-    * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef, Unity.InputSystem
+    * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef, Unity.InputSystem, com.unity.multiplayer-hlapi.Runtime
 
 ## Set Script Execution Order
 
@@ -225,6 +226,8 @@
         * look axis
           * mouse delta
   * Add ENABLE_SERVER_SPECTATOR to the Scripting Define Symbols
+* **TODO:** ServerSpectator prefab and viewer
+  * These would attach to the GameStateManager
 * Data/Prefabs/Input/EventSystem.prefab
   * Create using default EventSystem that gets added automatically when adding a UI object
   * Replace Standalone Input Module with InputSystemUIInputModule
@@ -306,6 +309,89 @@
   * Set the Viewer Layer to Viewer
   * Set the World Layer to World
   * Configure the Players section as desired
+
+## Player
+
+* Create a new NetworkPlayer script that overrides the Game NetworkPlayer
+  * Implement the required interface
+  * This component should require a NetworkAnimation component
+* Create a new Player script that overrides one of the Game Players
+  * Layer: Player
+  * Implement the required interface
+  * This component should require the NetworkPlayer component
+
+### PlayerBehavior
+
+* Create a new PlayerBehavior script that overrides one of the Game PlayerBehaviors
+  * Implement the required interface
+* Create a new PlayerBehaviorData script that overrides one of the Game PlayerBehaviorDatas
+
+### PlayerDriver
+
+* Create a new PlayerDriver script that overrides the Game PlayerDrivers
+  * Implement the required interface
+* **TODO:** InputSystem asset
+* Create a new PlayerDriverData script that overrides the Game PlayerDriverData
+
+### Player Prefab
+
+* Create an empty Prefab and add the Player component to it
+  * This will require a collider to be added first
+  * Check the Local Player Authority box in the Network Identity
+  * Attach the empty animator controller to the Animator
+    * This will stop potential animator error spam
+  * Attach the Animator to the Network Animator
+  * Attach the NetworkPlayer to the Network Player on the Player component
+* Add a new empty GameObject under the Player prefab (Model)
+  * Attach this to the Model on the Player component
+  * The actual model for the player should go under this container
+* Add a new empty GameObject under the Player prefab (Behavior) and add the PlayerBehavior component to it
+  * Attach the Player to the Owner on the PlayerBehavior component
+  * Attach the Player Behavior to the Behavior of the Player component
+  * Add one of the Player Movement components to the Behavior (or another empty GameObject under the player) and attach it to the Movement of the PlayerBehavior
+    * Attach the Player Behavior to the Player Movement component
+    * Attach the Rigidbody on the Player to the Movement Rigidbody
+  * **TODO:** Animator on the Player Behavior ???
+* Add a new empty GameObject under the Player Prefab (Driver) and add the PlayerDriver component to it
+  * Attach the Player to the Owner on the PlayerDriver component
+  * Attach the Player Driver to the Driver of the Player component
+* Create a PlayerDriverData in Data/Data and attach it to the PlayerDriver component
+
+### Player / Game Viewer
+
+* **TODO:** Create a viewer prefab for it
+  * **TODO:** This is out of date
+  * Create a new Viewer script that overrides a Core Viewer (? Core or Game?)
+  * Create an empty Prefab and add the Viewer component to it
+    * Add a camera under the prefab
+      * Clear Mode: Sky
+      * Background Color: Default
+      * Projection: Depends on viewer needs
+      * Remove the Audio Listener
+      * Add a Post Process Layer component to the Camera object
+      * Add an Aspect Ratio component to the Camera (UI) object
+    * Add another camera under the prefab (UI)
+      * Layer: UI
+      * Clear Mode: None
+      * Culling Mask: UI
+      * Projection: Orthographic
+      * Remove the AudioListener
+      * Add an Aspect Ratio component to the Camera (UI) object
+    * Add an empty GameObject under the prefab and add a Post Process Volume to it
+    * Attach the Cameras and the Post Process Volume to the Viewer component
+    * **Create the Post Process Layer (one per-viewer, Viewer{N}_PostProcess)**
+
+## PlayerManager
+
+* Create a new PlayerManager script that overrides the Game PlayerManager
+  * Implement the required interface
+* Add a connection to the project PlayerManager in the project LoadingManager
+  * Create the PlayerManager prefab in the overloaded CreateManagers() in the project LoadingManager
+* Create an empty Prefab and add the PlayerManager component to it
+* Attach the Player prefab to the Player Prefab on the PlayerManager
+* Create a PlayerBehaviorData in Data/Data and attach it to the PlayerManager component
+  * Set the Actor Layer to Player
+  * Set the Collision Check Layer Mask to Worl
 
 # Splash Scene Setup
 
@@ -493,46 +579,8 @@
 
 ## TODO: MainGameState
 
-## TODO: GameOverState
+## TODO
 
-## Game Data
-
-* Create a new GameData script that overrides Game GameData and adds an Asset Menu item for it
-* Create a new GameData data object
-  * Set the World Layer to World
-  * Create and attach a ServerSpectator prefab if desired
-    * **TODO:** Configure this
-    * **TODO:** Create a viewer prefab for it
-
-## Player Data
-
-* Create a new PlayerData script that overrides Game PlayerData and adds an Asset Menu item for it
-* Create a new PlayerData data object
-  * Set the Player Layer to Player
-  * Set the Viewer Layer to Viewer
-  * **TODO:** Create a viewer prefab for it
-    * Create a new Viewer script that overrides a Core Viewer (? Core or Game?)
-    * Create an empty Prefab and add the Viewer component to it
-      * Add a camera under the prefab
-        * Clear Mode: Sky
-        * Background Color: Default
-        * Projection: Depends on viewer needs
-        * Remove the Audio Listener
-        * Add a Post Process Layer component to the Camera object
-        * Add an Aspect Ratio component to the Camera (UI) object
-      * Add another camera under the prefab (UI)
-        * Layer: UI
-        * Clear Mode: None
-        * Culling Mask: UI
-        * Projection: Orthographic
-        * Remove the AudioListener
-        * Add an Aspect Ratio component to the Camera (UI) object
-      * Add an empty GameObject under the prefab and add a Post Process Volume to it
-      * Attach the Cameras and the Post Process Volume to the Viewer component
-      * **Create the Post Process Layer (one per-viewer, Viewer{N}_PostProcess)**
-* Create a new GameState subclass and attach it to a new empty Prefab
-  * This state should probably get the ViewerManager and InputManager state setup
-* Attach the new GameState prefab to the GameStateManager prefab
 * **TODO:** More GameStates
 * **TODO:** Pause / Pause Menu
 * **TODO:** Create the PlayerManager script/prefab
@@ -541,6 +589,13 @@
 * **TODO:** How to controls
 * **TODO:** Creating Data
 * **TODO:** Credits
+
+## TODO: GameOverState
+
+# Game Scene Notes
+
+* Game scenes must be added to the Build Settings
+* Game scenes require at least one SpawnPoint tagged with the player spawn tag in order for a player to spawn
 
 # Performance Notes
 
