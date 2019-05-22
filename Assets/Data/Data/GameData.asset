@@ -21,3 +21,5 @@ MonoBehaviour:
   _viewportSize: 10
   _maxLocalPlayers: 4
   _gamepadsArePlayers: 0
+  _viewerPrefab: {fileID: 2497336713870233231, guid: 8f9cf1c99fdb6014bb247a94b682c556,
+    type: 3}

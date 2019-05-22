@@ -47,7 +47,7 @@ MonoBehaviour:
     type: 3}
   _networkConnectStatePrefab: {fileID: 8338411220921497177, guid: 81daff4f4090c8643bf36d99be049d5a,
     type: 3}
-  _sceneTesterStatePrefab: {fileID: 4844692501718478104, guid: b3a9d89b21bf7e0449f371252819f7e6,
+  _sceneTesterStatePrefab: {fileID: 4608892635107017276, guid: b3a9d89b21bf7e0449f371252819f7e6,
     type: 3}
   _currentGameState: {fileID: 0}
   _currentSubGameState: {fileID: 0}

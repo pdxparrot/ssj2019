@@ -269,6 +269,7 @@
   * Create an empty Prefab in Data/Prefabs/State and add the NetworkConnectState component to it
     * Set the NetworkConnectState as the Network Connect State Prefab in the GameStateManager
   * Create an empty Prefab in Data/Prefabs/State and add the SceneTester component to it
+    * **TODO:** This actually needs to be overriden so it can do stuff like allocate viewers
     * Check Make Scene Active
     * Set the SceneTester as the Scene Tester Prefab in the GameStateManager
 * InputManager
@@ -316,7 +317,6 @@
   * Implement the required interface
   * This component should require a NetworkAnimation component
 * Create a new Player script that overrides one of the Game Players
-  * Layer: Player
   * Implement the required interface
   * This component should require the NetworkPlayer component
 
@@ -330,12 +330,16 @@
 
 * Create a new PlayerDriver script that overrides the Game PlayerDrivers
   * Implement the required interface
-* **TODO:** InputSystem asset
 * Create a new PlayerDriverData script that overrides the Game PlayerDriverData
+
+### PlayerControls
+
+* **TODO:**
 
 ### Player Prefab
 
 * Create an empty Prefab and add the Player component to it
+  * Layer: Player
   * This will require a collider to be added first
   * Check the Local Player Authority box in the Network Identity
   * Attach the empty animator controller to the Animator
@@ -359,27 +363,27 @@
 
 ### Player / Game Viewer
 
-* **TODO:** Create a viewer prefab for it
-  * **TODO:** This is out of date
-  * Create a new Viewer script that overrides a Core Viewer (? Core or Game?)
-  * Create an empty Prefab and add the Viewer component to it
-    * Add a camera under the prefab
-      * Clear Mode: Sky
-      * Background Color: Default
-      * Projection: Depends on viewer needs
-      * Remove the Audio Listener
-      * Add a Post Process Layer component to the Camera object
-      * Add an Aspect Ratio component to the Camera (UI) object
-    * Add another camera under the prefab (UI)
-      * Layer: UI
-      * Clear Mode: None
-      * Culling Mask: UI
-      * Projection: Orthographic
-      * Remove the AudioListener
-      * Add an Aspect Ratio component to the Camera (UI) object
-    * Add an empty GameObject under the prefab and add a Post Process Volume to it
-    * Attach the Cameras and the Post Process Volume to the Viewer component
-    * **Create the Post Process Layer (one per-viewer, Viewer{N}_PostProcess)**
+* Create a new Player/GameViewer script that overrides one of the Core/Game Viewers and implements the IPlayerViewer interface
+  * Implement the required interface
+* Create an empty Prefab and add the project Viewer script to it
+  * Layer: Viewer
+  * Add a camera under the prefab (Camera)
+    * Clear Flags: Solid Color (or Skybox for a skybox)
+    * Background: Opaque Black (or Default for a skybox)
+    * Remove the Audio Listener
+    * Add a Post Process Layer component to the Camera object
+      * Set the Layer to PostProcessing
+      * Uncheck Directly to Camera Target
+  * Attach the Camera to the Viewer component
+  * Add another camera under the prefab (UI Camera)
+    * Clear Flags: Solid Color
+    * Background: Opaque Black
+    * Remove the AudioListener
+    * Add the UICameraAspectRatio component to the UI Camera
+  * Attach the UI Camera to the Viewer component
+  * Add an empty GameObject under the prefab (PostProcessingVolume) and add a Post Process Volume to it
+  * Attach the Post Process Volume to the Viewer component
+  * **Create the Post Process Layer (one per-viewer, Viewer{N}_PostProcess)**
 
 ## PlayerManager
 
@@ -575,13 +579,22 @@
     * Disable Raycast Target
   * The scene should now load when the main scene is run as long as the name of the scene matches what was set in the MainMenuState prefab
 
-# Initial Game State Setup
+# Game States
 
-## TODO: MainGameState
+## MainGameState
+
+* Create a new MainGameState script that overrides the Game MainGameState
+  * Implement the required interface
+* Create an empty Prefab and add the MainGameState component to it
+* Update the state object to initialize the server and client as necessary
+* Update the GameManager to initialize what it needs to as well
+
+## TODO: GameOverState
 
 ## TODO
 
 * **TODO:** More GameStates
+* **TODO:** Player UI
 * **TODO:** Pause / Pause Menu
 * **TODO:** Create the PlayerManager script/prefab
   * This must be a prefab due to the abstract base class
@@ -589,8 +602,6 @@
 * **TODO:** How to controls
 * **TODO:** Creating Data
 * **TODO:** Credits
-
-## TODO: GameOverState
 
 # Game Scene Notes
 

@@ -2,7 +2,7 @@
 
 namespace pdxpartyparrot.Game.State
 {
-    public sealed class SceneTester : MainGameState
+    public abstract class SceneTester : MainGameState
     {
         [SerializeField]
         private string[] _testScenes;
