@@ -73,6 +73,7 @@ namespace pdxpartyparrot.Game.Network
         private void OnDestroy()
         {
             _controls.ServerSpectator.SetCallbacks(null);
+            _controls = null;
 
             if(ViewerManager.HasInstance) {
                 ViewerManager.Instance.ReleaseViewer(_viewer);

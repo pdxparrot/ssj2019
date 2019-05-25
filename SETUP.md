@@ -334,7 +334,16 @@
 
 ### PlayerControls
 
-* **TODO:**
+* Create Data/Input/PlayerControls.inputactions
+  * Generate C# Class
+    * File: Assets/Scripts/{project}/Input/PlayerControls.cs
+      * Need to create containing directory first
+    * Class Name: PlayerControls
+    * Namespace: pdxpartyparrot.{project}.Input
+  * Add Action Maps as necessary
+* Have the project PlayerDriver implement the action interface
+* The PlayerDriver should instantiate and Enable/Disable() a copy of the actions object
+  * It should also set the actions callback handler to itself
 
 ### Player Prefab
 
