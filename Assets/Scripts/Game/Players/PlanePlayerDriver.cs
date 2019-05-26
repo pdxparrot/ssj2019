@@ -3,7 +3,8 @@ using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.Game.Players
 {
-    public abstract class SideScollerPlayerDriver<T> : PlayerDriver where T: class, IInputActionCollection, new()
+    // TODO: this name sucks
+    public abstract class PlanePlayerDriver<T> : PlayerDriver where T: class, IInputActionCollection, new()
     {
         protected T Actions { get; private set; }
 
@@ -34,8 +35,7 @@ namespace pdxpartyparrot.Game.Players
 
         public void OnMove(Vector2 axes)
         {
-            // translate movement from x / y to x / z
-            LastControllerMove = new Vector3(axes.x, 0.0f, axes.y);
+            LastControllerMove = new Vector3(axes.x, axes.y, 0.0f);
         }
     }
 }

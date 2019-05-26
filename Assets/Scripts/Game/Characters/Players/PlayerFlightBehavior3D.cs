@@ -13,9 +13,9 @@ namespace pdxpartyparrot.Game.Characters.Players
 
         [SerializeField]
         [ReadOnly]
-        private Vector2 _moveDirection;
+        private Vector3 _moveDirection;
 
-        public Vector2 MoveDirection => _moveDirection;
+        public Vector3 MoveDirection => _moveDirection;
 
         public IPlayerBehaviorData PlayerBehaviorData => (IPlayerBehaviorData)BehaviorData;
 
@@ -36,12 +36,12 @@ namespace pdxpartyparrot.Game.Characters.Players
         {
             base.Initialize(behaviorData);
 
-            _moveDirection = Vector2.zero;
+            _moveDirection = Vector3.zero;
         }
 
-        public void SetMoveDirection(Vector2 moveDirection)
+        public void SetMoveDirection(Vector3 moveDirection)
         {
-            _moveDirection = Vector2.ClampMagnitude(moveDirection, 1.0f);
+            _moveDirection = Vector3.ClampMagnitude(moveDirection, 1.0f);
         }
 
         protected override void AnimationUpdate(float dt)

@@ -34,6 +34,7 @@ namespace pdxpartyparrot.Game.Players
 
         public void OnMove(Vector2 axes)
         {
+            // translate movement from x / y to x / z
             LastControllerMove = new Vector3(axes.x, 0.0f, axes.y);
         }
     }

@@ -11,9 +11,9 @@ namespace pdxpartyparrot.Game.Characters.Players
     {
         [SerializeField]
         [ReadOnly]
-        private Vector2 _moveDirection;
+        private Vector3 _moveDirection;
 
-        public Vector2 MoveDirection => _moveDirection;
+        public Vector3 MoveDirection => _moveDirection;
 
         public IPlayerBehaviorData PlayerBehaviorData => (IPlayerBehaviorData)BehaviorData;
 
@@ -49,12 +49,12 @@ namespace pdxpartyparrot.Game.Characters.Players
 
             base.Initialize(behaviorData);
 
-            _moveDirection = Vector2.zero;
+            _moveDirection = Vector3.zero;
         }
 
-        public void SetMoveDirection(Vector2 moveDirection)
+        public void SetMoveDirection(Vector3 moveDirection)
         {
-            _moveDirection = Vector2.ClampMagnitude(moveDirection, 1.0f);
+            _moveDirection = Vector3.ClampMagnitude(moveDirection, 1.0f);
         }
 
         protected override void AnimationUpdate(float dt)
@@ -63,14 +63,13 @@ namespace pdxpartyparrot.Game.Characters.Players
                 return;
             }
 
-            Vector3 fixedDirection = new Vector3(MoveDirection.x, 0.0f, MoveDirection.y);
-            Vector3 forward = fixedDirection;
+            Vector3 forward = MoveDirection;
             if(null != Player.Viewer) {
                 // align with the camera instead of the movement
-                forward = (Quaternion.AngleAxis(Player.Viewer.transform.localEulerAngles.y, Vector3.up) * fixedDirection).normalized;
+                forward = (Quaternion.AngleAxis(Player.Viewer.transform.localEulerAngles.y, Vector3.up) * MoveDirection).normalized;
             }
 
-            if(forward.sqrMagnitude > float.Epsilon) {
+            if(IsMoving && null != Owner.Model) {
                 Owner.Model.transform.forward = forward;
             }
 
@@ -92,8 +91,7 @@ namespace pdxpartyparrot.Game.Characters.Players
                 return;
             }
 
-            Vector3 fixedDirection = new Vector3(MoveDirection.x, 0.0f, MoveDirection.y);
-            Vector3 velocity = fixedDirection * PlayerBehaviorData3D.MoveSpeed;
+            Vector3 velocity = MoveDirection * PlayerBehaviorData3D.MoveSpeed;
             Quaternion rotation = Movement3D.Rotation;
             if(null != Player.Viewer) {
                 // rotate with the camera instead of the movement

@@ -10,8 +10,8 @@ namespace pdxpartyparrot.Game.Characters.Players
 
         IPlayer Player { get; }
 
-        Vector2 MoveDirection { get; }
+        Vector3 MoveDirection { get; }
 
-        void SetMoveDirection(Vector2 moveDirection);
+        void SetMoveDirection(Vector3 moveDirection);
     }
 }
