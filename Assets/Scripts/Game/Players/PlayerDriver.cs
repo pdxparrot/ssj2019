@@ -1,3 +1,5 @@
+using System;
+
 using pdxpartyparrot.Core;
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.DebugMenu;
@@ -7,6 +9,7 @@ using pdxpartyparrot.Game.Data;
 
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.Game.Players
 {
@@ -57,11 +60,27 @@ namespace pdxpartyparrot.Game.Players
         protected virtual void Awake()
         {
             Assert.IsTrue(Owner is IPlayer);
+
+            PartyParrotManager.Instance.PauseEvent += PauseEventHandler;
         }
 
         protected virtual void OnDestroy()
         {
+            if(PartyParrotManager.HasInstance) {
+                PartyParrotManager.Instance.PauseEvent -= PauseEventHandler;
+            }
+
             DestroyDebugMenu();
+        }
+
+        protected virtual void OnEnable()
+        {
+            EnableControls(true);
+        }
+
+        protected virtual void OnDisable()
+        {
+            EnableControls(false);
         }
 
         protected virtual void Update()
@@ -93,6 +112,40 @@ namespace pdxpartyparrot.Game.Players
 
             InitDebugMenu();
         }
+
+        protected virtual bool IsOurDevice(InputAction.CallbackContext ctx)
+        {
+            // no input unless we have focus
+            if(!Application.isFocused) {
+                return false;
+            }
+
+            // ignore keyboard/mouse while the debug menu is open
+            if(DebugMenuManager.Instance.Enabled) {
+                return false;
+            }
+
+            return true;
+        }
+
+        protected abstract void EnableControls(bool enable);
+
+#region Event Handlers
+        private void PauseEventHandler(object sender, EventArgs args)
+        {
+            if(PartyParrotManager.Instance.IsPaused) {
+                if(Core.Input.InputManager.Instance.DebugInput) {
+                    Debug.Log("Disabling player controls");
+                }
+                EnableControls(false);
+            } else {
+                if(Core.Input.InputManager.Instance.DebugInput) {
+                    Debug.Log("Enabling player controls");
+                }
+                EnableControls(true);
+            }
+        }
+#endregion
 
         private void InitDebugMenu()
         {

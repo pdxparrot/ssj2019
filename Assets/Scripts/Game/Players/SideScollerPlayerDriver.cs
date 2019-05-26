@@ -20,17 +20,16 @@ namespace pdxpartyparrot.Game.Players
 
             base.OnDestroy();
         }
-
-        private void OnEnable()
-        {
-            Actions.Enable();
-        }
-
-        private void OnDisable()
-        {
-            Actions.Disable();
-        }
 #endregion
+
+        protected override void EnableControls(bool enable)
+        {
+            if(enable) {
+                Actions.Enable();
+            } else {
+                Actions.Disable();
+            }
+        }
 
         public void OnMove(Vector2 axes)
         {

@@ -327,6 +327,7 @@
 * Create a new PlayerDriver script that overrides one of the Game PlayerDrivers
   * Implement the required interface
 * Create a new PlayerDriverData script that overrides the Game PlayerDriverData
+* The project PlayerDriver can create a GamepadListener on itself in order to manage multiplayer gamepad usage
 
 ### PlayerControls
 
