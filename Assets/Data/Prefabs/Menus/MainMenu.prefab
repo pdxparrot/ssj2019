@@ -615,7 +615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _owner: {fileID: 8352289956213582818}
-  _initialSelection: {fileID: 0}
+  _initialSelection: {fileID: 5728565868172829199}
   _multiplayerButton: {fileID: 0}
   _multiplayerPanel: {fileID: 0}
   _characterSelectButton: {fileID: 0}

@@ -532,17 +532,18 @@
     * Set the Main Menu Initial Selection to the Start Button
   * **TODO:** Multiplayer
   * **TODO:** Character Select
-  * Duplicate the Play Button (High Scores)
+  * Duplicate the Start Button (High Scores)
     * Set the On Click handler to the MainMenu OnHighScores method
     * Set the Text to "High Scores"
     * **TODO:** Setup the High Scores panel
-  * Duplicate the Play Button (Credits)
+  * Duplicate the Start Button (Credits)
     * Set the On Click handler to the MainMenu OnCredits method
     * Set the Text to "Credits"
     * **TODO:** Setup the Credis panel
-  * Duplicate the Credits Button (Quit)
+  * Duplicate the Start Button (Quit)
     * Set the On Click handler to the MainMenu OnQuitGame method
     * Set the Text to "Quit"
+  * Attach the Start button to the Initial Selection on the Main Menu
   * Attach the MainMenu prefab to the MainMenuState Menu Prefab
 
 ## Main Menu Scene Setup

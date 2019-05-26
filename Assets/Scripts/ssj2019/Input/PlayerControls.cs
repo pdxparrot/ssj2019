@@ -24,7 +24,7 @@ namespace pdxpartyparrot.ssj2019.Input
                 {
                     ""name"": ""move"",
                     ""id"": ""44b6e5fa-3d7b-440f-9060-13fa7d641325"",
-                    ""expectedControlLayout"": ""Stick"",
+                    ""expectedControlLayout"": ""Vector2"",
                     ""continuous"": true,
                     ""passThrough"": false,
                     ""initialStateCheck"": false,
