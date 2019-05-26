@@ -232,10 +232,6 @@
   * Create using default EventSystem that gets added automatically when adding a UI object
   * Replace Standalone Input Module with InputSystemUIInputModule
   * Add EventSystemHelper script to this
-* Create Data/Prefabs/Lighting/GlobalLighting.prefab
-  * Add a Direction Light under this
-    * Set X Rotation to 45
-  * **TODO:** This should get hooked up somewhere, right?
 
 ## Manager Prefabs Setup
 
@@ -328,7 +324,7 @@
 
 ### PlayerDriver
 
-* Create a new PlayerDriver script that overrides the Game PlayerDrivers
+* Create a new PlayerDriver script that overrides one of the Game PlayerDrivers
   * Implement the required interface
 * Create a new PlayerDriverData script that overrides the Game PlayerDriverData
 
@@ -342,8 +338,7 @@
     * Namespace: pdxpartyparrot.{project}.Input
   * Add Action Maps as necessary
 * Have the project PlayerDriver implement the action interface
-* The PlayerDriver should instantiate and Enable/Disable() a copy of the actions object
-  * It should also set the actions callback handler to itself
+* The PlayerDriver should set the actions callback handler to itself
 
 ### Player Prefab
 
@@ -367,7 +362,6 @@
   * **TODO:** Animator on the Player Behavior ???
 * Add a new empty GameObject under the Player Prefab (Driver) and add the PlayerDriver component to it
   * Attach the Player to the Owner on the PlayerDriver component
-  * Attach the Player Driver to the Driver of the Player component
 * Create a PlayerDriverData in Data/Data and attach it to the PlayerDriver component
 
 ### Player / Game Viewer
@@ -566,9 +560,7 @@
   * Remove the Audio Listener
 * Remove the Skybox Material
 * Environment Lighting Source: Color
-* Disable Realtime Global Illumination
-* Disable Baked Global Illumination
-* Disable Auto Generate lighting
+* **TODO:** Setup Lighting
 * Add the scene to the Build Settings
 * Add a new TitleScreen object to the scene
   * Layer: UI

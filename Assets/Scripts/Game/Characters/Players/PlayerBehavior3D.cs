@@ -68,13 +68,10 @@ namespace pdxpartyparrot.Game.Characters.Players
             if(null != Player.Viewer) {
                 // align with the camera instead of the movement
                 forward = (Quaternion.AngleAxis(Player.Viewer.transform.localEulerAngles.y, Vector3.up) * fixedDirection).normalized;
-                if(forward.sqrMagnitude > float.Epsilon) {
-                    Owner.transform.forward = forward;
-                }
             }
 
             if(forward.sqrMagnitude > float.Epsilon) {
-                Owner.transform.forward = forward;
+                Owner.Model.transform.forward = forward;
             }
 
             if(null != Animator) {

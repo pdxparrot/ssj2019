@@ -59,6 +59,11 @@ namespace pdxpartyparrot.Game.Players
             Assert.IsTrue(Owner is IPlayer);
         }
 
+        protected virtual void OnDestroy()
+        {
+            DestroyDebugMenu();
+        }
+
         protected virtual void Update()
         {
             if(!Player.IsLocalActor) {
@@ -77,11 +82,6 @@ namespace pdxpartyparrot.Game.Players
             float dt = Time.deltaTime;
 
             Player.PlayerBehavior.SetMoveDirection(Vector2.MoveTowards(Player.PlayerBehavior.MoveDirection, _lastControllerMove, dt * _data.MovementLerpSpeed));
-        }
-
-        protected virtual void OnDestroy()
-        {
-            DestroyDebugMenu();
         }
 #endregion
 

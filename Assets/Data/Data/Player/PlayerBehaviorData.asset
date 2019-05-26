@@ -22,7 +22,7 @@ MonoBehaviour:
   _collisionCheckLayerMask:
     serializedVersion: 2
     m_Bits: 16384
-  _moveSpeed: 30
+  _moveSpeed: 5
   _runThreshold: 0.75
   _fallSpeedAdjustment: 200
   _terminalVelocity: 50
