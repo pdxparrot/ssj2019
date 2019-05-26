@@ -9,7 +9,7 @@ namespace pdxpartyparrot.ssj2019.Menu
 #region Event Handlers
         public override void OnStart()
         {
-            Debug.Log("TOOD: Start()");
+            Debug.Log("TODO: Start()");
 
             //Owner.PushPanel(_characterSelectPanel);
 //            GameStateManager.Instance.StartLocal(GameManager.Instance.GameGameData.MainGameStatePrefab);

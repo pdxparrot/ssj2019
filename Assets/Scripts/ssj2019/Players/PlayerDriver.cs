@@ -61,6 +61,7 @@ namespace pdxpartyparrot.ssj2019.Players
                 (ActorManager.Instance.ActorCount<Player>() == 1 && (Keyboard.current == ctx.control.device || Mouse.current == ctx.control.device));
         }
 
+#region IPlayerActions
         public void OnMove(InputAction.CallbackContext context)
         {
             if(!IsOurDevice(context)) {
@@ -71,5 +72,6 @@ namespace pdxpartyparrot.ssj2019.Players
             Vector2 axes = context.ReadValue<Vector2>();
             OnMove(axes);
         }
+#endregion
     }
 }
