@@ -32,8 +32,15 @@ namespace pdxpartyparrot.Game.Players
             }
         }
 
-        public void OnMove(Vector2 axes)
+        public override void OnMove(InputAction.CallbackContext context)
         {
+            if(!IsOurDevice(context)) {
+                return;
+            }
+
+            // relying in input system binding set to continuous for this
+            Vector2 axes = context.ReadValue<Vector2>();
+
             LastControllerMove = new Vector3(axes.x, axes.y, 0.0f);
         }
     }

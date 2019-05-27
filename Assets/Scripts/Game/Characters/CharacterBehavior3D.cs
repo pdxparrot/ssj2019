@@ -21,6 +21,9 @@ namespace pdxpartyparrot.Game.Characters
 
         public CharacterBehaviorData3D CharacterBehaviorData => (CharacterBehaviorData3D)BehaviorData;
 
+        [SerializeField]
+        private CharacterBehaviorComponent3D.ReorderableList _components = new CharacterBehaviorComponent3D.ReorderableList();
+
         [Space(10)]
 
 #region Physics
@@ -50,8 +53,6 @@ namespace pdxpartyparrot.Game.Characters
 #endregion
 
         public override bool CanMove => base.CanMove && !GameStateManager.Instance.GameManager.IsGameOver;
-
-        private CharacterBehaviorComponent3D.ReorderableList _components = new CharacterBehaviorComponent3D.ReorderableList();
 
 #region Unity Lifecycle
         protected override void Awake()

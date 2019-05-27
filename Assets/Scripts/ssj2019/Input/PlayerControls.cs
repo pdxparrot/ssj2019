@@ -22,10 +22,32 @@ namespace pdxpartyparrot.ssj2019.Input
             ""id"": ""89525c91-3845-4a31-a306-a607d9d2d231"",
             ""actions"": [
                 {
-                    ""name"": ""move"",
+                    ""name"": ""pause"",
                     ""id"": ""44b6e5fa-3d7b-440f-9060-13fa7d641325"",
+                    ""expectedControlLayout"": ""Button"",
+                    ""continuous"": false,
+                    ""passThrough"": false,
+                    ""initialStateCheck"": false,
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""bindings"": []
+                },
+                {
+                    ""name"": ""move"",
+                    ""id"": ""1caee292-fa5f-4e0c-b724-6e1c7da09e51"",
                     ""expectedControlLayout"": ""Vector2"",
                     ""continuous"": true,
+                    ""passThrough"": false,
+                    ""initialStateCheck"": false,
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""bindings"": []
+                },
+                {
+                    ""name"": ""jump"",
+                    ""id"": ""efb3b829-c18a-4071-a255-a6697a3b990e"",
+                    ""expectedControlLayout"": ""Button"",
+                    ""continuous"": false,
                     ""passThrough"": false,
                     ""initialStateCheck"": false,
                     ""processors"": """",
@@ -45,6 +67,30 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""isComposite"": false,
                     ""isPartOfComposite"": false,
                     ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b7abc3d1-76d3-4571-9dbe-2dc681aceac4"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0727335b-51ae-4a78-8a6e-14d8a5a2dc39"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
                 }
             ]
         }
@@ -53,7 +99,9 @@ namespace pdxpartyparrot.ssj2019.Input
 }");
             // Player
             m_Player = asset.GetActionMap("Player");
+            m_Player_pause = m_Player.GetAction("pause");
             m_Player_move = m_Player.GetAction("move");
+            m_Player_jump = m_Player.GetAction("jump");
         }
 
         ~PlayerControls()
@@ -106,12 +154,16 @@ namespace pdxpartyparrot.ssj2019.Input
         // Player
         private InputActionMap m_Player;
         private IPlayerActions m_PlayerActionsCallbackInterface;
+        private InputAction m_Player_pause;
         private InputAction m_Player_move;
+        private InputAction m_Player_jump;
         public struct PlayerActions
         {
             private PlayerControls m_Wrapper;
             public PlayerActions(PlayerControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @pause { get { return m_Wrapper.m_Player_pause; } }
             public InputAction @move { get { return m_Wrapper.m_Player_move; } }
+            public InputAction @jump { get { return m_Wrapper.m_Player_jump; } }
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -122,16 +174,28 @@ namespace pdxpartyparrot.ssj2019.Input
             {
                 if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
                 {
+                    pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                    pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                    pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                     move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                     move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                     move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
+                    jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                    jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                    jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
                 {
+                    pause.started += instance.OnPause;
+                    pause.performed += instance.OnPause;
+                    pause.canceled += instance.OnPause;
                     move.started += instance.OnMove;
                     move.performed += instance.OnMove;
                     move.canceled += instance.OnMove;
+                    jump.started += instance.OnJump;
+                    jump.performed += instance.OnJump;
+                    jump.canceled += instance.OnJump;
                 }
             }
         }
@@ -144,7 +208,9 @@ namespace pdxpartyparrot.ssj2019.Input
         }
         public interface IPlayerActions
         {
+            void OnPause(InputAction.CallbackContext context);
             void OnMove(InputAction.CallbackContext context);
+            void OnJump(InputAction.CallbackContext context);
         }
     }
 }

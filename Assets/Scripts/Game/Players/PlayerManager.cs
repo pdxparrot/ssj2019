@@ -19,6 +19,10 @@ namespace pdxpartyparrot.Game.Players
 {
     public interface IPlayerManager
     {
+        bool PlayersImmune { get; }
+
+        bool DebugInput { get; }
+
         CharacterBehaviorData PlayerBehaviorData { get; }
 
         IReadOnlyCollection<IPlayer> Players { get; }

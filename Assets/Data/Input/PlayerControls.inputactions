@@ -6,10 +6,32 @@
             "id": "89525c91-3845-4a31-a306-a607d9d2d231",
             "actions": [
                 {
-                    "name": "move",
+                    "name": "pause",
                     "id": "44b6e5fa-3d7b-440f-9060-13fa7d641325",
+                    "expectedControlLayout": "Button",
+                    "continuous": false,
+                    "passThrough": false,
+                    "initialStateCheck": false,
+                    "processors": "",
+                    "interactions": "",
+                    "bindings": []
+                },
+                {
+                    "name": "move",
+                    "id": "1caee292-fa5f-4e0c-b724-6e1c7da09e51",
                     "expectedControlLayout": "Vector2",
                     "continuous": true,
+                    "passThrough": false,
+                    "initialStateCheck": false,
+                    "processors": "",
+                    "interactions": "",
+                    "bindings": []
+                },
+                {
+                    "name": "jump",
+                    "id": "efb3b829-c18a-4071-a255-a6697a3b990e",
+                    "expectedControlLayout": "Button",
+                    "continuous": false,
                     "passThrough": false,
                     "initialStateCheck": false,
                     "processors": "",
@@ -26,6 +48,30 @@
                     "processors": "",
                     "groups": "",
                     "action": "move",
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "id": "b7abc3d1-76d3-4571-9dbe-2dc681aceac4",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "id": "0727335b-51ae-4a78-8a6e-14d8a5a2dc39",
+                    "path": "<Gamepad>/start",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "pause",
                     "isComposite": false,
                     "isPartOfComposite": false,
                     "modifiers": ""

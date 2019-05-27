@@ -1,5 +1,6 @@
 ﻿using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Input;
+using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.ssj2019.Input;
 
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace pdxpartyparrot.ssj2019.Players
     {
         protected override bool CanDrive => base.CanDrive && !GameManager.Instance.IsGameOver;
 
+        private Player GamePlayer => (Player)Player;
+
         public GamepadListener GamepadListener { get; private set; }
 
 #region Unity Lifecycle
@@ -19,6 +22,7 @@ namespace pdxpartyparrot.ssj2019.Players
         {
             base.Awake();
 
+            Assert.IsTrue(Player is Player);
             Assert.IsNull(GetComponent<GamepadListener>());
         }
 
@@ -62,15 +66,19 @@ namespace pdxpartyparrot.ssj2019.Players
         }
 
 #region IPlayerActions
-        public void OnMove(InputAction.CallbackContext context)
+        public void OnJump(InputAction.CallbackContext context)
         {
-            if(!IsOurDevice(context)) {
+            if(!IsOurDevice(context) || !CanDrive) {
                 return;
             }
 
-            // relying in input system binding set to continuous for this
-            Vector2 axes = context.ReadValue<Vector2>();
-            OnMove(axes);
+            if(PlayerManager.Instance.DebugInput) {
+                Debug.Log($"Jump: {context.action.phase}");
+            }
+
+            if(context.performed) {
+                GamePlayer.GamePlayerBehavior.ActionPerformed(JumpBehaviorComponent3D.JumpAction.Default);
+            }
         }
 #endregion
     }

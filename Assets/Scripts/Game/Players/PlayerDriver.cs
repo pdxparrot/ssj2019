@@ -6,6 +6,7 @@ using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.Game.Data;
+using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -130,16 +131,35 @@ namespace pdxpartyparrot.Game.Players
 
         protected abstract void EnableControls(bool enable);
 
+#region Common Actions
+        public void OnPause(InputAction.CallbackContext context)
+        {
+            if(!IsOurDevice(context)) {
+                return;
+            }
+
+            if(Core.Input.InputManager.Instance.DebugInput) {
+                Debug.Log($"Pause: {context.action.phase}");
+            }
+
+            if(context.performed) {
+                PartyParrotManager.Instance.TogglePause();
+            }
+        }
+
+        public abstract void OnMove(InputAction.CallbackContext context);
+#endregion
+
 #region Event Handlers
         private void PauseEventHandler(object sender, EventArgs args)
         {
             if(PartyParrotManager.Instance.IsPaused) {
-                if(Core.Input.InputManager.Instance.DebugInput) {
+                if(GameStateManager.Instance.PlayerManager.DebugInput) {
                     Debug.Log("Disabling player controls");
                 }
                 EnableControls(false);
             } else {
-                if(Core.Input.InputManager.Instance.DebugInput) {
+                if(GameStateManager.Instance.PlayerManager.DebugInput) {
                     Debug.Log("Enabling player controls");
                 }
                 EnableControls(true);
