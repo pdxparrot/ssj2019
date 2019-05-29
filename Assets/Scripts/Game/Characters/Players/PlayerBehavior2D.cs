@@ -63,20 +63,30 @@ namespace pdxpartyparrot.Game.Characters.Players
                 return;
             }
 
-            // align with the movement
-#if USE_SPINE
-            if(IsMoving && null != AnimationHelper) {
-                AnimationHelper.SetFacing(MoveDirection);
-            }
-#else
-            // TODO: set facing (set localScale.x)
+            AlignToMovement(MoveDirection);
+
             if(null != Animator) {
                 Animator.SetFloat(PlayerBehaviorData2D.MoveXAxisParam, CanMove ? Mathf.Abs(MoveDirection.x) : 0.0f);
                 Animator.SetFloat(PlayerBehaviorData2D.MoveZAxisParam, CanMove ? Mathf.Abs(MoveDirection.y) : 0.0f);
             }
-#endif
 
             base.AnimationUpdate(dt);
+        }
+
+        private void AlignToMovement(Vector3 forward)
+        {
+            if(!IsMoving) {
+                return;
+            }
+
+#if USE_SPINE
+            if(null != AnimationHelper) {
+                AnimationHelper.SetFacing(forward);
+                return;
+            }
+#endif
+
+            // TODO: set facing (set localScale.x)
         }
 
         protected override void PhysicsUpdate(float dt)

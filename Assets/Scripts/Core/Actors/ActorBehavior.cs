@@ -1,5 +1,8 @@
+using System;
+
 using JetBrains.Annotations;
 
+using pdxpartyparrot.Core.Animation;
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Util;
@@ -51,6 +54,22 @@ namespace pdxpartyparrot.Core.Actors
 #region Animation
         [Header("Animation")]
 
+#if USE_SPINE
+        [SerializeField]
+        [CanBeNull]
+        private SpineAnimationHelper _animationHelper;
+
+        [CanBeNull]
+        public SpineAnimationHelper AnimationHelper => _animationHelper;
+#endif
+
+        [SerializeField]
+        [CanBeNull]
+        private Animator _animator;
+
+        [CanBeNull]
+        public Animator Animator => _animator;
+
         [SerializeField]
         [CanBeNull]
         private ActorAnimator _actorAnimator;
@@ -87,6 +106,15 @@ namespace pdxpartyparrot.Core.Actors
         {
             Assert.IsNotNull(Owner);
             Assert.IsNotNull(Movement);
+
+            PartyParrotManager.Instance.PauseEvent += PauseEventHandler;
+        }
+
+        protected virtual void OnDestroy()
+        {
+            if(PartyParrotManager.HasInstance) {
+                PartyParrotManager.Instance.PauseEvent -= PauseEventHandler;
+            }
         }
 
         protected virtual void Update()
@@ -193,6 +221,25 @@ namespace pdxpartyparrot.Core.Actors
 
         public virtual void TriggerExit(GameObject triggerObject)
         {
+        }
+#endregion
+
+#region Event Handlers
+        private void PauseEventHandler(object sender, EventArgs args)
+        {
+            if(!PauseAnimationOnPause) {
+                return;
+            }
+
+#if USE_SPINE
+            if(AnimationHelper != null) {
+                AnimationHelper.Pause(PartyParrotManager.Instance.IsPaused);
+            }
+#endif
+
+            if(Animator != null) {
+                Animator.enabled = !PartyParrotManager.Instance.IsPaused;
+            }
         }
 #endregion
     }

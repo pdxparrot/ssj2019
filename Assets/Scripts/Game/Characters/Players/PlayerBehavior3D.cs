@@ -69,9 +69,7 @@ namespace pdxpartyparrot.Game.Characters.Players
                 forward = (Quaternion.AngleAxis(Player.Viewer.transform.localEulerAngles.y, Vector3.up) * MoveDirection).normalized;
             }
 
-            if(IsMoving && null != Owner.Model) {
-                Owner.Model.transform.forward = forward;
-            }
+            AlignToMovement(forward);
 
             if(null != Animator) {
                 Animator.SetFloat(PlayerBehaviorData3D.MoveXAxisParam, CanMove ? Mathf.Abs(MoveDirection.x) : 0.0f);
@@ -79,6 +77,24 @@ namespace pdxpartyparrot.Game.Characters.Players
             }
 
             base.AnimationUpdate(dt);
+        }
+
+        private void AlignToMovement(Vector3 forward)
+        {
+            if(!IsMoving) {
+                return;
+            }
+
+#if USE_SPINE
+            if(null != AnimationHelper) {
+                AnimationHelper.SetFacing(forward);
+                return;
+            }
+#endif
+
+            if(null != Owner.Model) {
+                Owner.Model.transform.forward = forward;
+            }
         }
 
         protected override void PhysicsUpdate(float dt)

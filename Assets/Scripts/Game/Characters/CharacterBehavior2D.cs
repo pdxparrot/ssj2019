@@ -20,7 +20,7 @@ namespace pdxpartyparrot.Game.Characters
         public CharacterMovement2D CharacterMovement2D => (CharacterMovement2D)Movement2D;
 
         [CanBeNull]
-        public CharacterBehaviorData CharacterBehaviorData => (CharacterBehaviorData)BehaviorData;
+        public CharacterBehaviorData2D CharacterBehaviorData => (CharacterBehaviorData2D)BehaviorData;
 
         [Header("Components")]
 
@@ -70,17 +70,15 @@ namespace pdxpartyparrot.Game.Characters
         {
             base.Update();
 
-#if !USE_SPINE
             if(null != Animator) {
                 Animator.SetBool(CharacterBehaviorData.FallingParam, IsFalling);
             }
-#endif
         }
 #endregion
 
         public override void Initialize(ActorBehaviorData behaviorData)
         {
-            Assert.IsTrue(behaviorData is CharacterBehaviorData);
+            Assert.IsTrue(behaviorData is CharacterBehaviorData2D);
 
             base.Initialize(behaviorData);
 

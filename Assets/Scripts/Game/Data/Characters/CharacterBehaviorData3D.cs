@@ -4,6 +4,8 @@ namespace pdxpartyparrot.Game.Data.Characters
 {
     public abstract class CharacterBehaviorData3D : CharacterBehaviorData
     {
+        [Space(10)]
+
 #region Animations
         [Header("Character Animations")]
 

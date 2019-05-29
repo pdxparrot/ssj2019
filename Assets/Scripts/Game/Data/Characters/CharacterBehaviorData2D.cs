@@ -4,8 +4,6 @@ namespace pdxpartyparrot.Game.Data.Characters
 {
     public abstract class CharacterBehaviorData2D : CharacterBehaviorData
     {
-#if USE_SPINE
-#else
         [Space(10)]
 
 #region Animations
@@ -26,6 +24,5 @@ namespace pdxpartyparrot.Game.Data.Characters
 
         public string FallingParam => _fallingParam;
 #endregion
-#endif
     }
 }
