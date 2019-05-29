@@ -60,9 +60,12 @@ namespace pdxpartyparrot.ssj2019.Players
                 return false;
             }
 
-            return GamepadListener.IsOurGamepad(ctx) ||
-                // TODO: this probably doesn't handle multiple keyboards/mice
-                (ActorManager.Instance.ActorCount<Player>() == 1 && (Keyboard.current == ctx.control.device || Mouse.current == ctx.control.device));
+            return GamepadListener.IsOurGamepad(ctx)
+#if UNITY_EDITOR
+                // allow keyboard / mouse when running with a single player in editor
+                || (ActorManager.Instance.ActorCount<Player>() == 1 && (Keyboard.current == ctx.control.device || Mouse.current == ctx.control.device))
+#endif
+            ;
         }
 
 #region IPlayerActions

@@ -22,6 +22,7 @@ namespace pdxpartyparrot.Game.Data.NPCs
         public float Duration => _duration;
 
         [SerializeField]
+        [ReorderableList]
         private SpawnGroupData.ReorderableList _spawnGroups = new SpawnGroupData.ReorderableList();
 
         public IReadOnlyCollection<SpawnGroupData> SpawnGroups => _spawnGroups.Items;

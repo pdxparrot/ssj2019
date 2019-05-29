@@ -37,6 +37,7 @@ namespace pdxpartyparrot.Core.Tween
         private bool _firstRun = true;
 
         [SerializeField]
+        [ReorderableList]
         private TweenRunner.ReorderableList _tweens = new TweenRunner.ReorderableList();
 
         [CanBeNull]

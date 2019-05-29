@@ -57,6 +57,7 @@ MonoBehaviour:
   _animator: {fileID: 0}
   _components:
     _items:
+    - {fileID: 781001128532812523}
     - {fileID: 1550674950824046361}
   _isGrounded: 0
   _isSliding: 0

@@ -22,6 +22,7 @@ namespace pdxpartyparrot.Core.Effects
         private ReorderableList _triggerOnComplete = new ReorderableList();
 
         [SerializeField]
+        [ReorderableList]
         private EffectTriggerComponent.ReorderableList _components = new EffectTriggerComponent.ReorderableList();
 
         private Coroutine _effectWaiter;

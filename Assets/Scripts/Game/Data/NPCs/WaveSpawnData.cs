@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 
+using pdxpartyparrot.Core.Util;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.Game.Data.NPCs
@@ -12,6 +14,7 @@ namespace pdxpartyparrot.Game.Data.NPCs
     public class WaveSpawnData : ScriptableObject
     {
         [SerializeField]
+        [ReorderableList]
         private SpawnWaveData.ReorderableList _waves = new SpawnWaveData.ReorderableList();
 
         [SerializeField]

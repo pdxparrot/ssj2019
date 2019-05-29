@@ -21,7 +21,10 @@ namespace pdxpartyparrot.Game.Characters
 
         public CharacterBehaviorData3D CharacterBehaviorData => (CharacterBehaviorData3D)BehaviorData;
 
+        [Header("Components")]
+
         [SerializeField]
+        [ReorderableList]
         private CharacterBehaviorComponent3D.ReorderableList _components = new CharacterBehaviorComponent3D.ReorderableList();
 
         [Space(10)]
