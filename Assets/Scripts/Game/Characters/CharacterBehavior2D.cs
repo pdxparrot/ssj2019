@@ -19,6 +19,7 @@ namespace pdxpartyparrot.Game.Characters
     {
         public CharacterMovement2D CharacterMovement2D => (CharacterMovement2D)Movement2D;
 
+        [CanBeNull]
         public CharacterBehaviorData CharacterBehaviorData => (CharacterBehaviorData)BehaviorData;
 
         [Header("Components")]
@@ -82,6 +83,10 @@ namespace pdxpartyparrot.Game.Characters
             Assert.IsTrue(behaviorData is CharacterBehaviorData);
 
             base.Initialize(behaviorData);
+
+            foreach(CharacterBehaviorComponent2D component in _components.Items) {
+                component.Initialize();
+            }
         }
 
 #region Components

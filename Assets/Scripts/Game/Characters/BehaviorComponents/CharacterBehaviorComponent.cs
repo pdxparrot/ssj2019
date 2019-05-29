@@ -23,6 +23,10 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         }
 #endregion
 
+        public virtual void Initialize()
+        {
+        }
+
         public virtual bool OnAnimationUpdate(float dt)
         {
             return false;

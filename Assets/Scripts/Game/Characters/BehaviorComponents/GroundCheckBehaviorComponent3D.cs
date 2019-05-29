@@ -58,17 +58,15 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 #region Unity Lifecycle
         private void OnEnable()
         {
-            if(!Behavior.CharacterBehaviorData.IsKinematic) {
-                _raycastCoroutine = StartCoroutine(RaycastRoutine());
-            }
+            StartRoutine();
         }
 
         private void OnDisable()
         {
             if(null != _raycastCoroutine) {
                 StopCoroutine(_raycastCoroutine);
-                _raycastCoroutine = null;
             }
+            _raycastCoroutine = null;
         }
 
         private void OnDrawGizmos()
@@ -85,6 +83,13 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         }
 #endregion
 
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            StartRoutine();
+        }
+
         public override bool OnPhysicsUpdate(float dt)
         {
             if(!Behavior.IsGrounded || _groundSlope < _data.SlopeLimit) {
@@ -99,6 +104,17 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
             SlopeLimitEvent?.Invoke(this, EventArgs.Empty);
 
             return false;
+        }
+
+        private void StartRoutine()
+        {
+            if(null != _raycastCoroutine) {
+                return;
+            }
+
+            if(Behavior.IsInitialized && !Behavior.CharacterBehaviorData.IsKinematic) {
+                _raycastCoroutine = StartCoroutine(RaycastRoutine());
+            }
         }
 
         private IEnumerator RaycastRoutine()

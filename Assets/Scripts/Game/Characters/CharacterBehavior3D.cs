@@ -19,6 +19,7 @@ namespace pdxpartyparrot.Game.Characters
     {
         public CharacterMovement3D CharacterMovement3D => (CharacterMovement3D)Movement3D;
 
+        [CanBeNull]
         public CharacterBehaviorData3D CharacterBehaviorData => (CharacterBehaviorData3D)BehaviorData;
 
         [Header("Components")]
@@ -80,6 +81,10 @@ namespace pdxpartyparrot.Game.Characters
             Assert.IsTrue(behaviorData is CharacterBehaviorData3D);
 
             base.Initialize(behaviorData);
+
+            foreach(CharacterBehaviorComponent3D component in _components.Items) {
+                component.Initialize();
+            }
         }
 
 #region Components

@@ -23,3 +23,5 @@ MonoBehaviour:
   _gamepadsArePlayers: 0
   _viewerPrefab: {fileID: 2497336713870233231, guid: 8f9cf1c99fdb6014bb247a94b682c556,
     type: 3}
+  _viewerPosition: {x: 0, y: 5, z: -15}
+  _viewerRotation: {x: 0, y: 0, z: 0}

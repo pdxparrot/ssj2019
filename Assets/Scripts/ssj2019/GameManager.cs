@@ -21,8 +21,9 @@ namespace pdxpartyparrot.ssj2019
             if(null != Viewer) {
                 Viewer.Set3D();
 
-                Debug.LogWarning("TODO: Remove viewer hacks");
-                Viewer.transform.position = new Vector3(0.0f, 1.0f, -10.0f);
+                Transform viewerTransform = Viewer.transform;
+                viewerTransform.position = GameGameData.ViewerPosition;
+                viewerTransform.eulerAngles = GameGameData.ViewerRotation;
             }
         }
     }

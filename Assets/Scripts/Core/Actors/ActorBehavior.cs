@@ -19,8 +19,16 @@ namespace pdxpartyparrot.Core.Actors
 
         [SerializeField]
         [ReadOnly]
+        private bool _initialized;
+
+        public bool IsInitialized => _initialized;
+
+        [SerializeField]
+        [ReadOnly]
+        [CanBeNull]
         protected ActorBehaviorData _behaviorData;
 
+        [CanBeNull]
         public ActorBehaviorData BehaviorData => _behaviorData;
 
         [Space(10)]
@@ -103,6 +111,8 @@ namespace pdxpartyparrot.Core.Actors
             IsMoving = false;
 
             Movement.Initialize(behaviorData);
+
+            _initialized = true;
         }
 
         // called by the ActorManager
@@ -158,6 +168,7 @@ namespace pdxpartyparrot.Core.Actors
 
         protected virtual void OnDeSpawnComplete()
         {
+            _initialized = false;
         }
 
         public virtual void CollisionEnter(GameObject collideObject)
