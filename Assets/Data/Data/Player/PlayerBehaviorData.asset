@@ -19,12 +19,9 @@ MonoBehaviour:
   _drag: 0
   _angularDrag: 0
   _isKinematic: 0
-  _collisionCheckLayerMask:
-    serializedVersion: 2
-    m_Bits: 16384
-  _moveSpeed: 10
+  _moveSpeed: 2.5
   _runThreshold: 0.75
-  _fallSpeedAdjustment: 200
+  _fallSpeedAdjustment: 45
   _terminalVelocity: 50
   _allowAirControl: 1
   _moveXAxisParam: InputX

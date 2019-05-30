@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad13f993bdb870d4c91aa1a45baea8e6, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  _viewerLayer:
+  _viewerLayerMask:
     serializedVersion: 2
     m_Bits: 2048
-  _worldLayer:
+  _worldLayerMask:
     serializedVersion: 2
     m_Bits: 81920
   _viewportSize: 10
@@ -23,5 +23,5 @@ MonoBehaviour:
   _gamepadsArePlayers: 0
   _viewerPrefab: {fileID: 2497336713870233231, guid: 8f9cf1c99fdb6014bb247a94b682c556,
     type: 3}
-  _viewerPosition: {x: 0, y: 5, z: -15}
+  _viewerPosition: {x: 0, y: 1.5, z: -5}
   _viewerRotation: {x: 0, y: 0, z: 0}
