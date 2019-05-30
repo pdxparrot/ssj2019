@@ -7,7 +7,7 @@ namespace pdxpartyparrot.Core.Animation
     public class SpriteAnimationHelper : MonoBehaviour
     {
         [SerializeField]
-        private SpriteRenderer _renderer;
+        private SpriteRenderer[] _renderers;
 
         public void SetFacing(Vector3 direction)
         {
@@ -15,12 +15,9 @@ namespace pdxpartyparrot.Core.Animation
                 return;
             }
 
-            Transform rt = _renderer.transform;
-
-            Vector3 localScale = rt.localScale;
-            localScale.x = Mathf.Abs(localScale.x) * (direction.x < 0 ? -1.0f : 1.0f);
-
-            rt.localScale = localScale;
+            foreach(SpriteRenderer r in _renderers) {
+                r.flipX = direction.x < 0;
+            }
         }
     }
 }

@@ -170,13 +170,11 @@ namespace pdxpartyparrot.Core.Actors
 #if USE_SPINE
             if(null != SpineAnimationHelper) {
                 SpineAnimationHelper.SetFacing(direction);
-                return;
             }
 #endif
 
             if(null != SpriteAnimationHelper) {
                 SpriteAnimationHelper.SetFacing(direction);
-                return;
             }
 
             if(null != Owner.Model) {
