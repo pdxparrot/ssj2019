@@ -4,6 +4,9 @@ namespace pdxpartyparrot.Core.Math
 {
     public static class MathUtil
     {
+        // a less forgiving epsilon than float.Epsilon
+        public const float Epsilon = 0.001f;
+
         public static int WrapMod(int n, int m)
         {
             return (int)WrapMod((float)n, (float)m);

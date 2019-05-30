@@ -162,7 +162,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
             Vector3 origin = GroundCheckCenter;
 
-            int hitCount = Physics.SphereCastNonAlloc(origin, GroundCheckRadius, Vector3.down, _groundCheckHits, _data.GroundCheckLength, Behavior.CharacterBehaviorData.CollisionCheckLayerMask, QueryTriggerInteraction.Ignore);
+            int hitCount = Physics.SphereCastNonAlloc(origin, GroundCheckRadius, Vector3.down, _groundCheckHits, _data.GroundCheckLength, _data.RaycastLayerMask, QueryTriggerInteraction.Ignore);
             if(hitCount < 1) {
                 // no slope if not grounded
                 _groundSlope = 0;

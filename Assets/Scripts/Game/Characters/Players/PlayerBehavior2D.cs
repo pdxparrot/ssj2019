@@ -1,4 +1,5 @@
 ﻿using pdxpartyparrot.Core.Data;
+using pdxpartyparrot.Core.Math;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data.Characters;
 
@@ -31,7 +32,7 @@ namespace pdxpartyparrot.Game.Characters.Players
 
         private void LateUpdate()
         {
-            IsMoving = MoveDirection.sqrMagnitude > 0.001f;
+            IsMoving = MoveDirection.sqrMagnitude > MathUtil.Epsilon;
         }
 
         protected override void FixedUpdate()
@@ -79,14 +80,7 @@ namespace pdxpartyparrot.Game.Characters.Players
                 return;
             }
 
-#if USE_SPINE
-            if(null != AnimationHelper) {
-                AnimationHelper.SetFacing(forward);
-                return;
-            }
-#endif
-
-            // TODO: set facing (set localScale.x)
+            SetFacing(forward);
         }
 
         protected override void PhysicsUpdate(float dt)

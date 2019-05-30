@@ -1,6 +1,7 @@
 ﻿using System;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.Game.Data
 {
@@ -8,14 +9,16 @@ namespace pdxpartyparrot.Game.Data
     public abstract class GameData : ScriptableObject
     {
         [SerializeField]
-        private LayerMask _viewerLayer;
+        [FormerlySerializedAs("_viewerLayer")]
+        private LayerMask _viewerLayerMask;
 
-        public LayerMask ViewerLayer => _viewerLayer;
+        public LayerMask ViewerLayerMask => _viewerLayerMask;
 
         [SerializeField]
-        private LayerMask _worldLayer;
+        [FormerlySerializedAs("_worldLayer")]
+        private LayerMask _worldLayerMask;
 
-        public LayerMask WorldLayer => _worldLayer;
+        public LayerMask WorldLayerMask => _worldLayerMask;
 
         [Space(10)]
 

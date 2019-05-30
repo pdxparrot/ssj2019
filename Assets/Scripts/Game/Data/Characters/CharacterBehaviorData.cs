@@ -9,13 +9,6 @@ namespace pdxpartyparrot.Game.Data.Characters
     [Serializable]
     public abstract class CharacterBehaviorData : ActorBehaviorData
     {
-        [SerializeField]
-        private LayerMask _collisionCheckLayerMask;
-
-        public LayerMask CollisionCheckLayerMask => _collisionCheckLayerMask;
-
-        [Space(10)]
-
 #region Physics
         [Header("Character Physics")]
 

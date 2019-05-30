@@ -57,11 +57,18 @@ namespace pdxpartyparrot.Core.Actors
 #if USE_SPINE
         [SerializeField]
         [CanBeNull]
-        private SpineAnimationHelper _animationHelper;
+        private SpineAnimationHelper _spineAnimationHelper;
 
         [CanBeNull]
-        public SpineAnimationHelper AnimationHelper => _animationHelper;
+        public SpineAnimationHelper SpineAnimationHelper => _spineAnimationHelper;
 #endif
+
+        [SerializeField]
+        [CanBeNull]
+        private SpriteAnimationHelper _spriteAnimationHelper;
+
+        [CanBeNull]
+        public SpriteAnimationHelper SpriteAnimationHelper => _spriteAnimationHelper;
 
         [SerializeField]
         [CanBeNull]
@@ -158,6 +165,25 @@ namespace pdxpartyparrot.Core.Actors
         {
         }
 
+        protected void SetFacing(Vector3 direction)
+        {
+#if USE_SPINE
+            if(null != SpineAnimationHelper) {
+                SpineAnimationHelper.SetFacing(direction);
+                return;
+            }
+#endif
+
+            if(null != SpriteAnimationHelper) {
+                SpriteAnimationHelper.SetFacing(direction);
+                return;
+            }
+
+            if(null != Owner.Model) {
+                Owner.Model.transform.forward = direction;
+            }
+        }
+
 #region Events
         public virtual void OnSpawn(SpawnPoint spawnpoint)
         {
@@ -232,8 +258,8 @@ namespace pdxpartyparrot.Core.Actors
             }
 
 #if USE_SPINE
-            if(AnimationHelper != null) {
-                AnimationHelper.Pause(PartyParrotManager.Instance.IsPaused);
+            if(SpineAnimationHelper != null) {
+                SpineAnimationHelper.Pause(PartyParrotManager.Instance.IsPaused);
             }
 #endif
 

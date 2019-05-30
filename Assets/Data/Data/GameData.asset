@@ -17,7 +17,7 @@ MonoBehaviour:
     m_Bits: 2048
   _worldLayer:
     serializedVersion: 2
-    m_Bits: 16384
+    m_Bits: 81920
   _viewportSize: 10
   _maxLocalPlayers: 4
   _gamepadsArePlayers: 0

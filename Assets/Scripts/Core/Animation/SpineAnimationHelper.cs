@@ -1,4 +1,6 @@
 ﻿#if USE_SPINE
+using pdxpartyparrot.Core.Math;
+
 using Spine;
 using Spine.Unity;
 
@@ -33,6 +35,12 @@ namespace pdxpartyparrot.Core.Animation
 
         public void SetFacing(Vector3 direction)
         {
+            if(Mathf.Abs(direction.x) < MathUtil.Epsilon) {
+                return;
+            }
+
+            // TODO: if the skeleton is scaled, does this unscale it?
+            // if so, we might have to take the Abs() first
             _animation.Skeleton.ScaleX = direction.x < 0 ? -1.0f : 1.0f;
         }
     }

@@ -9,6 +9,11 @@ namespace pdxpartyparrot.Game.Data.Characters.BehaviorComponents
     public class GroundCheckBehaviorComponentData : CharacterBehaviorComponentData
     {
         [SerializeField]
+        private LayerMask _raycastLayerMask;
+
+        public LayerMask RaycastLayerMask => _raycastLayerMask;
+
+        [SerializeField]
         [Range(0, 1)]
         [Tooltip("How often to run raycast checks, in seconds")]
         private float _raycastRoutineRate = 0.1f;
