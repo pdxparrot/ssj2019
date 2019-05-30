@@ -79,11 +79,11 @@ namespace pdxpartyparrot.Game.Characters
 
         public void Redirect(Vector3 velocity)
         {
-            Debug.Log($"Redirecting player {CharacterBehavior3D.Owner3D.Id}: {velocity}");
+            Debug.Log($"Redirecting player {CharacterBehavior3D.Owner.Id}: {velocity}");
 
             // unwind all of the rotations
-            if(null != CharacterBehavior3D.Owner3D.Model) {
-                Transform modelTransform = CharacterBehavior3D.Owner3D.Model.transform;
+            if(null != CharacterBehavior3D.Owner.Model) {
+                Transform modelTransform = CharacterBehavior3D.Owner.Model.transform;
                 modelTransform.localRotation = Quaternion.Euler(0.0f, modelTransform.localEulerAngles.y, 0.0f);
             }
             Rotation = Quaternion.Euler(0.0f, CharacterBehavior3D.Owner.transform.eulerAngles.y, 0.0f);
@@ -121,7 +121,7 @@ namespace pdxpartyparrot.Game.Characters
             AddRelativeTorque(Vector3.up * AngularThrust * direction.x, ForceMode.Force);
 #endif
 
-            Transform ownerTransform = CharacterBehavior3D.Owner3D.transform;
+            Transform ownerTransform = CharacterBehavior3D.Owner.transform;
 
             // adding a force opposite our current x velocity should help stop us drifting
             Vector3 relativeVelocity = ownerTransform.InverseTransformDirection(Velocity);

@@ -57,7 +57,7 @@ namespace pdxpartyparrot.Core.Actors
             get => _rigidbody.position;
             set
             {
-                Debug.Log($"Teleporting actor {Behavior2D.Owner2D.Id} to {value}");
+                Debug.Log($"Teleporting actor {Behavior.Owner.Id} to {value}");
                 _rigidbody.position = value;
             }
         }

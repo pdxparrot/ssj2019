@@ -54,11 +54,11 @@ namespace pdxpartyparrot.Core.Actors
                 return;
             }
 
-            Debug.Log($"Starting manual animation from {Behavior3D.Movement3D.Position}:{Behavior3D.Movement3D.Rotation} to {targetPosition}:{targetRotation} over {timeSeconds} seconds");
+            Debug.Log($"Starting manual animation from {Behavior3D.Movement.Position}:{Behavior3D.Movement3D.Rotation} to {targetPosition}:{targetRotation} over {timeSeconds} seconds");
 
             _animationState.IsAnimating = true;
 
-            _animationState.StartPosition = Behavior3D.Movement3D.Position;
+            _animationState.StartPosition = Behavior3D.Movement.Position;
             _animationState.EndPosition = targetPosition;
 
             _animationState.StartRotation = Behavior3D.Movement3D.Rotation;
@@ -67,8 +67,8 @@ namespace pdxpartyparrot.Core.Actors
             _animationState.AnimationSeconds = timeSeconds;
             _animationState.AnimationSecondsRemaining = timeSeconds;
 
-            _animationState.IsKinematic = Behavior3D.Movement3D.IsKinematic;
-            Behavior3D.Movement3D.IsKinematic = true;
+            _animationState.IsKinematic = Behavior3D.Movement.IsKinematic;
+            Behavior3D.Movement.IsKinematic = true;
 
             _animationState.OnComplete = onComplete;
         }
@@ -86,9 +86,9 @@ namespace pdxpartyparrot.Core.Actors
 
                     _animationState.IsAnimating = false;
 
-                    Behavior3D.Movement3D.Position = _animationState.EndPosition;
+                    Behavior3D.Movement.Position = _animationState.EndPosition;
                     Behavior3D.Movement3D.Rotation = _animationState.EndRotation;
-                    Behavior3D.Movement3D.IsKinematic = _animationState.IsKinematic;
+                    Behavior3D.Movement.IsKinematic = _animationState.IsKinematic;
 
                     _animationState.OnComplete?.Invoke();
                     _animationState.OnComplete = null;
@@ -101,7 +101,7 @@ namespace pdxpartyparrot.Core.Actors
                     _animationState.AnimationSecondsRemaining = 0.0f;
                 }
 
-                Behavior3D.Movement3D.Position = Vector3.Slerp(_animationState.StartPosition, _animationState.EndPosition, _animationState.PercentComplete);
+                Behavior3D.Movement.Position = Vector3.Slerp(_animationState.StartPosition, _animationState.EndPosition, _animationState.PercentComplete);
                 Behavior3D.Movement3D.Rotation = Quaternion.Slerp(_animationState.StartRotation, _animationState.EndRotation, _animationState.PercentComplete);
             } finally {
                 Profiler.EndSample();

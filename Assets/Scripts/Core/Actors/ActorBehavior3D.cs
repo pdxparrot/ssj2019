@@ -6,8 +6,6 @@ namespace pdxpartyparrot.Core.Actors
 {
     public class ActorBehavior3D : ActorBehavior
     {
-        public Actor3D Owner3D => (Actor3D)Owner;
-
         public ActorMovement3D Movement3D => (ActorMovement3D)Movement;
 
         [CanBeNull]
