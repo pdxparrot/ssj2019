@@ -8,8 +8,10 @@ namespace pdxpartyparrot.Game.Menu
 {
     public sealed class PauseMenu : MenuPanel
     {
+#region Settings
         [SerializeField]
         private SettingsMenu _settingsMenu;
+#endregion
 
 #region Unity Lifecycle
         private void Awake()

@@ -6,15 +6,15 @@ namespace pdxpartyparrot.Game.Menu
     {
 #region Event Handlers
         // TODO: these methods take in the main game state now
-        /*public void OnHost()
+        public void OnHost()
         {
-            GameStateManager.Instance.StartHost();
+            //GameStateManager.Instance.StartHost();
         }
 
         public void OnJoin()
         {
-            GameStateManager.Instance.StartJoin();
-        }*/
+            //GameStateManager.Instance.StartJoin();
+        }
 #endregion
     }
 }

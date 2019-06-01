@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
+
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
@@ -10,11 +13,24 @@ namespace pdxpartyparrot.Game.Data
     public sealed class CreditsData : ScriptableObject
     {
         [Serializable]
-        public struct Credits
+        public class Credits
         {
-            public string title;
+            [SerializeField]
+            private string _title;
 
-            public string[] contributors;
+            public string Title => _title;
+
+            // TODO: this can't be a ReorderableListString for some reason :(
+            // the UI treats all of the sub-lists as the same list, not sure why
+            [SerializeField]
+            private string[] _contributors;
+
+            public IReadOnlyCollection<string> Contributors => _contributors;
+        }
+
+        [Serializable]
+        public class ReorderableListCredits : ReorderableList<Credits>
+        {
         }
 
         [SerializeField]
@@ -22,7 +38,8 @@ namespace pdxpartyparrot.Game.Data
         private string _preAmble;
 
         [SerializeField]
-        private Credits[] _credits;
+        [ReorderableList]
+        private ReorderableListCredits _credits = new ReorderableListCredits();
 
         [SerializeField]
         [TextArea]
@@ -39,9 +56,9 @@ namespace pdxpartyparrot.Game.Data
             builder.AppendLine($"<size=36><align=\"center\">{Application.productName}</align></size>");
             builder.AppendLine(); builder.AppendLine();
 
-            foreach(Credits credits in _credits) {
-                builder.AppendLine($"<size=24><align=\"center\">{credits.title}</align></size>");
-                foreach(string contributor in credits.contributors) {
+            foreach(Credits credits in _credits.Items) {
+                builder.AppendLine($"<size=24><align=\"center\">{credits.Title}</align></size>");
+                foreach(string contributor in credits.Contributors) {
                     builder.AppendLine($"<size=18><align=\"center\"><pos=5>{contributor}</pos></align></size>");
                 }
                 builder.AppendLine();

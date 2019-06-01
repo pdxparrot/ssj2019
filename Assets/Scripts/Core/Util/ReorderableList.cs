@@ -11,7 +11,7 @@ namespace pdxpartyparrot.Core.Util
         [SerializeField]
         private List<T> _items = new List<T>();
 
-        public List<T> Items => _items;
+        public IReadOnlyCollection<T> Items => _items;
     }
 
     [Serializable]
