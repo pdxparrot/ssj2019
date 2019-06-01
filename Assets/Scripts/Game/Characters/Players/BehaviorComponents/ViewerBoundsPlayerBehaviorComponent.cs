@@ -25,7 +25,7 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 
         [SerializeField]
         [ReadOnly]
-        private Vector2 _lastPosition;
+        private Vector3 _lastPosition;
 
         public override void Initialize(CharacterBehavior behavior)
         {
