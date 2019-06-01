@@ -32,7 +32,7 @@ namespace pdxpartyparrot.Game.Characters
 #region Unity Lifecycle
         protected override void Awake()
         {
-            Assert.IsTrue(Behavior is CharacterBehavior3D);
+            Assert.IsTrue(Behavior is CharacterBehavior);
             Assert.IsNotNull(_data);
 
             base.Awake();

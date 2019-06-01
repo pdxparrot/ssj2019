@@ -65,7 +65,7 @@ namespace pdxpartyparrot.Game.Players
 #region Unity Lifecycle
         protected virtual void Awake()
         {
-            Assert.IsTrue(_playerBehaviorData is IPlayerBehaviorData);
+            Assert.IsTrue(_playerBehaviorData is PlayerBehaviorData);
 
             _playerContainer = new GameObject("Players");
 

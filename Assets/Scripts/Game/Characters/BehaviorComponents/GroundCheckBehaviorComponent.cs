@@ -3,6 +3,7 @@ using System.Collections;
 
 using JetBrains.Annotations;
 
+using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data.Characters.BehaviorComponents;
@@ -12,7 +13,7 @@ using UnityEngine.Profiling;
 
 namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 {
-    public sealed class GroundCheckBehaviorComponent2D : CharacterBehaviorComponent2D
+    public sealed class GroundCheckBehaviorComponent : CharacterBehaviorComponent
     {
 #region Events
         public event EventHandler<EventArgs> SlopeLimitEvent;
@@ -51,7 +52,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         private float GroundCheckRadius => Behavior.Owner.Height - 0.1f;
 
-        private Vector3 GroundCheckCenter => Behavior.Movement2D.Position + (GroundCheckRadius * Vector3.up);
+        private Vector3 GroundCheckCenter => Behavior.Movement.Position + (GroundCheckRadius * Vector3.up);
 
         private Coroutine _raycastCoroutine;
 
@@ -83,9 +84,9 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         }
 #endregion
 
-        public override void Initialize()
+        public override void Initialize(CharacterBehavior behavior)
         {
-            base.Initialize();
+            base.Initialize(behavior);
 
             StartRoutine();
         }
@@ -112,14 +113,16 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
                 return;
             }
 
-            if(Behavior.IsInitialized && !Behavior.CharacterBehaviorData.IsKinematic) {
+            if(null != Behavior && !Behavior.CharacterBehaviorData.IsKinematic) {
                 _raycastCoroutine = StartCoroutine(RaycastRoutine());
             }
         }
 
         private IEnumerator RaycastRoutine()
         {
-            Debug.Log($"Starting ground check raycast routine for {Behavior.Owner.Id}");
+            if(ActorManager.Instance.EnableDebug) {
+                Debug.Log($"Starting ground check raycast routine for {Behavior.Owner.Id}");
+            }
 
             WaitForSeconds wait = new WaitForSeconds(_data.RaycastRoutineRate);
             while(true) {
@@ -131,13 +134,13 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         private void UpdateIsGrounded()
         {
-            Profiler.BeginSample("CharacterBehaviorGroundedChecker.UpdateIsGrounded");
+            Profiler.BeginSample("GroundCheckBehaviorComponent.UpdateIsGrounded");
             try {
                 bool wasGrounded = Behavior.IsGrounded;
 
                 _didGroundCheckCollide = CheckIsGrounded(out _groundCheckMinDistance);
 
-                if(Behavior.Movement2D.IsKinematic) {
+                if(Behavior.Movement.IsKinematic) {
                     // something else is handling this case?
                 } else {
                     Behavior.IsGrounded = _didGroundCheckCollide && _groundCheckMinDistance < _data.GroundedEpsilon;

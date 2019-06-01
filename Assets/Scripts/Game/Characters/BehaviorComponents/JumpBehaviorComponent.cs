@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 {
-    public sealed class JumpBehaviorComponent3D : CharacterBehaviorComponent3D
+    public sealed class JumpBehaviorComponent : CharacterBehaviorComponent
     {
 #region Actions
         public class JumpAction : CharacterBehaviorAction
@@ -40,7 +40,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
                 return false;
             }
 
-            Behavior.CharacterMovement3D.Jump(_data.JumpHeight);
+            Behavior.CharacterMovement.Jump(_data.JumpHeight);
             if(null != _jumpEffect) {
                 _jumpEffect.Trigger();
             }

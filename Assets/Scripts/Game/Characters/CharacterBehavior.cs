@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 using JetBrains.Annotations;
@@ -15,18 +15,18 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Game.Characters
 {
-    public abstract class CharacterBehavior2D : ActorBehavior2D
+    public abstract class CharacterBehavior : ActorBehavior
     {
-        public CharacterMovement2D CharacterMovement2D => (CharacterMovement2D)Movement2D;
+        public ICharacterMovement CharacterMovement => (ICharacterMovement)Movement;
 
         [CanBeNull]
-        public CharacterBehaviorData2D CharacterBehaviorData => (CharacterBehaviorData2D)BehaviorData;
+        public CharacterBehaviorData CharacterBehaviorData => (CharacterBehaviorData)BehaviorData;
 
         [Header("Components")]
 
         [SerializeField]
         [ReorderableList]
-        private CharacterBehaviorComponent2D.ReorderableList _components = new CharacterBehaviorComponent2D.ReorderableList();
+        private CharacterBehaviorComponent.ReorderableList _components = new CharacterBehaviorComponent.ReorderableList();
 
         [Space(10)]
 
@@ -53,7 +53,7 @@ namespace pdxpartyparrot.Game.Characters
             set => _isSliding = value;
         }
 
-        public bool IsFalling => CharacterMovement2D.UseGravity && (!IsGrounded && !IsSliding && CharacterMovement2D.Velocity.y < 0.0f);
+        public bool IsFalling => Movement.UseGravity && (!IsGrounded && !IsSliding && Movement.Velocity.y < 0.0f);
 #endregion
 
         public override bool CanMove => base.CanMove && !GameStateManager.Instance.GameManager.IsGameOver;
@@ -61,7 +61,7 @@ namespace pdxpartyparrot.Game.Characters
 #region Unity Lifecycle
         protected override void Awake()
         {
-            Assert.IsTrue(Movement2D is CharacterMovement2D);
+            Assert.IsTrue(Movement is CharacterMovement3D);
 
             base.Awake();
         }
@@ -78,12 +78,12 @@ namespace pdxpartyparrot.Game.Characters
 
         public override void Initialize(ActorBehaviorData behaviorData)
         {
-            Assert.IsTrue(behaviorData is CharacterBehaviorData2D);
+            Assert.IsTrue(behaviorData is CharacterBehaviorData);
 
             base.Initialize(behaviorData);
 
-            foreach(CharacterBehaviorComponent2D component in _components.Items) {
-                component.Initialize();
+            foreach(CharacterBehaviorComponent component in _components.Items) {
+                component.Initialize(this);
             }
         }
 
@@ -113,7 +113,7 @@ namespace pdxpartyparrot.Game.Characters
 
         public void RunOnComponents(Func<CharacterBehaviorComponent, bool> f)
         {
-            foreach(CharacterBehaviorComponent2D component in _components.Items) {
+            foreach(CharacterBehaviorComponent component in _components.Items) {
                 if(f(component)) {
                     return;
                 }

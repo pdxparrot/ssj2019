@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+
+using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.Util;
+
+using UnityEngine;
 
 namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 {
@@ -6,6 +12,14 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
     {
 // TODO: if subclasses could register for specific action types (and we keep a dictionary ActionType => Listener)
 // then that would work out a lot faster and cleaner than how this is currently done
+
+        [Serializable]
+        public class ReorderableList : ReorderableList<CharacterBehaviorComponent>
+        {
+        }
+
+        [CanBeNull]
+        protected CharacterBehavior Behavior { get; private set; }
 
 #region Actions
         public abstract class CharacterBehaviorAction
@@ -23,8 +37,9 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         }
 #endregion
 
-        public virtual void Initialize()
+        public virtual void Initialize(CharacterBehavior behavior)
         {
+            Behavior = behavior;
         }
 
         public virtual bool OnAnimationUpdate(float dt)

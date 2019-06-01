@@ -1,15 +1,28 @@
 ﻿using pdxpartyparrot.Game.Data.Characters;
 
+using UnityEngine.Assertions;
+
 namespace pdxpartyparrot.Game.Characters.NPCs
 {
-    public interface INPCBehavior
+    public abstract class NPCBehavior : CharacterBehavior
     {
-        NPCBehaviorData NPCBehaviorData { get; }
+        public NPCBehaviorData NPCBehaviorData => (NPCBehaviorData)BehaviorData;
 
-        INPC NPC { get; }
+        public INPC NPC => (INPC)Owner;
+
+#region Unity Lifecycle
+        protected override void Awake()
+        {
+            base.Awake();
+
+            Assert.IsTrue(Owner is INPC);
+        }
+#endregion
 
 #region Events
-        void OnRecycle();
+        public virtual void OnRecycle()
+        {
+        }
 #endregion
     }
 }

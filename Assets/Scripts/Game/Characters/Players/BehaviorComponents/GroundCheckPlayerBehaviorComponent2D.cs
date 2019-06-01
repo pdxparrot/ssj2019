@@ -6,17 +6,17 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 {
-    [RequireComponent(typeof(GroundCheckBehaviorComponent2D))]
+    [RequireComponent(typeof(GroundCheckBehaviorComponent))]
     public sealed class GroundCheckPlayerBehaviorComponent2D : PlayerBehaviorComponent2D
     {
-        private GroundCheckBehaviorComponent2D _groundChecker;
+        private GroundCheckBehaviorComponent _groundChecker;
 
 #region Unity Lifecycle
         protected override void Awake()
         {
             base.Awake();
 
-            _groundChecker = GetComponent<GroundCheckBehaviorComponent2D>();
+            _groundChecker = GetComponent<GroundCheckBehaviorComponent>();
             _groundChecker.SlopeLimitEvent += SlopeLimitEventHandler;
         }
 #endregion

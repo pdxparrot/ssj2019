@@ -8,8 +8,8 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 {
-    [RequireComponent(typeof(JumpBehaviorComponent3D))]
-    public sealed class DoubleJumpBehaviorComponent3D : CharacterBehaviorComponent3D
+    [RequireComponent(typeof(JumpBehaviorComponent))]
+    public sealed class DoubleJumpBehaviorComponent : CharacterBehaviorComponent
     {
         [SerializeField]
         private DoubleJumpBehaviorComponentData _data;
@@ -48,7 +48,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 #region Actions
         public override bool OnPerformed(CharacterBehaviorAction action)
         {
-            if(!(action is JumpBehaviorComponent3D.JumpAction)) {
+            if(!(action is JumpBehaviorComponent.JumpAction)) {
                 return false;
             }
 
@@ -56,7 +56,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
                 return false;
             }
 
-            Behavior.CharacterMovement3D.Jump(_data.DoubleJumpHeight);
+            Behavior.CharacterMovement.Jump(_data.DoubleJumpHeight);
             if(null != _doubleJumpEffect) {
                 _doubleJumpEffect.Trigger();
             }

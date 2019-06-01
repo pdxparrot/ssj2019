@@ -1,22 +1,18 @@
 ﻿using pdxpartyparrot.Game.Characters.BehaviorComponents;
 
-using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 {
-    [RequireComponent(typeof(PlayerBehavior3D))]
-    public abstract class PlayerBehaviorComponent3D : CharacterBehaviorComponent3D
+    public abstract class PlayerBehaviorComponent3D : CharacterBehaviorComponent
     {
         protected PlayerBehavior3D PlayerBehavior => (PlayerBehavior3D)Behavior;
 
-#region Unity Lifecycle
-        protected override void Awake()
+        public override void Initialize(CharacterBehavior behavior)
         {
-            base.Awake();
+            Assert.IsTrue(behavior is PlayerBehavior3D);
 
-            Assert.IsTrue(Behavior is PlayerBehavior3D);
+            base.Initialize(behavior);
         }
-#endregion
     }
 }

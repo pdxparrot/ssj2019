@@ -12,9 +12,11 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
         Guid Id { get; }
 
+        bool IsLocalActor { get; }
+
         ActorBehavior Behavior { get; }
 
-        INPCBehavior NPCBehavior { get; }
+        NPCBehavior NPCBehavior { get; }
 
         void Recycle();
     }

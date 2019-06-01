@@ -20,7 +20,6 @@ using UnityEngine.Networking;
 namespace pdxpartyparrot.Game.Characters.Players
 {
     [RequireComponent(typeof(Game.Players.NetworkPlayer))]
-    [RequireComponent(typeof(Rigidbody2D))]
     public abstract class Player2D : Actor2D, IPlayer
     {
         public GameObject GameObject => gameObject;
@@ -41,7 +40,8 @@ namespace pdxpartyparrot.Game.Characters.Players
 
         public PlayerDriver PlayerDriver => _driver;
 
-        public IPlayerBehavior PlayerBehavior => (PlayerBehavior2D)Behavior;
+        [CanBeNull]
+        public PlayerBehavior PlayerBehavior => (PlayerBehavior)Behavior;
 #endregion
 
 #region Viewer
@@ -62,7 +62,7 @@ namespace pdxpartyparrot.Game.Characters.Players
         {
             base.Awake();
 
-            Assert.IsTrue(Behavior is PlayerBehavior2D);
+            Assert.IsTrue(Behavior is PlayerBehavior);
         }
 
         protected override void OnDestroy()
@@ -78,7 +78,7 @@ namespace pdxpartyparrot.Game.Characters.Players
 
         public override void Initialize(Guid id, ActorBehaviorData behaviorData)
         {
-            Assert.IsTrue(behaviorData is PlayerBehaviorData2D);
+            Assert.IsTrue(behaviorData is PlayerBehaviorData);
 
             base.Initialize(id, behaviorData);
 

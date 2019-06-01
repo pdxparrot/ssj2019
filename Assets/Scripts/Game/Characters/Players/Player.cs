@@ -19,7 +19,7 @@ namespace pdxpartyparrot.Game.Characters.Players
 
         ActorBehavior Behavior { get; }
 
-        IPlayerBehavior PlayerBehavior { get; }
+        PlayerBehavior PlayerBehavior { get; }
 
         Viewer Viewer { get; }
     }

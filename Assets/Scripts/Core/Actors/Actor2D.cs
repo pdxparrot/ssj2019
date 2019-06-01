@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Core.Actors
 {
@@ -19,8 +18,6 @@ namespace pdxpartyparrot.Core.Actors
         protected override void Awake()
         {
             base.Awake();
-
-            Assert.IsTrue(Behavior is ActorBehavior2D);
 
             Collider = GetComponent<Collider2D>();
         }

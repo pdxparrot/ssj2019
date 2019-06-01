@@ -1,48 +1,20 @@
-﻿using pdxpartyparrot.Core.Data;
-using pdxpartyparrot.Core.Util;
-using pdxpartyparrot.Game.Data.Characters;
-
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Game.Characters.Players
 {
-    public abstract class PlayerFlightBehavior3D : CharacterBehavior3D, IPlayerBehavior
+    public abstract class PlayerFlightBehavior3D : PlayerBehavior3D
     {
-        private CharacterFlightMovement3D CharacterFlightMovement3D => (CharacterFlightMovement3D)Movement3D;
-
-        [SerializeField]
-        [ReadOnly]
-        private Vector3 _moveDirection;
-
-        public Vector3 MoveDirection => _moveDirection;
-
-        public IPlayerBehaviorData PlayerBehaviorData => (IPlayerBehaviorData)BehaviorData;
-
-        public IPlayer Player => (IPlayer)Owner;
+        private CharacterFlightMovement3D CharacterFlightMovement3D => (CharacterFlightMovement3D)Movement;
 
 #region Unity Lifecycle
         protected override void Awake()
         {
             base.Awake();
 
-            Assert.IsTrue(BehaviorData is PlayerBehaviorData3D);
-            Assert.IsTrue(Owner is IPlayer);
-            Assert.IsTrue(Movement3D is CharacterFlightMovement3D);
+            Assert.IsTrue(Movement is CharacterFlightMovement3D);
         }
 #endregion
-
-        public override void Initialize(ActorBehaviorData behaviorData)
-        {
-            base.Initialize(behaviorData);
-
-            _moveDirection = Vector3.zero;
-        }
-
-        public void SetMoveDirection(Vector3 moveDirection)
-        {
-            _moveDirection = Vector3.ClampMagnitude(moveDirection, 1.0f);
-        }
 
         protected override void AnimationUpdate(float dt)
         {

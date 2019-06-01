@@ -104,6 +104,7 @@ namespace pdxpartyparrot.Core.Actors
         {
             Rotation = Quaternion.identity;
             Velocity = Vector3.zero;
+            ResetAngularVelocity();
         }
 
         protected virtual void ResetFromData(ActorBehaviorData behaviorData)
@@ -113,6 +114,11 @@ namespace pdxpartyparrot.Core.Actors
             AngularDrag = behaviorData.AngularDrag;
             IsKinematic = behaviorData.IsKinematic;
             UseGravity = !behaviorData.IsKinematic;
+        }
+
+        public virtual void ResetAngularVelocity()
+        {
+            // TODO
         }
 
         public virtual void Teleport(Vector3 position)
@@ -132,6 +138,16 @@ namespace pdxpartyparrot.Core.Actors
         public virtual void MoveRotation(Quaternion rot)
         {
             _transform.rotation = rot;
+        }
+
+        public virtual void AddForce(Vector3 force)
+        {
+            // TODO
+        }
+
+        public virtual void AddImpulse(Vector3 force)
+        {
+            // TODO
         }
 
 #region Event Handlers

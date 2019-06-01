@@ -7,8 +7,8 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 {
-    [RequireComponent(typeof(JumpBehaviorComponent3D))]
-    public sealed class HoverBehaviorComponent3D : CharacterBehaviorComponent3D
+    [RequireComponent(typeof(JumpBehaviorComponent))]
+    public sealed class HoverBehaviorComponent : CharacterBehaviorComponent
     {
 #region Actions
         public class HoverAction : CharacterBehaviorAction
@@ -49,9 +49,9 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 #region Unity Lifecycle
         protected override void Awake()
         {
-            _cooldownTimer = TimeManager.Instance.AddTimer();
-
             base.Awake();
+
+            _cooldownTimer = TimeManager.Instance.AddTimer();
         }
 
         protected override void OnDestroy()
@@ -111,7 +111,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
             Vector3 acceleration = (_data.HoverAcceleration + Behavior.CharacterBehaviorData.FallSpeedAdjustment) * Vector3.up;
             // TODO: this probably needs to be * or / mass since it's ForceMode.Force instead of ForceMode.Acceleration
-            Behavior.Movement3D.AddForce(acceleration, ForceMode.Force);
+            Behavior.Movement.AddForce(acceleration);
 
             return false;
         }
@@ -135,7 +135,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         // NOTE: we want to consume jump actions if we're hovering
         public override bool OnPerformed(CharacterBehaviorAction action)
         {
-            if(!(action is JumpBehaviorComponent3D.JumpAction)) {
+            if(!(action is JumpBehaviorComponent.JumpAction)) {
                 return false;
             }
 
@@ -170,7 +170,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
             }
 
             // stop all vertical movement immediately
-            Behavior.Movement3D.Velocity = new Vector3(Behavior.Movement3D.Velocity.x, 0.0f, Behavior.Movement3D.Velocity.z);
+            Behavior.Movement.Velocity = new Vector3(Behavior.Movement.Velocity.x, 0.0f, Behavior.Movement.Velocity.z);
         }
 
         public void StopHovering()

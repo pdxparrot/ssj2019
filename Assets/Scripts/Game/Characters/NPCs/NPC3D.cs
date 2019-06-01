@@ -12,7 +12,6 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Game.Characters.NPCs
 {
-    [RequireComponent(typeof(Rigidbody))]
     public abstract class NPC3D : Actor3D, INPC
     {
         public GameObject GameObject => gameObject;
@@ -22,7 +21,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 #endregion
 
 #region Behavior
-        public INPCBehavior NPCBehavior => (NPCBehavior3D)Behavior;
+        public NPCBehavior NPCBehavior => (NPCBehavior)Behavior;
 #endregion
 
         [CanBeNull]
@@ -33,7 +32,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         {
             base.Awake();
 
-            Assert.IsTrue(Behavior is NPCBehavior3D);
+            Assert.IsTrue(Behavior is NPCBehavior);
 
             _pooledObject = GetComponent<PooledObject>();
             if(null != _pooledObject) {

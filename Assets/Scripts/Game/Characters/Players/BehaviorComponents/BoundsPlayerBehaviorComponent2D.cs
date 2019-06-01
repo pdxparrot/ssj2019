@@ -26,7 +26,7 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 
         public void Initialize(GameData gameData)
         {
-            Assert.IsTrue(Behavior.Movement2D.IsKinematic);
+            Assert.IsTrue(Behavior.Movement.IsKinematic);
 
             float aspectRatio = Screen.width / (float)Screen.height;
             _viewportSize = new Vector2(gameData.ViewportSize * aspectRatio, gameData.ViewportSize);
@@ -35,8 +35,8 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 
         public override bool OnPhysicsUpdate(float dt)
         {
-            _lastVelocity = PlayerBehavior.MoveDirection * PlayerBehavior.PlayerBehaviorData2D.MoveSpeed;
-            _lastPosition = Behavior.Movement2D.Position + _lastVelocity * dt;
+            _lastVelocity = PlayerBehavior.MoveDirection * PlayerBehavior.PlayerBehaviorData.MoveSpeed;
+            _lastPosition = Behavior.Movement.Position + _lastVelocity * dt;
 
             // x-bounds
             if(_lastPosition.x + _ownerHalfSize.x > _viewportSize.x) {
@@ -52,7 +52,7 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
                 _lastPosition.y = -_viewportSize.y + _ownerHalfSize.y;
             }
 
-            Behavior.Movement2D.Teleport(_lastPosition);
+            Behavior.Movement.Teleport(_lastPosition);
 
             return true;
         }

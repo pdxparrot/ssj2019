@@ -4,7 +4,6 @@ using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Core.Actors
 {
@@ -128,13 +127,6 @@ namespace pdxpartyparrot.Core.Actors
 #endregion
 
 #region Unity Lifecycle
-        protected override void Awake()
-        {
-            Assert.IsTrue(Behavior is ActorBehavior3D);
-
-            base.Awake();
-        }
-
         protected virtual void LateUpdate()
         {
             _lastVelocity = _rigidbody.velocity;
@@ -146,13 +138,16 @@ namespace pdxpartyparrot.Core.Actors
         {
             base.Initialize(behaviorData);
 
-            AngularVelocity = Vector3.zero;
-
             InitRigidbody(_rigidbody, behaviorData);
         }
 
         protected virtual void InitRigidbody(Rigidbody rb, ActorBehaviorData behaviorData)
         {
+        }
+
+        public override void ResetAngularVelocity()
+        {
+            AngularVelocity = Vector3.zero;
         }
 
         public override void Teleport(Vector3 position)
@@ -172,6 +167,16 @@ namespace pdxpartyparrot.Core.Actors
         public override void MoveRotation(Quaternion rot)
         {
             _rigidbody.MoveRotation(rot);
+        }
+
+        public override void AddForce(Vector3 force)
+        {
+            AddForce(force, ForceMode.Force);
+        }
+
+        public override void AddImpulse(Vector3 force)
+        {
+            AddForce(force, ForceMode.Impulse);
         }
 
         public void AddForce(Vector3 force, ForceMode mode)

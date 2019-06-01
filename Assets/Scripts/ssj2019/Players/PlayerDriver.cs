@@ -80,7 +80,7 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             if(context.performed) {
-                GamePlayer.GamePlayerBehavior.ActionPerformed(JumpBehaviorComponent3D.JumpAction.Default);
+                GamePlayer.GamePlayerBehavior.ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
             }
         }
 #endregion

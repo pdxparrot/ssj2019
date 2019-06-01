@@ -6,9 +6,9 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Game.Characters
 {
-    public class CharacterMovement2D : ActorMovement2D
+    public class CharacterMovement2D : ActorMovement2D, ICharacterMovement
     {
-        public CharacterBehavior2D CharacterBehavior2D => (CharacterBehavior2D)Behavior;
+        public CharacterBehavior CharacterBehavior => (CharacterBehavior)Behavior;
 
         public override bool UseGravity
         {
@@ -25,7 +25,7 @@ namespace pdxpartyparrot.Game.Characters
 #region Unity Lifecycle
         protected override void Awake()
         {
-            Assert.IsTrue(Behavior is CharacterBehavior2D);
+            Assert.IsTrue(Behavior is CharacterBehavior);
         }
 
         private void FixedUpdate()
@@ -36,7 +36,7 @@ namespace pdxpartyparrot.Game.Characters
 
             // turn off gravity if we're grounded and not moving and not sliding
             // this should stop us sliding down slopes we shouldn't slide down
-            UseGravity = !IsKinematic && (!CharacterBehavior2D.IsGrounded || CharacterBehavior2D.IsMoving || CharacterBehavior2D.IsSliding);
+            UseGravity = !IsKinematic && (!CharacterBehavior.IsGrounded || CharacterBehavior.IsMoving || CharacterBehavior.IsSliding);
         }
 
         protected virtual void OnDrawGizmos()
@@ -64,16 +64,16 @@ namespace pdxpartyparrot.Game.Characters
 
         public virtual void Jump(float height)
         {
-            if(!CharacterBehavior2D.CanMove) {
+            if(!CharacterBehavior.CanMove) {
                 return;
             }
 
             // force physics to a sane state for the first frame of the jump
             UseGravity = true;
-            CharacterBehavior2D.IsGrounded = false;
+            CharacterBehavior.IsGrounded = false;
 
             // factor in fall speed adjust
-            float gravity = -Physics.gravity.y + CharacterBehavior2D.CharacterBehaviorData.FallSpeedAdjustment;
+            float gravity = -Physics.gravity.y + CharacterBehavior.CharacterBehaviorData.FallSpeedAdjustment;
 
             // v = sqrt(2gh)
             Velocity = Vector3.up * Mathf.Sqrt(height * 2.0f * gravity);
@@ -82,18 +82,18 @@ namespace pdxpartyparrot.Game.Characters
         private void FudgeVelocity(float dt)
         {
             Vector3 adjustedVelocity = Velocity;
-            if(CharacterBehavior2D.IsGrounded && !CharacterBehavior2D.IsMoving) {
+            if(CharacterBehavior.IsGrounded && !CharacterBehavior.IsMoving) {
                 // prevent any weird ground adjustment shenanigans
                 // when we're grounded and not moving
                 adjustedVelocity.y = 0.0f;
             } else if(UseGravity) {
                 // do some fudging to jumping/falling so it feels better
-                float adjustment = CharacterBehavior2D.CharacterBehaviorData.FallSpeedAdjustment * dt;
+                float adjustment = CharacterBehavior.CharacterBehaviorData.FallSpeedAdjustment * dt;
                 adjustedVelocity.y -= adjustment;
 
                 // apply terminal velocity
-                if(adjustedVelocity.y < -CharacterBehavior2D.CharacterBehaviorData.TerminalVelocity) {
-                    adjustedVelocity.y = -CharacterBehavior2D.CharacterBehaviorData.TerminalVelocity;
+                if(adjustedVelocity.y < -CharacterBehavior.CharacterBehaviorData.TerminalVelocity) {
+                    adjustedVelocity.y = -CharacterBehavior.CharacterBehaviorData.TerminalVelocity;
                 }
             }
             Velocity = adjustedVelocity;

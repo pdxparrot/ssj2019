@@ -2,7 +2,8 @@
 
 namespace pdxpartyparrot.Game.Data.Characters
 {
-    public interface IPlayerBehaviorData
+    [Serializable]
+    public abstract class PlayerBehaviorData : CharacterBehaviorData
     {
     }
 }
