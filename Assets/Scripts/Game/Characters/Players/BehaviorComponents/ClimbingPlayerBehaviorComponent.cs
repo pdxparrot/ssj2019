@@ -12,7 +12,7 @@ using UnityEngine.Profiling;
 
 namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 {
-    public sealed class ClimbingPlayerBehaviorComponent3D : PlayerBehaviorComponent3D
+    public sealed class ClimbingPlayerBehaviorComponent : PlayerBehaviorComponent
     {
 #region Actions
         public class GrabAction : CharacterBehaviorAction
@@ -411,7 +411,7 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
                 return;
             }
 
-            Profiler.BeginSample("ClimbingPlayerBehaviorComponent3D.UpdateRaycasts");
+            Profiler.BeginSample("ClimbingBehaviorComponent.UpdateRaycasts");
             try {
                 UpdateHandRaycasts();
                 UpdateHeadRaycasts();
@@ -544,7 +544,7 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 
         private void HandleRaycasts()
         {
-            Profiler.BeginSample("ClimbingPlayerBehaviorComponent3D.HandleRaycasts");
+            Profiler.BeginSample("ClimbingBehaviorComponent.HandleRaycasts");
             try {
                 if(IsClimbing) {
                     HandleClimbingRaycasts();
@@ -812,7 +812,7 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 
         private void InitDebugMenu()
         {
-            _debugMenuNode = DebugMenuManager.Instance.AddNode(() => $"Game.Player {Behavior.Owner.Id} Climbing Component");
+            _debugMenuNode = DebugMenuManager.Instance.AddNode(() => $"Character {Behavior.Owner.Id} Climbing Component");
             _debugMenuNode.RenderContentsAction = () => {
                 _breakOnFall = GUILayout.Toggle(_breakOnFall, "Break on fall");
             };

@@ -3,9 +3,9 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Game.Characters.Players
 {
-    public abstract class PlayerFlightBehavior3D : PlayerBehavior3D
+    public abstract class PlayerFlightBehavior3D : PlayerBehavior
     {
-        private CharacterFlightMovement3D CharacterFlightMovement3D => (CharacterFlightMovement3D)Movement;
+        private CharacterFlightMovement3D CharacterFlightMovement3D => (CharacterFlightMovement3D)CharacterMovement;
 
 #region Unity Lifecycle
         protected override void Awake()

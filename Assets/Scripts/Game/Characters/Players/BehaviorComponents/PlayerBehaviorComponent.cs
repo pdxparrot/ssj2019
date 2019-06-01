@@ -4,13 +4,13 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 {
-    public abstract class PlayerBehaviorComponent3D : CharacterBehaviorComponent
+    public abstract class PlayerBehaviorComponent : CharacterBehaviorComponent
     {
-        protected PlayerBehavior3D PlayerBehavior => (PlayerBehavior3D)Behavior;
+        protected PlayerBehavior PlayerBehavior => (PlayerBehavior)Behavior;
 
         public override void Initialize(CharacterBehavior behavior)
         {
-            Assert.IsTrue(behavior is PlayerBehavior3D);
+            Assert.IsTrue(behavior is PlayerBehavior);
 
             base.Initialize(behavior);
         }

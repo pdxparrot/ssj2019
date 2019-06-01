@@ -7,7 +7,7 @@ using UnityEngine;
 namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 {
     [RequireComponent(typeof(GroundCheckBehaviorComponent))]
-    public sealed class GroundCheckPlayerBehaviorComponent2D : PlayerBehaviorComponent2D
+    public sealed class GroundCheckPlayerBehaviorComponent2D : PlayerBehaviorComponent
     {
         private GroundCheckBehaviorComponent _groundChecker;
 
@@ -25,7 +25,7 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
         private void SlopeLimitEventHandler(object sender, EventArgs args)
         {
             // prevent moving up slopes we can't move up
-            PlayerBehavior.SetMoveDirection(new Vector2(0.0f, PlayerBehavior.MoveDirection.y));
+            PlayerBehavior.SetMoveDirection(new Vector3(0.0f, PlayerBehavior.MoveDirection.y, 0.0f));
         }
 #endregion
     }

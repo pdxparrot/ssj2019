@@ -7,7 +7,7 @@ using UnityEngine;
 namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 {
     [RequireComponent(typeof(GroundCheckBehaviorComponent))]
-    public sealed class GroundCheckPlayerBehaviorComponent3D : PlayerBehaviorComponent3D
+    public sealed class GroundCheckPlayerBehaviorComponent3D : PlayerBehaviorComponent
     {
         private GroundCheckBehaviorComponent _groundChecker;
 

@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.Game.Characters
 {
-    public abstract class CharacterFlightMovement3D : ActorMovement3D
+    public abstract class CharacterFlightMovement3D : ActorMovement3D, ICharacterMovement
     {
         [SerializeField]
         private CharacterFlightMovementData _data;
@@ -74,6 +74,10 @@ namespace pdxpartyparrot.Game.Characters
 
             // we run the follow cam in FixedUpdate() and interpolation interferes with that
             rb.interpolation = RigidbodyInterpolation.None;
+        }
+
+        public void Jump(float height)
+        {
         }
 
         public void Redirect(Vector3 velocity)

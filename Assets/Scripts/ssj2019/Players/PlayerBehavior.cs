@@ -2,7 +2,7 @@
 
 namespace pdxpartyparrot.ssj2019.Players
 {
-    public sealed class PlayerBehavior : PlayerBehavior3D
+    public sealed class PlayerBehavior : Game.Characters.Players.PlayerBehavior
     {
     }
 }

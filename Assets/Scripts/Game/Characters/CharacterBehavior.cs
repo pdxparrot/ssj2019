@@ -155,5 +155,14 @@ namespace pdxpartyparrot.Game.Characters
 
             RunOnComponents(c => c.OnPhysicsUpdate(dt));
         }
+
+        protected void AlignToMovement(Vector3 forward)
+        {
+            if(!IsMoving) {
+                return;
+            }
+
+            SetFacing(forward);
+        }
     }
 }
