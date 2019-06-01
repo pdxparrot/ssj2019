@@ -19,6 +19,11 @@ namespace pdxpartyparrot.Core.Actors
 
         private float ActorThinkRateSeconds => _actorThinkRateMs * 0.001f;
 
+#region Debug
+        [SerializeField]
+        private bool _enableDebug;
+#endregion
+
 #region Unity Lifecycle
         private void Awake()
         {
@@ -31,7 +36,9 @@ namespace pdxpartyparrot.Core.Actors
         public void Register<T>(T actor) where T: Actor
         {
             Type actorType = actor.GetType();
-            //Debug.Log($"Registering actor {actor.Id} of type {actorType}");
+            if(_enableDebug) {
+                Debug.Log($"Registering actor {actor.Id} of type {actorType}");
+            }
 
             HashSet<Actor> actors = _actors.GetOrAdd(actorType);
             actors.Add(actor);
@@ -40,7 +47,9 @@ namespace pdxpartyparrot.Core.Actors
         public void Unregister<T>(T actor) where T: Actor
         {
             Type actorType = actor.GetType();
-            //Debug.Log($"Unregistering actor {actor.Id} of type {actorType}");
+            if(_enableDebug) {
+                Debug.Log($"Unregistering actor {actor.Id} of type {actorType}");
+            }
 
             if(_actors.TryGetValue(actorType, out var actors)) {
                 actors.Remove(actor);
@@ -89,6 +98,8 @@ namespace pdxpartyparrot.Core.Actors
         {
             DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "Core.ActorManager");
             debugMenuNode.RenderContentsAction = () => {
+                _enableDebug = GUILayout.Toggle(_enableDebug, "Enable Debug");
+
                 foreach(var kvp in _actors) {
                     GUILayout.BeginVertical($"{kvp.Key}", GUI.skin.box);
                         foreach(Actor actor in kvp.Value) {
