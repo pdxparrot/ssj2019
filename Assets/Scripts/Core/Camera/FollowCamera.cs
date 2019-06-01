@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Core.Camera
 {
-    //[RequireComponent(typeof(Viewer))]
     public abstract class FollowCamera : MonoBehaviour
     {
 #region Zoom

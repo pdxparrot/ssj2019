@@ -11,8 +11,6 @@ namespace pdxpartyparrot.Core.Actors
         public Collider Collider { get; private set; }
 #endregion
 
-        public ActorBehavior3D Behavior3D => (ActorBehavior3D)Behavior;
-
         public override float Height => Collider.bounds.size.y;
 
         public override float Radius => Collider.bounds.size.x / 2.0f;
@@ -29,32 +27,32 @@ namespace pdxpartyparrot.Core.Actors
 
         private void OnCollisionEnter(Collision collision)
         {
-            Behavior3D.CollisionEnter(collision.gameObject);
+            Behavior.CollisionEnter(collision.gameObject);
         }
 
         private void OnCollisionStay(Collision collision)
         {
-            Behavior3D.CollisionStay(collision.gameObject);
+            Behavior.CollisionStay(collision.gameObject);
         }
 
         private void OnCollisionExit(Collision collision)
         {
-            Behavior3D.CollisionExit(collision.gameObject);
+            Behavior.CollisionExit(collision.gameObject);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            Behavior3D.TriggerEnter(other.gameObject);
+            Behavior.TriggerEnter(other.gameObject);
         }
 
         private void OnTriggerStay(Collider other)
         {
-            Behavior3D.TriggerStay(other.gameObject);
+            Behavior.TriggerStay(other.gameObject);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            Behavior3D.TriggerExit(other.gameObject);
+            Behavior.TriggerExit(other.gameObject);
         }
 #endregion
     }

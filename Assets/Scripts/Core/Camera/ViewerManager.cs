@@ -43,7 +43,6 @@ namespace pdxpartyparrot.Core.Camera
 
             public void FreeViewers()
             {
-                //Debug.Log($"Freeing {Viewers.Count} viewers of type {typeof(T)}...");
                 Debug.Log($"Freeing {Viewers.Count} viewers...");
 
                 AssignedViewers.Clear();
@@ -69,7 +68,9 @@ namespace pdxpartyparrot.Core.Camera
 
                 AssignedViewers.Add(viewer);
 
-                //Debug.Log($"Acquired viewer {viewer.name} (type: {typeof(T)}, assigned: {AssignedViewers.Count}, unassigned: {UnassignedViewers.Count})");
+                if(ViewerManager.Instance.EnableDebug) {
+                    Debug.Log($"Acquired viewer {viewer.name} (type: {typeof(T)}, assigned: {AssignedViewers.Count}, unassigned: {UnassignedViewers.Count})");
+                }
                 return viewer as T;
             }
 
@@ -80,7 +81,9 @@ namespace pdxpartyparrot.Core.Camera
                     return;
                 }
 
-                //Debug.Log($"Releasing viewer {viewer.name} (type: {typeof(T)}, assigned: {AssignedViewers.Count}, unassigned: {UnassignedViewers.Count})");
+                if(ViewerManager.Instance.EnableDebug) {
+                    Debug.Log($"Releasing viewer {viewer.name} (type: {typeof(T)}, assigned: {AssignedViewers.Count}, unassigned: {UnassignedViewers.Count})");
+                }
 
                 viewer.Reset();
 
@@ -115,6 +118,13 @@ namespace pdxpartyparrot.Core.Camera
         private readonly Dictionary<Type, ViewerSet> _viewers = new Dictionary<Type,ViewerSet>();
 
         private GameObject _viewerContainer;
+
+#region Debug
+        [SerializeField]
+        private bool _enableDebug;
+
+        public bool EnableDebug => _enableDebug;
+#endregion
 
 #region Unity Lifecycle
         private void Awake()
@@ -241,6 +251,8 @@ namespace pdxpartyparrot.Core.Camera
         {
             DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "Core.ViewerManager");
             debugMenuNode.RenderContentsAction = () => {
+                _enableDebug = GUILayout.Toggle(_enableDebug, "Enable Debug");
+
                 foreach(var kvp in _viewers) {
                     ViewerSet viewerSet = kvp.Value;
                     GUILayout.BeginVertical($"{kvp.Key} Viewers", GUI.skin.box);

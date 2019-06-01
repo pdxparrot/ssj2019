@@ -8,7 +8,7 @@ namespace pdxpartyparrot.Game.Characters
 {
     public class CharacterMovement3D : ActorMovement3D
     {
-        public CharacterBehavior3D CharacterBehavior3D => (CharacterBehavior3D)Behavior3D;
+        public CharacterBehavior3D CharacterBehavior3D => (CharacterBehavior3D)Behavior;
 
         public override bool UseGravity
         {
@@ -25,7 +25,7 @@ namespace pdxpartyparrot.Game.Characters
 #region Unity Lifecycle
         protected override void Awake()
         {
-            Assert.IsTrue(Behavior3D is CharacterBehavior3D);
+            Assert.IsTrue(Behavior is CharacterBehavior3D);
         }
 
         private void FixedUpdate()

@@ -37,6 +37,13 @@ namespace pdxpartyparrot.Core.Effects
 
         public bool EnableRumble => _enableRumble;
 
+#region Debug
+        [SerializeField]
+        private bool _enableDebug;
+
+        public bool EnableDebug => _enableDebug;
+#endregion
+
 #region Unity Lifecycle
         private void Awake()
         {
@@ -49,6 +56,8 @@ namespace pdxpartyparrot.Core.Effects
             DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "Core.EffectsManager");
             debugMenuNode.RenderContentsAction = () => {
                 GUILayout.BeginVertical();
+                    _enableDebug = GUILayout.Toggle(_enableDebug, "Enable Debug");
+
                     _enableAnimation = GUILayout.Toggle(_enableAnimation, "Enable Animation");
                     _enableAudio = GUILayout.Toggle(_enableAudio, "Enable Audio");
                     _enableVFX = GUILayout.Toggle(_enableVFX, "Enable VFX");

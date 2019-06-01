@@ -12,8 +12,6 @@ namespace pdxpartyparrot.Game.Characters
 {
     public abstract class CharacterFlightMovement3D : ActorMovement3D
     {
-        public CharacterBehavior3D CharacterBehavior3D => (CharacterBehavior3D)Behavior3D;
-
         [SerializeField]
         private CharacterFlightMovementData _data;
 
@@ -26,7 +24,7 @@ namespace pdxpartyparrot.Game.Characters
 
         public Vector3 BankForce => _bankForce;
 
-        public float Speed => CharacterBehavior3D.CanMove ? 0.0f : (PartyParrotManager.Instance.IsPaused ? PauseState.Velocity.magnitude : Velocity.magnitude);
+        public float Speed => Behavior.CanMove ? 0.0f : (PartyParrotManager.Instance.IsPaused ? PauseState.Velocity.magnitude : Velocity.magnitude);
 
         public float Altitude => Position.y;
 #endregion
@@ -34,6 +32,7 @@ namespace pdxpartyparrot.Game.Characters
 #region Unity Lifecycle
         protected override void Awake()
         {
+            Assert.IsTrue(Behavior is CharacterBehavior3D);
             Assert.IsNotNull(_data);
 
             base.Awake();
@@ -79,14 +78,14 @@ namespace pdxpartyparrot.Game.Characters
 
         public void Redirect(Vector3 velocity)
         {
-            Debug.Log($"Redirecting player {CharacterBehavior3D.Owner.Id}: {velocity}");
+            Debug.Log($"Redirecting player {Behavior.Owner.Id}: {velocity}");
 
             // unwind all of the rotations
-            if(null != CharacterBehavior3D.Owner.Model) {
-                Transform modelTransform = CharacterBehavior3D.Owner.Model.transform;
+            if(null != Behavior.Owner.Model) {
+                Transform modelTransform = Behavior.Owner.Model.transform;
                 modelTransform.localRotation = Quaternion.Euler(0.0f, modelTransform.localEulerAngles.y, 0.0f);
             }
-            Rotation = Quaternion.Euler(0.0f, CharacterBehavior3D.Owner.transform.eulerAngles.y, 0.0f);
+            Rotation = Quaternion.Euler(0.0f, Behavior.Owner.transform.eulerAngles.y, 0.0f);
 
             // stop moving
             Velocity = Vector3.zero;
@@ -121,7 +120,7 @@ namespace pdxpartyparrot.Game.Characters
             AddRelativeTorque(Vector3.up * AngularThrust * direction.x, ForceMode.Force);
 #endif
 
-            Transform ownerTransform = CharacterBehavior3D.Owner.transform;
+            Transform ownerTransform = Behavior.Owner.transform;
 
             // adding a force opposite our current x velocity should help stop us drifting
             Vector3 relativeVelocity = ownerTransform.InverseTransformDirection(Velocity);

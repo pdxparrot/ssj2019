@@ -122,7 +122,10 @@ namespace pdxpartyparrot.Core.Effects
             _effectWaiter = null;
             callback?.Invoke();
 
-            //Debug.Log($"Trigger {_triggerOnComplete.Length} more effects from {name}");
+            if(EffectsManager.Instance.EnableDebug) {
+                Debug.Log($"Trigger {_triggerOnComplete.Items.Count} more effects from {name}");
+            }
+
             foreach(var onCompleteEffect in _triggerOnComplete.Items) {
                 onCompleteEffect.Trigger();
             }

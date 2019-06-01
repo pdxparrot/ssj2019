@@ -22,6 +22,8 @@ namespace pdxpartyparrot.Core.Actors
 #region Debug
         [SerializeField]
         private bool _enableDebug;
+
+        public bool EnableDebug => _enableDebug;
 #endregion
 
 #region Unity Lifecycle

@@ -1,4 +1,6 @@
-﻿using pdxpartyparrot.Core.Data;
+﻿using System;
+
+using pdxpartyparrot.Core.Data;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -26,9 +28,17 @@ namespace pdxpartyparrot.Core.Actors
             get => _transform.position;
             set
             {
-                Debug.Log($"Teleporting actor {Behavior.Owner.Id} to {value}");
+                if(ActorManager.Instance.EnableDebug) {
+                    Debug.Log($"Teleporting actor {Behavior.Owner.Id} to {value}");
+                }
                 _transform.position = value;
             }
+        }
+
+        public virtual Quaternion Rotation
+        {
+            get => _transform.rotation;
+            set => _transform.rotation = value;
         }
 
         public virtual Vector3 Velocity
@@ -78,11 +88,21 @@ namespace pdxpartyparrot.Core.Actors
             // always start out kinematic so that we don't
             // fall while we're loading
             IsKinematic = true;
+
+            PartyParrotManager.Instance.PauseEvent += PauseEventHandler;
+        }
+
+        protected virtual void OnDestroy()
+        {
+            if(PartyParrotManager.HasInstance) {
+                PartyParrotManager.Instance.PauseEvent -= PauseEventHandler;
+            }
         }
 #endregion
 
         public virtual void Initialize(ActorBehaviorData behaviorDat)
         {
+            Rotation = Quaternion.identity;
             Velocity = Vector3.zero;
         }
 
@@ -97,7 +117,9 @@ namespace pdxpartyparrot.Core.Actors
 
         public virtual void Teleport(Vector3 position)
         {
-            Debug.Log($"Teleporting actor {Behavior.Owner.Id} to {position}");
+            if(ActorManager.Instance.EnableDebug) {
+                Debug.Log($"Teleporting actor {Behavior.Owner.Id} to {position}");
+            }
             _transform.position = position;
         }
 
@@ -106,5 +128,16 @@ namespace pdxpartyparrot.Core.Actors
             Vector3 newPosition = Vector3.MoveTowards(Position, position, speed * dt);
             _transform.position = newPosition;
         }
+
+        public virtual void MoveRotation(Quaternion rot)
+        {
+            _transform.rotation = rot;
+        }
+
+#region Event Handlers
+        protected virtual void PauseEventHandler(object sender, EventArgs args)
+        {
+        }
+#endregion
     }
 }

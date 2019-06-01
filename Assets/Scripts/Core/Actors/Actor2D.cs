@@ -11,8 +11,6 @@ namespace pdxpartyparrot.Core.Actors
         public Collider2D Collider { get; private set; }
 #endregion
 
-        public ActorBehavior2D Behavior2D => (ActorBehavior2D)Behavior;
-
         public override float Height => Collider.bounds.size.y;
 
         public override float Radius => Collider.bounds.size.x / 2.0f;
@@ -29,32 +27,32 @@ namespace pdxpartyparrot.Core.Actors
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            Behavior2D.CollisionEnter(collision.gameObject);
+            Behavior.CollisionEnter(collision.gameObject);
         }
 
         private void OnCollisionStay2D(Collision2D collision)
         {
-            Behavior2D.CollisionStay(collision.gameObject);
+            Behavior.CollisionStay(collision.gameObject);
         }
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            Behavior2D.CollisionExit(collision.gameObject);
+            Behavior.CollisionExit(collision.gameObject);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Behavior2D.TriggerEnter(other.gameObject);
+            Behavior.TriggerEnter(other.gameObject);
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            Behavior2D.TriggerStay(other.gameObject);
+            Behavior.TriggerStay(other.gameObject);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            Behavior2D.TriggerExit(other.gameObject);
+            Behavior.TriggerExit(other.gameObject);
         }
 #endregion
     }

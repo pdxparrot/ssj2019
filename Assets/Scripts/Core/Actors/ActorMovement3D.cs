@@ -37,8 +37,6 @@ namespace pdxpartyparrot.Core.Actors
             }
         }
 
-        public ActorBehavior3D Behavior3D => (ActorBehavior3D)Behavior;
-
         [Space(10)]
 
 #region Physics
@@ -61,12 +59,14 @@ namespace pdxpartyparrot.Core.Actors
             get => _rigidbody.position;
             set
             {
-                Debug.Log($"Teleporting actor {Behavior.Owner.Id} to {value}");
+                if(ActorManager.Instance.EnableDebug) {
+                    Debug.Log($"Teleporting actor {Behavior.Owner.Id} to {value}");
+                }
                 _rigidbody.position = value;
             }
         }
 
-        public Quaternion Rotation
+        public override Quaternion Rotation
         {
             get => _rigidbody.rotation;
             set => _rigidbody.rotation = value;
@@ -133,15 +133,6 @@ namespace pdxpartyparrot.Core.Actors
             Assert.IsTrue(Behavior is ActorBehavior3D);
 
             base.Awake();
-
-            PartyParrotManager.Instance.PauseEvent += PauseEventHandler;
-        }
-
-        protected virtual void OnDestroy()
-        {
-            if(PartyParrotManager.HasInstance) {
-                PartyParrotManager.Instance.PauseEvent -= PauseEventHandler;
-            }
         }
 
         protected virtual void LateUpdate()
@@ -155,8 +146,6 @@ namespace pdxpartyparrot.Core.Actors
         {
             base.Initialize(behaviorData);
 
-            Rotation = Quaternion.identity;
-
             AngularVelocity = Vector3.zero;
 
             InitRigidbody(_rigidbody, behaviorData);
@@ -168,7 +157,9 @@ namespace pdxpartyparrot.Core.Actors
 
         public override void Teleport(Vector3 position)
         {
-            //Debug.Log($"Teleporting actor {Behavior3D.Owner3D.Id} to {position} (interpolated)");
+            if(ActorManager.Instance.EnableDebug) {
+                Debug.Log($"Teleporting actor {Behavior.Owner.Id} to {position} (interpolated)");
+            }
             _rigidbody.MovePosition(position);
         }
 
@@ -178,7 +169,7 @@ namespace pdxpartyparrot.Core.Actors
             _rigidbody.MovePosition(newPosition);
         }
 
-        public void MoveRotation(Quaternion rot)
+        public override void MoveRotation(Quaternion rot)
         {
             _rigidbody.MoveRotation(rot);
         }
@@ -204,8 +195,10 @@ namespace pdxpartyparrot.Core.Actors
         }
 
 #region Event Handlers
-        private void PauseEventHandler(object sender, EventArgs args)
+        protected override void PauseEventHandler(object sender, EventArgs args)
         {
+            base.PauseEventHandler(sender, args);
+
             if(PartyParrotManager.Instance.IsPaused) {
                 _pauseState.Save(_rigidbody);
             } else {
