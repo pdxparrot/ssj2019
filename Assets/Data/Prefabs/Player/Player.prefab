@@ -644,7 +644,7 @@ MonoBehaviour:
   _model: {fileID: 4953237466135058469}
   _behavior: {fileID: 1466622540529787529}
   _networkPlayer: {fileID: 4735179189841920839}
-  _driver: {fileID: 2194374668728194188}
+  _input: {fileID: 2194374668728194188}
   _playerCharacterData: {fileID: 0}
 --- !u!1 &8128243285711847515
 GameObject:
@@ -657,7 +657,7 @@ GameObject:
   - component: {fileID: 814946197423954687}
   - component: {fileID: 2194374668728194188}
   m_Layer: 12
-  m_Name: Driver
+  m_Name: Input
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

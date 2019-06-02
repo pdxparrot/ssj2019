@@ -20,9 +20,9 @@ namespace pdxpartyparrot.Game.Players
 #region Unity Lifecycle
         protected override void Awake()
         {
-            Assert.IsTrue(Actor is IPlayer);
-
             base.Awake();
+
+            Assert.IsTrue(Actor is IPlayer);
         }
 #endregion
 
