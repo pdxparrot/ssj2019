@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _raycastLayerMask:
     serializedVersion: 2
-    m_Bits: 65536
+    m_Bits: 16384
   _raycastRoutineRate: 0.1
   _GroundedEpsilon: 0.1
   _groundCheckLength: 1

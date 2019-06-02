@@ -50,7 +50,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         [ReadOnly]
         private float _groundSlope;
 
-        private float GroundCheckRadius => Behavior.Owner.Height - 0.1f;
+        private float GroundCheckRadius => Behavior.Owner.Radius - 0.1f;
 
         private Vector3 GroundCheckCenter => Behavior.Movement.Position + (GroundCheckRadius * Vector3.up);
 
@@ -163,9 +163,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         {
             minDistance = float.MaxValue;
 
-            Vector3 origin = GroundCheckCenter;
-
-            int hitCount = Physics.SphereCastNonAlloc(origin, GroundCheckRadius, Vector3.down, _groundCheckHits, _data.GroundCheckLength, _data.RaycastLayerMask, QueryTriggerInteraction.Ignore);
+            int hitCount = Physics.SphereCastNonAlloc(GroundCheckCenter, GroundCheckRadius, Vector3.down, _groundCheckHits, _data.GroundCheckLength, _data.RaycastLayerMask, QueryTriggerInteraction.Ignore);
             if(hitCount < 1) {
                 // no slope if not grounded
                 _groundSlope = 0;

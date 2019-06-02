@@ -104,7 +104,7 @@ MonoBehaviour:
   _viewportSize: {x: 0, y: 0}
   _ownerHalfSize: {x: 0, y: 0}
   _lastVelocity: {x: 0, y: 0, z: 0}
-  _lastPosition: {x: 0, y: 0}
+  _lastPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &8628578926028440972
 MonoBehaviour:
   m_ObjectHideFlags: 0

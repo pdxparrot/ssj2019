@@ -1,27 +1,12 @@
 ﻿using System;
 
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.Game.Data
 {
     [Serializable]
     public abstract class GameData : ScriptableObject
     {
-        [SerializeField]
-        [FormerlySerializedAs("_viewerLayer")]
-        private LayerMask _viewerLayerMask;
-
-        public LayerMask ViewerLayerMask => _viewerLayerMask;
-
-        [SerializeField]
-        [FormerlySerializedAs("_worldLayer")]
-        private LayerMask _worldLayerMask;
-
-        public LayerMask WorldLayerMask => _worldLayerMask;
-
-        [Space(10)]
-
         [Header("Viewport")]
 
         // TODO: this probably isn't the best way to handle this or the best place to put it
