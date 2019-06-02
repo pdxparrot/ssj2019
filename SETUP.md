@@ -168,7 +168,7 @@
   * Create a new project LoadingManager script that overrides Game LoadingManager
 * Create ASMDEFs
   * Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
-    * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef, Unity.InputSystem, com.unity.multiplayer-hlapi.Runtime
+    * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef, Unity.InputSystem, com.unity.multiplayer-hlapi.Runtime, Unity.TextMeshPro
 
 ## Set Script Execution Order
 

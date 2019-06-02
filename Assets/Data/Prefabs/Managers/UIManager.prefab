@@ -43,7 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c140c04f68d12a640b051f008d3c989c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerUIPrefab: {fileID: 0}
+  _playerUIPrefab: {fileID: 5722242536513564480, guid: bc1a103dfa987ee478286fe4529a3718,
+    type: 3}
   _pauseMenuPrefab: {fileID: 1139929613345134963, guid: cf9432a5e788b5c47a111b5d829f09d0,
     type: 3}
   _defaultFloatingTextPoolName: floating_text

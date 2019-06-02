@@ -1,4 +1,5 @@
 ﻿using pdxpartyparrot.Core.Camera;
+using pdxpartyparrot.Game.UI;
 using pdxpartyparrot.ssj2019;
 
 using UnityEngine;
@@ -25,6 +26,8 @@ namespace pdxpartyparrot.ggj2019.State
             // so that they have a viewer to attach to
             ViewerManager.Instance.AllocateViewers(1, GameManager.Instance.GameGameData.ViewerPrefab);
             GameManager.Instance.InitViewer();
+
+           UIManager.Instance.InitializePlayerUI(GameManager.Instance.Viewer.UICamera);
 
             if(!base.InitializeClient()) {
                 Debug.LogWarning("Failed to initialize client!");
