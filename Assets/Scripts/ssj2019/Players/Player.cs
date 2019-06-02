@@ -1,4 +1,6 @@
-﻿using pdxpartyparrot.Game.Characters.Players;
+﻿using System;
+
+using pdxpartyparrot.Game.Characters.Players;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -19,5 +21,16 @@ namespace pdxpartyparrot.ssj2019.Players
             Assert.IsTrue(PlayerDriver is PlayerDriver);
         }
 #endregion
+
+        protected override bool InitializeLocalPlayer(Guid id)
+        {
+            if(!base.InitializeLocalPlayer(id)) {
+                return false;
+            }
+
+            PlayerViewer = GameManager.Instance.Viewer;
+
+            return true;
+        }
     }
 }

@@ -45,7 +45,6 @@ namespace pdxpartyparrot.Game.Characters.Players
 #endregion
 
 #region Viewer
-
         [CanBeNull]
         public IPlayerViewer PlayerViewer { get; protected set; }
 
