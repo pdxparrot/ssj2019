@@ -9,6 +9,15 @@ namespace pdxpartyparrot.ssj2019.Menu
         [SerializeField]
         private CharacterSelectMenu _characterSelectPanel;
 
+#region Unity Lifecycle
+        protected override void Awake()
+        {
+            base.Awake();
+
+            _characterSelectPanel.gameObject.SetActive(false);
+        }
+#endregion
+
 #region Event Handlers
         public override void OnStart()
         {
