@@ -123,7 +123,7 @@ namespace pdxpartyparrot.Game.Players.Input
             }
 
             // ignore keyboard/mouse while the debug menu is open
-            if(DebugMenuManager.Instance.Enabled) {
+            if(DebugMenuManager.Instance.Enabled && (ctx.control.device == Keyboard.current || ctx.control.device == Mouse.current)) {
                 return false;
             }
 
