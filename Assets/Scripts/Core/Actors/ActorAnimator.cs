@@ -3,6 +3,7 @@
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Profiling;
 
 namespace pdxpartyparrot.Core.Actors
@@ -44,6 +45,11 @@ namespace pdxpartyparrot.Core.Actors
         public virtual bool IsAnimating => _animationState.IsAnimating;
 
 #region Unity Lifecycle
+        protected virtual void Awake()
+        {
+            Assert.IsNotNull(Behavior);
+        }
+
         protected void Update()
         {
             float dt = UnityEngine.Time.deltaTime;
@@ -89,7 +95,7 @@ namespace pdxpartyparrot.Core.Actors
             try {
                 if(_animationState.IsFinished) {
                     if(ActorManager.Instance.EnableDebug) {
-                        Debug.Log("Actor3D animation complete!");
+                        Debug.Log("Actor animation complete!");
                     }
 
                     _animationState.IsAnimating = false;

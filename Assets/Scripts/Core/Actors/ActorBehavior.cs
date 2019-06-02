@@ -172,7 +172,7 @@ namespace pdxpartyparrot.Core.Actors
                 SpriteAnimationHelper.SetFacing(direction);
             }
 
-            if(null != Owner.Model) {
+            if(null != Owner.Model && BehaviorData.AnimateModel) {
                 Owner.Model.transform.forward = direction;
             }
         }

@@ -38,6 +38,11 @@ namespace pdxpartyparrot.ssj2019.Players
 
             PlayerViewer = GameManager.Instance.Viewer;
 
+            Billboard billboard = Model.GetComponent<Billboard>();
+            if(billboard != null) {
+                billboard.Camera = PlayerViewer.Viewer.Camera;
+            }
+
             return true;
         }
     }

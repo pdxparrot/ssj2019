@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad13f993bdb870d4c91aa1a45baea8e6, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  _viewportSize: 3
+  _viewportSize: 5
   _maxLocalPlayers: 4
   _gamepadsArePlayers: 0
+  _viewerMode: 0
   _viewerPrefab: {fileID: 2497336713870233231, guid: 8f9cf1c99fdb6014bb247a94b682c556,
     type: 3}
-  _viewerPosition: {x: 0, y: 1.5, z: -5}
-  _viewerRotation: {x: 0, y: 0, z: 0}
+  _viewerPosition: {x: 0, y: 5, z: -5}
+  _viewerRotation: {x: 15, y: 0, z: 0}
   _playerCharacterData:
     _items:
     - {fileID: 11400000, guid: dd765b1d69deda945a29c1f410141195, type: 2}

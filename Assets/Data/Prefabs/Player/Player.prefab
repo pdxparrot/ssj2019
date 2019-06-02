@@ -238,6 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7886281395392948275}
   - component: {fileID: 9001812890377953706}
+  - component: {fileID: 1076922573034726081}
   m_Layer: 12
   m_Name: Model
   m_TagString: Untagged
@@ -278,6 +279,21 @@ MonoBehaviour:
   _renderers:
   - {fileID: 7425703094348089142}
   - {fileID: 2988975034866804750}
+--- !u!114 &1076922573034726081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4953237466135058469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42ce8993223248f4ab1752bbcceade88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 0}
+  _xRotation: 1
+  _yRotation: 0
 --- !u!1 &5529733431674676741
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,10 +641,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d89ba8aff7719c42b2b25b8a0c208dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _model: {fileID: 0}
+  _model: {fileID: 4953237466135058469}
   _behavior: {fileID: 1466622540529787529}
   _networkPlayer: {fileID: 4735179189841920839}
   _driver: {fileID: 2194374668728194188}
+  _playerCharacterData: {fileID: 0}
 --- !u!1 &8128243285711847515
 GameObject:
   m_ObjectHideFlags: 0

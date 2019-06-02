@@ -12,8 +12,19 @@ namespace pdxpartyparrot.ssj2019.Data
     [Serializable]
     public sealed class GameData : Game.Data.GameData
     {
+        public enum ViewerMode
+        {
+            Mode2D,
+            Mode3D
+        }
+
 #region Viewers
         [Header("Viewer")]
+
+        [SerializeField]
+        private ViewerMode _viewerMode = ViewerMode.Mode2D;
+
+        public ViewerMode SelectedViewerMode => _viewerMode;
 
         [SerializeField]
         private GameViewer _viewerPrefab;

@@ -38,5 +38,17 @@ namespace pdxpartyparrot.Core.Data
 
         public bool IsKinematic => _isKinematic;
 #endregion
+
+        [Space(10)]
+
+#region Animation
+        [Header("Actor Animations")]
+
+        [SerializeField]
+        [Tooltip("Whether or not to animate the model object directly if it's set")]
+        private bool _animateModel;
+
+        public bool AnimateModel => _animateModel;
+#endregion
     }
 }
