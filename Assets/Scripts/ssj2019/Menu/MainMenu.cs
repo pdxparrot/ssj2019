@@ -1,4 +1,5 @@
 ﻿using pdxpartyparrot.Game.Menu;
+using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 
@@ -26,7 +27,9 @@ namespace pdxpartyparrot.ssj2019.Menu
 
         public void OnReady()
         {
-//            GameStateManager.Instance.StartLocal(GameManager.Instance.GameGameData.MainGameStatePrefab);
+// TODO: set each player's character data
+
+            GameStateManager.Instance.StartLocal(GameManager.Instance.MainGameStatePrefab);
         }
 #endregion
     }

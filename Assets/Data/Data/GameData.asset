@@ -12,12 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad13f993bdb870d4c91aa1a45baea8e6, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  _viewerLayerMask:
-    serializedVersion: 2
-    m_Bits: 2048
-  _worldLayerMask:
-    serializedVersion: 2
-    m_Bits: 16384
   _viewportSize: 3
   _maxLocalPlayers: 4
   _gamepadsArePlayers: 0
@@ -25,3 +19,9 @@ MonoBehaviour:
     type: 3}
   _viewerPosition: {x: 0, y: 1.5, z: -5}
   _viewerRotation: {x: 0, y: 0, z: 0}
+  _playerCharacterData:
+    _items:
+    - {fileID: 11400000, guid: dd765b1d69deda945a29c1f410141195, type: 2}
+    - {fileID: 11400000, guid: b692a3915c487374dbfbf82b16c458eb, type: 2}
+    - {fileID: 11400000, guid: fc7fab6cd819cb1448da9decaae69ae4, type: 2}
+    - {fileID: 11400000, guid: 6f4d3917fc6bcd94cbd24f4d5a6462d7, type: 2}

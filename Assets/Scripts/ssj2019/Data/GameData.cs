@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ssj2019.Camera;
 
 using UnityEngine;
@@ -27,6 +29,18 @@ namespace pdxpartyparrot.ssj2019.Data
         private Vector3 _viewerRotation;
 
         public Vector3 ViewerRotation => _viewerRotation;
+#endregion
+
+        [Space(10)]
+
+#region Characters
+        [Header("Player Characters")]
+
+        [SerializeField]
+        [ReorderableList]
+        private PlayerCharacterData.ReorderableList _playerCharacterData = new PlayerCharacterData.ReorderableList();
+
+        public IReadOnlyCollection<PlayerCharacterData> PlayerCharacterData => _playerCharacterData.Items;
 #endregion
     }
 }

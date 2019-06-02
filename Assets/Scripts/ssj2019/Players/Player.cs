@@ -1,6 +1,8 @@
 ﻿using System;
 
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.Players;
+using pdxpartyparrot.ssj2019.Data;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -11,6 +13,12 @@ namespace pdxpartyparrot.ssj2019.Players
     public sealed class Player : Player3D
     {
         public PlayerBehavior GamePlayerBehavior => (PlayerBehavior)PlayerBehavior;
+
+        [SerializeField]
+        [ReadOnly]
+        private PlayerCharacterData _playerCharacterData;
+
+        public PlayerCharacterData PlayerCharacterData => _playerCharacterData;
 
 #region Unity Lifecycle
         protected override void Awake()

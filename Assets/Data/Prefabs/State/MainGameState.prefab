@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d76d00498ff1ca4b90f0d26c8196662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneName: 
-  _makeSceneActive: 0
+  _sceneName: bar
+  _makeSceneActive: 1
   _gameOverState: {fileID: 0}
   _music: {fileID: 0}

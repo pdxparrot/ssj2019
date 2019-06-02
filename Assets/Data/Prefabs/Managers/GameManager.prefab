@@ -45,3 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameData: {fileID: 11400000, guid: 9f6e90f9680dce444a3b2cd0d0301815, type: 2}
   _isGameOver: 0
+  _mainGameStatePrefab: {fileID: 7060106894633683273, guid: 501ec244996cc3c4f998b98b72fd6d92,
+    type: 3}
