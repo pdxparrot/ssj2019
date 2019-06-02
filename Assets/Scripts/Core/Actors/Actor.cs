@@ -63,6 +63,10 @@ namespace pdxpartyparrot.Core.Actors
 
         public virtual void Initialize(Guid id, ActorBehaviorData behaviorData)
         {
+            if(ActorManager.Instance.EnableDebug) {
+                Debug.Log($"Initializing actor {id}");
+            }
+
             _id = id;
             name = Id.ToString();
 

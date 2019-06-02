@@ -5,7 +5,7 @@ using UnityEngine;
 namespace pdxpartyparrot.Game.Data
 {
     [Serializable]
-    public abstract class PlayerDriverData : ScriptableObject
+    public abstract class PlayerInputData : ScriptableObject
     {
         [SerializeField]
         private float _movementLerpSpeed = 5.0f;

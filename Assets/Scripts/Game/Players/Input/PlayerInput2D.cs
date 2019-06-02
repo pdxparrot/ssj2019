@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace pdxpartyparrot.Game.Players
+namespace pdxpartyparrot.Game.Players.Input
 {
-    public abstract class SideScollerPlayerDriver<T> : PlayerDriver where T: class, IInputActionCollection, new()
+    // TODO: this name doesn't really describe what this does
+    // it's basically for X / Y planar games
+    public abstract class PlayerInput2D<T> : PlayerInput where T: class, IInputActionCollection, new()
     {
         protected T Actions { get; private set; }
 
@@ -40,8 +42,7 @@ namespace pdxpartyparrot.Game.Players
             // relying in input system binding set to continuous for this
             Vector2 axes = context.ReadValue<Vector2>();
 
-            // translate movement from x / y to x / z
-            LastControllerMove = new Vector3(axes.x, 0.0f, axes.y);
+            LastControllerMove = new Vector3(axes.x, axes.y, 0.0f);
         }
     }
 }

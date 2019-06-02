@@ -12,9 +12,9 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
-namespace pdxpartyparrot.Game.Players
+namespace pdxpartyparrot.Game.Players.Input
 {
-    public abstract class PlayerDriver : MonoBehaviour
+    public abstract class PlayerInput : MonoBehaviour
     {
         [SerializeField]
         private Actor _owner;
@@ -22,7 +22,7 @@ namespace pdxpartyparrot.Game.Players
         public Actor Owner => _owner;
 
         [SerializeField]
-        private PlayerDriverData _data;
+        private PlayerInputData _data;
 
         protected IPlayer Player => (IPlayer)Owner;
 
@@ -51,7 +51,7 @@ namespace pdxpartyparrot.Game.Players
             set => _lastControllerLook = value;
         }
 
-        protected virtual bool CanDrive => !PartyParrotManager.Instance.IsPaused && Player.IsLocalActor;
+        protected virtual bool InputEnabled => !PartyParrotManager.Instance.IsPaused && Player.IsLocalActor;
 
         protected bool EnableMouseLook { get; private set; } = !Application.isEditor;
 
@@ -91,7 +91,7 @@ namespace pdxpartyparrot.Game.Players
                 return;
             }
 
-            if(!CanDrive) {
+            if(!InputEnabled) {
                 // TODO: on pause tho we should maybe store this stuff out
                 // in order to reset it (otherwise we might not get new inputs)
                 LastControllerMove = Vector3.zero;
@@ -170,7 +170,7 @@ namespace pdxpartyparrot.Game.Players
 
         private void InitDebugMenu()
         {
-            _debugMenuNode = DebugMenuManager.Instance.AddNode(() => $"Game.Player {Player.Id} Driver");
+            _debugMenuNode = DebugMenuManager.Instance.AddNode(() => $"Game.Player {Player.Id} Input");
             _debugMenuNode.RenderContentsAction = () => {
                 /*GUILayout.BeginHorizontal();
                     GUILayout.Label("Mouse Sensitivity:");

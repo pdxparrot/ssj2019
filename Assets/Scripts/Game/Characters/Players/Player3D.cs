@@ -11,11 +11,13 @@ using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Camera;
 using pdxpartyparrot.Game.Data.Characters;
 using pdxpartyparrot.Game.Players;
+using pdxpartyparrot.Game.Players.Input;
 using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Networking;
+using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.Game.Characters.Players
 {
@@ -34,11 +36,12 @@ namespace pdxpartyparrot.Game.Characters.Players
         public Game.Players.NetworkPlayer NetworkPlayer => _networkPlayer;
 #endregion
 
-#region Behavior / Driver
+#region Input / Behavior
         [SerializeField]
-        private PlayerDriver _driver;
+        [FormerlySerializedAs("_driver")]
+        private PlayerInput _input;
 
-        public PlayerDriver PlayerDriver => _driver;
+        public PlayerInput PlayerInput => _input;
 
         [CanBeNull]
         public PlayerBehavior PlayerBehavior => (PlayerBehavior)Behavior;
@@ -92,7 +95,7 @@ namespace pdxpartyparrot.Game.Characters.Players
 
             Debug.Log($"Initializing local player {id}");
 
-            _driver.Initialize();
+            _input.Initialize();
 
             NetworkPlayer.NetworkTransform.transformSyncMode = NetworkTransform.TransformSyncMode.SyncRigidbody3D;
             NetworkPlayer.NetworkTransform.syncRotationAxis = NetworkTransform.AxisSyncMode.AxisY;

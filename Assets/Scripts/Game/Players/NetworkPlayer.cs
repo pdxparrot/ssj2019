@@ -2,8 +2,6 @@
 
 using System;
 
-using JetBrains.Annotations;
-
 using pdxpartyparrot.Core.Network;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.Game.State;
@@ -17,15 +15,14 @@ namespace pdxpartyparrot.Game.Players
     [RequireComponent(typeof(NetworkAnimator))]
     public abstract class NetworkPlayer : NetworkActor
     {
-        [CanBeNull]
         public IPlayer Player => (IPlayer)Actor;
 
 #region Unity Lifecycle
         protected override void Awake()
         {
-            base.Awake();
-
             Assert.IsTrue(Actor is IPlayer);
+
+            base.Awake();
         }
 #endregion
 
@@ -35,9 +32,9 @@ namespace pdxpartyparrot.Game.Players
         [ClientRpc]
         public virtual void RpcSpawn(string id)
         {
-            if(null != Actor) {
-                Actor.Initialize(Guid.Parse(id), GameStateManager.Instance.PlayerManager.PlayerBehaviorData);
-            }
+            Debug.Log($"Network player {id} spawn");
+
+            Actor.Initialize(Guid.Parse(id), GameStateManager.Instance.PlayerManager.PlayerBehaviorData);
         }
 #endregion
     }

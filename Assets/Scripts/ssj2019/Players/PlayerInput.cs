@@ -1,6 +1,7 @@
 ﻿using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
+using pdxpartyparrot.Game.Players.Input;
 using pdxpartyparrot.ssj2019.Input;
 
 using UnityEngine;
@@ -9,9 +10,9 @@ using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.ssj2019.Players
 {
-    public sealed class PlayerDriver : Game.Players.SideScollerPlayerDriver<PlayerControls>, PlayerControls.IPlayerActions
+    public sealed class PlayerInput : SideScollerPlayerInput<PlayerControls>, PlayerControls.IPlayerActions
     {
-        protected override bool CanDrive => base.CanDrive && !GameManager.Instance.IsGameOver;
+        protected override bool InputEnabled => base.InputEnabled && !GameManager.Instance.IsGameOver;
 
         private Player GamePlayer => (Player)Player;
 
@@ -71,7 +72,7 @@ namespace pdxpartyparrot.ssj2019.Players
 #region IPlayerActions
         public void OnJump(InputAction.CallbackContext context)
         {
-            if(!IsOurDevice(context) || !CanDrive) {
+            if(!InputEnabled || !IsOurDevice(context)) {
                 return;
             }
 

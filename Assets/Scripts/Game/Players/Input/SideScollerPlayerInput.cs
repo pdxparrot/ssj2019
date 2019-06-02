@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace pdxpartyparrot.Game.Players
+namespace pdxpartyparrot.Game.Players.Input
 {
-    public abstract class ThirdPersonPlayerDriver<T> : PlayerDriver where T: class, IInputActionCollection, new()
+    public abstract class SideScollerPlayerInput<T> : PlayerInput where T: class, IInputActionCollection, new()
     {
         protected T Actions { get; private set; }
 

@@ -322,12 +322,12 @@
   * Implement the required interface
 * Create a new PlayerBehaviorData script that overrides one of the Game PlayerBehaviorDatas
 
-### PlayerDriver
+### PlayerInput
 
-* Create a new PlayerDriver script that overrides one of the Game PlayerDrivers
+* Create a new PlayerInput script that overrides one of the Game PlayerInputs
   * Implement the required interface
-* Create a new PlayerDriverData script that overrides the Game PlayerDriverData
-* The project PlayerDriver can create a GamepadListener on itself in order to manage multiplayer gamepad usage
+* Create a new PlayerInputData script that overrides the Game PlayerInputData
+* The project PlayerInput can create a GamepadListener on itself in order to manage multiplayer gamepad usage
 
 ### PlayerControls
 
@@ -338,8 +338,8 @@
     * Class Name: PlayerControls
     * Namespace: pdxpartyparrot.{project}.Input
   * Add Action Maps as necessary
-* Have the project PlayerDriver implement the action interface
-* The PlayerDriver should set the actions callback handler to itself
+* Have the project PlayerInput implement the action interface
+* The PlayerInput should set the actions callback handler to itself
 
 ### Player Prefab
 
@@ -361,9 +361,9 @@
     * Attach the Player Behavior to the Player Movement component
     * Attach the Rigidbody on the Player to the Movement Rigidbody
   * **TODO:** Animator on the Player Behavior ???
-* Add a new empty GameObject under the Player Prefab (Driver) and add the PlayerDriver component to it
-  * Attach the Player to the Owner on the PlayerDriver component
-* Create a PlayerDriverData in Data/Data and attach it to the PlayerDriver component
+* Add a new empty GameObject under the Player Prefab (Input) and add the PlayerInput component to it
+  * Attach the Player to the Owner on the PlayerInput component
+* Create a PlayerInputData in Data/Data and attach it to the PlayerInput component
 
 ### Player / Game Viewer
 

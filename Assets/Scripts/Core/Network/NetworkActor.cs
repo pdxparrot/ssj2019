@@ -1,7 +1,5 @@
 ﻿#pragma warning disable 0618    // disable obsolete warning for now
 
-using JetBrains.Annotations;
-
 using pdxpartyparrot.Core.Actors;
 
 using UnityEngine;
@@ -18,7 +16,6 @@ namespace pdxpartyparrot.Core.Network
 
         public NetworkTransform NetworkTransform { get; private set; }
 
-        [CanBeNull]
         protected Actor Actor { get; private set; }
 
 #region Unity Lifecycle

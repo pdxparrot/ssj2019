@@ -26,7 +26,7 @@ namespace pdxpartyparrot.ssj2019.Players
             base.Awake();
 
             Assert.IsTrue(PlayerBehavior is PlayerBehavior);
-            Assert.IsTrue(PlayerDriver is PlayerDriver);
+            Assert.IsTrue(PlayerInput is PlayerInput);
         }
 #endregion
 

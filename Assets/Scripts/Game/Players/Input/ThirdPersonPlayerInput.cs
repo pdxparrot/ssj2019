@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace pdxpartyparrot.Game.Players
+namespace pdxpartyparrot.Game.Players.Input
 {
-    // TODO: this name sucks
-    public abstract class PlanePlayerDriver<T> : PlayerDriver where T: class, IInputActionCollection, new()
+    public abstract class ThirdPersonPlayerInput<T> : PlayerInput where T: class, IInputActionCollection, new()
     {
         protected T Actions { get; private set; }
 
@@ -41,7 +40,8 @@ namespace pdxpartyparrot.Game.Players
             // relying in input system binding set to continuous for this
             Vector2 axes = context.ReadValue<Vector2>();
 
-            LastControllerMove = new Vector3(axes.x, axes.y, 0.0f);
+            // translate movement from x / y to x / z
+            LastControllerMove = new Vector3(axes.x, 0.0f, axes.y);
         }
     }
 }
