@@ -54,7 +54,7 @@ namespace pdxpartyparrot.Core.Input
                 return;
             }
 
-            if(InputManager.Instance.DebugInput) {
+            if(InputManager.Instance.EnableDebug) {
                 Debug.Log($"Rumbling gamepad {Gamepad.id} for {config.Seconds} seconds, (low: {config.LowFrequency} high: {config.HighFrequency})");
             }
 

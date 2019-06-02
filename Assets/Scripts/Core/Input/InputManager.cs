@@ -54,9 +54,9 @@ namespace pdxpartyparrot.Core.Input
 
 #region Debug
         [SerializeField]
-        private bool _debugInput;
+        private bool _enableDebug;
 
-        public bool DebugInput => _debugInput;
+        public bool EnableDebug => _enableDebug;
 #endregion
 
 #region Unity Lifecycle
@@ -253,7 +253,7 @@ namespace pdxpartyparrot.Core.Input
             DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "Core.InputManager");
             debugMenuNode.RenderContentsAction = () => {
                 GUILayout.BeginVertical("Gamepads", GUI.skin.box);
-                    _debugInput = GUILayout.Toggle(_debugInput, "Debug Input");
+                    _enableDebug = GUILayout.Toggle(_enableDebug, "Enable Debug");
                     EnableVibration = GUILayout.Toggle(EnableVibration, "Enable Vibration");
 
                     GUILayout.Label($"Queued listeners: {_gamepadListeners.Count}");

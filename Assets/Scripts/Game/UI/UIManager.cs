@@ -198,12 +198,12 @@ namespace pdxpartyparrot.Game.UI
                 _pauseMenu.gameObject.SetActive(true);
                 _pauseMenu.ResetMenu();
 
-                if(InputManager.Instance.DebugInput) {
+                if(InputManager.Instance.EnableDebug) {
                     Debug.Log("Enabling UIModule actions");
                 }
                 InputManager.Instance.EventSystem.UIModule.EnableAllActions();
             } else {
-                if(InputManager.Instance.DebugInput) {
+                if(InputManager.Instance.EnableDebug) {
                     Debug.Log("Disabling UIModule actions");
                 }
                 InputManager.Instance.EventSystem.UIModule.DisableAllActions();

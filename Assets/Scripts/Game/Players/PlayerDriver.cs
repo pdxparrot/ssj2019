@@ -61,6 +61,7 @@ namespace pdxpartyparrot.Game.Players
         protected virtual void Awake()
         {
             Assert.IsTrue(Owner is IPlayer);
+            Assert.IsNotNull(_data);
 
             PartyParrotManager.Instance.PauseEvent += PauseEventHandler;
         }
@@ -138,7 +139,7 @@ namespace pdxpartyparrot.Game.Players
                 return;
             }
 
-            if(Core.Input.InputManager.Instance.DebugInput) {
+            if(Core.Input.InputManager.Instance.EnableDebug) {
                 Debug.Log($"Pause: {context.action.phase}");
             }
 
