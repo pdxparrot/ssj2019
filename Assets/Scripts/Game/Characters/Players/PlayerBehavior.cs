@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Math;
@@ -31,7 +31,17 @@ namespace pdxpartyparrot.Game.Characters.Players
             Assert.IsTrue(Owner is IPlayer);
         }
 
-        private void LateUpdate()
+        protected override void Update()
+        {
+            base.Awake();
+
+            float dt = Time.deltaTime;
+
+            Vector3 moveDirection = Vector3.MoveTowards(MoveDirection, Player.PlayerInput.LastControllerMove, dt * Player.PlayerInput.PlayerInputData.MovementLerpSpeed);
+            SetMoveDirection(moveDirection);
+        }
+
+        protected virtual void LateUpdate()
         {
             IsMoving = MoveDirection.sqrMagnitude > MathUtil.Epsilon;
         }

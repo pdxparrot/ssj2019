@@ -21,10 +21,12 @@ namespace pdxpartyparrot.Game.Players.Input
 
         public Actor Owner => _owner;
 
+        protected IPlayer Player => (IPlayer)Owner;
+
         [SerializeField]
         private PlayerInputData _data;
 
-        protected IPlayer Player => (IPlayer)Owner;
+        public PlayerInputData PlayerInputData => _data;
 
         [SerializeField]
         private float _mouseSensitivity = 0.5f;
@@ -35,20 +37,20 @@ namespace pdxpartyparrot.Game.Players.Input
         [ReadOnly]
         private Vector3 _lastControllerMove;
 
-        protected Vector3 LastControllerMove
+        public Vector3 LastControllerMove
         {
             get => _lastControllerMove;
-            set => _lastControllerMove = value;
+            protected set => _lastControllerMove = value;
         }
 
         [SerializeField]
         [ReadOnly]
         private Vector3 _lastControllerLook;
 
-        protected Vector3 LastControllerLook
+        public Vector3 LastControllerLook
         {
             get => _lastControllerLook;
-            set => _lastControllerLook = value;
+            protected set => _lastControllerLook = value;
         }
 
         protected virtual bool InputEnabled => !PartyParrotManager.Instance.IsPaused && Player.IsLocalActor;
@@ -92,17 +94,8 @@ namespace pdxpartyparrot.Game.Players.Input
             }
 
             if(!InputEnabled) {
-                // TODO: on pause tho we should maybe store this stuff out
-                // in order to reset it (otherwise we might not get new inputs)
                 LastControllerMove = Vector3.zero;
-                Player.PlayerBehavior.SetMoveDirection(Vector3.zero);
-                return;
             }
-
-
-            float dt = Time.deltaTime;
-
-            Player.PlayerBehavior.SetMoveDirection(Vector3.MoveTowards(Player.PlayerBehavior.MoveDirection, _lastControllerMove, dt * _data.MovementLerpSpeed));
         }
 #endregion
 
@@ -130,7 +123,9 @@ namespace pdxpartyparrot.Game.Players.Input
             return true;
         }
 
-        protected abstract void EnableControls(bool enable);
+        protected virtual void EnableControls(bool enable)
+        {
+        }
 
 #region Common Actions
         public void OnPause(InputAction.CallbackContext context)
@@ -148,7 +143,19 @@ namespace pdxpartyparrot.Game.Players.Input
             }
         }
 
-        public abstract void OnMove(InputAction.CallbackContext context);
+        public virtual void OnMove(InputAction.CallbackContext context)
+        {
+            // relying in input system binding set to continuous for this
+            Vector2 axes = context.ReadValue<Vector2>();
+            LastControllerMove = new Vector3(axes.x, axes.y, 0.0f);
+        }
+
+        public virtual void OnLook(InputAction.CallbackContext context)
+        {
+            // relying in input system binding set to continuous for this
+            Vector2 axes = context.ReadValue<Vector2>();
+            LastControllerLook = new Vector3(axes.x, axes.y, 0.0f);
+        }
 #endregion
 
 #region Event Handlers

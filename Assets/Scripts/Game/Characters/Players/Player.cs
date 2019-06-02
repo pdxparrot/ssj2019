@@ -2,6 +2,7 @@
 
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Camera;
+using pdxpartyparrot.Game.Players.Input;
 
 using UnityEngine;
 
@@ -20,6 +21,8 @@ namespace pdxpartyparrot.Game.Characters.Players
         ActorBehavior Behavior { get; }
 
         PlayerBehavior PlayerBehavior { get; }
+
+        PlayerInput PlayerInput { get; }
 
         Viewer Viewer { get; }
     }
