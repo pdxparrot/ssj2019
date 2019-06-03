@@ -105,23 +105,23 @@ namespace pdxpartyparrot.Core.Camera
         }
 
 #region Orthographic/Perspective
-        public void Set2D()
+        public virtual void Set2D()
         {
             Camera.orthographic = true;
         }
 
-        public void Set2D(float size)
+        public virtual void Set2D(float size)
         {
             Set2D();
             Camera.orthographicSize = size;
         }
 
-        public void Set3D()
+        public virtual void Set3D()
         {
             Camera.orthographic = false;
         }
 
-        public void Set3D(float fieldOfView)
+        public virtual void Set3D(float fieldOfView)
         {
             Set3D();
             Camera.fieldOfView = fieldOfView;

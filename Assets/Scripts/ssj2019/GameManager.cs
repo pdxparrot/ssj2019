@@ -18,12 +18,12 @@ namespace pdxpartyparrot.ssj2019
         public GameData GameGameData => (GameData)GameData;
 
         // only valid on the client
-        public GameViewer2 Viewer { get; private set; }
+        public GameViewer Viewer { get; private set; }
 
         //[Client]
         public void InitViewer()
         {
-            Viewer = ViewerManager.Instance.AcquireViewer<GameViewer2>(gameObject);
+            Viewer = ViewerManager.Instance.AcquireViewer<GameViewer>(gameObject);
             if(null == Viewer) {
                 Debug.LogWarning("Unable to acquire game viewer!");
                 return;
@@ -32,7 +32,7 @@ namespace pdxpartyparrot.ssj2019
             switch(GameGameData.SelectedViewerMode)
             {
             case Data.GameData.ViewerMode.Mode2D:
-                Viewer.Set2D();
+                Viewer.Set2D(GameGameData.ViewportSize);
                 break;
             case Data.GameData.ViewerMode.Mode3D:
                 Viewer.Set3D();
