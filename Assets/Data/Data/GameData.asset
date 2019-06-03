@@ -16,7 +16,7 @@ MonoBehaviour:
   _maxLocalPlayers: 4
   _gamepadsArePlayers: 0
   _viewerMode: 0
-  _viewerPrefab: {fileID: 2497336713870233231, guid: 8f9cf1c99fdb6014bb247a94b682c556,
+  _viewerPrefab: {fileID: 4157288067498843810, guid: b219ac5942062ad45acacbaed851f184,
     type: 3}
   _viewerPosition: {x: 0, y: 5, z: -5}
   _viewerRotation: {x: 15, y: 0, z: 0}

@@ -18,12 +18,12 @@ namespace pdxpartyparrot.ssj2019
         public GameData GameGameData => (GameData)GameData;
 
         // only valid on the client
-        public GameViewer Viewer { get; private set; }
+        public GameViewer2 Viewer { get; private set; }
 
         //[Client]
         public void InitViewer()
         {
-            Viewer = ViewerManager.Instance.AcquireViewer<GameViewer>(gameObject);
+            Viewer = ViewerManager.Instance.AcquireViewer<GameViewer2>(gameObject);
             if(null == Viewer) {
                 Debug.LogWarning("Unable to acquire game viewer!");
                 return;

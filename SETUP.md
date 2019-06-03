@@ -101,6 +101,7 @@
   * Unity Collaborate
 * Add release packages
   * Asset Bundle Browser
+  * Cinemachine
   * Core RP Library
   * Multiplayer HLAPI
     * **TODO:** This is deprecated and should be replaced
@@ -133,7 +134,7 @@
 * Copy Core Scripts
 * Create ASMDEF
   * Scripts/Core/com.pdxpartyparrot.Core.asmdef
-    * References: Unity.InputSystem, com.unity.multiplayer-hlapi.Runtime, Unity.Postprocessing.Runtime, Unity.TextMeshPro, Kino.Postprocessing
+    * References: Unity.InputSystem, com.unity.cinemachine, com.unity.multiplayer-hlapi.Runtime, Unity.Postprocessing.Runtime, Unity.TextMeshPro, Kino.Postprocessing
       * Create and a reference to a spine-unity ASMDEF if necessary
   * Scripts/Core/Editor/com.pdxpartyparrot.Core.Editor
     * Editor platform only
@@ -366,6 +367,17 @@
 * Create a PlayerInputData in Data/Data and attach it to the PlayerInput component
 
 ### Player / Game Viewer
+
+
+
+
+* Cinemachine Viewer
+  * Add CinemachineBrain to Camera
+  * Create a new layer for each potential viewer
+  * **TODO:** Need to make sure we put each viewer on its own layer
+
+
+
 
 * Create a new Player/GameViewer script that overrides one of the Core/Game Viewers and implements the IPlayerViewer interface
   * Implement the required interface

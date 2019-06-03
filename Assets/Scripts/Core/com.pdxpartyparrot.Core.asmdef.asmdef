@@ -2,6 +2,7 @@
     "name": "com.pdxpartyparrot.Core.asmdef",
     "references": [
         "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:4307f53044263cf4b835bd812fc161a4",
         "GUID:a44f47cf3ada4435dbc516bad0bc86fe",
         "GUID:d60799ab2a985554ea1a39cd38695018",
         "GUID:6055be8ebefd69e48b49212b09b47b2f",

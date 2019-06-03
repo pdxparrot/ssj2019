@@ -27,9 +27,9 @@ namespace pdxpartyparrot.ssj2019.Data
         public ViewerMode SelectedViewerMode => _viewerMode;
 
         [SerializeField]
-        private GameViewer _viewerPrefab;
+        private GameViewer2 _viewerPrefab;
 
-        public GameViewer ViewerPrefab => _viewerPrefab;
+        public GameViewer2 ViewerPrefab => _viewerPrefab;
 
         [SerializeField]
         private Vector3 _viewerPosition;
