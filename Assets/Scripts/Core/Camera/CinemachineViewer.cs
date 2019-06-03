@@ -37,5 +37,15 @@ namespace pdxpartyparrot.Core.Camera
 
             _cinemachineCamera.m_Lens.FieldOfView = fieldOfView;
         }
+
+        public void Follow(Transform target)
+        {
+            _cinemachineCamera.Follow = target;
+        }
+
+        public void LookAt(Transform target)
+        {
+            _cinemachineCamera.LookAt = target;
+        }
     }
 }

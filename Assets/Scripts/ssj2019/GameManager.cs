@@ -28,20 +28,7 @@ namespace pdxpartyparrot.ssj2019
                 Debug.LogWarning("Unable to acquire game viewer!");
                 return;
             }
-
-            switch(GameGameData.SelectedViewerMode)
-            {
-            case Data.GameData.ViewerMode.Mode2D:
-                Viewer.Set2D(GameGameData.ViewportSize);
-                break;
-            case Data.GameData.ViewerMode.Mode3D:
-                Viewer.Set3D();
-                break;
-            }
-
-            Transform viewerTransform = Viewer.transform;
-            viewerTransform.position = GameGameData.ViewerPosition;
-            viewerTransform.eulerAngles = GameGameData.ViewerRotation;
+            Viewer.Initialize(GameGameData);
         }
     }
 }

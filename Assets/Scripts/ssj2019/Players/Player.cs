@@ -1,7 +1,9 @@
 ﻿using System;
 
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Characters.Players;
+using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Data;
 
 using UnityEngine;
@@ -19,6 +21,8 @@ namespace pdxpartyparrot.ssj2019.Players
         private PlayerCharacterData _playerCharacterData;
 
         public PlayerCharacterData PlayerCharacterData => _playerCharacterData;
+
+        private GameViewer PlayerGameViewer => (GameViewer)Viewer;
 
 #region Unity Lifecycle
         protected override void Awake()
@@ -45,5 +49,36 @@ namespace pdxpartyparrot.ssj2019.Players
 
             return true;
         }
+
+#region Spawn
+        public override bool OnSpawn(SpawnPoint spawnpoint)
+        {
+            if(!base.OnSpawn(spawnpoint)) {
+                return false;
+            }
+
+            PlayerGameViewer.AddTarget(this);
+
+            return true;
+        }
+
+        public override bool OnReSpawn(SpawnPoint spawnpoint)
+        {
+            if(!base.OnReSpawn(spawnpoint)) {
+                return false;
+            }
+
+            PlayerGameViewer.AddTarget(this);
+
+            return true;
+        }
+
+        public override void OnDeSpawn()
+        {
+            PlayerGameViewer.RemoveTarget(this);
+
+            base.OnDeSpawn();
+        }
+#endregion
     }
 }
