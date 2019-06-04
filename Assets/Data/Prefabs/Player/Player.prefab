@@ -292,7 +292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 0}
-  _xRotation: 1
+  _xRotation: 0
   _yRotation: 0
 --- !u!1 &5529733431674676741
 GameObject:
