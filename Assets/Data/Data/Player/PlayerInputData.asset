@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementLerpSpeed: 5
   _lookLerpSpeed: 10
+  _inputQueueTimeout: 500

@@ -49,6 +49,11 @@ namespace pdxpartyparrot.Core.Time
                 StartEvent?.Invoke(this, EventArgs.Empty);
             }
 
+            public void StartMillis(long timerMs)
+            {
+                Start(timerMs * 0.001f);
+            }
+
             public void Start(IntRangeConfig timerSeconds)
             {
                 if(IsRunning) {
@@ -60,6 +65,17 @@ namespace pdxpartyparrot.Core.Time
                 _isRunning = true;
 
                 StartEvent?.Invoke(this, EventArgs.Empty);
+            }
+
+            public void ReStart(float timerSeconds)
+            {
+                Stop();
+                Start(timerSeconds);
+            }
+
+            public void ReStartMillis(long timerMs)
+            {
+                ReStart(timerMs * 0.001f);
             }
 
             public void Stop()

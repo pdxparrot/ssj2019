@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 using JetBrains.Annotations;
@@ -57,6 +57,8 @@ namespace pdxpartyparrot.Game.Characters
 #endregion
 
         public override bool CanMove => base.CanMove && !GameStateManager.Instance.GameManager.IsGameOver;
+
+        private readonly Queue<CharacterBehaviorComponent.CharacterBehaviorAction> _actionQueue = new Queue<CharacterBehaviorComponent.CharacterBehaviorAction>();
 
 #region Unity Lifecycle
         protected override void Awake()
@@ -118,6 +120,18 @@ namespace pdxpartyparrot.Game.Characters
                     return;
                 }
             }
+        }
+#endregion
+
+#region Action Queue
+        public void QueueAction(CharacterBehaviorComponent.CharacterBehaviorAction action)
+        {
+            _actionQueue.Enqueue(action);
+        }
+
+        public void ClearActionQueue()
+        {
+            _actionQueue.Clear();
         }
 #endregion
 

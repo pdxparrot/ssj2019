@@ -53,6 +53,28 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""bindings"": []
+                },
+                {
+                    ""name"": ""attack"",
+                    ""id"": ""de643a9a-fc39-42b6-9600-eaabc22ef9ab"",
+                    ""expectedControlLayout"": ""Button"",
+                    ""continuous"": false,
+                    ""passThrough"": false,
+                    ""initialStateCheck"": false,
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""bindings"": []
+                },
+                {
+                    ""name"": ""block"",
+                    ""id"": ""b910815f-1b25-4825-971f-37f5863bd38f"",
+                    ""expectedControlLayout"": ""Button"",
+                    ""continuous"": false,
+                    ""passThrough"": false,
+                    ""initialStateCheck"": false,
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""bindings"": []
                 }
             ],
             ""bindings"": [
@@ -235,6 +257,30 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""isComposite"": false,
                     ""isPartOfComposite"": false,
                     ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a10b599b-64fa-436e-a9ae-c9712a4e7d7b"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""83faa88f-c164-433f-89a1-4141c227a9f5"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
                 }
             ]
         }
@@ -246,6 +292,8 @@ namespace pdxpartyparrot.ssj2019.Input
             m_Player_pause = m_Player.GetAction("pause");
             m_Player_move = m_Player.GetAction("move");
             m_Player_jump = m_Player.GetAction("jump");
+            m_Player_attack = m_Player.GetAction("attack");
+            m_Player_block = m_Player.GetAction("block");
         }
 
         ~PlayerControls()
@@ -301,6 +349,8 @@ namespace pdxpartyparrot.ssj2019.Input
         private InputAction m_Player_pause;
         private InputAction m_Player_move;
         private InputAction m_Player_jump;
+        private InputAction m_Player_attack;
+        private InputAction m_Player_block;
         public struct PlayerActions
         {
             private PlayerControls m_Wrapper;
@@ -308,6 +358,8 @@ namespace pdxpartyparrot.ssj2019.Input
             public InputAction @pause { get { return m_Wrapper.m_Player_pause; } }
             public InputAction @move { get { return m_Wrapper.m_Player_move; } }
             public InputAction @jump { get { return m_Wrapper.m_Player_jump; } }
+            public InputAction @attack { get { return m_Wrapper.m_Player_attack; } }
+            public InputAction @block { get { return m_Wrapper.m_Player_block; } }
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -327,6 +379,12 @@ namespace pdxpartyparrot.ssj2019.Input
                     jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                     jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                     jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                    attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                    attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                    attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                    block.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlock;
+                    block.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlock;
+                    block.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlock;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -340,6 +398,12 @@ namespace pdxpartyparrot.ssj2019.Input
                     jump.started += instance.OnJump;
                     jump.performed += instance.OnJump;
                     jump.canceled += instance.OnJump;
+                    attack.started += instance.OnAttack;
+                    attack.performed += instance.OnAttack;
+                    attack.canceled += instance.OnAttack;
+                    block.started += instance.OnBlock;
+                    block.performed += instance.OnBlock;
+                    block.canceled += instance.OnBlock;
                 }
             }
         }
@@ -355,6 +419,8 @@ namespace pdxpartyparrot.ssj2019.Input
             void OnPause(InputAction.CallbackContext context);
             void OnMove(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
+            void OnAttack(InputAction.CallbackContext context);
+            void OnBlock(InputAction.CallbackContext context);
         }
     }
 }
