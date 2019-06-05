@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 using pdxpartyparrot.Core.Util;
@@ -30,11 +30,6 @@ namespace pdxpartyparrot.ssj2019.Data
         private GameViewer _viewerPrefab;
 
         public GameViewer ViewerPrefab => _viewerPrefab;
-
-        [SerializeField]
-        private Vector3 _viewerPosition;
-
-        public Vector3 ViewerPosition => _viewerPosition;
 
         [SerializeField]
         private Vector3 _viewerRotation;

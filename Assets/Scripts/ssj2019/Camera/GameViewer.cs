@@ -50,7 +50,6 @@ namespace pdxpartyparrot.ssj2019.Camera
             }
 
             Transform viewerTransform = Viewer.transform;
-            viewerTransform.position = gameData.ViewerPosition;
             viewerTransform.eulerAngles = gameData.ViewerRotation;
 
             _transposer.m_GroupFramingMode = CinemachineFramingTransposer.FramingMode.HorizontalAndVertical;
