@@ -9,6 +9,8 @@ using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Camera
 {
+    [RequireComponent(typeof(CinemachineFramingTransposer))]
+    //[RequireComponent(typeof(CinemachineConfiner))]
     public sealed class GameViewer : CinemachineViewer, IPlayerViewer
     {
         [Space(10)]
@@ -20,10 +22,16 @@ namespace pdxpartyparrot.ssj2019.Camera
 
         public Viewer Viewer => this;
 
+        private CinemachineFramingTransposer _transposer;
+        //private CinemachineConfiner _confiner;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
             base.Awake();
+
+            _transposer = GetCinemachineComponent<CinemachineFramingTransposer>();
+            //_confiner = GetComponent<CinemachineConfiner>();
 
             Follow(_targetGroup.transform);
         }
@@ -45,11 +53,17 @@ namespace pdxpartyparrot.ssj2019.Camera
             viewerTransform.position = gameData.ViewerPosition;
             viewerTransform.eulerAngles = gameData.ViewerRotation;
 
-            CinemachineFramingTransposer transposer = GetCinemachineComponent<CinemachineFramingTransposer>();
-            transposer.m_GroupFramingMode = CinemachineFramingTransposer.FramingMode.HorizontalAndVertical;
-            transposer.m_MinimumOrthoSize = gameData.ViewportSize;
-            transposer.m_MaximumOrthoSize = gameData.ViewportSize * 2.0f;
+            _transposer.m_GroupFramingMode = CinemachineFramingTransposer.FramingMode.HorizontalAndVertical;
+            _transposer.m_MinimumOrthoSize = gameData.ViewportSize;
+            _transposer.m_MaximumOrthoSize = gameData.ViewportSize * 2.0f;
         }
+
+        /*public void SetBounds(Collider2D bounds)
+        {
+            Debug.Log("Setting viewer bounds");
+
+            _confiner.m_BoundingShape2D = bounds;
+        }*/
 
         public void AddTarget(Actor actor, float weight=1.0f)
         {
