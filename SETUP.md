@@ -375,10 +375,13 @@
   * Add CinemachineBrain to Camera
   * Create a new layer for each potential viewer
   * **TODO:** Need to make sure we put each viewer on its own layer
+  * Set the Virtual Camera Body to Transposer
+  * Set the Virtual Camera Aim to Composer
 
 
 
 
+* **TODO:** OLD
 * Create a new Player/GameViewer script that overrides one of the Core/Game Viewers and implements the IPlayerViewer interface
   * Implement the required interface
 * Create an empty Prefab and add the project Viewer script to it
@@ -416,8 +419,9 @@
 # Splash Scene Setup
 
 * Create and save a new scene (Scenes/splash.unity)
-  * The only object in the scene should be a Main Camera
+  * The only object in the scene should be the Main Camera
 * Setup the camera in the scene
+  * Set the Tag to Untagged
   * Clear Flags: Solid Color
   * Background: Opaque Black
   * Culling Mask: Nothing
@@ -442,8 +446,9 @@
 # Main Scene Setup
 
 * Create and save a new scene (Scenes/main.unity)
-  * The only object in the scene should be a camera
+  * The only object in the scene should be the Main Camera
 * Setup the camera in the scene
+  * Set the Tag to Untagged
   * Clear Flags: Solid Color
   * Background: Opaque Black
   * Culling Mask: Nothing
@@ -562,8 +567,9 @@
 ## Main Menu Scene Setup
 
 * Create and save a new scene (Scenes/main_menu.unity)
-  * The only object in the scene should be a camera
+  * The only object in the scene should be the Main Camera
 * Setup the camera in the scene
+  * Set the Tag to Untagged
   * Clear Flags: Solid Color
   * Background: Opaque Black
   * Culling Mask: Everything

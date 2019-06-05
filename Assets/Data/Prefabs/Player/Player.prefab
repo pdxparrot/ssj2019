@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8400972290587829921}
   - component: {fileID: 1466622540529787529}
   - component: {fileID: 515719160455454119}
-  - component: {fileID: 4486187511711177129}
   - component: {fileID: 8628578926028440972}
   - component: {fileID: 326472827522828124}
   - component: {fileID: 1550674950824046361}
@@ -61,7 +60,6 @@ MonoBehaviour:
   _despawnEffect: {fileID: 0}
   _components:
     _items:
-    - {fileID: 4486187511711177129}
     - {fileID: 8628578926028440972}
     - {fileID: 326472827522828124}
     - {fileID: 1550674950824046361}
@@ -88,23 +86,6 @@ MonoBehaviour:
     IsKinematic: 0
     Velocity: {x: 0, y: 0, z: 0}
     AngularVelocity: {x: 0, y: 0, z: 0}
---- !u!114 &4486187511711177129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 243353592151571374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c09d732358429940bdb9b1a555693ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: b2f77f6ab0df39741a802f419161336a, type: 2}
-  _viewportSize: {x: 0, y: 0}
-  _ownerHalfSize: {x: 0, y: 0}
-  _lastVelocity: {x: 0, y: 0, z: 0}
-  _lastPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &8628578926028440972
 MonoBehaviour:
   m_ObjectHideFlags: 0

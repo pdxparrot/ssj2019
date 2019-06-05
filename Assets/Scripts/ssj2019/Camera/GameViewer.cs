@@ -26,7 +26,6 @@ namespace pdxpartyparrot.ssj2019.Camera
             base.Awake();
 
             Follow(_targetGroup.transform);
-            LookAt(_targetGroup.transform);
         }
 #endregion
 
