@@ -38,6 +38,11 @@ namespace pdxpartyparrot.Core.Camera
             _cinemachineCamera.m_Lens.FieldOfView = fieldOfView;
         }
 
+        public T GetCinemachineComponent<T>() where T: CinemachineComponentBase
+        {
+            return _cinemachineCamera.GetCinemachineComponent<T>();
+        }
+
         public void Follow(Transform target)
         {
             _cinemachineCamera.Follow = target;

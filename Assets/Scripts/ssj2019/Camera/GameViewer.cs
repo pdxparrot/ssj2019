@@ -1,4 +1,4 @@
-﻿using Cinemachine;
+using Cinemachine;
 
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Camera;
@@ -44,6 +44,11 @@ namespace pdxpartyparrot.ssj2019.Camera
             Transform viewerTransform = Viewer.transform;
             viewerTransform.position = gameData.ViewerPosition;
             viewerTransform.eulerAngles = gameData.ViewerRotation;
+
+            CinemachineFramingTransposer transposer = GetCinemachineComponent<CinemachineFramingTransposer>();
+            transposer.m_GroupFramingMode = CinemachineFramingTransposer.FramingMode.HorizontalAndVertical;
+            transposer.m_MinimumOrthoSize = gameData.ViewportSize;
+            transposer.m_MaximumOrthoSize = gameData.ViewportSize * 2.0f;
         }
 
         public void AddTarget(Actor actor, float weight=1.0f)
