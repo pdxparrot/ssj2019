@@ -10,6 +10,7 @@ using UnityEngine;
 namespace pdxpartyparrot.ssj2019.Camera
 {
     [RequireComponent(typeof(CinemachineFramingTransposer))]
+    [RequireComponent(typeof(CinemachinePOV))]
     //[RequireComponent(typeof(CinemachineConfiner))]
     public sealed class GameViewer : CinemachineViewer, IPlayerViewer
     {
@@ -32,8 +33,6 @@ namespace pdxpartyparrot.ssj2019.Camera
 
             _transposer = GetCinemachineComponent<CinemachineFramingTransposer>();
             //_confiner = GetComponent<CinemachineConfiner>();
-
-            Follow(_targetGroup.transform);
         }
 #endregion
 
@@ -48,9 +47,6 @@ namespace pdxpartyparrot.ssj2019.Camera
                 Viewer.Set3D();
                 break;
             }
-
-            Transform viewerTransform = Viewer.transform;
-            viewerTransform.eulerAngles = gameData.ViewerRotation;
 
             _transposer.m_GroupFramingMode = CinemachineFramingTransposer.FramingMode.HorizontalAndVertical;
             _transposer.m_MinimumOrthoSize = gameData.ViewportSize;
