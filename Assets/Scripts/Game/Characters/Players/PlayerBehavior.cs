@@ -37,7 +37,7 @@ namespace pdxpartyparrot.Game.Characters.Players
 
             float dt = Time.deltaTime;
 
-            Vector3 moveDirection = Vector3.MoveTowards(MoveDirection, Player.PlayerInput.LastControllerMove, dt * Player.PlayerInput.PlayerInputData.MovementLerpSpeed);
+            Vector3 moveDirection = Vector3.MoveTowards(MoveDirection, Player.PlayerInput.LastMove, dt * Player.PlayerInput.PlayerInputData.MovementLerpSpeed);
             SetMoveDirection(moveDirection);
         }
 

@@ -118,7 +118,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
             if(context.performed) {
                 GamePlayer.GamePlayerBehavior.QueueAction(new AttackBehaviorComponent.AttackAction{
-                    Axes = LastControllerMove,
+                    Axes = LastMove,
                 });
 
                 _inputQueueTimeout.ReStartMillis(GamePlayerInputData.InputQueueTimeout);

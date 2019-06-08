@@ -15,7 +15,7 @@ namespace pdxpartyparrot.Game.Players.Input
             Vector2 axes = context.ReadValue<Vector2>();
 
             // translate movement from x / y to x / z
-            LastControllerMove = new Vector3(axes.x, 0.0f, axes.y);
+            OnMove(new Vector3(axes.x, 0.0f, axes.y));
         }
     }
 }

@@ -2,15 +2,16 @@ using System;
 
 using pdxpartyparrot.Core;
 using pdxpartyparrot.Core.Actors;
+using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.Game.Data;
 using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.Game.Players.Input
 {
@@ -35,23 +36,27 @@ namespace pdxpartyparrot.Game.Players.Input
 
         [SerializeField]
         [ReadOnly]
-        private Vector3 _lastControllerMove;
+        private bool _moveReceived;
 
-        public Vector3 LastControllerMove
-        {
-            get => _lastControllerMove;
-            protected set => _lastControllerMove = value;
-        }
+        private CircularBuffer<Vector3> _moveBuffer;
+
+        public Vector3 LastMove => _moveBuffer.Tail;
 
         [SerializeField]
         [ReadOnly]
-        private Vector3 _lastControllerLook;
+        private bool _lookReceived;
 
-        public Vector3 LastControllerLook
-        {
-            get => _lastControllerLook;
-            protected set => _lastControllerLook = value;
-        }
+        private CircularBuffer<Vector3> _lookBuffer;
+
+        public Vector3 LastLook => _moveBuffer.Tail;
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _actionReceived;
+
+        private CircularBuffer<CharacterBehaviorComponent.CharacterBehaviorAction> _actionBuffer;
+
+        public CharacterBehaviorComponent.CharacterBehaviorAction LastAction => _actionBuffer.Tail;
 
         protected virtual bool InputEnabled => !PartyParrotManager.Instance.IsPaused && Player.IsLocalActor;
 
@@ -63,7 +68,12 @@ namespace pdxpartyparrot.Game.Players.Input
         protected virtual void Awake()
         {
             Assert.IsTrue(Owner is IPlayer);
-            Assert.IsNotNull(_data);
+            Assert.IsNotNull(PlayerInputData);
+            Assert.IsTrue(PlayerInputData.InputBufferSize > 0);
+
+            _moveBuffer = new CircularBuffer<Vector3>(PlayerInputData.InputBufferSize);
+            _lookBuffer = new CircularBuffer<Vector3>(PlayerInputData.InputBufferSize);
+            _actionBuffer = new CircularBuffer<CharacterBehaviorComponent.CharacterBehaviorAction>(PlayerInputData.InputBufferSize);
 
             PartyParrotManager.Instance.PauseEvent += PauseEventHandler;
         }
@@ -93,9 +103,20 @@ namespace pdxpartyparrot.Game.Players.Input
                 return;
             }
 
-            if(!InputEnabled) {
-                LastControllerMove = Vector3.zero;
+            if(!_moveReceived) {
+                _moveBuffer.RemoveOldest();
             }
+            _moveReceived = false;
+
+            if(!_lookReceived) {
+                _lookBuffer.RemoveOldest();
+            }
+            _lookReceived = false;
+
+            if(!_actionReceived) {
+                _actionBuffer.RemoveOldest();
+            }
+            _actionReceived = false;
         }
 #endregion
 
@@ -108,53 +129,32 @@ namespace pdxpartyparrot.Game.Players.Input
             InitDebugMenu();
         }
 
-        protected virtual bool IsOurDevice(InputAction.CallbackContext ctx)
-        {
-            // no input unless we have focus
-            if(!Application.isFocused) {
-                return false;
-            }
-
-            // ignore keyboard/mouse while the debug menu is open
-            if(DebugMenuManager.Instance.Enabled && (ctx.control.device == Keyboard.current || ctx.control.device == Mouse.current)) {
-                return false;
-            }
-
-            return true;
-        }
-
         protected virtual void EnableControls(bool enable)
         {
         }
 
 #region Common Actions
-        public void OnPause(InputAction.CallbackContext context)
+        public void OnPause()
         {
-            if(!IsOurDevice(context)) {
-                return;
-            }
-
-            if(Core.Input.InputManager.Instance.EnableDebug) {
-                Debug.Log($"Pause: {context.action.phase}");
-            }
-
-            if(context.performed) {
-                PartyParrotManager.Instance.TogglePause();
-            }
+            PartyParrotManager.Instance.TogglePause();
         }
 
-        public virtual void OnMove(InputAction.CallbackContext context)
+        public void OnMove(Vector3 axes)
         {
-            // relying in input system binding set to continuous for this
-            Vector2 axes = context.ReadValue<Vector2>();
-            LastControllerMove = new Vector3(axes.x, axes.y, 0.0f);
+            _moveBuffer.Add(axes);
+            _moveReceived = true;
         }
 
-        public virtual void OnLook(InputAction.CallbackContext context)
+        public void OnLook(Vector3 axes)
         {
-            // relying in input system binding set to continuous for this
-            Vector2 axes = context.ReadValue<Vector2>();
-            LastControllerLook = new Vector3(axes.x, axes.y, 0.0f);
+            _lookBuffer.Add(axes);
+            _lookReceived = true;
+        }
+
+        public void OnAction(CharacterBehaviorComponent.CharacterBehaviorAction action)
+        {
+            _actionBuffer.Add(action);
+            _actionReceived = true;
         }
 #endregion
 
@@ -187,6 +187,24 @@ namespace pdxpartyparrot.Game.Players.Input
                 if(Application.isEditor) {
                     EnableMouseLook = GUILayout.Toggle(EnableMouseLook, "Enable Mouse Look");
                 }
+
+                GUILayout.BeginVertical("Move Buffer", GUI.skin.box);
+                    foreach(var move in _moveBuffer) {
+                        GUILayout.Label(move.ToString());
+                    }
+                GUILayout.EndVertical();
+
+                GUILayout.BeginVertical("Look Buffer", GUI.skin.box);
+                    foreach(var look in _lookBuffer) {
+                        GUILayout.Label(look.ToString());
+                    }
+                GUILayout.EndVertical();
+
+                GUILayout.BeginVertical("Action Buffer", GUI.skin.box);
+                    foreach(var action in _actionBuffer) {
+                        GUILayout.Label(action.ToString());
+                    }
+                GUILayout.EndVertical();
             };
         }
 
