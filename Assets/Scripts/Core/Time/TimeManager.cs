@@ -199,11 +199,21 @@ namespace pdxpartyparrot.Core.Time
         private Coroutine _updateRoutine;
 
         [SerializeField]
-        private float _offsetSeconds = 0;
+        private float _offsetSeconds;
 
-        public double CurrentUnixSeconds => DateTime.UtcNow.Subtract(Epoch).TotalSeconds + _offsetSeconds;
+        [SerializeField]
+        [ReadOnly]
+        private double _currentUnixSeconds;
 
-        public long CurrentUnixMs => (long)DateTime.UtcNow.Subtract(Epoch).TotalMilliseconds + SecondsToMilliseconds(_offsetSeconds);
+        // NOTE: only accurate to the last update boundary
+        public double CurrentUnixSeconds => _currentUnixSeconds;
+
+        [SerializeField]
+        [ReadOnly]
+        private long _currentUnixMs;
+
+        // NOTE: only accurate to the last update boundary
+        public long CurrentUnixMs => _currentUnixMs;
 
         private readonly HashSet<Timer> _timers = new HashSet<Timer>();
         private readonly Dictionary<string, Timer> _namedTimers = new Dictionary<string, Timer>();
@@ -257,6 +267,10 @@ namespace pdxpartyparrot.Core.Time
 
         private void DoUpdate(float dt)
         {
+            // TODO: is there a way we can do this *without* allocating?
+            _currentUnixSeconds = DateTime.UtcNow.Subtract(Epoch).TotalSeconds + _offsetSeconds;
+            _currentUnixMs = (long)DateTime.UtcNow.Subtract(Epoch).TotalMilliseconds + SecondsToMilliseconds(_offsetSeconds);
+
             if(PartyParrotManager.Instance.IsPaused) {
                 return;
             }
