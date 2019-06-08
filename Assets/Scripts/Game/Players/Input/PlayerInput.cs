@@ -4,6 +4,7 @@ using pdxpartyparrot.Core;
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.DebugMenu;
+using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.Players;
@@ -34,9 +35,12 @@ namespace pdxpartyparrot.Game.Players.Input
 
         protected float MouseSensitivity => _mouseSensitivity;
 
+#region Input Buffers
         [SerializeField]
         [ReadOnly]
-        private bool _moveReceived;
+        private long _lastMoveBufferTimestampMs;
+
+        private bool MoveBufferExpired => TimeManager.Instance.CurrentUnixMs - _lastMoveBufferTimestampMs > PlayerInputData.InputBufferTimeoutMs;
 
         private CircularBuffer<Vector3> _moveBuffer;
 
@@ -44,7 +48,9 @@ namespace pdxpartyparrot.Game.Players.Input
 
         [SerializeField]
         [ReadOnly]
-        private bool _lookReceived;
+        private long _lastLookBufferTimestampMs;
+
+        private bool LookBufferExpired => TimeManager.Instance.CurrentUnixMs - _lastLookBufferTimestampMs > PlayerInputData.InputBufferTimeoutMs;
 
         private CircularBuffer<Vector3> _lookBuffer;
 
@@ -52,11 +58,14 @@ namespace pdxpartyparrot.Game.Players.Input
 
         [SerializeField]
         [ReadOnly]
-        private bool _actionReceived;
+        private long _lastActionBufferTimestampMs;
+
+        private bool ActionBufferExpired => TimeManager.Instance.CurrentUnixMs - _lastActionBufferTimestampMs > PlayerInputData.InputBufferTimeoutMs;
 
         private CircularBuffer<CharacterBehaviorComponent.CharacterBehaviorAction> _actionBuffer;
 
         public CharacterBehaviorComponent.CharacterBehaviorAction LastAction => _actionBuffer.Tail;
+#endregion
 
         protected virtual bool InputEnabled => !PartyParrotManager.Instance.IsPaused && Player.IsLocalActor;
 
@@ -70,6 +79,7 @@ namespace pdxpartyparrot.Game.Players.Input
             Assert.IsTrue(Owner is IPlayer);
             Assert.IsNotNull(PlayerInputData);
             Assert.IsTrue(PlayerInputData.InputBufferSize > 0);
+            Assert.IsTrue(PlayerInputData.InputBufferTimeoutMs > 0);
 
             _moveBuffer = new CircularBuffer<Vector3>(PlayerInputData.InputBufferSize);
             _lookBuffer = new CircularBuffer<Vector3>(PlayerInputData.InputBufferSize);
@@ -103,20 +113,7 @@ namespace pdxpartyparrot.Game.Players.Input
                 return;
             }
 
-            if(!_moveReceived) {
-                _moveBuffer.RemoveOldest();
-            }
-            _moveReceived = false;
-
-            if(!_lookReceived) {
-                _lookBuffer.RemoveOldest();
-            }
-            _lookReceived = false;
-
-            if(!_actionReceived) {
-                _actionBuffer.RemoveOldest();
-            }
-            _actionReceived = false;
+            UpdateBuffers();
         }
 #endregion
 
@@ -133,6 +130,21 @@ namespace pdxpartyparrot.Game.Players.Input
         {
         }
 
+        private void UpdateBuffers()
+        {
+            if(_moveBuffer.Count > 0 && MoveBufferExpired) {
+                _moveBuffer.RemoveOldest();
+            }
+
+            if(_lookBuffer.Count > 0 && LookBufferExpired) {
+                _lookBuffer.RemoveOldest();
+            }
+
+            if(_actionBuffer.Count > 0 && ActionBufferExpired) {
+                _actionBuffer.RemoveOldest();
+            }
+        }
+
 #region Common Actions
         public void OnPause()
         {
@@ -142,19 +154,19 @@ namespace pdxpartyparrot.Game.Players.Input
         public void OnMove(Vector3 axes)
         {
             _moveBuffer.Add(axes);
-            _moveReceived = true;
+            _lastMoveBufferTimestampMs = TimeManager.Instance.CurrentUnixMs;
         }
 
         public void OnLook(Vector3 axes)
         {
             _lookBuffer.Add(axes);
-            _lookReceived = true;
+            _lastLookBufferTimestampMs = TimeManager.Instance.CurrentUnixMs;
         }
 
         public void OnAction(CharacterBehaviorComponent.CharacterBehaviorAction action)
         {
             _actionBuffer.Add(action);
-            _actionReceived = true;
+            _lastActionBufferTimestampMs = TimeManager.Instance.CurrentUnixMs;
         }
 #endregion
 

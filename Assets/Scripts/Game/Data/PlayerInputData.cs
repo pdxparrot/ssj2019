@@ -26,6 +26,12 @@ namespace pdxpartyparrot.Game.Data
         private int _inputBufferSize = 1;
 
         public int InputBufferSize => _inputBufferSize;
+
+        [SerializeField]
+        [Tooltip("Start clearing the input buffer after this many milliseconds without input")]
+        private int _inputBufferTimeoutMs = 500;
+
+        public int InputBufferTimeoutMs => _inputBufferTimeoutMs;
 #endregion
     }
 }

@@ -121,7 +121,7 @@ namespace pdxpartyparrot.ssj2019.Players
                     Axes = LastMove,
                 });
 
-                _inputQueueTimeout.ReStartMillis(GamePlayerInputData.InputQueueTimeout);
+                _inputQueueTimeout.ReStartMillis(GamePlayerInputData.InputBufferTimeoutMs);
             }
         }
 
