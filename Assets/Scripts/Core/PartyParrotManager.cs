@@ -19,6 +19,9 @@ namespace pdxpartyparrot.Core
 
 #region Data
         [SerializeField]
+        private EngineData _data;
+
+        [SerializeField]
         private UIData _uiData;
 
         public UIData UIData => _uiData;
@@ -128,7 +131,17 @@ namespace pdxpartyparrot.Core
             // we duplicate it here so we can save it out (since it's not exposed anywhere)
             SetRandomSeed(_randomSeed > 0 ? _randomSeed : Environment.TickCount);
 
-            QualitySettings.vSyncCount = 0;
+            if(_data.EnableVSync) {
+                Debug.Log("Enabling VSync");
+
+                QualitySettings.vSyncCount = 1;
+                Application.targetFrameRate = -1;
+            } else {
+                Debug.Log($"Disabling VSync, target frame rate: {_data.TargetFrameRate}");
+
+                QualitySettings.vSyncCount = 0;
+                Application.targetFrameRate = _data.TargetFrameRate;
+            }
 
             Debug.Log($"Gravity: {Physics.gravity}");
 

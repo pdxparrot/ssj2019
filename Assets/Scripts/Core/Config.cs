@@ -72,6 +72,7 @@ namespace pdxpartyparrot.Core
         {
             string configPath = Path.Combine(path, fileName);
             if(!File.Exists(configPath)) {
+                Debug.LogWarning($"Missing config {configPath}!");
                 return;
             }
 
