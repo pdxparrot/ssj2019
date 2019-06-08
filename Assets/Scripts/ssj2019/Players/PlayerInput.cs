@@ -1,8 +1,5 @@
-﻿using System;
-
-using pdxpartyparrot.Core.Actors;
+﻿using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Input;
-using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Players.Input;
 using pdxpartyparrot.ssj2019.Data;
@@ -25,8 +22,6 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public GamepadListener GamepadListener { get; private set; }
 
-        private ITimer _inputQueueTimeout;
-
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -39,11 +34,6 @@ namespace pdxpartyparrot.ssj2019.Players
 
         protected override void OnDestroy()
         {
-            if(TimeManager.HasInstance) {
-                TimeManager.Instance.RemoveTimer(_inputQueueTimeout);
-            }
-            _inputQueueTimeout = null;
-
             Actions.Player.Disable();
             Actions.Player.SetCallbacks(null);
 
@@ -68,9 +58,6 @@ namespace pdxpartyparrot.ssj2019.Players
 
             Actions.Player.SetCallbacks(this);
             Actions.Player.Enable();
-
-            _inputQueueTimeout = TimeManager.Instance.AddTimer();
-            _inputQueueTimeout.TimesUpEvent += InputQueueTimeoutTimesUpEventHandler;
         }
 
         protected override bool IsOurDevice(InputAction.CallbackContext ctx)
@@ -99,8 +86,7 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             if(context.performed) {
-                GamePlayer.GamePlayerBehavior.ClearActionQueue();
-                _inputQueueTimeout.Stop();
+                GamePlayer.GamePlayerBehavior.ClearActionBuffer();
 
                 GamePlayer.GamePlayerBehavior.ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
             }
@@ -117,11 +103,9 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             if(context.performed) {
-                GamePlayer.GamePlayerBehavior.QueueAction(new AttackBehaviorComponent.AttackAction{
+                GamePlayer.GamePlayerBehavior.BufferAction(new AttackBehaviorComponent.AttackAction{
                     Axes = LastMove,
                 });
-
-                _inputQueueTimeout.ReStartMillis(GamePlayerInputData.InputBufferTimeoutMs);
             }
         }
 
@@ -136,22 +120,10 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             if(context.performed) {
-                GamePlayer.GamePlayerBehavior.ClearActionQueue();
-                _inputQueueTimeout.Stop();
-
-                GamePlayer.GamePlayerBehavior.ActionPerformed(BlockBehaviorComponent.BlockAction.Default);
+                GamePlayer.GamePlayerBehavior.BufferAction(new BlockBehaviorComponent.BlockAction{
+                    Axes = LastMove,
+                });
             }
-        }
-#endregion
-
-#region EventHandlers
-        private void InputQueueTimeoutTimesUpEventHandler(object sender, EventArgs args)
-        {
-            if(PlayerManager.Instance.DebugInput) {
-                Debug.Log($"Clearing action queue");
-            }
-
-            GamePlayer.GamePlayerBehavior.ClearActionQueue();
         }
 #endregion
     }

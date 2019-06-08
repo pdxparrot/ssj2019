@@ -7,7 +7,12 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
 #region Actions
         public class AttackAction : CharacterBehaviorAction
         {
-            public Vector2 Axes { get; set; }
+            public Vector3 Axes { get; set; }
+
+            public override string ToString()
+            {
+                return $"AttackAction(Axes: {Axes})";
+            }
         }
 #endregion
 

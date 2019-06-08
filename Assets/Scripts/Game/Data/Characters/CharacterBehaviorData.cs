@@ -69,5 +69,20 @@ namespace pdxpartyparrot.Game.Data.Characters
 
         public string FallingParam => _fallingParam;
 #endregion
+
+#region Action Buffering
+        [Header("Action Buffering")]
+
+        [SerializeField]
+        private int _actionBufferSize = 1;
+
+        public int ActionBufferSize => _actionBufferSize;
+
+        [SerializeField]
+        [Tooltip("Start clearing the action buffer after this many milliseconds without input")]
+        private int _actionBufferTimeoutMs = 500;
+
+        public int ActionBufferTimeoutMs => _actionBufferTimeoutMs;
+#endregion
     }
 }

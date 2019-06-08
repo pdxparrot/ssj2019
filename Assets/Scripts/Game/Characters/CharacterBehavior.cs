@@ -1,10 +1,13 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Actors;
+using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Data;
+using pdxpartyparrot.Core.DebugMenu;
+using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Data.Characters;
@@ -58,7 +61,19 @@ namespace pdxpartyparrot.Game.Characters
 
         public override bool CanMove => base.CanMove && !GameStateManager.Instance.GameManager.IsGameOver;
 
-        private readonly Queue<CharacterBehaviorComponent.CharacterBehaviorAction> _actionQueue = new Queue<CharacterBehaviorComponent.CharacterBehaviorAction>();
+#region Action Buffer
+        [SerializeField]
+        [ReadOnly]
+        private long _lastActionBufferTimestampMs;
+
+        private bool ActionBufferExpired => TimeManager.Instance.CurrentUnixMs - _lastActionBufferTimestampMs > CharacterBehaviorData.ActionBufferTimeoutMs;
+
+        private CircularBuffer<CharacterBehaviorComponent.CharacterBehaviorAction> _actionBuffer;
+
+        public CharacterBehaviorComponent.CharacterBehaviorAction LastAction => _actionBuffer.Tail;
+#endregion
+
+        private DebugMenuNode _debugMenuNode;
 
 #region Unity Lifecycle
         protected override void Awake()
@@ -68,9 +83,20 @@ namespace pdxpartyparrot.Game.Characters
             base.Awake();
         }
 
+        protected override void OnDestroy()
+        {
+            DestroyDebugMenu();
+
+            base.OnDestroy();
+        }
+
         protected override void Update()
         {
             base.Update();
+
+            if(_actionBuffer.Count > 0 && ActionBufferExpired) {
+                _actionBuffer.RemoveOldest();
+            }
 
             if(null != Animator) {
                 Animator.SetBool(CharacterBehaviorData.FallingParam, IsFalling);
@@ -84,9 +110,13 @@ namespace pdxpartyparrot.Game.Characters
 
             base.Initialize(behaviorData);
 
+            _actionBuffer = new CircularBuffer<CharacterBehaviorComponent.CharacterBehaviorAction>(CharacterBehaviorData.ActionBufferSize);
+
             foreach(CharacterBehaviorComponent component in _components.Items) {
                 component.Initialize(this);
             }
+
+            InitDebugMenu();
         }
 
 #region Components
@@ -123,15 +153,16 @@ namespace pdxpartyparrot.Game.Characters
         }
 #endregion
 
-#region Action Queue
-        public void QueueAction(CharacterBehaviorComponent.CharacterBehaviorAction action)
+#region Action Buffer
+        public void BufferAction(CharacterBehaviorComponent.CharacterBehaviorAction action)
         {
-            _actionQueue.Enqueue(action);
+            _actionBuffer.Add(action);
+            _lastActionBufferTimestampMs = TimeManager.Instance.CurrentUnixMs;
         }
 
-        public void ClearActionQueue()
+        public void ClearActionBuffer()
         {
-            _actionQueue.Clear();
+            _actionBuffer.Clear();
         }
 #endregion
 
@@ -178,5 +209,27 @@ namespace pdxpartyparrot.Game.Characters
 
             SetFacing(forward);
         }
+
+#region Debug Menu
+        private void InitDebugMenu()
+        {
+            _debugMenuNode = DebugMenuManager.Instance.AddNode(() => $"Game.CharacterBehavior {Owner.Id}");
+            _debugMenuNode.RenderContentsAction = () => {
+                GUILayout.BeginVertical("Action Buffer", GUI.skin.box);
+                    foreach(var action in _actionBuffer) {
+                        GUILayout.Label(action.ToString());
+                    }
+                GUILayout.EndVertical();
+            };
+        }
+
+        private void DestroyDebugMenu()
+        {
+            if(DebugMenuManager.HasInstance) {
+                DebugMenuManager.Instance.RemoveNode(_debugMenuNode);
+            }
+            _debugMenuNode = null;
+        }
+#endregion
     }
 }

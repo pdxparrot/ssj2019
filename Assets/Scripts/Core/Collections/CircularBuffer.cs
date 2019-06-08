@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace pdxpartyparrot.Core.Collections
 {
+    // TODO: the handling of head / tail here leads to the actual size
+    // of the buffer being Size - 1 and that's not good
     public class CircularBuffer<T> : ICollection<T>, IReadOnlyCollection<T>
     {
         public int Size { get; }
@@ -46,7 +48,6 @@ namespace pdxpartyparrot.Core.Collections
         }
 
 #region ICollection
-        // TODO: this might be off by 1
         public int Count => _head == _tail
             ? 0
             : _tail > _head

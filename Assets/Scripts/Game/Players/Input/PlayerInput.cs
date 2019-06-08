@@ -6,7 +6,6 @@ using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
-using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.Game.Data;
 using pdxpartyparrot.Game.State;
@@ -55,16 +54,6 @@ namespace pdxpartyparrot.Game.Players.Input
         private CircularBuffer<Vector3> _lookBuffer;
 
         public Vector3 LastLook => _moveBuffer.Tail;
-
-        [SerializeField]
-        [ReadOnly]
-        private long _lastActionBufferTimestampMs;
-
-        private bool ActionBufferExpired => TimeManager.Instance.CurrentUnixMs - _lastActionBufferTimestampMs > PlayerInputData.InputBufferTimeoutMs;
-
-        private CircularBuffer<CharacterBehaviorComponent.CharacterBehaviorAction> _actionBuffer;
-
-        public CharacterBehaviorComponent.CharacterBehaviorAction LastAction => _actionBuffer.Tail;
 #endregion
 
         protected virtual bool InputEnabled => !PartyParrotManager.Instance.IsPaused && Player.IsLocalActor;
@@ -83,7 +72,6 @@ namespace pdxpartyparrot.Game.Players.Input
 
             _moveBuffer = new CircularBuffer<Vector3>(PlayerInputData.InputBufferSize);
             _lookBuffer = new CircularBuffer<Vector3>(PlayerInputData.InputBufferSize);
-            _actionBuffer = new CircularBuffer<CharacterBehaviorComponent.CharacterBehaviorAction>(PlayerInputData.InputBufferSize);
 
             PartyParrotManager.Instance.PauseEvent += PauseEventHandler;
         }
@@ -139,10 +127,6 @@ namespace pdxpartyparrot.Game.Players.Input
             if(_lookBuffer.Count > 0 && LookBufferExpired) {
                 _lookBuffer.RemoveOldest();
             }
-
-            if(_actionBuffer.Count > 0 && ActionBufferExpired) {
-                _actionBuffer.RemoveOldest();
-            }
         }
 
 #region Common Actions
@@ -161,12 +145,6 @@ namespace pdxpartyparrot.Game.Players.Input
         {
             _lookBuffer.Add(axes);
             _lastLookBufferTimestampMs = TimeManager.Instance.CurrentUnixMs;
-        }
-
-        public void OnAction(CharacterBehaviorComponent.CharacterBehaviorAction action)
-        {
-            _actionBuffer.Add(action);
-            _lastActionBufferTimestampMs = TimeManager.Instance.CurrentUnixMs;
         }
 #endregion
 
@@ -187,6 +165,7 @@ namespace pdxpartyparrot.Game.Players.Input
         }
 #endregion
 
+#region Debug Menu
         private void InitDebugMenu()
         {
             _debugMenuNode = DebugMenuManager.Instance.AddNode(() => $"Game.Player {Player.Id} Input");
@@ -211,12 +190,6 @@ namespace pdxpartyparrot.Game.Players.Input
                         GUILayout.Label(look.ToString());
                     }
                 GUILayout.EndVertical();
-
-                GUILayout.BeginVertical("Action Buffer", GUI.skin.box);
-                    foreach(var action in _actionBuffer) {
-                        GUILayout.Label(action.ToString());
-                    }
-                GUILayout.EndVertical();
             };
         }
 
@@ -227,5 +200,6 @@ namespace pdxpartyparrot.Game.Players.Input
             }
             _debugMenuNode = null;
         }
+#endregion
     }
 }

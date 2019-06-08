@@ -33,7 +33,7 @@ namespace pdxpartyparrot.Game.Characters.Players
 
         protected override void Update()
         {
-            base.Awake();
+            base.Update();
 
             float dt = Time.deltaTime;
 

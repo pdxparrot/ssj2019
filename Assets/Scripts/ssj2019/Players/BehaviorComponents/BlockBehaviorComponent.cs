@@ -1,11 +1,18 @@
-﻿namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
+﻿using UnityEngine;
+
+namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
 {
     public sealed class BlockBehaviorComponent : GamePlayerBehaviorComponent
     {
 #region Actions
         public class BlockAction : CharacterBehaviorAction
         {
-            public static BlockAction Default = new BlockAction();
+            public Vector3 Axes { get; set; }
+
+            public override string ToString()
+            {
+                return $"BlockAction(Axes: {Axes})";
+            }
         }
 #endregion
 

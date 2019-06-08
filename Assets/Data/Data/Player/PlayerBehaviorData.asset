@@ -19,6 +19,7 @@ MonoBehaviour:
   _drag: 0
   _angularDrag: 0
   _isKinematic: 0
+  _animateModel: 0
   _moveSpeed: 2.5
   _runThreshold: 0.75
   _fallSpeedAdjustment: 45
@@ -27,3 +28,6 @@ MonoBehaviour:
   _moveXAxisParam: InputX
   _moveZAxisParam: InputZ
   _fallingParam: Falling
+  _actionBufferSize: 5
+  _actionBufferTimeoutMs: 500
+  _alignMovementWithViewer: 0
