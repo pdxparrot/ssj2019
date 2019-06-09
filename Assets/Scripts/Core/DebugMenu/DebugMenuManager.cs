@@ -129,13 +129,15 @@ namespace pdxpartyparrot.Core.DebugMenu
 
         private void OnGUI()
         {
-            if(!_enabled) {
-                return;
-            }
-
             Profiler.BeginSample("DebugMenuManager.OnGUI");
             try {
-                _window.Render();
+                if(_enabled) {
+                    _window.Render();
+                }
+
+#if UNITY_EDITOR
+                RenderDebugUI();
+#endif
             } finally {
                 Profiler.EndSample();
             }
@@ -213,6 +215,10 @@ namespace pdxpartyparrot.Core.DebugMenu
                     GUILayout.Label($"Unused: {Profiler.GetTotalUnusedReservedMemoryLong() / 1048576.0f:0.00}MB");
                     GUILayout.Label($"Mono Heap: {Profiler.GetMonoHeapSizeLong() / 1048576.0f:0.00}MB");
                     GUILayout.Label($"Mono Used: {Profiler.GetMonoUsedSizeLong() / 1048576.0f:0.00}MB");
+                    GUILayout.Label($"Temp Allocator Size: {Profiler.GetTempAllocatorSize() / 1048576.0f:0.00}MB");
+#if UNITY_EDITOR
+                    GUILayout.Label($"GPU Allocated: {Profiler.GetAllocatedMemoryForGraphicsDriver() / 1048576.0f:0.00}MB");
+#endif
                 GUILayout.EndVertical();
 
                 _windowScrollPos = GUILayout.BeginScrollView(_windowScrollPos);
@@ -288,6 +294,20 @@ namespace pdxpartyparrot.Core.DebugMenu
 #endif
             };
         }
+
+#if UNITY_EDITOR
+        private void RenderDebugUI()
+        {
+            GUI.color = Color.white;
+
+            GUILayout.BeginVertical();
+                GUILayout.Label($"{_enableKey} for debug menu");
+                GUILayout.Label($"Average FPS: {(int)AverageFPS}");
+                GUILayout.Label($"Allocated: {Profiler.GetTotalAllocatedMemoryLong() / 1048576.0f:0.00}MB / {Profiler.GetTotalReservedMemoryLong() / 1048576.0f:0.00}MB");
+                GUILayout.Label($"Mono Used: {Profiler.GetMonoUsedSizeLong() / 1048576.0f:0.00}MB / {Profiler.GetMonoHeapSizeLong() / 1048576.0f:0.00}MB");
+            GUILayout.EndVertical();
+        }
+#endif
 
 #region Event Handlers
         private void OnLogMessageReceived(string logString, string stackTrace, LogType type)
