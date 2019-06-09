@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66a3e15959c80bc458141f086bd0d809, type: 3}
-  m_Name: Player D CharacterData
+  m_Name: Player E CharacterData
   m_EditorClassIdentifier: 
-  _name: Player D
+  _name: Player E
   _characterSelectIcon: {fileID: 0}
   _attackComboData: {fileID: 11400000, guid: eccf4b5a93f4f96489bbf801a03db087, type: 2}

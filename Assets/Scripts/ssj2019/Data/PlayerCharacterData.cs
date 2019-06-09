@@ -14,5 +14,20 @@ namespace pdxpartyparrot.ssj2019.Data
         public class ReorderableList : ReorderableList<PlayerCharacterData>
         {
         }
+
+        [SerializeField]
+        private string _name;
+
+        public string Name => _name;
+
+        [SerializeField]
+        private GameObject _characterSelectIcon;
+
+        public GameObject CharacterSelectIcon => _characterSelectIcon;
+
+        [SerializeField]
+        private AttackComboData _attackComboData;
+
+        public AttackComboData AttackComboData => _attackComboData;
     }
 }

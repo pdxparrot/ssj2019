@@ -20,7 +20,7 @@ MonoBehaviour:
   _angularDrag: 0
   _isKinematic: 0
   _animateModel: 0
-  _moveSpeed: 2.5
+  _moveSpeed: 5
   _runThreshold: 0.75
   _fallSpeedAdjustment: 45
   _terminalVelocity: 50

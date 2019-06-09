@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a3e15959c80bc458141f086bd0d809, type: 3}
   m_Name: Player B CharacterData
   m_EditorClassIdentifier: 
+  _name: Player B
+  _characterSelectIcon: {fileID: 0}
+  _attackComboData: {fileID: 11400000, guid: eccf4b5a93f4f96489bbf801a03db087, type: 2}

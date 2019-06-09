@@ -1,6 +1,6 @@
 ﻿namespace pdxpartyparrot.Game.Menu
 {
-    public sealed class CharacterSelectMenu : MenuPanel
+    public abstract class CharacterSelectMenu : MenuPanel
     {
     }
 }
