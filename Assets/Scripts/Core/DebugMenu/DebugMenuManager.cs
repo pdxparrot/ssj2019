@@ -41,6 +41,14 @@ namespace pdxpartyparrot.Core.DebugMenu
         [ReadOnly]
         private Vector2 _windowScrollPos;
 
+        [SerializeField]
+        [ReadOnly]
+        private bool _showRendering;
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _showMemory;
+
         private readonly List<DebugMenuNode> _nodes = new List<DebugMenuNode>();
 
         [CanBeNull]
@@ -202,24 +210,30 @@ namespace pdxpartyparrot.Core.DebugMenu
             if(null == _currentNode) {
                 GUILayout.Label($"Random seed: {PartyParrotManager.Instance.RandomSeed}");
 
-                GUILayout.BeginVertical("Rendering:", GUI.skin.box);
-                    GUILayout.Label($"Frame Time: {(int)(_lastFrameTime * 1000.0f)} ms");
-                    GUILayout.Label($"Min Frame Time: {(int)(_minFrameTime * 1000.0f)} ms");
-                    GUILayout.Label($"Max Frame Time: {(int)(_maxFrameTime * 1000.0f)} ms");
-                    GUILayout.Label($"Average FPS: {(int)AverageFPS}");
-                GUILayout.EndVertical();
+                _showRendering = GUIUtils.Foldout(_showRendering, "Rendering");
+                if(_showRendering) {
+                    GUILayout.BeginVertical(GUI.skin.box);
+                        GUILayout.Label($"Frame Time: {(int)(_lastFrameTime * 1000.0f)} ms");
+                        GUILayout.Label($"Min Frame Time: {(int)(_minFrameTime * 1000.0f)} ms");
+                        GUILayout.Label($"Max Frame Time: {(int)(_maxFrameTime * 1000.0f)} ms");
+                        GUILayout.Label($"Average FPS: {(int)AverageFPS}");
+                    GUILayout.EndVertical();
+                }
 
-                GUILayout.BeginVertical("Memory:", GUI.skin.box);
-                    GUILayout.Label($"Allocated: {Profiler.GetTotalAllocatedMemoryLong() / 1048576.0f:0.00}MB");
-                    GUILayout.Label($"Reserved: {Profiler.GetTotalReservedMemoryLong() / 1048576.0f:0.00}MB");
-                    GUILayout.Label($"Unused: {Profiler.GetTotalUnusedReservedMemoryLong() / 1048576.0f:0.00}MB");
-                    GUILayout.Label($"Mono Heap: {Profiler.GetMonoHeapSizeLong() / 1048576.0f:0.00}MB");
-                    GUILayout.Label($"Mono Used: {Profiler.GetMonoUsedSizeLong() / 1048576.0f:0.00}MB");
-                    GUILayout.Label($"Temp Allocator Size: {Profiler.GetTempAllocatorSize() / 1048576.0f:0.00}MB");
+                _showMemory = GUIUtils.Foldout(_showMemory, "Memory");
+                if(_showMemory) {
+                    GUILayout.BeginVertical(GUI.skin.box);
+                        GUILayout.Label($"Allocated: {Profiler.GetTotalAllocatedMemoryLong() / 1048576.0f:0.00}MB");
+                        GUILayout.Label($"Reserved: {Profiler.GetTotalReservedMemoryLong() / 1048576.0f:0.00}MB");
+                        GUILayout.Label($"Unused: {Profiler.GetTotalUnusedReservedMemoryLong() / 1048576.0f:0.00}MB");
+                        GUILayout.Label($"Mono Heap: {Profiler.GetMonoHeapSizeLong() / 1048576.0f:0.00}MB");
+                        GUILayout.Label($"Mono Used: {Profiler.GetMonoUsedSizeLong() / 1048576.0f:0.00}MB");
+                        GUILayout.Label($"Temp Allocator Size: {Profiler.GetTempAllocatorSize() / 1048576.0f:0.00}MB");
 #if UNITY_EDITOR
-                    GUILayout.Label($"GPU Allocated: {Profiler.GetAllocatedMemoryForGraphicsDriver() / 1048576.0f:0.00}MB");
+                        GUILayout.Label($"GPU Allocated: {Profiler.GetAllocatedMemoryForGraphicsDriver() / 1048576.0f:0.00}MB");
 #endif
-                GUILayout.EndVertical();
+                    GUILayout.EndVertical();
+                }
 
                 _windowScrollPos = GUILayout.BeginScrollView(_windowScrollPos);
                     foreach(DebugMenuNode node in _nodes) {
