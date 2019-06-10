@@ -55,6 +55,13 @@ namespace pdxpartyparrot.ssj2019.Menu
         }
 #endregion
 
+        public void SetSelectorActive(CharacterSelector characterSelector)
+        {
+            // TODO: if this selector was not in the active set
+            // add it to the active set and re-order it to the end
+            // of the active set in the hierarchy
+        }
+
         [CanBeNull]
         public PlayerCharacterData GetNextCharacter(ref int index)
         {

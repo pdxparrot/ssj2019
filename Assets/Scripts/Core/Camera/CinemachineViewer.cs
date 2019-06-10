@@ -5,6 +5,12 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Core.Camera
 {
+    // TODO: instead of having the virtual camera here (or maybe in addition to?)
+    // we should be able to place virtual cameras throughout the level
+    // the (eventual) CinematicManager should then be able to manage the "active"
+    // virtual camera for each viewer that we have available
+    // TODO: it might also be worth looking into integrating Unity Timeline for this
+
     [RequireComponent(typeof(CinemachineVirtualCamera))]
     public class CinemachineViewer : Viewer
     {
