@@ -66,5 +66,14 @@ namespace pdxpartyparrot.Core.UI
             return float.TryParse(text, out value) ? value : currentValue;
         }
 */
+
+        public static bool Foldout(bool foldout, string content)
+        {
+            content = $"{(foldout ? 'v' : '>')} {content}";
+            if(GUILayout.Button(content)) {
+                return !foldout;
+            }
+            return foldout;
+        }
     }
 }

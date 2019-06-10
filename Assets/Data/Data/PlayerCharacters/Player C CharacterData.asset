@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Player C CharacterData
   m_EditorClassIdentifier: 
   _name: Player C
-  _characterSelectIcon: {fileID: 0}
+  _characterPortraitPrefab: {fileID: 626089794780383238, guid: 5142a366702c3ad4f8716b78c4c80bfd,
+    type: 3}
   _attackComboData: {fileID: 11400000, guid: eccf4b5a93f4f96489bbf801a03db087, type: 2}
