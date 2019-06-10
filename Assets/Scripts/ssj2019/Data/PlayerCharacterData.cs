@@ -21,9 +21,9 @@ namespace pdxpartyparrot.ssj2019.Data
         public string Name => _name;
 
         [SerializeField]
-        private GameObject _characterSelectIcon;
+        private GameObject _characterPortraitPrefab;
 
-        public GameObject CharacterSelectIcon => _characterSelectIcon;
+        public GameObject CharacterPortraitPrefab => _characterPortraitPrefab;
 
         [SerializeField]
         private AttackComboData _attackComboData;
