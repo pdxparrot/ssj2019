@@ -43,6 +43,7 @@ namespace pdxpartyparrot.Game.Menu
 
             _currentPanel = panel;
             _currentPanel.gameObject.SetActive(true);
+            _currentPanel.ResetMenu();
         }
 
         public void PopPanel()

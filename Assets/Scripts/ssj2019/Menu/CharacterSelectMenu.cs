@@ -13,5 +13,14 @@ namespace pdxpartyparrot.ssj2019.Menu
         private CharacterSelector[] _characterSelectors;
 
         public IReadOnlyCollection<CharacterSelector> CharacterSelectors => _characterSelectors;
+
+        public override void ResetMenu()
+        {
+            base.ResetMenu();
+
+            foreach(CharacterSelector characterSelector in _characterSelectors) {
+                characterSelector.ResetSelector();
+            }
+        }
     }
 }

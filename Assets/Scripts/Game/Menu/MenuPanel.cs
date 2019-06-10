@@ -56,10 +56,8 @@ namespace pdxpartyparrot.Game.Menu
         }
 #endregion
 
-        public void ResetMenu()
+        public virtual void ResetMenu()
         {
-            Debug.LogWarning($"TODO: reset menu {name}");
-
             _initialSelection.Select();
             _initialSelection.Highlight();
         }
