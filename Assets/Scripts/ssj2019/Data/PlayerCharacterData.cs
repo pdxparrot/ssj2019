@@ -29,5 +29,7 @@ namespace pdxpartyparrot.ssj2019.Data
         private AttackComboData _attackComboData;
 
         public AttackComboData AttackComboData => _attackComboData;
+
+        // TODO: override movement speed
     }
 }

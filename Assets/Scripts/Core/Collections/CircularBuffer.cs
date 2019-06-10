@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 namespace pdxpartyparrot.Core.Collections
 {
-    // TODO: the handling of head / tail here leads to the actual size
-    // of the buffer being Size - 1 and that's not good
     public class CircularBuffer<T> : ICollection<T>, IReadOnlyCollection<T>
     {
         public int Size { get; }
@@ -24,7 +22,7 @@ namespace pdxpartyparrot.Core.Collections
             Size = size;
             _elements = new T[Size];
 
-            _head = 0;
+            _head = -1;
             _tail = 0;
         }
 
@@ -33,6 +31,12 @@ namespace pdxpartyparrot.Core.Collections
             if(Count < 1) {
                 return;
             }
+
+            if(Count == 1) {
+                _head = -1;
+                return;
+            }
+
             AdvanceIndex(ref _head);
         }
 
@@ -48,18 +52,22 @@ namespace pdxpartyparrot.Core.Collections
         }
 
 #region ICollection
-        public int Count => _head == _tail
+        public int Count => _head == -1
             ? 0
-            : _tail > _head
-                ? _tail - _head
-                : Size - _head + _tail;
+            : _tail >= _head
+                ? _tail - _head + 1
+                : Size - _head + _tail + 1;
 
         public bool IsReadOnly => false;
 
         public IEnumerator<T> GetEnumerator()
         {
+            if(Count < 1) {
+                yield break;
+            }
+
             int idx = _head;
-            while(idx != _tail) {
+            while(idx <= _tail) {
                 yield return _elements[idx];
                 AdvanceIndex(ref idx);
             }
@@ -72,28 +80,33 @@ namespace pdxpartyparrot.Core.Collections
 
         public void Add(T item)
         {
-            int idx = _tail;
-
-            AdvanceIndex(ref _tail);
-            if(_tail == _head) {
-                AdvanceIndex(ref _head);
+            if(Count < 1) {
+                _head = 0;
+            } else {
+                AdvanceIndex(ref _tail);
+                if(_head == _tail) {
+                    AdvanceIndex(ref _head);
+                }
             }
-
-            _elements[idx] = item;
+            _elements[_tail] = item;
         }
 
         public void Clear()
         {
-            _head = 0;
+            _head = -1;
             _tail = 0;
         }
 
         public bool Contains(T item)
         {
+            if(Count < 1) {
+                return false;
+            }
+
             var comparer = EqualityComparer<T>.Default;
 
             int idx = _head;
-            while(idx != _tail) {
+            while(idx <= _tail) {
                 if(comparer.Equals(_elements[idx], item)) {
                     return true;
                 }
@@ -104,8 +117,12 @@ namespace pdxpartyparrot.Core.Collections
 
         public void CopyTo(T[] array, int arrayIndex)
         {
+            if(Count < 1) {
+                return;
+            }
+
             int idx = _head;
-            while(idx != _tail && arrayIndex < array.Length) {
+            while(idx <= _tail && arrayIndex < array.Length) {
                 array[arrayIndex] = _elements[idx];
                 AdvanceIndex(ref idx);
             }
