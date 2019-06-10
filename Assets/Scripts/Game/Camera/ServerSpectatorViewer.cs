@@ -4,14 +4,14 @@ using pdxpartyparrot.Game.Network;
 
 namespace pdxpartyparrot.Game.Camera
 {
-    public sealed class ServerSpectatorViewer : FollowViewer3D
+    public sealed class ServerSpectatorViewer : CinemachineViewer
     {
         public void Initialize(ServerSpectator owner)
         {
             Initialize(0);
 
-            FollowCamera3D.SetTarget(owner.FollowTarget);
-            SetFocus(owner.transform);
+            //Follow(owner.FollowTarget);
+            LookAt(owner.transform);
         }
     }
 }

@@ -14,10 +14,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Networking;
 
+// TODO: need to fix the follow target bits of this
+
 namespace pdxpartyparrot.Game.Network
 {
     [RequireComponent(typeof(NetworkIdentity))]
-    [RequireComponent(typeof(FollowCameraTarget3D))]
+    //[RequireComponent(typeof(FollowCameraTarget3D))]
     public sealed class ServerSpectator : MonoBehaviour, ServerSpectatorControls.IServerSpectatorActions
     {
         private const string InvertLookYKey = "serverspectator.invertlooky";
@@ -39,7 +41,7 @@ namespace pdxpartyparrot.Game.Network
         [ReadOnly]
         private Vector3 _lastControllerLook;
 
-        public FollowCameraTarget3D FollowTarget { get; private set; }
+        //public FollowCameraTarget3D FollowTarget { get; private set; }
 
         [CanBeNull]
         private ServerSpectatorViewer _viewer;
@@ -49,7 +51,7 @@ namespace pdxpartyparrot.Game.Network
 #region Unity Lifecycle
         private void Awake()
         {
-            FollowTarget = GetComponent<FollowCameraTarget3D>();
+            //FollowTarget = GetComponent<FollowCameraTarget3D>();
 
             _viewer = ViewerManager.Instance.AcquireViewer<ServerSpectatorViewer>(gameObject);
             if(null != _viewer) {
@@ -85,7 +87,7 @@ namespace pdxpartyparrot.Game.Network
         {
             float dt = Time.deltaTime;
 
-            FollowTarget.LastLookAxes = Vector3.Lerp(FollowTarget.LastLookAxes, _lastControllerLook, dt * 20.0f);
+            //FollowTarget.LastLookAxes = Vector3.Lerp(FollowTarget.LastLookAxes, _lastControllerLook, dt * 20.0f);
 
             Quaternion rotation = null != _viewer ? Quaternion.AngleAxis(_viewer.transform.localEulerAngles.y, Vector3.up) : transform.rotation;
             transform.position = Vector3.Lerp(transform.position, transform.position + (rotation * _lastControllerMove), dt * 20.0f);
@@ -167,7 +169,7 @@ namespace pdxpartyparrot.Game.Network
             if(context.canceled) {
                 _lastControllerLook = Vector3.zero;
 
-                FollowTarget.LastLookAxes = _lastControllerLook;
+                //FollowTarget.LastLookAxes = _lastControllerLook;
             } else {
                 Vector2 axes = context.ReadValue<Vector2>();
                 axes.y *= InvertLookY ? -1 : 1;
