@@ -13,7 +13,7 @@ namespace pdxpartyparrot.Core.Collections
 
         private int _tail;
 
-        public T Tail => Count > 0 ? _elements[PreviousIndex(_tail)] : default;
+        public T Tail => Count > 0 ? _elements[_tail] : default;
 
         private readonly T[] _elements;
 
@@ -22,8 +22,7 @@ namespace pdxpartyparrot.Core.Collections
             Size = size;
             _elements = new T[Size];
 
-            _head = -1;
-            _tail = 0;
+            Clear();
         }
 
         public void RemoveOldest()
@@ -33,7 +32,7 @@ namespace pdxpartyparrot.Core.Collections
             }
 
             if(Count == 1) {
-                _head = -1;
+                Clear();
                 return;
             }
 
@@ -43,12 +42,6 @@ namespace pdxpartyparrot.Core.Collections
         private void AdvanceIndex(ref int i)
         {
             i = (i + 1) % Size;
-        }
-
-        private int PreviousIndex(int i)
-        {
-            int idx = i - 1;
-            return idx < 0 ? Size - 1 : idx;
         }
 
 #region ICollection
@@ -84,7 +77,7 @@ namespace pdxpartyparrot.Core.Collections
                 _head = 0;
             } else {
                 AdvanceIndex(ref _tail);
-                if(_head == _tail) {
+                if(_head == _tail && Size > 1) {
                     AdvanceIndex(ref _head);
                 }
             }
