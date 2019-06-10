@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
@@ -9,70 +10,67 @@ namespace pdxpartyparrot.Core.Collections
         void Reset();
     }
 
-    public sealed class ObjectPool<T> where T: class, IPooledItem, new()
+    public interface IReadOnlyObjectPool<out T> : IEnumerable<T>, IEnumerable
     {
-        private class ObjectPoolElement
-        {
-            public bool InUse { get; set; }
+        int Size { get; }
 
-            public T Item { get; set; }
-        }
+        int Used { get; }
 
-        public int Size { get; }
+        int Free { get; }
+    }
 
-        public int Used { get; private set; }
+    public sealed class ObjectPool<T> : IEnumerable<T>, IEnumerable, IReadOnlyObjectPool<T> where T: class, IPooledItem, new()
+    {
+        public int Size => Used + Free;
 
-        public int Free => Size - Used;
+        public int Used => _used.Count;
 
-        private readonly ObjectPoolElement[] _elements;
+        public int Free => _unused.Count;
+
+        private readonly List<T> _unused;
+
+        private readonly List<T> _used;
 
         public ObjectPool(int size)
         {
-            Size = size;
+            _unused = new List<T>(size);
+            _used = new List<T>(size);
 
-            _elements = new ObjectPoolElement[Size];
-            foreach(ObjectPoolElement e in _elements) {
-                e.Item = new T();
+            for(int i=0; i<size; ++i) {
+                _unused.Add(new T());
             }
         }
 
         [CanBeNull]
         public T Acquire()
         {
-            foreach(ObjectPoolElement e in _elements) {
-                if(e.InUse) {
-                    continue;
-                }
-
-                Used++;
-
-                T item = e.Item;
-                item.Reset();
-                return item;
+            if(Free == 0) {
+                return null;
             }
-            return null;
+
+            T item = _unused.RemoveFront();
+            item.Reset();
+            _used.Add(item);
+            return item;
         }
 
-        public void Release(T item)
+        public bool Release(T item)
         {
-            foreach(ObjectPoolElement e in _elements) {
-                if(e.Item != item) {
-                    continue;
-                }
-
-                Used--;
-
-                e.InUse = false;
+            if(_used.Remove(item)) {
+                _unused.Add(item);
+                return true;
             }
+            return false;
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            foreach(ObjectPoolElement e in _elements) {
-                if(e.InUse) {
-                    yield return e.Item;
-                }
-            }
+            return _used.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
