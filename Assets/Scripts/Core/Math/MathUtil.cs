@@ -8,10 +8,10 @@ namespace pdxpartyparrot.Core.Math
         public const float Epsilon = 0.001f;
 
         // modulus that wraps negative numbers
-        // NOTE: this does floating point math under the hood so only use if necessary
+        // NOTE: this does multiple modulos so only use if negative numbers are a certainty
         public static int WrapMod(int n, int m)
         {
-            return (int)WrapMod((float)n, (float)m);
+            return (n % m + m) % m;
         }
 
         public static float WrapMod(float n, float m)
