@@ -162,7 +162,13 @@ namespace pdxpartyparrot.ssj2019.Menu
 #region Events
         public void OnReady()
         {
-            // TODO: need to set each player's character and gamepad
+            foreach(CharacterSelector characterSelector in _characterSelectors) {
+                if(null == characterSelector.PlayerCharacterData) {
+                    continue;
+                }
+
+                GameManager.Instance.AddCharacter(characterSelector.Gamepad, characterSelector.PlayerCharacterData);
+            }
 
             GameStateManager.Instance.StartLocal(GameManager.Instance.MainGameStatePrefab);
         }

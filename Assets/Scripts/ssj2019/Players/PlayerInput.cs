@@ -20,11 +20,6 @@ namespace pdxpartyparrot.ssj2019.Players
 
         private Player GamePlayer => (Player)Player;
 
-// TODO: it's cool we have a gamepad listener, but we need to tell it what our Gamepad is if we have one
-// rather than it immediately trying to acquire one from the pool (or maybe there's a better way to do this?)
-// like maybe when a player spawns they get the character associated with their gamepad?
-// in which case we have to deal with "our gamepad is gone" and "we don't have a gamepad"
-
         public GamepadListener GamepadListener { get; private set; }
 
 #region Unity Lifecycle
