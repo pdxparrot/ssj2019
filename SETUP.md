@@ -519,6 +519,8 @@
 
 # Main Menu Setup
 
+* **TODO:** In the future, make a Button prefab to stick in everything
+
 * Create a new MainMenu script that overrides the Game MainMenu
 * Create a MainMenu Prefab in Prefabs/Menus and add the Game Menu component to it
   * Layer: UI
@@ -541,7 +543,7 @@
     * Normal Color: (255, 0, 255, 255)
     * Highlight Color: (0, 255, 0, 255)
     * Add an On Click handler that calls the MainMenu OnStart method
-    * Add a Button Helper to the button and setup EffectTriggers to play the hover and click audio
+    * Add a Button Helper to the button
     * Add a Layout Element to the Button
       * Preferred Width: 200
       * Preferred Height: 50

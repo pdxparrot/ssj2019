@@ -1,4 +1,6 @@
-﻿using pdxpartyparrot.Core.Input;
+﻿using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.UI;
 
 using UnityEngine;
@@ -15,14 +17,13 @@ namespace pdxpartyparrot.Game.Menu
         protected Menu Owner => _owner;
 
         [SerializeField]
+        [CanBeNull]
         private Button _initialSelection;
 
 #region Unity Lifecycle
         private void Awake()
         {
-            if(null == _initialSelection) {
-                Debug.LogWarning("MenuPanel missing initial selection");
-            } else {
+            if(null != _initialSelection) {
                 _initialSelection.Select();
                 _initialSelection.Highlight();
             }
@@ -46,11 +47,9 @@ namespace pdxpartyparrot.Game.Menu
 
         private void Update()
         {
-#if UNITY_EDITOR	
             if(null == _initialSelection) {	
                 return;	
             }	
-#endif	
 
             if(null == InputManager.Instance.EventSystem.EventSystem.currentSelectedGameObject ||
                 (!InputManager.Instance.EventSystem.EventSystem.currentSelectedGameObject.activeInHierarchy && _initialSelection.gameObject.activeInHierarchy)) {
@@ -62,6 +61,10 @@ namespace pdxpartyparrot.Game.Menu
 
         public virtual void ResetMenu()
         {
+            if(null == _initialSelection) {
+                return;
+            }
+
             _initialSelection.Select();
             _initialSelection.Highlight();
         }

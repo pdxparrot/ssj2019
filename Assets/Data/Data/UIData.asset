@@ -16,5 +16,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 32
   _defaultFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  _defaultButtonHoverEffectPrefab: {fileID: 0}
-  _defaultButtonClickEffectPrefab: {fileID: 0}
+  _defaultButtonHoverEffectPrefab: {fileID: 8126216553524947767, guid: a84a3b024ac2d46428029ae4374c7bdd,
+    type: 3}
+  _defaultButtonClickEffectPrefab: {fileID: 3413895890784506058, guid: fbf93caf0e991a54c84d1ffabcd3febf,
+    type: 3}
