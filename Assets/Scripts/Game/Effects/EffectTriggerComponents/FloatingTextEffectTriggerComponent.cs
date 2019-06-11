@@ -23,7 +23,7 @@ namespace pdxpartyparrot.Game.Effects.EffectTriggerComponents
 
         public override void OnStart()
         {
-            UIManager.Instance.QueueFloatingText(_poolName, _text, _color, () => null == _spawnLocation ? transform.position : _spawnLocation.position);
+            GameUIManager.Instance.QueueFloatingText(_poolName, _text, _color, () => null == _spawnLocation ? transform.position : _spawnLocation.position);
         }
     }
 }

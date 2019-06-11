@@ -35,7 +35,7 @@ namespace pdxpartyparrot.Game.State
 
             AudioManager.Instance.PlayMusic(_music);
 
-            _menu = UIManager.Instance.InstantiateUIPrefab(_menuPrefab);
+            _menu = GameUIManager.Instance.InstantiateUIPrefab(_menuPrefab);
 
             yield return new LoadStatus(1.0f, "Main menu initialized!");
         }

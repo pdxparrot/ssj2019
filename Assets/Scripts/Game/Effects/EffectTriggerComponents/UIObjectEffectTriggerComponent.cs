@@ -17,7 +17,7 @@ namespace pdxpartyparrot.Game.Effects.EffectTriggerComponents
 
         public override void OnStart()
         {
-            UIManager.Instance.ShowUIObject(_uiObjectName, _show);
+            GameUIManager.Instance.ShowUIObject(_uiObjectName, _show);
         }
     }
 }

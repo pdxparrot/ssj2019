@@ -5,6 +5,7 @@ using pdxpartyparrot.Game.State;
 using pdxpartyparrot.Game.UI;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.Game.Loading
 {
@@ -15,7 +16,8 @@ namespace pdxpartyparrot.Game.Loading
         private GameStateManager _gameStateManagerPrefab;
 
         [SerializeField]
-        private UIManager _uiManagerPrefab;
+        [FormerlySerializedAs("_uiManagerPrefab")]
+        private GameUIManager _gameUIManagerPrefab;
 #endregion
 
         protected override void CreateManagers()
@@ -23,7 +25,7 @@ namespace pdxpartyparrot.Game.Loading
             base.CreateManagers();
 
             GameStateManager.CreateFromPrefab(_gameStateManagerPrefab, ManagersContainer);
-            UIManager.CreateFromPrefab(_uiManagerPrefab, ManagersContainer);
+            GameUIManager.CreateFromPrefab(_gameUIManagerPrefab, ManagersContainer);
             HighScoreManager.Create(ManagersContainer);
         }
 

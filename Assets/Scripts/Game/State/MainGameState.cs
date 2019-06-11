@@ -134,7 +134,7 @@ namespace pdxpartyparrot.Game.State
 
             AudioManager.Instance.PlayMusic(_music);
 
-            UIManager.Instance.Initialize();
+            GameUIManager.Instance.Initialize();
 
             Core.Network.NetworkManager.Instance.LocalClientReady(GameStateManager.Instance.NetworkClient?.connection);
 
@@ -194,8 +194,8 @@ namespace pdxpartyparrot.Game.State
                 ViewerManager.Instance.FreeAllViewers();
             }
 
-            if(UIManager.HasInstance) {
-                UIManager.Instance.Shutdown();
+            if(GameUIManager.HasInstance) {
+                GameUIManager.Instance.Shutdown();
             }
 
             if(AudioManager.HasInstance) {

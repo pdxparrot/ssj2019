@@ -13,13 +13,13 @@ namespace pdxpartyparrot.Game.UI
 #region Unity Lifecycle
         protected virtual void Awake()
         {
-            UIManager.Instance.RegisterUIObject(this);
+            GameUIManager.Instance.RegisterUIObject(this);
         }
 
         protected virtual void OnDestroy()
         {
-            if(UIManager.HasInstance) {
-                UIManager.Instance.UnregisterUIObject(this);
+            if(GameUIManager.HasInstance) {
+                GameUIManager.Instance.UnregisterUIObject(this);
             }
         }
 #endregion

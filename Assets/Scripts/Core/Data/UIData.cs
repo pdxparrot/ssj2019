@@ -1,5 +1,7 @@
 ﻿using System;
 
+using pdxpartyparrot.Core.Effects;
+
 using TMPro;
 
 using UnityEngine;
@@ -14,5 +16,15 @@ namespace pdxpartyparrot.Core.Data
         private TMP_FontAsset _defaultFont;
 
         public TMP_FontAsset DefaultFont => _defaultFont;
+
+        [SerializeField]
+        private EffectTrigger _defaultButtonHoverEffectPrefab;
+
+        public EffectTrigger DefaultButtonHoverEffectTriggerPrefab => _defaultButtonHoverEffectPrefab;
+
+        [SerializeField]
+        private EffectTrigger _defaultButtonClickEffectPrefab;
+
+        public EffectTrigger DefaultButtonClickEffectTrigger => _defaultButtonClickEffectPrefab;
     }
 }

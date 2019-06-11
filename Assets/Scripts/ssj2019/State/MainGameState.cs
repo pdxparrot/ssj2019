@@ -33,7 +33,7 @@ namespace pdxpartyparrot.ggj2019.State
                 return false;
             }
 
-            UIManager.Instance.InitializePlayerUI(GameManager.Instance.Viewer.UICamera);
+            GameUIManager.Instance.InitializePlayerUI(GameManager.Instance.Viewer.UICamera);
 
             return true;
         }
