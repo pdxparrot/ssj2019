@@ -37,12 +37,16 @@ namespace pdxpartyparrot.ssj2019.UI
 #region Unity Lifecycle
         private void Awake()
         {
-            Assert.IsNull(GetComponent<GamepadListener>());
+            if(null == GetComponent<GamepadListener>()) {
+                GamepadListener = gameObject.AddComponent<GamepadListener>();
+            } else {
+                GamepadListener = GetComponent<GamepadListener>();
+            }
         }
 
         private void Update()
         {
-            if(null == GamepadListener || null == GamepadListener.Gamepad) {
+            if(null == GamepadListener.Gamepad) {
                 return;
             }
 
@@ -65,8 +69,6 @@ namespace pdxpartyparrot.ssj2019.UI
         public void Initialize(CharacterSelectMenu owner)
         {
             _owner = owner;
-
-            GamepadListener = gameObject.AddComponent<GamepadListener>();
         }
 
         public void ResetSelector()
