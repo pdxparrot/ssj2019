@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using JetBrains.Annotations;
 
@@ -8,35 +7,34 @@ using pdxpartyparrot.ssj2019.Data;
 using pdxpartyparrot.ssj2019.UI;
 
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.ssj2019.Menu
 {
     public sealed class CharacterSelectMenu : Game.Menu.CharacterSelectMenu
     {
+        private class Character
+        {
+            public PlayerCharacterData PlayerCharacterData { get; set; }
+
+            public GameObject PlayerCharacterPortrait { get; set; }
+
+            public bool InUse { get; set; }
+        }
+
         [SerializeField]
         private CharacterSelector[] _characterSelectors;
 
-        public IReadOnlyCollection<CharacterSelector> CharacterSelectors => _characterSelectors;
-
-        private GameObject[] _characterPortraits;
+        private Character[] _characters;
 
         private GameObject _characterPortraitContainer;
-
-        public GameObject CharacterPortraitContainer => _characterPortraitContainer;
 
 #region Unity Lifecycle
         private void Awake()
         {
             _characterPortraitContainer = new GameObject("Character Portraits");
 
-            _characterPortraits = new GameObject[GameManager.Instance.GameGameData.PlayerCharacterData.Count];
-            for(int i=0; i<_characterPortraits.Length; ++i) {
-                PlayerCharacterData playerCharacterData = GameManager.Instance.GameGameData.PlayerCharacterData.ElementAt(i);
-
-                _characterPortraits[i] = Instantiate(playerCharacterData.CharacterPortraitPrefab);
-                _characterPortraits[i].SetActive(false);
-                _characterPortraits[i].transform.SetParent(_characterPortraitContainer.transform);
-            }
+            InitializeCharacters();
 
             foreach(CharacterSelector characterSelector in _characterSelectors) {
                 characterSelector.Initialize(this);
@@ -45,9 +43,8 @@ namespace pdxpartyparrot.ssj2019.Menu
 
         private void OnDestroy()
         {
-            for(int i=0; i<_characterPortraits.Length; ++i) {
-                Destroy(_characterPortraits[i]);
-                _characterPortraits[i] = null;
+            foreach(Character character in _characters) {
+                Destroy(character.PlayerCharacterPortrait);
             }
 
             Destroy(_characterPortraitContainer);
@@ -55,29 +52,72 @@ namespace pdxpartyparrot.ssj2019.Menu
         }
 #endregion
 
-        public void SetSelectorActive(CharacterSelector characterSelector)
+        private void InitializeCharacters()
         {
-            // TODO: if this selector was not in the active set
-            // add it to the active set and re-order it to the end
-            // of the active set in the hierarchy
+            _characters = new Character[GameManager.Instance.GameGameData.PlayerCharacterData.Count];
+
+            for(int i=0; i<_characters.Length; ++i) {
+                Character character = new Character
+                {
+                    PlayerCharacterData = GameManager.Instance.GameGameData.PlayerCharacterData.ElementAt(i)
+                };
+
+                character.PlayerCharacterPortrait = Instantiate(character.PlayerCharacterData.CharacterPortraitPrefab);;
+                character.PlayerCharacterPortrait.SetActive(false);
+                character.PlayerCharacterPortrait.transform.SetParent(_characterPortraitContainer.transform);
+
+                _characters[i] = character;
+            }
+        }
+
+        private int NextIndex(int index)
+        {
+            return (index + 1) % _characters.Length;
         }
 
         [CanBeNull]
         public PlayerCharacterData GetNextCharacter(ref int index)
         {
-            // TODO
+            ReleaseCharacter(index);
 
-            index = -1;
+            int start = index < 0 ? 0 : index;
+            int i = NextIndex(index);
+            do {
+                Character character = _characters[i];
+                if(character.InUse) {
+                    i = NextIndex(i);
+                    continue;
+                }
+
+                index = i;
+
+                character.InUse = true;
+                return character.PlayerCharacterData;
+            } while(i != start);
+
             return null;
         }
 
         [CanBeNull]
         public GameObject GetCharacterPortrait(int index)
         {
-            if(index < 0 || index >= _characterPortraits.Length) {
+            if(index < 0 || index >= _characters.Length) {
                 return null;
             }
-            return _characterPortraits[index];
+            return _characters[index].PlayerCharacterPortrait;
+        }
+
+        public void ReleaseCharacter(int index)
+        {
+            if(index < 0 || index >= _characters.Length) {
+                return;
+            }
+
+            Character character = _characters[index];
+            character.InUse = false;
+
+            character.PlayerCharacterPortrait.SetActive(false);
+            character.PlayerCharacterPortrait.transform.SetParent(_characterPortraitContainer.transform);
         }
 
         public override void ResetMenu()
@@ -88,5 +128,65 @@ namespace pdxpartyparrot.ssj2019.Menu
                 characterSelector.ResetSelector();
             }
         }
+
+#region Events
+        public void OnReady()
+        {
+            Debug.LogWarning("TODO: start the game");
+
+            // TODO: have to pass the character and gamepad for each player to this
+            //Owner.OnReady();
+        }
+
+        public override void OnSubmit(InputAction.CallbackContext context)
+        {
+            if(!(context.control.device is Gamepad gamepad)) {
+                return;
+            }
+
+            // try and consume the submit
+            foreach(CharacterSelector selector in _characterSelectors) {
+                if(selector.OnSubmit(context)) {
+                    return;
+                }
+            }
+
+            // nothing wanted it, so see if we can give the device to one of them
+            foreach(CharacterSelector selector in _characterSelectors) {
+                if(null != selector.Gamepad) {
+                    continue;
+                }
+
+                selector.SetGamepad(gamepad);
+                selector.OnSubmit(context);
+                return;
+            }
+
+            Debug.LogWarning("Ignoring submit from extraneous gamepad");
+        }
+
+        public override void OnCancel(InputAction.CallbackContext context)
+        {
+            // try and consume the cancel
+            foreach(CharacterSelector selector in _characterSelectors) {
+                if(selector.OnCancel(context)) {
+                    return;
+                }
+            }
+
+            // nothing wanted it, so go back
+            base.OnCancel(context);
+        }
+
+        public override void OnMove(InputAction.CallbackContext context)
+        {
+            // try and consume the move
+            foreach(CharacterSelector selector in _characterSelectors) {
+                if(selector.OnMove(context)) {
+                    return;
+                }
+            }
+        }
+#endregion
     }
 }

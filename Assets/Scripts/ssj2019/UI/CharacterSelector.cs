@@ -1,4 +1,5 @@
-using pdxpartyparrot.Core.Input;
+﻿using JetBrains.Annotations;
+
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ssj2019.Data;
 using pdxpartyparrot.ssj2019.Menu;
@@ -6,12 +7,18 @@ using pdxpartyparrot.ssj2019.Menu;
 using TMPro;
 
 using UnityEngine;
-using UnityEngine.Assertions;
+using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.ssj2019.UI
 {
     public sealed class CharacterSelector : MonoBehaviour
     {
+        [SerializeField]
+        private GameObject _joinGamePrompt;
+
+        [SerializeField]
+        private GameObject _characterDisplay;
+
         [SerializeField]
         private TextMeshProUGUI _characterName;
 
@@ -22,47 +29,25 @@ namespace pdxpartyparrot.ssj2019.UI
         [ReadOnly]
         private int _characterIndex = -1;
 
-        [SerializeField]
-        [ReadOnly]
-        private bool _active;
-
         private PlayerCharacterData _playerCharacterData;
 
         private GameObject _characterPortrait;
 
         private CharacterSelectMenu _owner;
 
-        public GamepadListener GamepadListener { get; private set; }
+        [CanBeNull]
+        public Gamepad Gamepad { get; private set; }
 
 #region Unity Lifecycle
-        private void Awake()
-        {
-            if(null == GetComponent<GamepadListener>()) {
-                GamepadListener = gameObject.AddComponent<GamepadListener>();
-            } else {
-                GamepadListener = GetComponent<GamepadListener>();
-            }
-        }
-
         private void Update()
         {
-            if(null == GamepadListener.Gamepad) {
+            if(null == Gamepad || _characterIndex == -1) {
                 return;
             }
 
-            // TODO: temp hack
-            if(!_active && GamepadListener.Gamepad.buttonSouth.wasPressedThisFrame) {
-                _active = true;
-                _owner.SetSelectorActive(this);
+            if(Gamepad.startButton.wasPressedThisFrame) {
+                _owner.OnReady();
             }
-        }
-
-        private void OnDestroy()
-        {
-            if(null != GamepadListener) {
-                Destroy(GamepadListener);
-            }
-            GamepadListener = null;
         }
 #endregion
 
@@ -71,21 +56,27 @@ namespace pdxpartyparrot.ssj2019.UI
             _owner = owner;
         }
 
+        public void SetGamepad(Gamepad gamepad)
+        {
+            Gamepad = gamepad;
+
+            // TODO: we should listen for the device disconnecting so we can release it
+        }
+
         public void ResetSelector()
         {
+            _owner.ReleaseCharacter(_characterIndex);
+
             _characterIndex = -1;
+            _playerCharacterData = null;
 
             _characterName.text = "";
 
-            if(null != _characterPortrait) {
-                // TODO: probably should be a Release() method on the menu
-                _characterPortrait.SetActive(false);
-                _characterPortrait.transform.SetParent(_owner.CharacterPortraitContainer.transform);
-            }
             _characterPortrait = null;
+
+            ShowJoinGame();
         }
 
-        // TODO: call this whenever we need to get another character
         private void GetNextCharacter()
         {
             _playerCharacterData = _owner.GetNextCharacter(ref _characterIndex);
@@ -100,5 +91,64 @@ namespace pdxpartyparrot.ssj2019.UI
             _characterPortrait.transform.SetParent(_characterPortraitContainer.transform);
             _characterPortrait.SetActive(true);
         }
+
+        private void ShowJoinGame()
+        {
+            _joinGamePrompt.SetActive(true);
+            _characterDisplay.SetActive(false);
+        }
+
+        private void ShowCharacterDisplay()
+        {
+            _joinGamePrompt.SetActive(false);
+            _characterDisplay.SetActive(true);
+        }
+
+#region Events
+        public bool OnSubmit(InputAction.CallbackContext context)
+        {
+            if(context.control.device != Gamepad) {
+                return false;
+            }
+
+            if(_characterIndex < 0) {
+                GetNextCharacter();
+                ShowCharacterDisplay();
+                return true;
+            }
+
+            return true;
+        }
+
+        public bool OnCancel(InputAction.CallbackContext context)
+        {
+            if(context.control.device != Gamepad) {
+                return false;
+            }
+
+            if(_characterIndex < 0) {
+                return false;
+            }
+
+            ResetSelector();
+
+            return true;
+        }
+
+        public bool OnMove(InputAction.CallbackContext context)
+        {
+            if(context.control.device != Gamepad) {
+                return false;
+            }
+
+            if(_characterIndex < 0) {
+                return false;
+            }
+
+            GetNextCharacter();
+
+            return true;
+        }
+#endregion
     }
 }

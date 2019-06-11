@@ -30,13 +30,17 @@ namespace pdxpartyparrot.Game.Menu
 
         private void OnEnable()
         {
+            InputManager.Instance.EventSystem.UIModule.submit.action.performed += OnSubmit;
             InputManager.Instance.EventSystem.UIModule.cancel.action.performed += OnCancel;
+            InputManager.Instance.EventSystem.UIModule.move.action.performed += OnMove;
         }
 
         private void OnDisable()
         {
             if(InputManager.HasInstance) {
+                InputManager.Instance.EventSystem.UIModule.move.action.performed -= OnMove;
                 InputManager.Instance.EventSystem.UIModule.cancel.action.performed -= OnCancel;
+                InputManager.Instance.EventSystem.UIModule.submit.action.performed -= OnSubmit;
             }
         }
 
@@ -63,14 +67,24 @@ namespace pdxpartyparrot.Game.Menu
         }
 
 #region Event Handlers
+        // this is for buttons
         public virtual void OnBack()
         {
             Owner.PopPanel();
         }
 
+        // these are for input
+        public virtual void OnSubmit(InputAction.CallbackContext context)
+        {
+        }
+
         public virtual void OnCancel(InputAction.CallbackContext context)
         {
             OnBack();
+        }
+
+        public virtual void OnMove(InputAction.CallbackContext context)
+        {
         }
 #endregion
     }

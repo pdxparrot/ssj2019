@@ -27,7 +27,7 @@ namespace pdxpartyparrot.ssj2019.Menu
 
         public void OnReady()
         {
-// TODO: set each player's character data
+// TODO: set each player's character data and gamepad
 
             GameStateManager.Instance.StartLocal(GameManager.Instance.MainGameStatePrefab);
         }
