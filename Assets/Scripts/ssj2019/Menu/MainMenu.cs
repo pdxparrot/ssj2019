@@ -1,7 +1,4 @@
-﻿using pdxpartyparrot.Game.Menu;
-using pdxpartyparrot.Game.State;
-
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Menu
 {
@@ -23,13 +20,6 @@ namespace pdxpartyparrot.ssj2019.Menu
         public override void OnStart()
         {
             Owner.PushPanel(_characterSelectPanel);
-        }
-
-        public void OnReady()
-        {
-// TODO: set each player's character data and gamepad
-
-            GameStateManager.Instance.StartLocal(GameManager.Instance.MainGameStatePrefab);
         }
 #endregion
     }

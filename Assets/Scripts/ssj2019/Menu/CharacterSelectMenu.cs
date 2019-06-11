@@ -2,7 +2,9 @@
 
 using JetBrains.Annotations;
 
+using pdxpartyparrot.Core.Math;
 using pdxpartyparrot.Game.Menu;
+using pdxpartyparrot.Game.State;
 using pdxpartyparrot.ssj2019.Data;
 using pdxpartyparrot.ssj2019.UI;
 
@@ -72,7 +74,12 @@ namespace pdxpartyparrot.ssj2019.Menu
 
         private int NextIndex(int index)
         {
-            return (index + 1) % _characters.Length;
+            return MathUtil.WrapMod(index + 1, _characters.Length);
+        }
+
+        private int PreviousIndex(int index)
+        {
+            return MathUtil.WrapMod(index - 1, _characters.Length);
         }
 
         [CanBeNull]
@@ -86,6 +93,29 @@ namespace pdxpartyparrot.ssj2019.Menu
                 Character character = _characters[i];
                 if(character.InUse) {
                     i = NextIndex(i);
+                    continue;
+                }
+
+                index = i;
+
+                character.InUse = true;
+                return character.PlayerCharacterData;
+            } while(i != start);
+
+            return null;
+        }
+
+        [CanBeNull]
+        public PlayerCharacterData GetPreviousCharacter(ref int index)
+        {
+            ReleaseCharacter(index);
+
+            int start = index < 0 ? 0 : index;
+            int i = PreviousIndex(index);
+            do {
+                Character character = _characters[i];
+                if(character.InUse) {
+                    i = PreviousIndex(i);
                     continue;
                 }
 
@@ -132,10 +162,9 @@ namespace pdxpartyparrot.ssj2019.Menu
 #region Events
         public void OnReady()
         {
-            Debug.LogWarning("TODO: start the game");
+            // TODO: need to set each player's character and gamepad
 
-            // TODO: have to pass the character and gamepad for each player to this
-            //Owner.OnReady();
+            GameStateManager.Instance.StartLocal(GameManager.Instance.MainGameStatePrefab);
         }
 
         public override void OnSubmit(InputAction.CallbackContext context)

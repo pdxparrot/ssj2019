@@ -29,7 +29,7 @@ namespace pdxpartyparrot.ssj2019.UI
         [ReadOnly]
         private int _characterIndex = -1;
 
-        private PlayerCharacterData _playerCharacterData;
+        public PlayerCharacterData PlayerCharacterData { get; private set; }
 
         private GameObject _characterPortrait;
 
@@ -68,7 +68,7 @@ namespace pdxpartyparrot.ssj2019.UI
             _owner.ReleaseCharacter(_characterIndex);
 
             _characterIndex = -1;
-            _playerCharacterData = null;
+            PlayerCharacterData = null;
 
             _characterName.text = "";
 
@@ -79,13 +79,34 @@ namespace pdxpartyparrot.ssj2019.UI
 
         private void GetNextCharacter()
         {
-            _playerCharacterData = _owner.GetNextCharacter(ref _characterIndex);
-            if(null == _playerCharacterData) {
+            PlayerCharacterData = _owner.GetNextCharacter(ref _characterIndex);
+            if(null == PlayerCharacterData) {
                 Debug.LogWarning("No available next character!");
                 return;
             }
 
-            _characterName.text = _playerCharacterData.Name;
+            ResetFromCharacterData();
+        }
+
+        private void GetPreviousCharacter()
+        {
+            PlayerCharacterData = _owner.GetPreviousCharacter(ref _characterIndex);
+            if(null == PlayerCharacterData) {
+                Debug.LogWarning("No available previous character!");
+                return;
+            }
+
+            ResetFromCharacterData();
+        }
+
+        private void ResetFromCharacterData()
+        {
+            if(null == PlayerCharacterData) {
+                ResetSelector();
+                return;
+            }
+
+            _characterName.text = PlayerCharacterData.Name;
 
             _characterPortrait = _owner.GetCharacterPortrait(_characterIndex);
             _characterPortrait.transform.SetParent(_characterPortraitContainer.transform);
@@ -111,11 +132,13 @@ namespace pdxpartyparrot.ssj2019.UI
                 return false;
             }
 
-            if(_characterIndex < 0) {
-                GetNextCharacter();
-                ShowCharacterDisplay();
+            if(_characterIndex >= 0) {
                 return true;
             }
+
+            GetNextCharacter();
+
+            ShowCharacterDisplay();
 
             return true;
         }
@@ -145,7 +168,12 @@ namespace pdxpartyparrot.ssj2019.UI
                 return false;
             }
 
-            GetNextCharacter();
+            Vector2 direction = context.ReadValue<Vector2>();
+            if(direction.x > 0.0f) {
+                GetNextCharacter();
+            } else if(direction.x < 0.0f) {
+                GetPreviousCharacter();
+            }
 
             return true;
         }
