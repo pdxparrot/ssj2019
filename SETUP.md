@@ -233,6 +233,7 @@
   * Create using default EventSystem that gets added automatically when adding a UI object
   * Replace Standalone Input Module with InputSystemUIInputModule
   * Add EventSystemHelper script to this
+  * If desired, copy and replace the DefaultInputActions asset for modification
 
 ## Manager Prefabs Setup
 
