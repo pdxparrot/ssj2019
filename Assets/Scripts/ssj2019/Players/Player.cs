@@ -6,6 +6,7 @@ using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.ssj2019.Camera;
+using pdxpartyparrot.ssj2019.Characters;
 using pdxpartyparrot.ssj2019.Data;
 
 using UnityEngine;
@@ -52,6 +53,8 @@ namespace pdxpartyparrot.ssj2019.Players
                 Debug.Log($"Player {Id} got character {_playerCharacterData.Name}");
             }
 
+            InitializeModel();
+
             PlayerViewer = GameManager.Instance.Viewer;
 
             Billboard billboard = Model.GetComponent<Billboard>();
@@ -60,6 +63,18 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             return true;
+        }
+
+        private void InitializeModel()
+        {
+            if(null == Model) {
+                return;
+            }
+
+            CharacterModel model = Instantiate(_playerCharacterData.CharacterModelPrefab, Model.transform);
+
+            Behavior.SpriteAnimationHelper.AddRenderer(model.ModelSprite);
+            Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);
         }
 
 #region Spawn

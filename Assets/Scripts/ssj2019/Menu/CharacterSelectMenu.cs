@@ -64,9 +64,8 @@ namespace pdxpartyparrot.ssj2019.Menu
                     PlayerCharacterData = GameManager.Instance.GameGameData.PlayerCharacterData.ElementAt(i)
                 };
 
-                character.PlayerCharacterPortrait = Instantiate(character.PlayerCharacterData.CharacterPortraitPrefab);;
+                character.PlayerCharacterPortrait = Instantiate(character.PlayerCharacterData.CharacterPortraitPrefab, _characterPortraitContainer.transform);
                 character.PlayerCharacterPortrait.SetActive(false);
-                character.PlayerCharacterPortrait.transform.SetParent(_characterPortraitContainer.transform);
 
                 _characters[i] = character;
             }

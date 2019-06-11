@@ -15,4 +15,6 @@ MonoBehaviour:
   _name: Player D
   _characterPortraitPrefab: {fileID: 626089794780383238, guid: 9731baef3914fdd418805d73c9940c2e,
     type: 3}
+  _characterModelPrefab: {fileID: 3204080472430291362, guid: ab2803260de98834895c1bb899a03b12,
+    type: 3}
   _attackComboData: {fileID: 11400000, guid: eccf4b5a93f4f96489bbf801a03db087, type: 2}

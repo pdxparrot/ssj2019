@@ -79,10 +79,7 @@ namespace pdxpartyparrot.Core.World
         {
             Debug.LogWarning("You probably meant to use NetworkManager.SpawnNetworkPrefab");
 
-            Actor actor = Instantiate(prefab);
-
-            // NOTE: reparent then activate to avoid hierarchy rebuild
-            actor.transform.SetParent(parent);
+            Actor actor = Instantiate(prefab, parent);
             actor.gameObject.SetActive(activate);
 
             if(!Spawn(actor, id, behaviorData)) {

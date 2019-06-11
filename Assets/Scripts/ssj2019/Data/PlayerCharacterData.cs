@@ -1,6 +1,7 @@
 ﻿using System;
 
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ssj2019.Characters;
 
 using UnityEngine;
 
@@ -26,10 +27,15 @@ namespace pdxpartyparrot.ssj2019.Data
         public GameObject CharacterPortraitPrefab => _characterPortraitPrefab;
 
         [SerializeField]
+        private CharacterModel _characterModelPrefab;
+
+        public CharacterModel CharacterModelPrefab => _characterModelPrefab;
+
+        [SerializeField]
         private AttackComboData _attackComboData;
 
         public AttackComboData AttackComboData => _attackComboData;
 
-        // TODO: override movement speed
+        // TODO: override stats
     }
 }
