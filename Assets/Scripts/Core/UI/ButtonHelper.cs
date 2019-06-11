@@ -33,6 +33,8 @@ namespace pdxpartyparrot.Core.UI
         {
             if(null != _hoverEffectTrigger) {
                 _hoverEffectTrigger.Trigger();
+            } else if(null != UIManager.Instance.DefaultButtonHoverEffectTrigger) {
+                UIManager.Instance.DefaultButtonHoverEffectTrigger.Trigger();
             }
         }
 
@@ -46,6 +48,8 @@ namespace pdxpartyparrot.Core.UI
         {
             if(null != _clickEffectTrigger) {
                 _clickEffectTrigger.Trigger();
+            } else if(null != UIManager.Instance.DefaultButtonClickEffectTrigger) {
+                UIManager.Instance.DefaultButtonClickEffectTrigger.Trigger();
             }
         }
 #endregion
