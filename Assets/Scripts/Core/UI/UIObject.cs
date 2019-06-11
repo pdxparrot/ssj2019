@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace pdxpartyparrot.Game.UI
+namespace pdxpartyparrot.Core.UI
 {
     [RequireComponent(typeof(RectTransform))]
     public class UIObject : MonoBehaviour
@@ -13,13 +13,13 @@ namespace pdxpartyparrot.Game.UI
 #region Unity Lifecycle
         protected virtual void Awake()
         {
-            GameUIManager.Instance.RegisterUIObject(this);
+            UIManager.Instance.RegisterUIObject(this);
         }
 
         protected virtual void OnDestroy()
         {
-            if(GameUIManager.HasInstance) {
-                GameUIManager.Instance.UnregisterUIObject(this);
+            if(UIManager.HasInstance) {
+                UIManager.Instance.UnregisterUIObject(this);
             }
         }
 #endregion

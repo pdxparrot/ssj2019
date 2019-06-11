@@ -1,5 +1,5 @@
 ﻿using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
-using pdxpartyparrot.Game.UI;
+using pdxpartyparrot.Core.UI;
 
 using UnityEngine;
 
@@ -17,7 +17,7 @@ namespace pdxpartyparrot.Game.Effects.EffectTriggerComponents
 
         public override void OnStart()
         {
-            GameUIManager.Instance.ShowUIObject(_uiObjectName, _show);
+            UIManager.Instance.ShowUIObject(_uiObjectName, _show);
         }
     }
 }

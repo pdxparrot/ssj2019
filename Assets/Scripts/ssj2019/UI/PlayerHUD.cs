@@ -1,4 +1,4 @@
-﻿using pdxpartyparrot.Game.UI;
+﻿using pdxpartyparrot.Core.UI;
 
 using UnityEngine;
 

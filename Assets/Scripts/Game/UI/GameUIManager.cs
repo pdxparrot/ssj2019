@@ -66,8 +66,6 @@ namespace pdxpartyparrot.Game.UI
 
         private GameObject _floatingTextContainer;
 
-        private readonly Dictionary<string, UIObject> _uiObjects = new Dictionary<string, UIObject>();
-
         private readonly Queue<FloatingTextEntry> _floatingText = new Queue<FloatingTextEntry>();
 
         private Coroutine _floatingTextRoutine;
@@ -138,35 +136,6 @@ namespace pdxpartyparrot.Game.UI
             }
             _pauseMenu = null;
         }
-
-#region UI Objects
-        public void RegisterUIObject(UIObject uiObject)
-        {
-            //Debug.Log($"Registering UI object {uiObject.Id}: {uiObject.name}");
-            try {
-                _uiObjects.Add(uiObject.Id, uiObject);
-            } catch(ArgumentException) {
-                Debug.LogWarning($"Failed overwrite of UI object {uiObject.Id}!");
-            }
-        }
-
-        public bool UnregisterUIObject(UIObject uiObject)
-        {
-            //Debug.Log($"Unregistering UI object {uiObject.Id}");
-            return _uiObjects.Remove(uiObject.Id);
-        }
-
-        public void ShowUIObject(string id, bool show)
-        {
-            if(!_uiObjects.TryGetValue(id, out var uiObject)) {
-                Debug.LogWarning($"Failed to lookup UI object {id}!");
-                return;
-            }
-
-            //Debug.Log($"Showing UI object {name}: {show}");
-            uiObject.gameObject.SetActive(show);
-        }
-#endregion
 
         // helper for instantiating UI prefabs under the UI container
         public TV InstantiateUIPrefab<TV>(TV prefab) where TV: Component
@@ -247,14 +216,8 @@ namespace pdxpartyparrot.Game.UI
 
         private void InitDebugMenu()
         {
-            DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "Game.UIManager");
+            DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "Game.GameUIManager");
             debugMenuNode.RenderContentsAction = () => {
-                GUILayout.BeginVertical("UI Objects:", GUI.skin.box);
-                    foreach(var kvp in _uiObjects) {
-                        GUILayout.Label(kvp.Key);
-                    }
-                GUILayout.EndVertical();
-
                 GUILayout.Label($"Queued floating text: {_floatingText.Count}");
                 if(GUIUtils.LayoutButton("Spawn Floating Text")) {
                     // TODO: need to be able to input the params to this
