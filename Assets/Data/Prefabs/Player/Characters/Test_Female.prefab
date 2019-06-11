@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5997307592369118826}
   - component: {fileID: 1876394260759047840}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Character Female Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6694332065561805831}
   - component: {fileID: 8729121382713033400}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Character Test_Female
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 244475500154830886}
   - component: {fileID: 3204080472430291362}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Test_Female
   m_TagString: Untagged
   m_Icon: {fileID: 0}

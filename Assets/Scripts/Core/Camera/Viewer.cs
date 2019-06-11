@@ -4,6 +4,7 @@
 
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.Rendering;
+using pdxpartyparrot.Core.UI;
 
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
@@ -73,7 +74,7 @@ namespace pdxpartyparrot.Core.Camera
             _uiCamera.clearFlags = CameraClearFlags.Nothing;
             _uiCamera.backgroundColor = Color.black;
             _uiCamera.orthographic = true;
-            _uiCamera.cullingMask = PartyParrotManager.Instance.UILayer;
+            _uiCamera.cullingMask = UIManager.Instance.Data.UILayer;
             _uiCamera.useOcclusionCulling = false;
 
             if(null != _globalPostProcessVolume) {

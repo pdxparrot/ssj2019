@@ -6,7 +6,6 @@ using JetBrains.Annotations;
 
 using pdxpartyparrot.Core;
 using pdxpartyparrot.Core.DebugMenu;
-using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.ObjectPool;
 using pdxpartyparrot.Core.UI;
@@ -63,12 +62,6 @@ namespace pdxpartyparrot.Game.UI
         private float _nextFloatingTextSpawnOffset;
 #endregion
 
-#region Default Button Effects
-        public EffectTrigger DefaultButtonHoverEffectTrigger { get; private set; }
-
-        public EffectTrigger DefaultButtonClickEffectTrigger { get; private set; }
-#endregion
-
         private GameObject _uiContainer;
 
         private GameObject _floatingTextContainer;
@@ -84,8 +77,6 @@ namespace pdxpartyparrot.Game.UI
         {
             _uiContainer = new GameObject("UI");
             _floatingTextContainer = new GameObject("Floating Text");
-
-            InitializeDefaultButtonEffects();
 
             PartyParrotManager.Instance.PauseEvent += PauseEventHandler;
 
@@ -107,12 +98,6 @@ namespace pdxpartyparrot.Game.UI
             base.OnDestroy();
         }
 #endregion
-
-        private void InitializeDefaultButtonEffects()
-        {
-            DefaultButtonHoverEffectTrigger = Instantiate(PartyParrotManager.Instance.UIData.DefaultButtonHoverEffectTriggerPrefab, transform);
-            DefaultButtonClickEffectTrigger = Instantiate(PartyParrotManager.Instance.UIData.DefaultButtonClickEffectTrigger, transform);
-        }
 
         public void Initialize()
         {

@@ -13,6 +13,11 @@ namespace pdxpartyparrot.Core.Data
     public class UIData : ScriptableObject
     {
         [SerializeField]
+        private LayerMask _uiLayer;
+
+        public LayerMask UILayer => _uiLayer;
+
+        [SerializeField]
         private TMP_FontAsset _defaultFont;
 
         public TMP_FontAsset DefaultFont => _defaultFont;

@@ -17,15 +17,8 @@ namespace pdxpartyparrot.Core
         public event EventHandler<EventArgs> PauseEvent;
 #endregion
 
-#region Data
         [SerializeField]
         private EngineData _data;
-
-        [SerializeField]
-        private UIData _uiData;
-
-        public UIData UIData => _uiData;
-#endregion
 
         [Space(10)]
 
@@ -95,15 +88,6 @@ namespace pdxpartyparrot.Core
                 }
             }
         }
-#endregion
-
-        [Space(10)]
-
-#region UI
-        [SerializeField]
-        private LayerMask _uiLayer;
-
-        public LayerMask UILayer => _uiLayer;
 #endregion
 
         [Space(10)]

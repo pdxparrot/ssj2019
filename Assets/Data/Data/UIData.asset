@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ba8ea62b442a1d4ba30b6caa4f0cb67, type: 3}
   m_Name: UIData
   m_EditorClassIdentifier: 
+  _uiLayer:
+    serializedVersion: 2
+    m_Bits: 32
   _defaultFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  _defaultButtonHoverEffectPrefab: {fileID: 0}
+  _defaultButtonClickEffectPrefab: {fileID: 0}

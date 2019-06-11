@@ -17,7 +17,7 @@ namespace pdxpartyparrot.Core.UI
         private void Awake()
         {
             TextMeshProUGUI text = GetComponent<TextMeshProUGUI>();
-            text.font = _fontOverride == null ? PartyParrotManager.Instance.UIData.DefaultFont : _fontOverride;
+            text.font = _fontOverride == null ? UIManager.Instance.Data.DefaultFont : _fontOverride;
             text.text = LocalizationManager.Instance.GetText(_stringId);
         }
 #endregion

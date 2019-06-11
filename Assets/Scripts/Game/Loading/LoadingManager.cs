@@ -11,7 +11,11 @@ namespace pdxpartyparrot.Game.Loading
 {
     public abstract class LoadingManager<T> : Core.Loading.LoadingManager<LoadingManager<T>> where T: LoadingManager<T>
     {
+        [Space(10)]
+
 #region Manager Prefabs
+        [Header("Game Manager Prefabs")]
+
         [SerializeField]
         private GameStateManager _gameStateManagerPrefab;
 

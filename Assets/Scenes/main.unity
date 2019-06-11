@@ -254,6 +254,8 @@ MonoBehaviour:
     type: 3}
   _saveGameManagerPrefab: {fileID: 7198998142499139228, guid: e4df22f192105ed4cbd69802df618e35,
     type: 3}
+  _uiManagerPrefab: {fileID: 1695602366131302174, guid: 37ff3214d26c8e04dbc03b54bcdf7e10,
+    type: 3}
   _localizationManagerPrefab: {fileID: 723442122454883566, guid: c9deb59ec778c5e4db83c1f86497dcba,
     type: 3}
   _audioManagerPrefab: {fileID: 1985231483675132744, guid: 064b323f8262d65419a20c6714a0b7c3,
@@ -276,7 +278,7 @@ MonoBehaviour:
     type: 3}
   _gameStateManagerPrefab: {fileID: 5367487814220047283, guid: a9bcba3db09169c46ac16b646d05c13d,
     type: 3}
-  _uiManagerPrefab: {fileID: 6141025429896587798, guid: e04cb7c1d3cc6424dae127a8da540f87,
+  _gameUIManagerPrefab: {fileID: 6141025429896587798, guid: e04cb7c1d3cc6424dae127a8da540f87,
     type: 3}
   _gameManagerPrefab: {fileID: 3961162130779980102, guid: 5ea398d4d5436a24a8051aef0425f9c0,
     type: 3}
