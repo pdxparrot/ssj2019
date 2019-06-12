@@ -41,11 +41,18 @@ namespace pdxpartyparrot.ssj2019.UI
 #region Unity Lifecycle
         private void Update()
         {
-            if(null == Gamepad || _characterIndex == -1) {
+            if(_characterIndex == -1) {
                 return;
             }
 
-            if(Gamepad.startButton.wasPressedThisFrame) {
+#if UNITY_EDITOR
+            if(Keyboard.current.enterKey.wasPressedThisFrame) {
+                _owner.OnReady();
+                return;
+            }
+#endif
+
+            if(null != Gamepad && Gamepad.startButton.wasPressedThisFrame) {
                 _owner.OnReady();
             }
         }
@@ -125,10 +132,20 @@ namespace pdxpartyparrot.ssj2019.UI
             _characterDisplay.SetActive(true);
         }
 
+        private bool IsOurDevice(InputDevice device)
+        {
+#if UNITY_EDITOR
+            if(device == Keyboard.current) {
+                return true;
+            }
+#endif
+            return device == Gamepad;
+        }
+
 #region Events
         public bool OnSubmit(InputAction.CallbackContext context)
         {
-            if(context.control.device != Gamepad) {
+            if(!IsOurDevice(context.control.device)) {
                 return false;
             }
 
@@ -145,7 +162,7 @@ namespace pdxpartyparrot.ssj2019.UI
 
         public bool OnCancel(InputAction.CallbackContext context)
         {
-            if(context.control.device != Gamepad) {
+          if(!IsOurDevice(context.control.device)) {
                 return false;
             }
 
@@ -160,7 +177,7 @@ namespace pdxpartyparrot.ssj2019.UI
 
         public bool OnMove(InputAction.CallbackContext context)
         {
-            if(context.control.device != Gamepad) {
+          if(!IsOurDevice(context.control.device)) {
                 return false;
             }
 

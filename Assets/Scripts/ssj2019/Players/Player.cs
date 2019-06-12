@@ -11,6 +11,7 @@ using pdxpartyparrot.ssj2019.Data;
 
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.ssj2019.Players
 {
@@ -45,7 +46,14 @@ namespace pdxpartyparrot.ssj2019.Players
                 return false;
             }
 
-            _playerCharacterData = GameManager.Instance.AcquireCharacter(GamePlayerInput.GamepadListener.Gamepad);
+            InputDevice device = GamePlayerInput.GamepadListener.Gamepad;
+#if UNITY_EDITOR
+            if(null == device) {
+                device = Keyboard.current;
+            }
+#endif
+
+            _playerCharacterData = GameManager.Instance.AcquireCharacter(device);
             if(null == _playerCharacterData) {
                 // this is "ok", we have a chance to recover when we spawn
                 Debug.LogWarning($"Player {Id} failed to get a character");

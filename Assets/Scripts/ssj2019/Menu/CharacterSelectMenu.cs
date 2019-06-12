@@ -166,7 +166,13 @@ namespace pdxpartyparrot.ssj2019.Menu
                     continue;
                 }
 
-                GameManager.Instance.AddCharacter(characterSelector.Gamepad, characterSelector.PlayerCharacterData);
+                InputDevice device = characterSelector.Gamepad;
+#if UNITY_EDITOR
+                if(null == device) {
+                    device = Keyboard.current;
+                }
+#endif
+                GameManager.Instance.AddCharacter(device, characterSelector.PlayerCharacterData);
             }
 
             GameStateManager.Instance.StartLocal(GameManager.Instance.MainGameStatePrefab);
@@ -174,6 +180,13 @@ namespace pdxpartyparrot.ssj2019.Menu
 
         public override void OnSubmit(InputAction.CallbackContext context)
         {
+#if UNITY_EDITOR
+            if(context.control.device == Keyboard.current) {
+                _characterSelectors[0].OnSubmit(context);
+                return;
+            }
+#endif
+
             if(!(context.control.device is Gamepad gamepad)) {
                 return;
             }

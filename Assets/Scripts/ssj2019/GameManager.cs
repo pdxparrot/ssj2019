@@ -26,7 +26,7 @@ namespace pdxpartyparrot.ssj2019
         // only valid on the client
         public GameViewer Viewer { get; private set; }
 
-        private readonly Dictionary<Gamepad, PlayerCharacterData> _characters = new Dictionary<Gamepad, PlayerCharacterData>();
+        private readonly Dictionary<InputDevice, PlayerCharacterData> _characters = new Dictionary<InputDevice, PlayerCharacterData>();
 
         public override void Shutdown()
         {
@@ -47,25 +47,25 @@ namespace pdxpartyparrot.ssj2019
         }
 
         //[Client]
-        public void AddCharacter(Gamepad gamepad, PlayerCharacterData playerCharacterData)
+        public void AddCharacter(InputDevice device, PlayerCharacterData playerCharacterData)
         {
-            _characters[gamepad] = playerCharacterData;
+            _characters[device] = playerCharacterData;
         }
 
         //[Client]
         [CanBeNull]
-        public PlayerCharacterData AcquireCharacter(Gamepad gamepad)
+        public PlayerCharacterData AcquireCharacter(InputDevice device)
         {
-            if(gamepad == null) {
+            if(device == null) {
                 return null;
             }
 
-            PlayerCharacterData playerCharacterData = _characters.GetOrDefault(gamepad);
+            PlayerCharacterData playerCharacterData = _characters.GetOrDefault(device);
             if(null == playerCharacterData) {
                 return null;
             }
 
-            _characters.Remove(gamepad);
+            _characters.Remove(device);
             return playerCharacterData;
         }
 
