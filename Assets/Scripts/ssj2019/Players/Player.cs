@@ -75,7 +75,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
         private void InitializeModel()
         {
-            if(null == Model) {
+            if(null == Model || null == _playerCharacterData) {
                 return;
             }
 
@@ -94,6 +94,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
             if(null == _playerCharacterData) {
                 // if something junked up and we didn't get a character, we have a chance to steal one
+                // TODO: we have no model tho :\
                 _playerCharacterData = GameManager.Instance.AcquireFreeCharacter();
                 if(null == _playerCharacterData) {
                     // this is bad ya'll

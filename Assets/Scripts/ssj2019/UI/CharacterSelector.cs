@@ -38,26 +38,6 @@ namespace pdxpartyparrot.ssj2019.UI
         [CanBeNull]
         public Gamepad Gamepad { get; private set; }
 
-#region Unity Lifecycle
-        private void Update()
-        {
-            if(_characterIndex == -1) {
-                return;
-            }
-
-#if UNITY_EDITOR
-            if(Keyboard.current.enterKey.wasPressedThisFrame) {
-                _owner.OnReady();
-                return;
-            }
-#endif
-
-            if(null != Gamepad && Gamepad.startButton.wasPressedThisFrame) {
-                _owner.OnReady();
-            }
-        }
-#endregion
-
         public void Initialize(CharacterSelectMenu owner)
         {
             _owner = owner;
@@ -150,6 +130,16 @@ namespace pdxpartyparrot.ssj2019.UI
             }
 
             if(_characterIndex >= 0) {
+                // special case check for ready to start the game
+#if UNITY_EDITOR
+                if(context.control == Keyboard.current.enterKey) {
+                    _owner.OnReady();
+                } else
+#endif
+                if(context.control == Gamepad.startButton) {
+                    _owner.OnReady();
+                }
+
                 return true;
             }
 

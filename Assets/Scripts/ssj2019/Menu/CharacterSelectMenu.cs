@@ -211,7 +211,7 @@ namespace pdxpartyparrot.ssj2019.Menu
 
             Debug.LogWarning("Ignoring submit from extraneous gamepad");
         }
-
+    
         public override void OnCancel(InputAction.CallbackContext context)
         {
             // try and consume the cancel

@@ -301,7 +301,19 @@
                 },
                 {
                     "name": "",
-                    "id": "916ba6d8-1402-4c0b-87a3-a8332083ee5d",
+                    "id": "0ed5f059-83b8-4c60-9100-942b372c7794",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "id": "166cbbbb-fb95-473b-9d89-93cabefb3027",
                     "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
