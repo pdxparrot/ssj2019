@@ -16,7 +16,7 @@ namespace pdxpartyparrot.ggj2019.State
                 return false;
             }
 
-            //GameManager.Instance.StartGame();
+            GameManager.Instance.StartGameServer();
 
             return true;
         }
@@ -34,6 +34,8 @@ namespace pdxpartyparrot.ggj2019.State
             }
 
             GameUIManager.Instance.InitializePlayerUI(GameManager.Instance.Viewer.UICamera);
+
+            GameManager.Instance.StartGameClient();
 
             return true;
         }

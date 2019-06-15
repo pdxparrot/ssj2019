@@ -11,7 +11,7 @@ namespace pdxpartyparrot.ssj2019.Camera
 {
     [RequireComponent(typeof(CinemachineFramingTransposer))]
     [RequireComponent(typeof(CinemachinePOV))]
-    //[RequireComponent(typeof(CinemachineConfiner))]
+    [RequireComponent(typeof(CinemachineConfiner))]
     public sealed class GameViewer : CinemachineViewer, IPlayerViewer
     {
         [Space(10)]
@@ -24,7 +24,7 @@ namespace pdxpartyparrot.ssj2019.Camera
         public Viewer Viewer => this;
 
         private CinemachineFramingTransposer _transposer;
-        //private CinemachineConfiner _confiner;
+        private CinemachineConfiner _confiner;
 
 #region Unity Lifecycle
         protected override void Awake()
@@ -32,7 +32,7 @@ namespace pdxpartyparrot.ssj2019.Camera
             base.Awake();
 
             _transposer = GetCinemachineComponent<CinemachineFramingTransposer>();
-            //_confiner = GetComponent<CinemachineConfiner>();
+            _confiner = GetComponent<CinemachineConfiner>();
         }
 #endregion
 
@@ -42,6 +42,7 @@ namespace pdxpartyparrot.ssj2019.Camera
             {
             case GameData.ViewerMode.Mode2D:
                 Viewer.Set2D(gameData.ViewportSize);
+                _confiner.m_ConfineScreenEdges = false;
                 break;
             case GameData.ViewerMode.Mode3D:
                 Viewer.Set3D();
@@ -53,12 +54,12 @@ namespace pdxpartyparrot.ssj2019.Camera
             _transposer.m_MaximumOrthoSize = gameData.ViewportSize * 2.0f;
         }
 
-        /*public void SetBounds(Collider2D bounds)
+        public void SetBounds(Collider2D bounds)
         {
             Debug.Log("Setting viewer bounds");
 
             _confiner.m_BoundingShape2D = bounds;
-        }*/
+        }
 
         public void AddTarget(Actor actor, float weight=1.0f)
         {

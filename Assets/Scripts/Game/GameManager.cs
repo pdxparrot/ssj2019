@@ -2,11 +2,9 @@
 
 using System;
 
-using pdxpartyparrot.Core.ObjectPool;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data;
 using pdxpartyparrot.Game.State;
-using pdxpartyparrot.Game.UI;
 
 using UnityEngine;
 using UnityEngine.Networking;
@@ -27,7 +25,9 @@ namespace pdxpartyparrot.Game
     public abstract class GameManager<T> : SingletonBehavior<T>, IGameManager where T: GameManager<T>
     {
 #region Events
-        public event EventHandler<EventArgs> GameStartEvent;
+        public event EventHandler<EventArgs> GameStartServerEvent;
+        public event EventHandler<EventArgs> GameStartClientEvent;
+
         public event EventHandler<EventArgs> GameOverEvent;
 #endregion
 
@@ -86,6 +86,21 @@ namespace pdxpartyparrot.Game
 
         public virtual void DestroyObjectPools()
         {
+        }
+
+        public virtual void StartGameServer()
+        {
+            GameStartServerEvent?.Invoke(this, EventArgs.Empty);
+        }
+
+        public virtual void StartGameClient()
+        {
+            GameStartClientEvent?.Invoke(this, EventArgs.Empty);
+        }
+
+        public virtual void GameOver()
+        {
+            GameOverEvent?.Invoke(this, EventArgs.Empty);
         }
     }
 }
