@@ -14,21 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waves:
     _items:
-    - _duration: 1
-      _spawnGroups:
-        _items:
-        - _actorPrefab: {fileID: 7185525476932000284, guid: 908eb1c0011234a4f80fdee0e10fda2f,
-            type: 3}
-          _npcBehaviorData: {fileID: 11400000, guid: d72fd4f6148ae0b4d97f6fb54dab08a0,
-            type: 2}
-          _tag: test
-          _delay:
-            _min: 1
-            _max: 1
-          _count:
-            _min: 1
-            _max: 1
-          _poolSize: 1
-          _once: 0
-      _waveMusic: {fileID: 0}
+    - {fileID: 11400000, guid: ea592d8a289520b42a675ce20124d091, type: 2}
   _musicTransitionSeconds: 1

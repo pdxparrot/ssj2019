@@ -7,9 +7,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Data.NPCs
 {
-    // TODO: this is really hard to work with when duplicating data
-
-    [CreateAssetMenu(fileName="WaveSpawnData", menuName="pdxpartyparrot/Game/Data/Wave Spawn Data")]
+    [CreateAssetMenu(fileName="WaveSpawnData", menuName="pdxpartyparrot/Game/Data/Wave Spawner/Wave Spawn Data")]
     [Serializable]
     public class WaveSpawnData : ScriptableObject
     {
@@ -17,11 +15,11 @@ namespace pdxpartyparrot.Game.Data.NPCs
         [ReorderableList]
         private SpawnWaveData.ReorderableList _waves = new SpawnWaveData.ReorderableList();
 
+        public IReadOnlyCollection<SpawnWaveData> Waves => _waves.Items;
+
         [SerializeField]
         private float _musicTransitionSeconds = 1.0f;
 
         public float MusicTransitionSeconds => _musicTransitionSeconds;
-
-        public IReadOnlyCollection<SpawnWaveData> Waves => _waves.Items;
     }
 }

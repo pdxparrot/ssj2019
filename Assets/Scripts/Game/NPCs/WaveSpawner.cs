@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
-using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data.NPCs;
 
@@ -15,6 +14,7 @@ namespace pdxpartyparrot.Game.NPCs
     {
 #region Events
         public event EventHandler<SpawnWaveEventArgs> WaveStartEvent;
+
         public event EventHandler<SpawnWaveEventArgs> WaveCompleteEvent;
 #endregion
 
@@ -33,8 +33,6 @@ namespace pdxpartyparrot.Game.NPCs
 
         [CanBeNull]
         private SpawnWave CurrentWave => HasCurrentWave ? _spawnWaves[_currentWaveIndex] : null;
-
-        private ITimer _waveTimer;
 
         private readonly List<SpawnWave> _spawnWaves = new List<SpawnWave>();
 
@@ -74,10 +72,7 @@ namespace pdxpartyparrot.Game.NPCs
 
         public void StartSpawner()
         {
-            _waveTimer = TimeManager.Instance.AddTimer();
-            _waveTimer.TimesUpEvent += WaveTimerTimesUpEventHandler;
-
-            Run();
+            Advance();
         }
 
         public void StopSpawner()
@@ -85,18 +80,15 @@ namespace pdxpartyparrot.Game.NPCs
             if(HasCurrentWave) {
                 CurrentWave.Stop();
             }
-
-            if(TimeManager.HasInstance) {
-                TimeManager.Instance.RemoveTimer(_waveTimer);
-            }
-            _waveTimer = null;
         }
 
-        private void Run()
+        public void Advance()
         {
             if(_currentWaveIndex >= _spawnWaves.Count) {
                 return;
             }
+
+            Debug.Log("Advancing NPC wave spawner...");
 
             // stop the current wave timers
             if(_currentWaveIndex >= 0) {
@@ -112,16 +104,8 @@ namespace pdxpartyparrot.Game.NPCs
 
             // start the next wave of timers
             CurrentWave.Start();
-            _waveTimer.Start(CurrentWave.Duration);
 
             WaveStartEvent?.Invoke(this, new SpawnWaveEventArgs(_currentWaveIndex, _currentWaveIndex >= _spawnWaves.Count - 1));
         }
-
-#region Event Handlers
-        private void WaveTimerTimesUpEventHandler(object sender, EventArgs args)
-        {
-            Run();
-        }
-#endregion
     }
 }

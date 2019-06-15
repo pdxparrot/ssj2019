@@ -4,10 +4,12 @@ using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.Collections;
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game;
 using pdxpartyparrot.Game.State;
 using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Data;
+using pdxpartyparrot.ssj2019.Level;
 
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -26,6 +28,12 @@ namespace pdxpartyparrot.ssj2019
         // only valid on the client
         public GameViewer Viewer { get; private set; }
 
+        [SerializeField]
+        [ReadOnly]
+        private LevelHelper _levelHelper;
+
+        public LevelHelper LevelHelper => _levelHelper;
+
         private readonly Dictionary<InputDevice, PlayerCharacterData> _characters = new Dictionary<InputDevice, PlayerCharacterData>();
 
         public override void Shutdown()
@@ -33,6 +41,16 @@ namespace pdxpartyparrot.ssj2019
             _characters.Clear();
 
             base.Shutdown();
+        }
+
+        public void RegisterLevelHelper(LevelHelper levelHelper)
+        {
+            _levelHelper = levelHelper;
+        }
+
+        public void UnRegisterLevelHelper(LevelHelper levelHelper)
+        {
+            _levelHelper = null;
         }
 
         //[Client]

@@ -8,18 +8,12 @@ using UnityEngine;
 namespace pdxpartyparrot.Game.Data.NPCs
 {
     [Serializable]
-    public class SpawnWaveData
+    public abstract class SpawnWaveData : ScriptableObject
     {
         [Serializable]
         public class ReorderableList : ReorderableList<SpawnWaveData>
         {
         }
-
-        [SerializeField]
-        [Tooltip("The duration of the wave")]
-        private float _duration;
-
-        public float Duration => _duration;
 
         [SerializeField]
         [ReorderableList]

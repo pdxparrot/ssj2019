@@ -18,9 +18,13 @@ namespace pdxpartyparrot.ssj2019.Level
 
         private WaveSpawner _waveSpawner;
 
+        public WaveSpawner WaveSpawner => _waveSpawner;
+
 #region Unity Lifecycle
         private void Awake()
         {
+            GameManager.Instance.RegisterLevelHelper(this);
+
             GameManager.Instance.GameStartServerEvent += GameStartServerEventHandler;
             GameManager.Instance.GameStartClientEvent += GameStartClientEventHandler;
         }
@@ -30,6 +34,8 @@ namespace pdxpartyparrot.ssj2019.Level
             if(GameManager.HasInstance) {
                 GameManager.Instance.GameStartClientEvent -= GameStartClientEventHandler;
                 GameManager.Instance.GameStartServerEvent -= GameStartServerEventHandler;
+
+                GameManager.Instance.UnRegisterLevelHelper(this);
             }
 
             if(null != _waveSpawner) {

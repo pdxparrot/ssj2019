@@ -18,7 +18,7 @@ namespace pdxpartyparrot.Game.NPCs
 
         [SerializeField]
         [ReadOnly]
-        private ITimer _spawnTimer;
+        private ITimer _spawnDelayTimer;
 
         private string PoolTag => $"spawnGroup_{_spawnGroupData.Tag}";
 
@@ -26,13 +26,16 @@ namespace pdxpartyparrot.Game.NPCs
 
         private readonly  WaveSpawner _owner;
 
-        public SpawnGroup(SpawnGroupData spawnGroupData, WaveSpawner owner)
+        private readonly SpawnWave _wave;
+
+        public SpawnGroup(SpawnGroupData spawnGroupData, WaveSpawner owner, SpawnWave wave)
         {
             _spawnGroupData = spawnGroupData;
             _owner = owner;
+            _wave = wave;
         }
 
-        public void Initialize(float waveDuration)
+        public void Initialize()
         {
             PooledObject pooledObject = _spawnGroupData.ActorPrefab.GetComponent<PooledObject>();
             if(null != pooledObject) {
@@ -47,16 +50,16 @@ namespace pdxpartyparrot.Game.NPCs
                 }
             }
 
-            _spawnTimer = TimeManager.Instance.AddTimer();
-            _spawnTimer.TimesUpEvent += SpawnTimerTimesUpEventHandler;
+            _spawnDelayTimer = TimeManager.Instance.AddTimer();
+            _spawnDelayTimer.TimesUpEvent += SpawnTimerTimesUpEventHandler;
         }
 
         public void Shutdown()
         {
             if(TimeManager.HasInstance) {
-                TimeManager.Instance.RemoveTimer(_spawnTimer);
+                TimeManager.Instance.RemoveTimer(_spawnDelayTimer);
             }
-            _spawnTimer = null;
+            _spawnDelayTimer = null;
 
             if(null != _poolContainer) {
                 if(ObjectPoolManager.HasInstance) {
@@ -70,21 +73,23 @@ namespace pdxpartyparrot.Game.NPCs
 
         public void Start()
         {
-            _spawnTimer.Start(_spawnGroupData.Delay);
+            _spawnDelayTimer.Start(_spawnGroupData.Delay);
         }
 
         public void Stop()
         {
-            if(null != _spawnTimer) {
-                _spawnTimer.Stop();
-            }
+            _spawnDelayTimer?.Stop();
         }
 
         private void Spawn()
         {
             int amount = _spawnGroupData.Count.GetRandomValue();
+
+            Debug.Log($"Spawning {amount} NPCs...");
+
+            int spawned = 0;
             for(int i=0; i<amount; ++i) {
-                var spawnPoint = SpawnManager.Instance.GetSpawnPoint(_spawnGroupData.Tag);
+                SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(_spawnGroupData.Tag);
                 if(null == spawnPoint) {
                     //Debug.LogWarning($"No spawnpoints for {_spawnGroupData.Tag}!");
                 } else {
@@ -107,12 +112,16 @@ namespace pdxpartyparrot.Game.NPCs
                             continue;
                         }
                     }
+
+                    spawned++;
                 }
 
                 if(!_spawnGroupData.Once) {
-                    _spawnTimer.Start(_spawnGroupData.Delay);
+                    _spawnDelayTimer.Start(_spawnGroupData.Delay);
                 }
             }
+
+            _wave.OnWaveSpawned(spawned);
         }
 
 #region Event Handlers
