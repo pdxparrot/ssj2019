@@ -17,6 +17,12 @@ namespace pdxpartyparrot.Core.Util
 
         public int Max => _max;
 
+        public IntRangeConfig(int min, int max)
+        {
+            _min = min;
+            _max = max;
+        }
+
         public int GetRandomValue()
         {
             return PartyParrotManager.Instance.Random.Next(_min, _max);
@@ -42,6 +48,12 @@ namespace pdxpartyparrot.Core.Util
         private float _max;
 
         public float Max => _max;
+
+        public FloatRangeConfig(float min, float max)
+        {
+            _min = min;
+            _max = max;
+        }
 
         public float GetRandomValue()
         {

@@ -36,13 +36,13 @@ namespace pdxpartyparrot.Game.Data.NPCs
 
         [SerializeField]
         [Tooltip("Time between spawns, in seconds")]
-        private IntRangeConfig _delay;
+        private IntRangeConfig _delay = new IntRangeConfig(1, 1);
 
         public IntRangeConfig Delay => _delay;
 
         [SerializeField]
         [Tooltip("How many actors to spawn each time we spawn")]
-        private IntRangeConfig _count;
+        private IntRangeConfig _count = new IntRangeConfig(1, 1);
 
         public IntRangeConfig Count => _count;
 

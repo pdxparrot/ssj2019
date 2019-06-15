@@ -75,7 +75,9 @@ namespace pdxpartyparrot.Game.NPCs
 
         public void Stop()
         {
-            _spawnTimer.Stop();
+            if(null != _spawnTimer) {
+                _spawnTimer.Stop();
+            }
         }
 
         private void Spawn()

@@ -46,12 +46,18 @@ namespace pdxpartyparrot.ssj2019.Level
             }
 
             _waveSpawner = Instantiate(_waveSpawnerPrefab);
+            _waveSpawner.Initialize();
         }
 
 #region Event Handlers
         private void GameStartServerEventHandler(object sender, EventArgs args)
         {
             InitializeWaveSpawner();
+
+            // TODO: this should wait until after we have all the players
+            if(null != _waveSpawner) {
+                _waveSpawner.StartSpawner();
+            }
         }
 
         private void GameStartClientEventHandler(object sender, EventArgs args)
