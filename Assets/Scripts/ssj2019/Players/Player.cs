@@ -36,7 +36,6 @@ namespace pdxpartyparrot.ssj2019.Players
 
             Assert.IsTrue(PlayerInput is PlayerInput);
             Assert.IsTrue(PlayerBehavior is PlayerBehavior);
-            Assert.IsTrue(PlayerInput is PlayerInput);
         }
 #endregion
 

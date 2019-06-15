@@ -32,7 +32,7 @@ namespace pdxpartyparrot.Game.NPCs
         private bool HasCurrentWave => _currentWaveIndex >= 0 && _currentWaveIndex < _spawnWaves.Count;
 
         [CanBeNull]
-        private SpawnWave CurrentWave => HasCurrentWave ? _spawnWaves[_currentWaveIndex] : null;
+        public SpawnWave CurrentWave => HasCurrentWave ? _spawnWaves[_currentWaveIndex] : null;
 
         private readonly List<SpawnWave> _spawnWaves = new List<SpawnWave>();
 

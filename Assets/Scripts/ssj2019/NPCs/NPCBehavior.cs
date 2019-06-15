@@ -1,7 +1,18 @@
-﻿namespace pdxpartyparrot.ssj2019.NPCs
+﻿using pdxpartyparrot.ssj2019.Data;
+
+namespace pdxpartyparrot.ssj2019.NPCs
 {
     public sealed class NPCBehavior : Game.Characters.NPCs.NPCBehavior
     {
-// TODO: when the NPC dies, do GameManager.Instance.LevelHelper.WaveSpawner.OnWaveSpawnMemberDone()
+        public NPCBehaviorData GameNPCBehaviorData => (NPCBehaviorData)NPCBehaviorData;
+
+#region Spawn
+        public override void OnDeSpawn()
+        {
+            GameManager.Instance.LevelHelper.WaveSpawner.CurrentWave.OnWaveSpawnMemberDone();
+
+            base.OnDeSpawn();
+        }
+#endregion
     }
 }

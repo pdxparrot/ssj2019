@@ -11,7 +11,7 @@ using UnityEngine;
 namespace pdxpartyparrot.Game.NPCs
 {
     [Serializable]
-    internal class SpawnWave
+    public class SpawnWave
     {
         private readonly SpawnWaveData _spawnWaveData;
 
