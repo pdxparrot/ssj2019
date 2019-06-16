@@ -165,6 +165,8 @@ GameObject:
   - component: {fileID: 1094174836598082451}
   - component: {fileID: 7670571906903510832}
   - component: {fileID: 256798335153925517}
+  - component: {fileID: 4012403951289823003}
+  - component: {fileID: 1482694962723182602}
   m_Layer: 13
   m_Name: Behavior
   m_TagString: Untagged
@@ -210,7 +212,9 @@ MonoBehaviour:
   _respawnEffect: {fileID: 0}
   _despawnEffect: {fileID: 0}
   _components:
-    _items: []
+    _items:
+    - {fileID: 4012403951289823003}
+    - {fileID: 1482694962723182602}
   _isGrounded: 0
   _isSliding: 0
   _lastActionBufferTimestampMs: 0
@@ -234,3 +238,35 @@ MonoBehaviour:
     IsKinematic: 0
     Velocity: {x: 0, y: 0, z: 0}
     AngularVelocity: {x: 0, y: 0, z: 0}
+--- !u!114 &4012403951289823003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9003367007530177534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 489c00ce6ff9d894eb0fa85ba9281e37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data: {fileID: 11400000, guid: ef2a64dbf88a01a469c78f505e0f5ab4, type: 2}
+  _groundedEffect: {fileID: 0}
+  _didGroundCheckCollide: 0
+  _groundCheckNormal: {x: 0, y: 0, z: 0}
+  _groundCheckMinDistance: 0
+  _groundSlope: 0
+--- !u!114 &1482694962723182602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9003367007530177534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cfb49116408201459778de310704684, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data: {fileID: 11400000, guid: a0a7b7fa6f161d048b64474ef8dd76a9, type: 2}
+  _jumpEffect: {fileID: 0}
