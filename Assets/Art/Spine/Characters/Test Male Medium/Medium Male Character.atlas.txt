@@ -1,0 +1,125 @@
+
+Medium Male Character.png
+size: 4096,4096
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+MM_TQ_Calf_B
+  rotate: false
+  xy: 1286, 2126
+  size: 593, 671
+  orig: 599, 677
+  offset: 3, 3
+  index: -1
+MM_TQ_Calf_F
+  rotate: false
+  xy: 1841, 3021
+  size: 742, 1047
+  orig: 748, 1053
+  offset: 3, 3
+  index: -1
+MM_TQ_Chest
+  rotate: false
+  xy: 3, 1915
+  size: 1280, 2153
+  orig: 1280, 2153
+  offset: 0, 0
+  index: -1
+MM_TQ_Foot_B_Side
+  rotate: false
+  xy: 3, 3
+  size: 573, 200
+  orig: 573, 200
+  offset: 0, 0
+  index: -1
+MM_TQ_Foot_B_Turned
+  rotate: false
+  xy: 1882, 2060
+  size: 622, 415
+  orig: 622, 415
+  offset: 0, 0
+  index: -1
+MM_TQ_Foot_F_Side
+  rotate: true
+  xy: 3728, 3425
+  size: 643, 248
+  orig: 643, 248
+  offset: 0, 0
+  index: -1
+MM_TQ_Foot_F_Turned
+  rotate: false
+  xy: 990, 643
+  size: 515, 581
+  orig: 515, 581
+  offset: 0, 0
+  index: -1
+MM_TQ_Hand_B_Fist
+  rotate: false
+  xy: 3646, 2944
+  size: 416, 478
+  orig: 422, 484
+  offset: 3, 3
+  index: -1
+MM_TQ_Hand_F_Fist
+  rotate: true
+  xy: 1446, 1622
+  size: 501, 433
+  orig: 507, 439
+  offset: 3, 3
+  index: -1
+MM_TQ_Head01
+  rotate: true
+  xy: 1882, 1521
+  size: 536, 550
+  orig: 542, 556
+  offset: 3, 3
+  index: -1
+MM_TQ_LowerArm_B
+  rotate: true
+  xy: 990, 1227
+  size: 685, 453
+  orig: 691, 459
+  offset: 3, 3
+  index: -1
+MM_TQ_LowerArm_F
+  rotate: false
+  xy: 2586, 2798
+  size: 1057, 665
+  orig: 1063, 671
+  offset: 3, 3
+  index: -1
+MM_TQ_Neck
+  rotate: false
+  xy: 1882, 2478
+  size: 550, 540
+  orig: 550, 540
+  offset: 0, 0
+  index: -1
+MM_TQ_Thigh_B
+  rotate: false
+  xy: 3, 621
+  size: 984, 1291
+  orig: 990, 1297
+  offset: 3, 3
+  index: -1
+MM_TQ_Thigh_F
+  rotate: false
+  xy: 1286, 2800
+  size: 552, 1268
+  orig: 558, 1274
+  offset: 3, 3
+  index: -1
+MM_TQ_UpperArm_B
+  rotate: true
+  xy: 3, 206
+  size: 412, 964
+  orig: 418, 970
+  offset: 3, 3
+  index: -1
+MM_TQ_UpperArm_F
+  rotate: true
+  xy: 2586, 3466
+  size: 602, 1139
+  orig: 608, 1145
+  offset: 3, 3
+  index: -1
