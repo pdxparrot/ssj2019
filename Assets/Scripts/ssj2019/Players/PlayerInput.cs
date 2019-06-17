@@ -1,10 +1,8 @@
 ﻿using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Input;
-using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Players.Input;
 using pdxpartyparrot.ssj2019.Data;
 using pdxpartyparrot.ssj2019.Input;
-using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -86,9 +84,7 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             if(context.performed) {
-                GamePlayer.GamePlayerBehavior.ClearActionBuffer();
-
-                GamePlayer.GamePlayerBehavior.ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
+                GamePlayer.GamePlayerBehavior.OnJump();
             }
         }
 
@@ -103,9 +99,7 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             if(context.performed) {
-                GamePlayer.GamePlayerBehavior.BufferAction(new AttackBehaviorComponent.AttackAction{
-                    Axes = LastMove,
-                });
+                GamePlayer.GamePlayerBehavior.OnAttack(LastMove);
             }
         }
 
@@ -120,9 +114,7 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             if(context.performed) {
-                GamePlayer.GamePlayerBehavior.BufferAction(new BlockBehaviorComponent.BlockAction{
-                    Axes = LastMove,
-                });
+                GamePlayer.GamePlayerBehavior.OnBlock(LastMove);
             }
         }
 #endregion

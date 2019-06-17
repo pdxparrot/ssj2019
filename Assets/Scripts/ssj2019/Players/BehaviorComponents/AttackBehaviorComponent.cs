@@ -2,6 +2,7 @@
 
 namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
 {
+    // TODO: make this not player-specific
     public sealed class AttackBehaviorComponent : GamePlayerBehaviorComponent
     {
 #region Actions

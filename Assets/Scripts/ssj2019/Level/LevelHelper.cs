@@ -1,5 +1,6 @@
 ﻿using System;
 
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.NPCs;
 
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace pdxpartyparrot.ssj2019.Level
     public sealed class LevelHelper : MonoBehaviour
     {
         [SerializeField]
+        [ReadOnly]
         private Collider2D _cameraBounds;
 
         public Collider2D CameraBounds => _cameraBounds;

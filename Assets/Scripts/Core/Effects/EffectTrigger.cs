@@ -25,6 +25,12 @@ namespace pdxpartyparrot.Core.Effects
         [ReorderableList]
         private EffectTriggerComponent.ReorderableList _components = new EffectTriggerComponent.ReorderableList();
 
+        [SerializeField]
+        [ReadOnly]
+        private bool _isRunning;
+
+        public bool IsRunning => _isRunning;
+
         private Coroutine _effectWaiter;
 
 #region Unity Lifecycle
@@ -79,6 +85,8 @@ namespace pdxpartyparrot.Core.Effects
 
         public void Trigger(Action callback=null)
         {
+            _isRunning = true;
+
             RunOnComponents(c => c.OnStart());
 
             _effectWaiter = StartCoroutine(EffectWaiter(callback));
@@ -93,6 +101,8 @@ namespace pdxpartyparrot.Core.Effects
             }
 
             RunOnComponents(c => c.OnStop());
+
+            _isRunning = false;
         }
 
         public void ResetTrigger()
@@ -103,22 +113,28 @@ namespace pdxpartyparrot.Core.Effects
         private IEnumerator EffectWaiter(Action callback)
         {
             WaitForSeconds wait = new WaitForSeconds(0.05f);
-            while(true) {
-                yield return wait;
 
+            // wait for components (if we should)
+            while(true) {
                 bool done = true;
-                foreach(var component in _components.Items) {
-                    if(component.WaitForComplete && !component.IsDone) {
-                        done = false;
-                        break;
+                foreach(EffectTriggerComponent component in _components.Items) {
+                    if(!component.WaitForComplete || component.IsDone) {
+                        continue;
                     }
+
+                    done = false;
+                    break;
                 }
 
                 if(done) {
                     break;
                 }
+
+                yield return wait;
             }
 
+            // invoke our callback
+            // (don't wait for further effects)
             _effectWaiter = null;
             callback?.Invoke();
 
@@ -126,9 +142,31 @@ namespace pdxpartyparrot.Core.Effects
                 Debug.Log($"Trigger {_triggerOnComplete.Items.Count} more effects from {name}");
             }
 
+            // trigger further effects
             foreach(var onCompleteEffect in _triggerOnComplete.Items) {
                 onCompleteEffect.Trigger();
             }
+
+            // wait for those effects before we call ourself not running
+            while(true) {
+                bool done = true;
+                foreach(EffectTrigger onCompleteEffect in _triggerOnComplete.Items) {
+                    if(!onCompleteEffect.IsRunning) {
+                        continue;
+                    }
+
+                    done = false;
+                    break;
+                }
+
+                if(done) {
+                    break;
+                }
+
+                yield return wait;
+            }
+
+            _isRunning = false;
         }
     }
 }
