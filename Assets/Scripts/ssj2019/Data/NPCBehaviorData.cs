@@ -9,6 +9,11 @@ namespace pdxpartyparrot.ssj2019.Data
     [Serializable]
     public sealed class NPCBehaviorData : Game.Data.Characters.NPCBehaviorData
     {
+        [SerializeField]
+        private string _idleAnimationName = "Idle";
+
+        public string IdleAnimationName => _idleAnimationName;
+
         [Space(10)]
 
         [Header("Characters")]

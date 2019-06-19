@@ -1,10 +1,12 @@
-﻿using pdxpartyparrot.Core.Effects;
+﻿using pdxpartyparrot.Core.Data;
+using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.ssj2019.Data;
 using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ssj2019.NPCs
 {
@@ -51,6 +53,13 @@ namespace pdxpartyparrot.ssj2019.NPCs
         }
 #endregion
 
+        public override void Initialize(ActorBehaviorData behaviorData)
+        {
+            Assert.IsTrue(behaviorData is NPCBehaviorData);
+
+            base.Initialize(behaviorData);
+        }
+
         public override void Think(float dt)
         {
             // TODO: here we think but also queue movement and actions
@@ -60,7 +69,14 @@ namespace pdxpartyparrot.ssj2019.NPCs
         {
             _attackEffectTrigger.Trigger(() => {
                 ClearActionBuffer();
+
+                ResetIdle();
             });
+        }
+
+        private void ResetIdle()
+        {
+            SpineAnimationHelper.SetAnimation(GameNPCBehaviorData.IdleAnimationName, false);
         }
 
 #region Spawn
@@ -108,7 +124,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             if(_blocking) {
                 _blockBeginEffectTrigger.Trigger();
             } else {
-                _blockEndEffectTrigger.Trigger();
+                _blockEndEffectTrigger.Trigger(() => ResetIdle());
             }
         }
 #endregion

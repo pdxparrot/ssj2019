@@ -1,15 +1,20 @@
-﻿using pdxpartyparrot.Core.Effects;
+﻿using pdxpartyparrot.Core.Data;
+using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.Players;
+using pdxpartyparrot.ssj2019.Data;
 using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ssj2019.Players
 {
     public sealed class PlayerBehavior : Game.Characters.Players.PlayerBehavior
     {
+        public PlayerBehaviorData GamePlayerBehaviorData => (PlayerBehaviorData)PlayerBehaviorData;
+
         [SerializeField]
         private EffectTrigger _attackEffectTrigger;
 
@@ -49,11 +54,25 @@ namespace pdxpartyparrot.ssj2019.Players
         }
 #endregion
 
+        public override void Initialize(ActorBehaviorData behaviorData)
+        {
+            Assert.IsTrue(behaviorData is PlayerBehaviorData);
+
+            base.Initialize(behaviorData);
+        }
+
         private void DoAttack()
         {
             _attackEffectTrigger.Trigger(() => {
                 ClearActionBuffer();
+
+                ResetIdle();
             });
+        }
+
+        private void ResetIdle()
+        {
+            SpineAnimationHelper.SetAnimation(GamePlayerBehaviorData.IdleAnimationName, false);
         }
 
 #region Actions
@@ -92,7 +111,7 @@ namespace pdxpartyparrot.ssj2019.Players
             if(_blocking) {
                 _blockBeginEffectTrigger.Trigger();
             } else {
-                _blockEndEffectTrigger.Trigger();
+                _blockEndEffectTrigger.Trigger(() => ResetIdle());
             }
         }
 #endregion

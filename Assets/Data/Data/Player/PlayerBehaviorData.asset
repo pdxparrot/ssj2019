@@ -31,3 +31,4 @@ MonoBehaviour:
   _actionBufferSize: 5
   _actionBufferTimeoutMs: 500
   _alignMovementWithViewer: 0
+  _idleAnimationName: Idle
