@@ -24,13 +24,11 @@ namespace pdxpartyparrot.ssj2019.Players
         [SerializeField]
         private EffectTrigger _blockEndEffectTrigger;
 
-        private bool IsAnimating => _attackEffectTrigger.IsRunning || _blockBeginEffectTrigger.IsRunning || _blockEndEffectTrigger.IsRunning;
-
         private bool CanJump => !IsBlocking;
 
         private bool CanAttack => !IsBlocking;
 
-        private bool CanBlock => !IsAnimating;
+        private bool CanBlock => true;
 
         [SerializeField]
         [ReadOnly]
@@ -38,17 +36,21 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public bool IsBlocking => _blocking;
 
+        [SerializeField]
+        [ReadOnly]
+        private bool _immune;
+
+        public bool IsImmune => PlayerManager.Instance.PlayersImmune || _immune;
+
+        public override bool CanMove => base.CanMove && !IsBlocking;
+
 #region Unity Lifecycle
         protected override void Update()
         {
             base.Update();
 
-            if(IsAnimating) {
-                return;
-            }
-
             // process actions here rather than Think() so that they're instantaneous
-            if(LastAction is AttackBehaviorComponent.AttackAction) {
+            if(LastAction is AttackBehaviorComponent.AttackAction && !_attackEffectTrigger.IsRunning) {
                 DoAttack();
             }
         }
@@ -78,7 +80,7 @@ namespace pdxpartyparrot.ssj2019.Players
                 return;
             }
 
-            ClearActionBuffer();
+            //ClearActionBuffer();
 
             ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
         }

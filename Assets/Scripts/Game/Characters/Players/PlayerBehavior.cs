@@ -58,7 +58,7 @@ namespace pdxpartyparrot.Game.Characters.Players
 
         public void SetMoveDirection(Vector3 moveDirection)
         {
-            _moveDirection = Vector3.ClampMagnitude(moveDirection, 1.0f);
+            _moveDirection = CanMove ? Vector3.ClampMagnitude(moveDirection, 1.0f) : Vector3.zero;
         }
 
         protected override void AnimationUpdate(float dt)
