@@ -84,7 +84,7 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             if(context.performed) {
-                GamePlayer.GamePlayerBehavior.OnJump();
+                GamePlayer.GamePlayerBehavior.Jump();
             }
         }
 
@@ -99,7 +99,7 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             if(context.performed) {
-                GamePlayer.GamePlayerBehavior.OnAttack(LastMove);
+                GamePlayer.GamePlayerBehavior.Attack(LastMove);
             }
         }
 
@@ -114,7 +114,9 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             if(context.performed) {
-                GamePlayer.GamePlayerBehavior.OnBlock(LastMove);
+                GamePlayer.GamePlayerBehavior.ToggleBlock();
+            } else if(context.canceled) {
+                Debug.LogWarning("TODO: handle block cancel");
             }
         }
 #endregion

@@ -1,4 +1,5 @@
 ﻿using pdxpartyparrot.Core.Effects;
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
@@ -13,22 +14,37 @@ namespace pdxpartyparrot.ssj2019.Players
         private EffectTrigger _attackEffectTrigger;
 
         [SerializeField]
-        private EffectTrigger _blockEffectTrigger;
+        private EffectTrigger _blockBeginEffectTrigger;
+
+        [SerializeField]
+        private EffectTrigger _blockEndEffectTrigger;
+
+        private bool IsAnimating => _attackEffectTrigger.IsRunning || _blockBeginEffectTrigger.IsRunning || _blockEndEffectTrigger.IsRunning;
+
+        private bool CanJump => !IsBlocking;
+
+        private bool CanAttack => !IsBlocking;
+
+        private bool CanBlock => !IsAnimating;
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _blocking;
+
+        public bool IsBlocking => _blocking;
 
 #region Unity Lifecycle
         protected override void Update()
         {
             base.Update();
 
-            if(_attackEffectTrigger.IsRunning || _blockEffectTrigger.IsRunning) {
+            if(IsAnimating) {
                 return;
             }
 
             // process actions here rather than Think() so that they're instantaneous
             if(LastAction is AttackBehaviorComponent.AttackAction) {
                 DoAttack();
-            } else if(LastAction is BlockBehaviorComponent.BlockAction) {
-                DoBlock();
             }
         }
 #endregion
@@ -40,35 +56,44 @@ namespace pdxpartyparrot.ssj2019.Players
             });
         }
 
-        private void DoBlock()
+#region Actions
+        public void Jump()
         {
-            _blockEffectTrigger.Trigger(() => {
-                ClearActionBuffer();
-            });
-        }
+            if(!CanJump) {
+                return;
+            }
 
-#region Events
-        public void OnJump()
-        {
             ClearActionBuffer();
 
             ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
         }
 
         // TODO: we might want the entire move buffer
-        public void OnAttack(Vector3 lastMove)
+        public void Attack(Vector3 lastMove)
         {
+            if(!CanAttack) {
+                return;
+            }
+
             BufferAction(new AttackBehaviorComponent.AttackAction{
                 Axes = lastMove,
             });
         }
-
-        // TODO: we might want the entire move buffer
-        public void OnBlock(Vector3 lastMove)
+        
+        public void ToggleBlock()
         {
-            BufferAction(new BlockBehaviorComponent.BlockAction{
-                Axes = lastMove,
-            });
+            if(!CanBlock) {
+                return;
+            }
+
+            ClearActionBuffer();
+
+            _blocking = !_blocking;
+            if(_blocking) {
+                _blockBeginEffectTrigger.Trigger();
+            } else {
+                _blockEndEffectTrigger.Trigger();
+            }
         }
 #endregion
     }

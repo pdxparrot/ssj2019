@@ -69,7 +69,9 @@ MonoBehaviour:
   _lastActionBufferTimestampMs: 0
   _moveDirection: {x: 0, y: 0, z: 0}
   _attackEffectTrigger: {fileID: 1146156531379595911}
-  _blockEffectTrigger: {fileID: 7159524601455611885}
+  _blockBeginEffectTrigger: {fileID: 7159524601455611885}
+  _blockEndEffectTrigger: {fileID: 6966623934742709282}
+  _blocking: 0
 --- !u!114 &515719160455454119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,6 +236,7 @@ GameObject:
   - component: {fileID: 6790831346791328268}
   - component: {fileID: 1146156531379595911}
   - component: {fileID: 2353743976938898440}
+  - component: {fileID: 148933806714679601}
   m_Layer: 12
   m_Name: Attack Effect
   m_TagString: Untagged
@@ -271,7 +274,7 @@ MonoBehaviour:
     _items: []
   _components:
     _items:
-    - {fileID: 2353743976938898440}
+    - {fileID: 148933806714679601}
   _isRunning: 0
 --- !u!114 &2353743976938898440
 MonoBehaviour:
@@ -286,6 +289,102 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _logMessage: player attack
+--- !u!114 &148933806714679601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5208298961527488989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 745ddbe86c3017845bce908d5c336f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spineAnimation: {fileID: 1402089305333961099}
+  _spineAnimationName: Punch01
+  _spineAnimationTrack: 0
+  _waitForComplete: 1
+--- !u!1 &5420301058010389892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4870319420291113269}
+  - component: {fileID: 6966623934742709282}
+  - component: {fileID: 2827403654806373311}
+  - component: {fileID: 4756346590148829104}
+  m_Layer: 12
+  m_Name: Block End Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4870319420291113269
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5420301058010389892}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7312426625843009650}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6966623934742709282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5420301058010389892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f0acf5094b571448a3663067cfbfe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 4756346590148829104}
+  _isRunning: 0
+--- !u!114 &2827403654806373311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5420301058010389892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _logMessage: player unblock
+--- !u!114 &4756346590148829104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5420301058010389892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 745ddbe86c3017845bce908d5c336f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spineAnimation: {fileID: 1402089305333961099}
+  _spineAnimationName: Unblock
+  _spineAnimationTrack: 0
+  _waitForComplete: 1
 --- !u!1 &7312426625843009653
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +425,7 @@ Transform:
   - {fileID: 814946197423954687}
   - {fileID: 6790831346791328268}
   - {fileID: 5471448559866563293}
+  - {fileID: 4870319420291113269}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -493,8 +593,9 @@ GameObject:
   - component: {fileID: 5471448559866563293}
   - component: {fileID: 7159524601455611885}
   - component: {fileID: 1068261223425734473}
+  - component: {fileID: 4786865428053294427}
   m_Layer: 12
-  m_Name: Block Effect
+  m_Name: Block Begin Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -530,7 +631,7 @@ MonoBehaviour:
     _items: []
   _components:
     _items:
-    - {fileID: 1068261223425734473}
+    - {fileID: 4786865428053294427}
   _isRunning: 0
 --- !u!114 &1068261223425734473
 MonoBehaviour:
@@ -545,6 +646,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _logMessage: player block
+--- !u!114 &4786865428053294427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7835375812971009641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 745ddbe86c3017845bce908d5c336f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spineAnimation: {fileID: 1402089305333961099}
+  _spineAnimationName: Block
+  _spineAnimationTrack: 0
+  _waitForComplete: 1
 --- !u!1 &8128243285711847515
 GameObject:
   m_ObjectHideFlags: 0

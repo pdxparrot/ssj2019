@@ -30,6 +30,10 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         public override void OnStart()
         {
             if(EffectsManager.Instance.EnableAnimation) {
+                if(EffectsManager.Instance.EnableDebug) {
+                    Debug.Log($"Triggering Spine animation {_spineAnimationName} on track {_spineAnimationTrack}");
+                }
+
                 _trackEntry = _spineAnimation.SetAnimation(_spineAnimationTrack, _spineAnimationName, false);
                 _trackEntry.Complete += OnComplete;
             } else {
