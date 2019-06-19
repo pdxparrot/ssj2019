@@ -55,6 +55,13 @@ namespace pdxpartyparrot.Core.Actors
 
         [CanBeNull]
         public SpineAnimationHelper SpineAnimationHelper => _spineAnimationHelper;
+
+        [SerializeField]
+        [CanBeNull]
+        private SpineSkinHelper _spineSkinHelper;
+
+        [CanBeNull]
+        public SpineSkinHelper SpineSkinHelper => _spineSkinHelper;
 #endif
 
         [SerializeField]

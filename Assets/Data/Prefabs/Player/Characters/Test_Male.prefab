@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _modelSprite: {fileID: 0}
+  _spineModel: {fileID: 8256875609722583672}
   _shadowSprite: {fileID: 144942735094609083}
 --- !u!1 &2669413448607657571
 GameObject:
@@ -236,6 +237,6 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: 
+  _animationName: Idle
   loop: 1
   timeScale: 1

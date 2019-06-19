@@ -50,7 +50,8 @@ MonoBehaviour:
   _owner: {fileID: 463285651185603561}
   _behaviorData: {fileID: 0}
   _movement: {fileID: 515719160455454119}
-  _spineAnimationHelper: {fileID: 0}
+  _spineAnimationHelper: {fileID: 1402089305333961099}
+  _spineSkinHelper: {fileID: 8044426963685100265}
   _spriteAnimationHelper: {fileID: 9001812890377953706}
   _animator: {fileID: 0}
   _actorAnimator: {fileID: 0}
@@ -143,6 +144,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7886281395392948275}
   - component: {fileID: 9001812890377953706}
+  - component: {fileID: 8044426963685100265}
+  - component: {fileID: 1402089305333961099}
   - component: {fileID: 1076922573034726081}
   m_Layer: 12
   m_Name: Model
@@ -177,9 +180,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929fa2b16a0d8d049a52bee15807878d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _renderers:
-  - {fileID: 0}
-  - {fileID: 0}
+  _renderers: []
+--- !u!114 &8044426963685100265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4953237466135058469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4e6b81e8f1d0b448dedb14fdec6bc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skeletonAnimation: {fileID: 0}
+  _skinNames: []
+--- !u!114 &1402089305333961099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4953237466135058469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6986be097d86f5347bc994d7b52e4989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skeletonAnimation: {fileID: 0}
 --- !u!114 &1076922573034726081
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,46 +10,52 @@ namespace pdxpartyparrot.Core.Util
         [SerializeField]
         private SkeletonAnimation _skeletonAnimation;
 
+        public SkeletonAnimation SkeletonAnimation
+        {
+            get => _skeletonAnimation;
+            set => _skeletonAnimation = value;
+        }
+
         [SerializeField]
         private string[] _skinNames;
 
         public Color Color
         {
-            get => _skeletonAnimation.Skeleton.GetColor();
-            set => _skeletonAnimation.Skeleton.SetColor(value);
+            get => SkeletonAnimation.Skeleton.GetColor();
+            set => SkeletonAnimation.Skeleton.SetColor(value);
         }
 
         public float Red
         {
-            get => _skeletonAnimation.Skeleton.R;
-            set => _skeletonAnimation.Skeleton.R = value;
+            get => SkeletonAnimation.Skeleton.R;
+            set => SkeletonAnimation.Skeleton.R = value;
         }
 
         public float Green
         {
-            get => _skeletonAnimation.Skeleton.G;
-            set => _skeletonAnimation.Skeleton.G = value;
+            get => SkeletonAnimation.Skeleton.G;
+            set => SkeletonAnimation.Skeleton.G = value;
         }
 
         public float Blue
         {
-            get => _skeletonAnimation.Skeleton.B;
-            set => _skeletonAnimation.Skeleton.B = value;
+            get => SkeletonAnimation.Skeleton.B;
+            set => SkeletonAnimation.Skeleton.B = value;
         }
 
         public float Alpha
         {
-            get => _skeletonAnimation.Skeleton.A;
-            set => _skeletonAnimation.Skeleton.A = value;
+            get => SkeletonAnimation.Skeleton.A;
+            set => SkeletonAnimation.Skeleton.A = value;
         }
 
         public string Skin
         {
-            get => _skeletonAnimation.Skeleton.Skin.Name;
+            get => SkeletonAnimation.Skeleton.Skin.Name;
             set {
-                _skeletonAnimation.Skeleton.SetSkin(value);
-                _skeletonAnimation.Skeleton.SetSlotsToSetupPose();
-                _skeletonAnimation.AnimationState.Apply(_skeletonAnimation.Skeleton);
+                SkeletonAnimation.Skeleton.SetSkin(value);
+                SkeletonAnimation.Skeleton.SetSlotsToSetupPose();
+                SkeletonAnimation.AnimationState.Apply(SkeletonAnimation.Skeleton);
             }
         }
 

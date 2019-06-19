@@ -106,6 +106,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7752929704303767750}
   - component: {fileID: 1842215167110611934}
+  - component: {fileID: 5537966649986345550}
+  - component: {fileID: 1655421340564284999}
   - component: {fileID: 6537457285211424931}
   m_Layer: 13
   m_Name: Model
@@ -141,6 +143,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _renderers: []
+--- !u!114 &5537966649986345550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3101530218937401475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4e6b81e8f1d0b448dedb14fdec6bc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skeletonAnimation: {fileID: 0}
+  _skinNames: []
+--- !u!114 &1655421340564284999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3101530218937401475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6986be097d86f5347bc994d7b52e4989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skeletonAnimation: {fileID: 0}
 --- !u!114 &6537457285211424931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,7 +360,8 @@ MonoBehaviour:
   _owner: {fileID: 7185525476932000284}
   _behaviorData: {fileID: 0}
   _movement: {fileID: 256798335153925517}
-  _spineAnimationHelper: {fileID: 0}
+  _spineAnimationHelper: {fileID: 1655421340564284999}
+  _spineSkinHelper: {fileID: 5537966649986345550}
   _spriteAnimationHelper: {fileID: 1842215167110611934}
   _animator: {fileID: 0}
   _actorAnimator: {fileID: 0}

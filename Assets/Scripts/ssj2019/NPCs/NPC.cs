@@ -58,7 +58,15 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             CharacterModel model = Instantiate(_characterData.CharacterModelPrefab, Model.transform);
 
-            Behavior.SpriteAnimationHelper.AddRenderer(model.ModelSprite);
+            if(null != model.ModelSprite) {
+                Behavior.SpriteAnimationHelper.AddRenderer(model.ModelSprite);
+            }
+
+            if(null != model.SpineModel) {
+                Behavior.SpineAnimationHelper.SkeletonAnimation = model.SpineModel;
+                Behavior.SpineSkinHelper.SkeletonAnimation = model.SpineModel;
+            }
+
             Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);
         }
     }
