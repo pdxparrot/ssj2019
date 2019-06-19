@@ -63,11 +63,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
         private void DoAttack()
         {
-            _attackEffectTrigger.Trigger(() => {
-                ClearActionBuffer();
-
-                ResetIdle();
-            });
+            _attackEffectTrigger.Trigger(() => ResetIdle());
         }
 
         private void ResetIdle()
