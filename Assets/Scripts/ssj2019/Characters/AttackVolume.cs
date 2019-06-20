@@ -11,6 +11,7 @@ namespace pdxpartyparrot.ssj2019.Characters
         private void Awake()
         {
             _collider = GetComponent<Collider>();
+            _collider.isTrigger = true;
         }
 
         private void OnDrawGizmos()
