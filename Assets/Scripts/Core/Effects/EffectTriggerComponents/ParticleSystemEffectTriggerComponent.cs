@@ -15,8 +15,10 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         public override bool IsDone => !_vfx.isPlaying;
 
-        public override void Initialize()
+        public override void Initialize(EffectTrigger owner)
         {
+            base.Initialize(owner);
+
             var main = _vfx.main;
             Assert.IsFalse(main.playOnAwake, $"ParticleSystem '{_vfx.name}' should not have playOnAwake set!");
         }

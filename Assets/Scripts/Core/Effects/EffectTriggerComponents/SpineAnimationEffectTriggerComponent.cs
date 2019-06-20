@@ -1,4 +1,6 @@
 ﻿#if USE_SPINE
+using System;
+
 using pdxpartyparrot.Core.Animation;
 
 using Spine;
@@ -9,6 +11,16 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 {
     public class SpineAnimationEffectTriggerComponent : EffectTriggerComponent
     {
+        public class EventArgs : System.EventArgs
+        {
+            public TrackEntry TrackEntry { get; set; }
+        }
+
+#region Events
+        public event EventHandler<EventArgs> StartEvent;
+        public event EventHandler<EventArgs> CompleteEvent;
+#endregion
+
         [SerializeField]
         private SpineAnimationHelper _spineAnimation;
 
@@ -36,6 +48,10 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
                 _trackEntry = _spineAnimation.SetAnimation(_spineAnimationTrack, _spineAnimationName, false);
                 _trackEntry.Complete += OnComplete;
+
+                StartEvent?.Invoke(this, new EventArgs{
+                    TrackEntry = _trackEntry,
+                });
             } else {
                 // TODO: set a timer or something to timeout when we'd normally be done
             }
@@ -45,10 +61,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         {
             // TODO: any way to force-stop the animation?
 
-            if(null != _trackEntry) {
-                _trackEntry.Complete -= OnComplete;
-                _trackEntry = null;
-            }
+            Complete();
         }
 
         public override void OnReset()
@@ -56,13 +69,29 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
             _spineAnimation.ResetAnimation();
         }
 
-#region Event Handlers
+        private void Complete()
+        {
+            if(null == _trackEntry) {
+                return;
+            }
+
+            CompleteEvent?.Invoke(this, new EventArgs{
+                TrackEntry = _trackEntry,
+            });
+
+            _trackEntry.Complete -= OnComplete;
+            _trackEntry = null;
+        }
+
+        #region Event Handlers
         private void OnComplete(TrackEntry entry)
         {
-            entry.Complete -= OnComplete;
-            if(entry == _trackEntry) {
-                _trackEntry = null;
+            if(entry != _trackEntry) {
+                // is this even possible?
+                return;
             }
+
+            Complete();
         }
 #endregion
     }

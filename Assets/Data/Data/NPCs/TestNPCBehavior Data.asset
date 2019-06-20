@@ -33,3 +33,11 @@ MonoBehaviour:
   _characterOptions:
   - {fileID: 11400000, guid: a002d9ede1e1dce4a8671c63250bf5d8, type: 2}
   - {fileID: 11400000, guid: 4f184546214ec53478d553916d7af932, type: 2}
+  _idleAnimationName: Idle
+  _attackVolumeSpawnEvent: attack_spawnvolume
+  _attackVolumeDeSpawnEvent: attack_despawnvolume
+  _blockVolumeSpawnEvent: block_spawnvolume
+  _blockVolumeDeSpawnEvent: block_release_despawnvolume
+  _parryWindowOpenEvent: parry_windowopen
+  _parryWindowCloseEvent: parry_windowclose
+  _hitImpactEvent: hit_impact

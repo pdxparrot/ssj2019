@@ -14,12 +14,15 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         {
         }
 
+        protected  EffectTrigger Owner { get; private set; }
+
         public abstract bool WaitForComplete { get; }
 
         public virtual bool IsDone => true;
 
-        public virtual void Initialize()
+        public virtual void Initialize(EffectTrigger owner)
         {
+            Owner = owner;
         }
 
         public abstract void OnStart();

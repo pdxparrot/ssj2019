@@ -36,7 +36,7 @@ namespace pdxpartyparrot.Core.Effects
 #region Unity Lifecycle
         private void Awake()
         {
-            RunOnComponents(c => c.Initialize());
+            RunOnComponents(c => c.Initialize(this));
         }
 
         private void Update()

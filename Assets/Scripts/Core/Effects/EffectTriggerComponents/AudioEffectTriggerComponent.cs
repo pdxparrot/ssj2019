@@ -22,8 +22,10 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         public override bool IsDone => null == _audioSource || !_audioSource.isPlaying;
 
-        public override void Initialize()
+        public override void Initialize(EffectTrigger owner)
         {
+            base.Initialize(owner);
+
             if(null != _audioSource) {
                 AudioManager.Instance.InitSFXAudioMixerGroup(_audioSource);
             }
