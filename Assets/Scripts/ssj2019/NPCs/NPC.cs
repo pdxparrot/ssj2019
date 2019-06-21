@@ -2,10 +2,12 @@
 
 using JetBrains.Annotations;
 
+using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.ObjectPool;
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Characters.NPCs;
 using pdxpartyparrot.ssj2019.Characters;
 using pdxpartyparrot.ssj2019.Data;
@@ -16,7 +18,7 @@ using UnityEngine.Assertions;
 namespace pdxpartyparrot.ssj2019.NPCs
 {
     [RequireComponent(typeof(PooledObject))]
-    public sealed class NPC : NPC3D
+    public sealed class NPC : NPC3D, IDamagable
     {
         public NPCBehavior GameNPCBehavior => (NPCBehavior)NPCBehavior;
 
@@ -68,6 +70,11 @@ namespace pdxpartyparrot.ssj2019.NPCs
             }
 
             Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);
+        }
+
+        public void Damage(Actor source)
+        {
+            Debug.Log("npc damage");
         }
     }
 }

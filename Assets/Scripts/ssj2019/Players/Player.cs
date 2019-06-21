@@ -2,8 +2,10 @@
 
 using JetBrains.Annotations;
 
+using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
+using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Characters;
@@ -16,7 +18,7 @@ using UnityEngine.InputSystem;
 namespace pdxpartyparrot.ssj2019.Players
 {
     [RequireComponent(typeof(NetworkPlayer))]
-    public sealed class Player : Player3D
+    public sealed class Player : Player3D, IDamagable
     {
         public PlayerInput GamePlayerInput => (PlayerInput)PlayerInput;
 
@@ -134,5 +136,10 @@ namespace pdxpartyparrot.ssj2019.Players
             base.OnDeSpawn();
         }
 #endregion
+
+        public void Damage(Actor source)
+        {
+            Debug.Log("player damage");
+        }
     }
 }
