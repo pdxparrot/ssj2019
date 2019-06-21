@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 2879474997430178217}
   - component: {fileID: 8939990823969181630}
   - component: {fileID: 4234046138188009513}
-  m_Layer: 12
+  m_Layer: 16
   m_Name: Attack Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e01dccb1168b78e42971a1a20363fb47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _owner: {fileID: 463285651185603561}
 --- !u!1 &4953237466135058469
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,6 +573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7e90f95800b834db971c9dd05a5c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _owner: {fileID: 463285651185603561}
 --- !u!1 &7312426625843009653
 GameObject:
   m_ObjectHideFlags: 0

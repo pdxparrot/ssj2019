@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 3711383812989656454}
   - component: {fileID: 6941888120933034583}
   - component: {fileID: 4356007661132845643}
-  m_Layer: 13
+  m_Layer: 17
   m_Name: Attack Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,6 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e01dccb1168b78e42971a1a20363fb47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _owner: {fileID: 7185525476932000284}
 --- !u!1 &3101530218937401475
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,6 +528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7e90f95800b834db971c9dd05a5c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _owner: {fileID: 7185525476932000284}
 --- !u!1 &8100230599278707358
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,6 +685,7 @@ MonoBehaviour:
   _attackVolume: {fileID: 4356007661132845643}
   _blockVolume: {fileID: 5793994074923292069}
   _blocking: 0
+  _parry: 0
   _immune: 0
 --- !u!114 &256798335153925517
 MonoBehaviour:

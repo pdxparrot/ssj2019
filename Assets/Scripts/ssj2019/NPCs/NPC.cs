@@ -74,7 +74,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public void Damage(Actor source)
         {
-            Debug.Log("npc damage");
+            GameNPCBehavior.OnDamage(source);
         }
     }
 }

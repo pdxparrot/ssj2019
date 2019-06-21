@@ -139,7 +139,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public void Damage(Actor source)
         {
-            Debug.Log("player damage");
+            GamePlayerBehavior.OnDamage(source);
         }
     }
 }

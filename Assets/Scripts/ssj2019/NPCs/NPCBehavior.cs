@@ -1,4 +1,5 @@
-﻿using pdxpartyparrot.Core.Data;
+﻿using pdxpartyparrot.Core.Actors;
+using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
@@ -205,6 +206,13 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             _blocking = true;
             _blockBeginEffectTrigger.Trigger();
+        }
+#endregion
+
+#region Events
+        public void OnDamage(Actor source)
+        {
+            Debug.Log($"NPC {Owner.Id} damaged by {source.Id}");
         }
 #endregion
 
