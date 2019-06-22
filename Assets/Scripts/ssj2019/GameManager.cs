@@ -10,6 +10,7 @@ using pdxpartyparrot.Game.State;
 using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Data;
 using pdxpartyparrot.ssj2019.Level;
+using pdxpartyparrot.ssj2019.Players;
 
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -35,6 +36,8 @@ namespace pdxpartyparrot.ssj2019
         public LevelHelper LevelHelper => _levelHelper;
 
         private readonly Dictionary<InputDevice, PlayerCharacterData> _characters = new Dictionary<InputDevice, PlayerCharacterData>();
+
+        private readonly HashSet<Player> _activePlayers = new HashSet<Player>();
 
         public override void Shutdown()
         {
@@ -98,5 +101,21 @@ namespace pdxpartyparrot.ssj2019
 
             return null;
         }
+
+#region Events
+        public void PlayerSpawned(Player player)
+        {
+            _activePlayers.Add(player);
+        }
+
+        public void PlayerDied(Player player)
+        {
+            _activePlayers.Remove(player);
+
+            if(_activePlayers.Count < 1) {
+                GameOver();
+            }
+        }
+#endregion
     }
 }

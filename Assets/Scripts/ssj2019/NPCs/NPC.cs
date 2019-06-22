@@ -10,6 +10,7 @@ using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Characters.NPCs;
+using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ssj2019.Characters;
 using pdxpartyparrot.ssj2019.Data;
 
@@ -20,7 +21,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 {
     [RequireComponent(typeof(PooledObject))]
     [RequireComponent(typeof(Brawler))]
-    public sealed class NPC : NPC3D, IDamagable
+    public sealed class NPC : NPC3D, IDamagable, IInteractable
     {
         public NPCBehavior GameNPCBehavior => (NPCBehavior)NPCBehavior;
 
@@ -32,6 +33,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
         public NPCCharacterData NPCCharacterData => _characterData;
 
         public bool IsDead => Brawler.Health < 1;
+
+        public bool CanInteract => !IsDead;
 
         public Brawler Brawler { get; private set; }
 
@@ -95,6 +98,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return false;
             }
 
+            NPCManager.Instance.Register(this);
+
             Brawler.Initialize(NPCCharacterData.BrawlerData);
 
             return true;
@@ -106,9 +111,18 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return false;
             }
 
+            NPCManager.Instance.Register(this);
+
             Brawler.Initialize(NPCCharacterData.BrawlerData);
 
             return true;
+        }
+
+        public override void OnDeSpawn()
+        {
+            NPCManager.Instance.Unregister(this);
+
+            base.OnDeSpawn();
         }
 #endregion
 

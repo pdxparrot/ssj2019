@@ -94,6 +94,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public void OnDead()
         {
+            GameManager.Instance.PlayerDied(GamePlayerOwner);
         }
 #endregion
 

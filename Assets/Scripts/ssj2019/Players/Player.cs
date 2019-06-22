@@ -7,6 +7,7 @@ using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Characters.Players;
+using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Characters;
 using pdxpartyparrot.ssj2019.Data;
@@ -19,7 +20,7 @@ namespace pdxpartyparrot.ssj2019.Players
 {
     [RequireComponent(typeof(NetworkPlayer))]
     [RequireComponent(typeof(Brawler))]
-    public sealed class Player : Player3D, IDamagable
+    public sealed class Player : Player3D, IDamagable, IInteractable
     {
         public PlayerInput GamePlayerInput => (PlayerInput)PlayerInput;
 
@@ -35,6 +36,8 @@ namespace pdxpartyparrot.ssj2019.Players
         private GameViewer PlayerGameViewer => (GameViewer)Viewer;
 
         public bool IsDead => Brawler.Health < 1;
+
+        public bool CanInteract => !IsDead;
 
         public Brawler Brawler { get; private set; }
 
@@ -128,6 +131,8 @@ namespace pdxpartyparrot.ssj2019.Players
 
             Brawler.Initialize(PlayerCharacterData.BrawlerData);
 
+            GameManager.Instance.PlayerSpawned(this);
+
             return true;
         }
 
@@ -140,6 +145,8 @@ namespace pdxpartyparrot.ssj2019.Players
             PlayerGameViewer.AddTarget(this);
 
             Brawler.Initialize(PlayerCharacterData.BrawlerData);
+
+            GameManager.Instance.PlayerSpawned(this);
 
             return true;
         }

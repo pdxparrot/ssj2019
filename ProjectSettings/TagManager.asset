@@ -21,8 +21,8 @@ TagManager:
   - NPC
   - World
   - Weather
-  - PlayerDamage
-  - NPCDamage
+  - PlayerInteract
+  - NPCInteract
   - 
   - 
   - 

@@ -27,6 +27,21 @@ namespace pdxpartyparrot.Game.Interactables
             return _interactables.GetOrAdd(typeof(T));
         }
 
+        public bool HasInteractables<T>() where T: IInteractable
+        {
+            var interactables = _interactables.GetOrDefault(typeof(T));
+            return null != interactables && interactables.Count > 0;
+        }
+
+        public bool HasInteractable<T>(T interactable) where T: IInteractable
+        {
+            var interactables = _interactables.GetOrDefault(typeof(T));
+            if(null == interactables) {
+                return false;
+            }
+            return interactables.Contains(interactable);
+        }
+
         protected void AddInteractable(GameObject other)
         {
             IInteractable interactable = other.GetComponent<IInteractable>();

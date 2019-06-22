@@ -8,6 +8,7 @@ using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.NPCs;
+using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ssj2019.Characters;
 using pdxpartyparrot.ssj2019.Data;
 using pdxpartyparrot.ssj2019.Players;
@@ -33,6 +34,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
         public NPC GameNPCOwner => (NPC)Owner;
 
         public BrawlerData BrawlerData => GameNPCOwner.NPCCharacterData.BrawlerData;
+
+        [SerializeField]
+        private Interactables _interactables;
 
         private bool CanJump => !IsBlocking;
 
@@ -148,21 +152,34 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         private void HandleIdle()
         {
-            // TODO: if we have something in range to attack, attack it
+            // if we have something we can attack, attack it
+            var interactablePlayers = _interactables.GetInteractables<Player>();
+            if(interactablePlayers.Count > 0) {
+                SetTarget(interactablePlayers.ElementAt(0) as Player);
 
-            // look for something to track
-            Player player = ActorManager.Instance.GetActors<Player>().NearestManhattan(Movement.Position) as Player;
-            if(null == player) {
+                SetState(NPCState.Attack);
                 return;
             }
 
-            SetTarget(player);
+            // if we already have a target, track it
+            if(null != _target) {
+                SetState(NPCState.Track);
+                return;
+            }
 
-            SetState(NPCState.Track);
+            // look for something to track
+            Player player = ActorManager.Instance.GetActors<Player>().NearestManhattan(Movement.Position) as Player;
+            if(null != player) {
+                SetTarget(player);
+
+                SetState(NPCState.Track);
+                return;
+            }
         }
 
         private void HandleTrack()
         {
+            // lost target?
             if(null == _target) {
                 if(NPCManager.Instance.DebugBehavior) {
                     Debug.Log($"NPC {Owner.Id} lost target while tracking");
@@ -172,12 +189,62 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return;
             }
 
+            // dead target?
+            if(_target is Player player && player.IsDead) {
+                if(NPCManager.Instance.DebugBehavior) {
+                    Debug.Log($"NPC {Owner.Id} track target died");
+                }
+
+                SetState(NPCState.Idle);
+                return;
+            }
+
+            // TODO: from here we're assuming our target is a Player, but what if it isn't?
+
+            var interactablePlayers = _interactables.GetInteractables<Player>();
+
+            // is our target interactable?
+            if(interactablePlayers.Contains(_target as Player)) {
+                SetState(NPCState.Attack);
+                return;
+            }
+
+            // if we have something else we can attack, attack it
+            if(interactablePlayers.Count > 0) {
+                SetTarget(interactablePlayers.ElementAt(0) as Player);
+
+                SetState(NPCState.Attack);
+                return;
+            }
+
+            // can't attack our target, so follow it
             GameNPCOwner.Agent.SetDestination(_target.Behavior.Movement.Position);
         }
 
         private void HandleAttack()
         {
-            // TODO
+            // lost target?
+            if(null == _target) {
+                if(NPCManager.Instance.DebugBehavior) {
+                    Debug.Log($"NPC {Owner.Id} lost target while attacking");
+                }
+
+                SetState(NPCState.Idle);
+                return;
+            }
+
+            // dead target?
+            if(_target is Player player && player.IsDead) {
+                if(NPCManager.Instance.DebugBehavior) {
+                    Debug.Log($"NPC {Owner.Id} attack target died");
+                }
+
+                SetState(NPCState.Idle);
+                return;
+            }
+
+            // TODO: pass in last move
+            Attack(Vector3.zero);
         }
 #endregion
 

@@ -41,6 +41,16 @@ namespace pdxpartyparrot.ssj2019.NPCs
         }
 #endregion
 
+        public void Register(NPC npc)
+        {
+            _npcs.Add(npc);
+        }
+
+        public void Unregister(NPC npc)
+        {
+            _npcs.Remove(npc);
+        }
+
         private void InitDebugMenu()
         {
             _debugMenuNode = DebugMenuManager.Instance.AddNode(() => "ssj2019.NPCManager");
