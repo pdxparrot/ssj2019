@@ -21,6 +21,7 @@ namespace pdxpartyparrot.ssj2019.Data
         public string DamageType => _damageType;
 
         [SerializeField]
+        [Min(0)]
         private int _damageAmount = 1;
 
         public int DamageAmount => _damageAmount;

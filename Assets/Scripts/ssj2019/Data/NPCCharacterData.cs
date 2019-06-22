@@ -30,6 +30,7 @@ namespace pdxpartyparrot.ssj2019.Data
         [Header("Stats")]
 
         [SerializeField]
+        [Min(1)]
         private int _maxHealth = 1;
 
         public int MaxHealth => _maxHealth;
