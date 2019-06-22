@@ -100,6 +100,8 @@ namespace pdxpartyparrot.Game.Characters.Players
             NetworkPlayer.NetworkTransform.transformSyncMode = NetworkTransform.TransformSyncMode.SyncRigidbody2D;
             NetworkPlayer.NetworkTransform.syncRotationAxis = NetworkTransform.AxisSyncMode.AxisZ;
 
+            PlayerBehavior.InitializeLocalPlayerBehavior();
+
             return true;
         }
 

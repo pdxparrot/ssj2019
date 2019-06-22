@@ -1,4 +1,6 @@
-﻿using pdxpartyparrot.Core.Input;
+﻿using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 
@@ -13,6 +15,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         [SerializeField]
         [ReadOnly]
+        [CanBeNull]
         private GamepadListener _gamepadListener;
 
         public GamepadListener GamepadListener
@@ -34,7 +37,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         public override void OnStart()
         {
-            if(EffectsManager.Instance.EnableRumble) {
+            if(null != _gamepadListener && EffectsManager.Instance.EnableRumble) {
                 _gamepadListener.Rumble(_rumbleConfig);
             }
 

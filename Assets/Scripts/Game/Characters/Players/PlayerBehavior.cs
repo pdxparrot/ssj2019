@@ -56,6 +56,10 @@ namespace pdxpartyparrot.Game.Characters.Players
             _moveDirection = Vector3.zero;
         }
 
+        public virtual void InitializeLocalPlayerBehavior()
+        {
+        }
+
         public void SetMoveDirection(Vector3 moveDirection)
         {
             _moveDirection = CanMove ? Vector3.ClampMagnitude(moveDirection, 1.0f) : Vector3.zero;

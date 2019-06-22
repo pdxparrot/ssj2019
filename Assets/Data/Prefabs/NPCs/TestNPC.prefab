@@ -41,6 +41,7 @@ Transform:
   - {fileID: 7319547281115459226}
   - {fileID: 562440987492900035}
   - {fileID: 7419802528756265072}
+  - {fileID: 6970363255316021077}
   - {fileID: 8367300055314557411}
   - {fileID: 3711383812989656454}
   - {fileID: 8257721174215013484}
@@ -186,7 +187,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 809502310432792466}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6631989109035438992
 MonoBehaviour:
@@ -265,7 +266,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 809502310432792466}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &6941888120933034583
 BoxCollider:
@@ -566,6 +567,69 @@ MonoBehaviour:
   _spineAnimationName: Unblock
   _spineAnimationTrack: 0
   _waitForComplete: 1
+--- !u!1 &6752568096242502146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6970363255316021077}
+  - component: {fileID: 5641737771736793805}
+  - component: {fileID: 388331679547234100}
+  m_Layer: 13
+  m_Name: Block Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6970363255316021077
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6752568096242502146}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 809502310432792466}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5641737771736793805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6752568096242502146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f0acf5094b571448a3663067cfbfe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 388331679547234100}
+  _isRunning: 0
+--- !u!114 &388331679547234100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6752568096242502146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _logMessage: npc blocked
 --- !u!1 &6916013039419557787
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,7 +740,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 809502310432792466}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2010566273011737595
 BoxCollider:
@@ -837,6 +901,7 @@ MonoBehaviour:
   _blockBeginAnimationEffectTriggerComponent: {fileID: 8877237017341337870}
   _blockEndEffectTrigger: {fileID: 6163520276177178404}
   _blockEndAnimationEffectTriggerComponent: {fileID: 6588978275413240049}
+  _blockEffectTrigger: {fileID: 5641737771736793805}
   _hitEffectTrigger: {fileID: 6631989109035438992}
   _hitAnimationEffectTriggerComponent: {fileID: 7726666953507074508}
   _deathEffectTrigger: {fileID: 6237249302560061764}

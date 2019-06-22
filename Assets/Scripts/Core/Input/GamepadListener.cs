@@ -34,6 +34,11 @@ namespace pdxpartyparrot.Core.Input
 
         private void OnDestroy()
         {
+            // make sure we don't leave the gamepad rumbling
+            if(null != Gamepad) {
+                Gamepad.SetMotorSpeeds(0.0f, 0.0f);
+            }
+
             if(InputManager.HasInstance) {
                 InputManager.Instance.ReleaseGamepad(_gamepadId);
             }

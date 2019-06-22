@@ -43,7 +43,7 @@ namespace pdxpartyparrot.Game
         public virtual bool IsGameOver
         {
             get => _isGameOver;
-            protected  set => _isGameOver = value;
+            private set => _isGameOver = value;
         }
 
 #region Unity Lifecycle
@@ -90,16 +90,22 @@ namespace pdxpartyparrot.Game
 
         public virtual void StartGameServer()
         {
+            Debug.Log("Start Game (Server)");
+
             GameStartServerEvent?.Invoke(this, EventArgs.Empty);
         }
 
         public virtual void StartGameClient()
         {
+            Debug.Log("Start Game (Client)");
+
             GameStartClientEvent?.Invoke(this, EventArgs.Empty);
         }
 
         public virtual void GameOver()
         {
+            Debug.Log("Game Over");
+
             IsGameOver = true;
 
             GameOverEvent?.Invoke(this, EventArgs.Empty);

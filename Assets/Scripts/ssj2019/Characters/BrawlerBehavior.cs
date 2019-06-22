@@ -59,11 +59,18 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         [SerializeField]
         private SpineAnimationEffectTriggerComponent _blockEndAnimationEffectTriggerComponent;
+
+        [SerializeField]
+        private EffectTrigger _blockEffectTrigger;
+
+        public EffectTrigger BlockEffectTrigger => _blockEffectTrigger;
 #endregion
 
 #region Hit Animations
         [SerializeField]
         private EffectTrigger _hitEffectTrigger;
+
+        public EffectTrigger HitEffectTrigger => _hitEffectTrigger;
 
         [SerializeField]
         private SpineAnimationEffectTriggerComponent _hitAnimationEffectTriggerComponent;
@@ -71,6 +78,8 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         [SerializeField]
         private EffectTrigger _deathEffectTrigger;
+
+        public EffectTrigger DeathEffectTrigger => _deathEffectTrigger;
 
         [Space(10)]
 
@@ -94,20 +103,13 @@ namespace pdxpartyparrot.ssj2019.Characters
             _attackVolume.gameObject.SetActive(false);
             _blockVolume.gameObject.SetActive(false);
 
-            _attackAnimationEffectTriggerComponent.StartEvent += AttackAnimationStartHandler;
-            _attackAnimationEffectTriggerComponent.CompleteEvent += AttackAnimationCompleteHandler;
-
-            _blockBeginAnimationEffectTriggerComponent.StartEvent += BlockBeginAnimationStartHandler;
-            _blockBeginAnimationEffectTriggerComponent.CompleteEvent += BlockBeginAnimationCompleteHandler;
-
-            _blockEndAnimationEffectTriggerComponent.StartEvent += BlockEndAnimationStartHandler;
-            _blockEndAnimationEffectTriggerComponent.CompleteEvent += BlockEndAnimationCompleteHandler;
-
-            _hitAnimationEffectTriggerComponent.StartEvent += HitAnimationStartHandler;
-            _hitAnimationEffectTriggerComponent.CompleteEvent += HitAnimationCompleteHandler;
+            InitializeEffects();
         }
 
-        // TODO: probably safest if we release the events in OnDestroy
+        private void OnDestroy()
+        {
+            ShutdownEffects();
+        }
 
         private void Update()
         {
@@ -151,6 +153,7 @@ namespace pdxpartyparrot.ssj2019.Characters
             // but for now we'll just dump all of it
             if(_actionHandler.IsBlocking) {
                 Debug.Log($"Brawler {_actionHandler.Owner.Id} blocked damaged by {source.Id} for {amount}");
+                _blockEffectTrigger.Trigger();
                 return;
             }
 
@@ -162,6 +165,36 @@ namespace pdxpartyparrot.ssj2019.Characters
             } else {
                 _hitEffectTrigger.Trigger();
             }
+        }
+
+        private void InitializeEffects()
+        {
+            _attackAnimationEffectTriggerComponent.StartEvent += AttackAnimationStartHandler;
+            _attackAnimationEffectTriggerComponent.CompleteEvent += AttackAnimationCompleteHandler;
+
+            _blockBeginAnimationEffectTriggerComponent.StartEvent += BlockBeginAnimationStartHandler;
+            _blockBeginAnimationEffectTriggerComponent.CompleteEvent += BlockBeginAnimationCompleteHandler;
+
+            _blockEndAnimationEffectTriggerComponent.StartEvent += BlockEndAnimationStartHandler;
+            _blockEndAnimationEffectTriggerComponent.CompleteEvent += BlockEndAnimationCompleteHandler;
+
+            _hitAnimationEffectTriggerComponent.StartEvent += HitAnimationStartHandler;
+            _hitAnimationEffectTriggerComponent.CompleteEvent += HitAnimationCompleteHandler;
+        }
+
+        private void ShutdownEffects()
+        {
+            _attackAnimationEffectTriggerComponent.StartEvent -= AttackAnimationStartHandler;
+            _attackAnimationEffectTriggerComponent.CompleteEvent -= AttackAnimationCompleteHandler;
+
+            _blockBeginAnimationEffectTriggerComponent.StartEvent -= BlockBeginAnimationStartHandler;
+            _blockBeginAnimationEffectTriggerComponent.CompleteEvent -= BlockBeginAnimationCompleteHandler;
+
+            _blockEndAnimationEffectTriggerComponent.StartEvent -= BlockEndAnimationStartHandler;
+            _blockEndAnimationEffectTriggerComponent.CompleteEvent -= BlockEndAnimationCompleteHandler;
+
+            _hitAnimationEffectTriggerComponent.StartEvent -= HitAnimationStartHandler;
+            _hitAnimationEffectTriggerComponent.CompleteEvent -= HitAnimationCompleteHandler;
         }
 
         private void EnableAttackVolume(bool enable)

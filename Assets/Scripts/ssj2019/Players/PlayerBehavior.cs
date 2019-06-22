@@ -2,6 +2,7 @@
 
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Data;
+using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.Players;
@@ -81,6 +82,29 @@ namespace pdxpartyparrot.ssj2019.Players
             base.Initialize(behaviorData);
 
             _brawlerBehavior.Initialize(this);
+        }
+
+        public override void InitializeLocalPlayerBehavior()
+        {
+            InitializeEffects();
+        }
+
+        private void InitializeEffects()
+        {
+            RumbleEffectTriggerComponent rumbleEffect = _spawnEffect.GetEffectTriggerComponent<RumbleEffectTriggerComponent>();
+            rumbleEffect.GamepadListener = GamePlayerOwner.GamePlayerInput.GamepadListener;
+
+            rumbleEffect = _respawnEffect.GetEffectTriggerComponent<RumbleEffectTriggerComponent>();
+            rumbleEffect.GamepadListener = GamePlayerOwner.GamePlayerInput.GamepadListener;
+
+            rumbleEffect = _brawlerBehavior.HitEffectTrigger.GetEffectTriggerComponent<RumbleEffectTriggerComponent>();
+            rumbleEffect.GamepadListener = GamePlayerOwner.GamePlayerInput.GamepadListener;
+
+            rumbleEffect = _brawlerBehavior.BlockEffectTrigger.GetEffectTriggerComponent<RumbleEffectTriggerComponent>();
+            rumbleEffect.GamepadListener = GamePlayerOwner.GamePlayerInput.GamepadListener;
+
+            rumbleEffect = _brawlerBehavior.DeathEffectTrigger.GetEffectTriggerComponent<RumbleEffectTriggerComponent>();
+            rumbleEffect.GamepadListener = GamePlayerOwner.GamePlayerInput.GamepadListener;
         }
 
 #region Brawler Actions
