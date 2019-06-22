@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a50a40e9ad164c45baf74211decdeae, type: 3}
+  m_Name: TestBrawler Data
+  m_EditorClassIdentifier: 
+  _idleAnimationName: Idle
+  _attackVolumeSpawnEvent: attack_spawnvolume
+  _attackVolumeDeSpawnEvent: attack_despawnvolume
+  _blockVolumeSpawnEvent: block_spawnvolume
+  _blockVolumeDeSpawnEvent: block_release_despawnvolume
+  _parryWindowOpenEvent: parry_windowopen
+  _parryWindowCloseEvent: parry_windowclose
+  _hitImpactEvent: hit_impact
+  _attackComboData: {fileID: 11400000, guid: eccf4b5a93f4f96489bbf801a03db087, type: 2}
+  _maxHealth: 10

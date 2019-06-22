@@ -18,6 +18,7 @@ using UnityEngine.InputSystem;
 namespace pdxpartyparrot.ssj2019.Players
 {
     [RequireComponent(typeof(NetworkPlayer))]
+    [RequireComponent(typeof(Brawler))]
     public sealed class Player : Player3D, IDamagable
     {
         public PlayerInput GamePlayerInput => (PlayerInput)PlayerInput;
@@ -33,23 +34,9 @@ namespace pdxpartyparrot.ssj2019.Players
 
         private GameViewer PlayerGameViewer => (GameViewer)Viewer;
 
-        [Space(10)]
+        public bool IsDead => Brawler.Health < 1;
 
-#region Stats
-        [Header("Stats")]
-
-        [SerializeField]
-        [ReadOnly]
-        private int _health;
-
-        public int Health
-        {
-            get => _health;
-            set => _health = value;
-        }
-#endregion
-
-        public bool IsDead => Health < 1;
+        public Brawler Brawler { get; private set; }
 
 #region Unity Lifecycle
         protected override void Awake()
@@ -58,6 +45,8 @@ namespace pdxpartyparrot.ssj2019.Players
 
             Assert.IsTrue(PlayerInput is PlayerInput);
             Assert.IsTrue(PlayerBehavior is PlayerBehavior);
+
+            Brawler = GetComponent<Brawler>();
         }
 #endregion
 
@@ -116,11 +105,6 @@ namespace pdxpartyparrot.ssj2019.Players
             Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);
         }
 
-        private void InitializeStats()
-        {
-            Health = _playerCharacterData.MaxHealth;
-        }
-
 #region Spawn
         public override bool OnSpawn(SpawnPoint spawnpoint)
         {
@@ -142,7 +126,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
             PlayerGameViewer.AddTarget(this);
 
-            InitializeStats();
+            Brawler.Initialize(PlayerCharacterData.BrawlerData);
 
             return true;
         }
@@ -155,7 +139,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
             PlayerGameViewer.AddTarget(this);
 
-            InitializeStats();
+            Brawler.Initialize(PlayerCharacterData.BrawlerData);
 
             return true;
         }

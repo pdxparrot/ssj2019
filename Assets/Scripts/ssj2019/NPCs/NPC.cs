@@ -19,6 +19,7 @@ using UnityEngine.Assertions;
 namespace pdxpartyparrot.ssj2019.NPCs
 {
     [RequireComponent(typeof(PooledObject))]
+    [RequireComponent(typeof(Brawler))]
     public sealed class NPC : NPC3D, IDamagable
     {
         public NPCBehavior GameNPCBehavior => (NPCBehavior)NPCBehavior;
@@ -30,23 +31,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public NPCCharacterData NPCCharacterData => _characterData;
 
-        [Space(10)]
+        public bool IsDead => Brawler.Health < 1;
 
-#region Stats
-        [Header("Stats")]
-
-        [SerializeField]
-        [ReadOnly]
-        private int _health;
-
-        public int Health
-        {
-            get => _health;
-            set => _health = value;
-        }
-#endregion
-
-        public bool IsDead => Health < 1;
+        public Brawler Brawler { get; private set; }
 
 #region Unity Lifecycle
         protected override void Awake()
@@ -54,6 +41,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
             base.Awake();
             
             Assert.IsTrue(NPCBehavior is NPCBehavior);
+
+            Brawler = GetComponent<Brawler>();
         }
 #endregion
 
@@ -99,11 +88,6 @@ namespace pdxpartyparrot.ssj2019.NPCs
             Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);
         }
 
-        private void InitializeStats()
-        {
-            Health = _characterData.MaxHealth;
-        }
-
 #region Spawn
         public override bool OnSpawn(SpawnPoint spawnpoint)
         {
@@ -111,7 +95,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return false;
             }
 
-            InitializeStats();
+            Brawler.Initialize(NPCCharacterData.BrawlerData);
 
             return true;
         }
@@ -122,7 +106,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return false;
             }
 
-            InitializeStats();
+            Brawler.Initialize(NPCCharacterData.BrawlerData);
 
             return true;
         }

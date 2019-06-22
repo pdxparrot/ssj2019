@@ -143,12 +143,12 @@ namespace pdxpartyparrot.ssj2019.Players
 
         private void ResetIdle()
         {
-            SpineAnimationHelper.SetAnimation(GamePlayerBehaviorData.IdleAnimationName, false);
+            SpineAnimationHelper.SetAnimation(GamePlayerOwner.PlayerCharacterData.BrawlerData.IdleAnimationName, false);
         }
 
         private void DoAttack()
         {
-            _attackVolume.AttackData = GamePlayerOwner.PlayerCharacterData.AttackComboData.AttackData.ElementAt(0);
+            _attackVolume.AttackData = GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(0);
             _attackEffectTrigger.Trigger(() => ResetIdle());
         }
 
@@ -214,7 +214,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
             Debug.Log($"Player {Owner.Id} damaged by {source.Id}");
 
-            GamePlayerOwner.Health -= amount;
+            GamePlayerOwner.Brawler.Health -= amount;
             if(GamePlayerOwner.IsDead) {
                 _deathEffectTrigger.Trigger();
             } else {
@@ -236,9 +236,9 @@ namespace pdxpartyparrot.ssj2019.Players
 
         private void AttackAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
-            if(GamePlayerBehaviorData.AttackVolumeSpawnEvent == evt.Data.Name) {
+            if(GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackVolumeSpawnEvent == evt.Data.Name) {
                 EnableAttackVolume(true);
-            } else if(GamePlayerBehaviorData.AttackVolumeDeSpawnEvent == evt.Data.Name) {
+            } else if(GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackVolumeDeSpawnEvent == evt.Data.Name) {
                 EnableAttackVolume(false);
             } else {
                 Debug.LogWarning($"Unhandled attack event: {evt.Data.Name}");
@@ -257,11 +257,11 @@ namespace pdxpartyparrot.ssj2019.Players
 
         private void BlockBeginAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
-            if(GamePlayerBehaviorData.BlockVolumeSpawnEvent == evt.Data.Name) {
+            if(GamePlayerOwner.PlayerCharacterData.BrawlerData.BlockVolumeSpawnEvent == evt.Data.Name) {
                 EnableBlockVolume(true);
-            } else if(GamePlayerBehaviorData.ParryWindowOpenEvent == evt.Data.Name) {
+            } else if(GamePlayerOwner.PlayerCharacterData.BrawlerData.ParryWindowOpenEvent == evt.Data.Name) {
                 _parry = true;
-            } else if(GamePlayerBehaviorData.ParryWindowCloseEvent == evt.Data.Name) {
+            } else if(GamePlayerOwner.PlayerCharacterData.BrawlerData.ParryWindowCloseEvent == evt.Data.Name) {
                 _parry = false;
             } else {
                 Debug.Log($"Unhandled block begin event: {evt.Data.Name}");
@@ -280,7 +280,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
         private void BlockEndAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
-            if(GamePlayerBehaviorData.BlockVolumeDeSpawnEvent == evt.Data.Name) {
+            if(GamePlayerOwner.PlayerCharacterData.BrawlerData.BlockVolumeDeSpawnEvent == evt.Data.Name) {
                 EnableBlockVolume(false);
             } else {
                 Debug.Log($"Unhandled block end event: {evt.Data.Name}");
@@ -299,7 +299,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
         private void HitAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
-            if(GamePlayerBehaviorData.HitImpactEvent == evt.Data.Name) {
+            if(GamePlayerOwner.PlayerCharacterData.BrawlerData.HitImpactEvent == evt.Data.Name) {
                 // TODO: damage
             } else {
                 Debug.Log($"Unhandled hit end event: {evt.Data.Name}");

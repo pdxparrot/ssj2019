@@ -22,18 +22,8 @@ namespace pdxpartyparrot.ssj2019.Data
         public int SkinIndex => _skinIndex;
 
         [SerializeField]
-        private AttackComboData _attackComboData;
+        private BrawlerData _brawlerData;
 
-        public AttackComboData AttackComboData => _attackComboData;
-
-#region Stats
-        [Header("Stats")]
-
-        [SerializeField]
-        [Min(1)]
-        private int _maxHealth = 1;
-
-        public int MaxHealth => _maxHealth;
-#endregion
+        public BrawlerData BrawlerData => _brawlerData;
     }
 }

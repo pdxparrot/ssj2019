@@ -17,5 +17,4 @@ MonoBehaviour:
     type: 3}
   _characterModelPrefab: {fileID: 3204080472430291362, guid: ab2803260de98834895c1bb899a03b12,
     type: 3}
-  _attackComboData: {fileID: 11400000, guid: eccf4b5a93f4f96489bbf801a03db087, type: 2}
-  _maxHealth: 10
+  _brawlerData: {fileID: 11400000, guid: 705369aa8222dd14b8af2e4915847463, type: 2}

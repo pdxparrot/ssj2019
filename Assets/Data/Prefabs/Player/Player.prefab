@@ -591,6 +591,7 @@ GameObject:
   - component: {fileID: 4735179189841920839}
   - component: {fileID: 4048241465964122526}
   - component: {fileID: 7607716014734449759}
+  - component: {fileID: 8451773348438022286}
   - component: {fileID: 463285651185603561}
   m_Layer: 12
   m_Name: Player
@@ -759,6 +760,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 16
   m_CollisionDetection: 0
+--- !u!114 &8451773348438022286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7312426625843009653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ad4842bf281f440a5882209241a2ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 0
+  _brawlerData: {fileID: 0}
 --- !u!114 &463285651185603561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -776,7 +791,6 @@ MonoBehaviour:
   _networkPlayer: {fileID: 4735179189841920839}
   _input: {fileID: 2194374668728194188}
   _playerCharacterData: {fileID: 0}
-  _health: 0
 --- !u!1 &7835375812971009641
 GameObject:
   m_ObjectHideFlags: 0
