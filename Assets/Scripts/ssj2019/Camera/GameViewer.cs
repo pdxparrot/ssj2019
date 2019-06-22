@@ -12,6 +12,7 @@ namespace pdxpartyparrot.ssj2019.Camera
     [RequireComponent(typeof(CinemachineFramingTransposer))]
     [RequireComponent(typeof(CinemachinePOV))]
     [RequireComponent(typeof(CinemachineConfiner))]
+    [RequireComponent(typeof(CinemachineImpulseListener))]
     public sealed class GameViewer : CinemachineViewer, IPlayerViewer
     {
         [Space(10)]
