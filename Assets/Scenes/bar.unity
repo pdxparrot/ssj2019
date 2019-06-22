@@ -1310,11 +1310,5 @@ PrefabInstance:
       propertyPath: _cameraBounds
       value: 
       objectReference: {fileID: 1952190237}
-    - target: {fileID: 1829598986059437573, guid: f2d7a42f315ccda498b5880c2a609bf1,
-        type: 3}
-      propertyPath: m_NavMeshData
-      value: 
-      objectReference: {fileID: 23800000, guid: bfee244e68d6a234aa2550b0678fc21d,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2d7a42f315ccda498b5880c2a609bf1, type: 3}

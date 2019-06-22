@@ -25,9 +25,13 @@ namespace pdxpartyparrot.ssj2019.Level
 
         public WaveSpawner WaveSpawner => _waveSpawner;
 
+        private NavMeshSurface _navMeshSurface;
+
 #region Unity Lifecycle
         private void Awake()
         {
+            _navMeshSurface = GetComponent<NavMeshSurface>();
+
             GameManager.Instance.RegisterLevelHelper(this);
 
             GameManager.Instance.GameStartServerEvent += GameStartServerEventHandler;
@@ -72,6 +76,9 @@ namespace pdxpartyparrot.ssj2019.Level
 #region Event Handlers
         private void GameStartServerEventHandler(object sender, EventArgs args)
         {
+            // TODO: better to do this before we drop the loading screen and spawn stuff
+            _navMeshSurface.BuildNavMesh();
+
             SpawnManager.Instance.Initialize();
 
             InitializeWaveSpawner();
