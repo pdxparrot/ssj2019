@@ -88,7 +88,9 @@ namespace pdxpartyparrot.ssj2019.Players
 
             if(null != model.SpineModel) {
                 Behavior.SpineAnimationHelper.SkeletonAnimation = model.SpineModel;
+
                 Behavior.SpineSkinHelper.SkeletonAnimation = model.SpineModel;
+                // TODO: skin?
             }
 
             Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);

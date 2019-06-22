@@ -7,6 +7,7 @@ using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.ObjectPool;
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Characters.NPCs;
 using pdxpartyparrot.ssj2019.Characters;
@@ -66,7 +67,13 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             if(null != model.SpineModel) {
                 Behavior.SpineAnimationHelper.SkeletonAnimation = model.SpineModel;
+
                 Behavior.SpineSkinHelper.SkeletonAnimation = model.SpineModel;
+                if(_characterData.SkinIndex < 0) {
+                    Behavior.SpineSkinHelper.SetRandomSkin();
+                } else {
+                    Behavior.SpineSkinHelper.SetSkin(_characterData.SkinIndex);
+                }
             }
 
             Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);

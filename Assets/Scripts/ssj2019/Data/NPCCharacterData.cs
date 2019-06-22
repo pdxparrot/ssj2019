@@ -16,6 +16,12 @@ namespace pdxpartyparrot.ssj2019.Data
         public CharacterModel CharacterModelPrefab => _characterModelPrefab;
 
         [SerializeField]
+        [Tooltip("Set to -1 for a random skin")]
+        private int _skinIndex;
+
+        public int SkinIndex => _skinIndex;
+
+        [SerializeField]
         private AttackComboData _attackComboData;
 
         public AttackComboData AttackComboData => _attackComboData;
