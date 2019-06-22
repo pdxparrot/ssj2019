@@ -72,9 +72,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
         [ReadOnly]
         private bool _immune;
 
-        public bool IsImmune => _immune;
+        public bool IsImmune => NPCManager.Instance.NPCsImmune || _immune;
 
-        public override bool CanMove => base.CanMove && !IsBlocking;
+        public override bool CanMove => base.CanMove && !IsBlocking && !IsDead;
 
         [SerializeField]
         [ReadOnly]

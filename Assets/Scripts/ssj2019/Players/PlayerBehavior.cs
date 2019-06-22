@@ -60,7 +60,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public bool IsImmune => PlayerManager.Instance.PlayersImmune || _immune;
 
-        public override bool CanMove => base.CanMove && !IsBlocking;
+        public override bool CanMove => base.CanMove && !IsBlocking && !IsDead;
 
         private BrawlerBehavior _brawlerBehavior;
 
