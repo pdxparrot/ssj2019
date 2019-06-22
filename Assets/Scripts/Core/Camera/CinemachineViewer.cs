@@ -1,5 +1,7 @@
 ﻿using Cinemachine;
 
+using JetBrains.Annotations;
+
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -18,12 +20,19 @@ namespace pdxpartyparrot.Core.Camera
 
         private CinemachineBrain _cinemachineBrain;
 
+        [CanBeNull]
+        private CinemachineImpulseListener _impulseListener;
+
+        [CanBeNull]
+        protected CinemachineImpulseListener ImpulseListener => _impulseListener;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
             base.Awake();
 
             _cinemachineCamera = GetComponent<CinemachineVirtualCamera>();
+            _impulseListener = GetComponent<CinemachineImpulseListener>();
 
             _cinemachineBrain = Camera.GetComponent<CinemachineBrain>();
             Assert.IsNotNull(_cinemachineBrain);
@@ -35,6 +44,10 @@ namespace pdxpartyparrot.Core.Camera
             base.Set2D(size);
 
             _cinemachineCamera.m_Lens.OrthographicSize = size;
+
+            if(null != _impulseListener) {
+                _impulseListener.m_Use2DDistance = true;
+            }
         }
 
         public override void Set3D(float fieldOfView)
@@ -42,6 +55,10 @@ namespace pdxpartyparrot.Core.Camera
             base.Set3D(fieldOfView);
 
             _cinemachineCamera.m_Lens.FieldOfView = fieldOfView;
+
+            if(null != _impulseListener) {
+                _impulseListener.m_Use2DDistance = false;
+            }
         }
 
         public T GetCinemachineComponent<T>() where T: CinemachineComponentBase
