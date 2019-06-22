@@ -1,4 +1,6 @@
-﻿using pdxpartyparrot.Core.Actors;
+﻿using System.Linq;
+
+using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
@@ -20,6 +22,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
     public sealed class NPCBehavior : Game.Characters.NPCs.NPCBehavior
     {
         public NPCBehaviorData GameNPCBehaviorData => (NPCBehaviorData)NPCBehaviorData;
+
+        public NPC GameNPCOwner => (NPC)Owner;
 
         [Header("Animations")]
 
@@ -96,6 +100,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
         {
             base.Awake();
 
+            Assert.IsTrue(Owner is NPC);
+
             _attackVolume.gameObject.SetActive(false);
             _blockVolume.gameObject.SetActive(false);
 
@@ -144,6 +150,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         private void DoAttack()
         {
+            _attackVolume.AttackData = GameNPCOwner.NPCCharacterData.AttackComboData.AttackData.ElementAt(0);
             _attackEffectTrigger.Trigger(() => ResetIdle());
         }
 
@@ -213,6 +220,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
         public void OnDamage(Actor source, string type, int amount)
         {
             Debug.Log($"NPC {Owner.Id} damaged by {source.Id}");
+
+            _hitEffectTrigger.Trigger();
         }
 #endregion
 

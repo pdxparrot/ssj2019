@@ -1,4 +1,6 @@
-﻿using pdxpartyparrot.Core.Actors;
+﻿using System.Linq;
+
+using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
@@ -20,6 +22,8 @@ namespace pdxpartyparrot.ssj2019.Players
     public sealed class PlayerBehavior : Game.Characters.Players.PlayerBehavior
     {
         public PlayerBehaviorData GamePlayerBehaviorData => (PlayerBehaviorData)PlayerBehaviorData;
+
+        public Player GamePlayerOwner => (Player)Owner;
 
         [Header("Animations")]
 
@@ -94,6 +98,8 @@ namespace pdxpartyparrot.ssj2019.Players
 #region Unity Lifecycle
         protected override void Awake()
         {
+            Assert.IsTrue(Owner is Player);
+
             base.Awake();
 
             _attackVolume.gameObject.SetActive(false);
@@ -139,6 +145,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
         private void DoAttack()
         {
+            _attackVolume.AttackData = GamePlayerOwner.PlayerCharacterData.AttackComboData.AttackData.ElementAt(0);
             _attackEffectTrigger.Trigger(() => ResetIdle());
         }
 
@@ -199,6 +206,8 @@ namespace pdxpartyparrot.ssj2019.Players
         public void OnDamage(Actor source, string type, int amount)
         {
             Debug.Log($"Player {Owner.Id} damaged by {source.Id}");
+
+            _hitEffectTrigger.Trigger();
         }
 #endregion
 

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3af18c5c8030414799cefcc5cede99b, type: 3}
   m_Name: TestCharacter Data Female
   m_EditorClassIdentifier: 
-  _characterModelPrefab: {fileID: 3204080472430291362, guid: 7be58e56267d68449bbd442eaa1eaf68,
+  _characterModelPrefab: {fileID: 3982071459547463407, guid: 06e255d23be88c047b9ddc94429d3dd9,
     type: 3}
+  _skinIndex: 0
   _attackComboData: {fileID: 11400000, guid: eccf4b5a93f4f96489bbf801a03db087, type: 2}

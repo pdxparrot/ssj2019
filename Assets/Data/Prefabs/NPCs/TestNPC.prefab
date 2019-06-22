@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 1655421340564284999}
-  _spineAnimationName: Unblock
+  _spineAnimationName: Hit
   _spineAnimationTrack: 0
   _waitForComplete: 1
 --- !u!1 &2861679878649671080

@@ -29,6 +29,8 @@ namespace pdxpartyparrot.ssj2019.Players
         [CanBeNull]
         private PlayerCharacterData _playerCharacterData;
 
+        public PlayerCharacterData PlayerCharacterData => _playerCharacterData;
+
         private GameViewer PlayerGameViewer => (GameViewer)Viewer;
 
 #region Unity Lifecycle

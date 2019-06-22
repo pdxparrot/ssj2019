@@ -28,6 +28,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
         [CanBeNull]
         private NPCCharacterData _characterData;
 
+        public NPCCharacterData NPCCharacterData => _characterData;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
