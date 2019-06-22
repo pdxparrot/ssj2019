@@ -23,6 +23,8 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public BrawlerData BrawlerData => GamePlayerOwner.PlayerCharacterData.BrawlerData;
 
+        public Brawler Brawler => GamePlayerOwner.Brawler;
+
         private bool CanJump => !IsBlocking;
 
         private bool CanAttack => !IsBlocking;
@@ -142,14 +144,7 @@ namespace pdxpartyparrot.ssj2019.Players
 #region Events
         public void OnDamage(Actor source, string type, int amount)
         {
-            if(GamePlayerOwner.IsDead) {
-                return;
-            }
-
-            Debug.Log($"Player {Owner.Id} damaged by {source.Id}");
-
-            GamePlayerOwner.Brawler.Health -= amount;
-            _brawlerBehavior.Damage();
+            _brawlerBehavior.Damage(source, type, amount);
         }
 #endregion
     }

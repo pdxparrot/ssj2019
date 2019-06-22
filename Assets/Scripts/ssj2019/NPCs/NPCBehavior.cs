@@ -35,6 +35,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public BrawlerData BrawlerData => GameNPCOwner.NPCCharacterData.BrawlerData;
 
+        public Brawler Brawler => GameNPCOwner.Brawler;
+
         [SerializeField]
         private Interactables _interactables;
 
@@ -318,14 +320,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 #region Events
         public void OnDamage(Actor source, string type, int amount)
         {
-            if(GameNPCOwner.IsDead) {
-                return;
-            }
-
-            Debug.Log($"NPC {Owner.Id} damaged by {source.Id}");
-
-            GameNPCOwner.Brawler.Health -= amount;
-            _brawlerBehavior.Damage();
+            _brawlerBehavior.Damage(source, type, amount);
         }
 #endregion
     }

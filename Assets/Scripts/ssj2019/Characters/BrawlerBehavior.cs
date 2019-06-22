@@ -1,4 +1,5 @@
-﻿using pdxpartyparrot.Core.Effects;
+﻿using pdxpartyparrot.Core.Actors;
+using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
@@ -13,7 +14,11 @@ namespace pdxpartyparrot.ssj2019.Characters
 {
     public interface IBrawlerBehaviorActions
     {
+        Actor Owner { get; }
+
         BrawlerData BrawlerData { get; }
+
+        Brawler Brawler { get; }
 
         CharacterBehaviorComponent.CharacterBehaviorAction LastAction { get; }
 
@@ -136,8 +141,22 @@ namespace pdxpartyparrot.ssj2019.Characters
             _blockBeginEffectTrigger.Trigger();
         }
 
-        public void Damage()
+        public void Damage(Actor source, string type, int amount)
         {
+            if(_actionHandler.IsDead) {
+                return;
+            }
+
+            // TODO: somehow we need to handle chip damage
+            // but for now we'll just dump all of it
+            if(_actionHandler.IsBlocking) {
+                Debug.Log($"Brawler {_actionHandler.Owner.Id} blocked damaged by {source.Id} for {amount}");
+                return;
+            }
+
+            Debug.Log($"Brawler {_actionHandler.Owner.Id} damaged by {source.Id} for {amount}");
+
+            _actionHandler.Brawler.Health -= amount;
             if(_actionHandler.IsDead) {
                 _deathEffectTrigger.Trigger(() => _actionHandler.OnDead());
             } else {
