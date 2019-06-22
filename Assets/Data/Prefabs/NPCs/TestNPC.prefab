@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 0
+  _brawlerData: {fileID: 0}
 --- !u!114 &7185525476932000284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,6 +735,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1094174836598082451}
+  - component: {fileID: 2457662190061875137}
   - component: {fileID: 7670571906903510832}
   - component: {fileID: 256798335153925517}
   - component: {fileID: 4012403951289823003}
@@ -759,6 +761,29 @@ Transform:
   m_Father: {fileID: 809502310432792466}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2457662190061875137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9003367007530177534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc8e5d462ae9c8b46b8d773fec28a2d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackEffectTrigger: {fileID: 6994903446394223841}
+  _attackAnimationEffectTriggerComponent: {fileID: 2119600318961684256}
+  _blockBeginEffectTrigger: {fileID: 2970808422812650086}
+  _blockBeginAnimationEffectTriggerComponent: {fileID: 8877237017341337870}
+  _blockEndEffectTrigger: {fileID: 6163520276177178404}
+  _blockEndAnimationEffectTriggerComponent: {fileID: 6588978275413240049}
+  _hitEffectTrigger: {fileID: 6631989109035438992}
+  _hitAnimationEffectTriggerComponent: {fileID: 7726666953507074508}
+  _deathEffectTrigger: {fileID: 6237249302560061764}
+  _attackVolume: {fileID: 4356007661132845643}
+  _blockVolume: {fileID: 5793994074923292069}
 --- !u!114 &7670571906903510832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -790,17 +815,6 @@ MonoBehaviour:
   _isGrounded: 0
   _isSliding: 0
   _lastActionBufferTimestampMs: 0
-  _attackEffectTrigger: {fileID: 6994903446394223841}
-  _attackAnimationEffectTriggerComponent: {fileID: 2119600318961684256}
-  _blockBeginEffectTrigger: {fileID: 2970808422812650086}
-  _blockBeginAnimationEffectTriggerComponent: {fileID: 8877237017341337870}
-  _blockEndEffectTrigger: {fileID: 6163520276177178404}
-  _blockEndAnimationEffectTriggerComponent: {fileID: 6588978275413240049}
-  _hitEffectTrigger: {fileID: 6631989109035438992}
-  _hitAnimationEffectTriggerComponent: {fileID: 7726666953507074508}
-  _deathEffectTrigger: {fileID: 6237249302560061764}
-  _attackVolume: {fileID: 4356007661132845643}
-  _blockVolume: {fileID: 5793994074923292069}
   _blocking: 0
   _parry: 0
   _immune: 0

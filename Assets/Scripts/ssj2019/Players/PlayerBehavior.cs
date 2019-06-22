@@ -2,8 +2,6 @@
 
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Data;
-using pdxpartyparrot.Core.Effects;
-using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.Players;
@@ -11,66 +9,19 @@ using pdxpartyparrot.ssj2019.Characters;
 using pdxpartyparrot.ssj2019.Data;
 using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
 
-using Spine;
-
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ssj2019.Players
 {
-    // TODO: split this into behavior components
-    public sealed class PlayerBehavior : Game.Characters.Players.PlayerBehavior
+    [RequireComponent(typeof(BrawlerBehavior))]
+    public sealed class PlayerBehavior : Game.Characters.Players.PlayerBehavior, IBrawlerBehaviorActions
     {
         public PlayerBehaviorData GamePlayerBehaviorData => (PlayerBehaviorData)PlayerBehaviorData;
 
         public Player GamePlayerOwner => (Player)Owner;
 
-        [Header("Animations")]
-
-#region Attack Animations
-        [SerializeField]
-        private EffectTrigger _attackEffectTrigger;
-
-        [SerializeField]
-        private SpineAnimationEffectTriggerComponent _attackAnimationEffectTriggerComponent;
-#endregion
-
-#region Block Animations
-        [SerializeField]
-        private EffectTrigger _blockBeginEffectTrigger;
-
-        [SerializeField]
-        private SpineAnimationEffectTriggerComponent _blockBeginAnimationEffectTriggerComponent;
-
-        [SerializeField]
-        private EffectTrigger _blockEndEffectTrigger;
-
-        [SerializeField]
-        private SpineAnimationEffectTriggerComponent _blockEndAnimationEffectTriggerComponent;
-#endregion
-
-#region Hit Animations
-        [SerializeField]
-        private EffectTrigger _hitEffectTrigger;
-
-        [SerializeField]
-        private SpineAnimationEffectTriggerComponent _hitAnimationEffectTriggerComponent;
-#endregion
-
-        [SerializeField]
-        private EffectTrigger _deathEffectTrigger;
-
-        [Space(10)]
-
-#region Action Volumes
-        [Header("Action Volumes")]
-
-        [SerializeField]
-        private AttackVolume _attackVolume;
-
-        [SerializeField]
-        private BlockVolume _blockVolume;
-#endregion
+        public BrawlerData BrawlerData => GamePlayerOwner.PlayerCharacterData.BrawlerData;
 
         private bool CanJump => !IsBlocking;
 
@@ -78,17 +29,27 @@ namespace pdxpartyparrot.ssj2019.Players
 
         private bool CanBlock => IsGrounded;
 
+        public bool IsDead => GamePlayerOwner.IsDead;
+
         [SerializeField]
         [ReadOnly]
         private bool _blocking;
 
-        public bool IsBlocking => _blocking;
+        public bool IsBlocking
+        {
+            get => _blocking;
+            set => _blocking = value;
+        }
 
         [SerializeField]
         [ReadOnly]
         private bool _parry;
 
-        public bool IsParry => _parry;
+        public bool IsParry
+        {
+            get => _parry;
+            set => _parry = value;
+        }
 
         [SerializeField]
         [ReadOnly]
@@ -98,6 +59,8 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public override bool CanMove => base.CanMove && !IsBlocking;
 
+        private BrawlerBehavior _brawlerBehavior;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -105,32 +68,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
             base.Awake();
 
-            _attackVolume.gameObject.SetActive(false);
-            _blockVolume.gameObject.SetActive(false);
-
-            _attackAnimationEffectTriggerComponent.StartEvent += AttackAnimationStartHandler;
-            _attackAnimationEffectTriggerComponent.CompleteEvent += AttackAnimationCompleteHandler;
-
-            _blockBeginAnimationEffectTriggerComponent.StartEvent += BlockBeginAnimationStartHandler;
-            _blockBeginAnimationEffectTriggerComponent.CompleteEvent += BlockBeginAnimationCompleteHandler;
-
-            _blockEndAnimationEffectTriggerComponent.StartEvent += BlockEndAnimationStartHandler;
-            _blockEndAnimationEffectTriggerComponent.CompleteEvent += BlockEndAnimationCompleteHandler;
-
-            _hitAnimationEffectTriggerComponent.StartEvent += HitAnimationStartHandler;
-            _hitAnimationEffectTriggerComponent.CompleteEvent += HitAnimationCompleteHandler;
-        }
-
-        // TODO: probably safest if we release the events in OnDestroy
-
-        protected override void Update()
-        {
-            base.Update();
-
-            // process actions here rather than Think() so that they're instantaneous
-            if(LastAction is AttackBehaviorComponent.AttackAction && !_attackEffectTrigger.IsRunning) {
-                DoAttack();
-            }
+            _brawlerBehavior = GetComponent<BrawlerBehavior>();
         }
 #endregion
 
@@ -139,28 +77,25 @@ namespace pdxpartyparrot.ssj2019.Players
             Assert.IsTrue(behaviorData is PlayerBehaviorData);
 
             base.Initialize(behaviorData);
+
+            _brawlerBehavior.Initialize(this);
         }
 
-        private void ResetIdle()
+#region Brawler Actions
+        public void OnIdle()
         {
             SpineAnimationHelper.SetAnimation(GamePlayerOwner.PlayerCharacterData.BrawlerData.IdleAnimationName, false);
         }
 
-        private void DoAttack()
+        public void OnAttack()
         {
-            _attackVolume.AttackData = GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(0);
-            _attackEffectTrigger.Trigger(() => ResetIdle());
+            _brawlerBehavior.Attack(GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(0));
         }
 
-        private void EnableAttackVolume(bool enable)
+        public void OnDead()
         {
-            _attackVolume.gameObject.SetActive(enable);
         }
-
-        private void EnableBlockVolume(bool enable)
-        {
-            _blockVolume.gameObject.SetActive(enable);
-        }
+#endregion
 
 #region Actions
         public void Jump()
@@ -186,11 +121,10 @@ namespace pdxpartyparrot.ssj2019.Players
             });
         }
         
-        public void ToggleBlock()
+        public void Block()
         {
-            if(_blocking) {
-                _blocking = false;
-                _blockEndEffectTrigger.Trigger(() => ResetIdle());
+            if(IsBlocking) {
+                _brawlerBehavior.ToggleBlock();
                 return;
             }
 
@@ -200,8 +134,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
             ClearActionBuffer();
 
-            _blocking = true;
-            _blockBeginEffectTrigger.Trigger();
+            _brawlerBehavior.ToggleBlock();
         }
 #endregion
 
@@ -215,95 +148,7 @@ namespace pdxpartyparrot.ssj2019.Players
             Debug.Log($"Player {Owner.Id} damaged by {source.Id}");
 
             GamePlayerOwner.Brawler.Health -= amount;
-            if(GamePlayerOwner.IsDead) {
-                _deathEffectTrigger.Trigger();
-            } else {
-                _hitEffectTrigger.Trigger();
-            }
-        }
-#endregion
-
-#region Event Handlers
-        private void AttackAnimationStartHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
-        {
-            args.TrackEntry.Event += AttackAnimationEvent;
-        }
-
-        private void AttackAnimationCompleteHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
-        {
-            args.TrackEntry.Event -= AttackAnimationEvent;
-        }
-
-        private void AttackAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
-        {
-            if(GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackVolumeSpawnEvent == evt.Data.Name) {
-                EnableAttackVolume(true);
-            } else if(GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackVolumeDeSpawnEvent == evt.Data.Name) {
-                EnableAttackVolume(false);
-            } else {
-                Debug.LogWarning($"Unhandled attack event: {evt.Data.Name}");
-            }
-        }
-
-        private void BlockBeginAnimationStartHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
-        {
-            args.TrackEntry.Event += BlockBeginAnimationEvent;
-        }
-
-        private void BlockBeginAnimationCompleteHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
-        {
-            args.TrackEntry.Event -= BlockBeginAnimationEvent;
-        }
-
-        private void BlockBeginAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
-        {
-            if(GamePlayerOwner.PlayerCharacterData.BrawlerData.BlockVolumeSpawnEvent == evt.Data.Name) {
-                EnableBlockVolume(true);
-            } else if(GamePlayerOwner.PlayerCharacterData.BrawlerData.ParryWindowOpenEvent == evt.Data.Name) {
-                _parry = true;
-            } else if(GamePlayerOwner.PlayerCharacterData.BrawlerData.ParryWindowCloseEvent == evt.Data.Name) {
-                _parry = false;
-            } else {
-                Debug.Log($"Unhandled block begin event: {evt.Data.Name}");
-            }
-        }
-
-        private void BlockEndAnimationStartHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
-        {
-            args.TrackEntry.Event += BlockEndAnimationEvent;
-        }
-
-        private void BlockEndAnimationCompleteHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
-        {
-            args.TrackEntry.Event -= BlockEndAnimationEvent;
-        }
-
-        private void BlockEndAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
-        {
-            if(GamePlayerOwner.PlayerCharacterData.BrawlerData.BlockVolumeDeSpawnEvent == evt.Data.Name) {
-                EnableBlockVolume(false);
-            } else {
-                Debug.Log($"Unhandled block end event: {evt.Data.Name}");
-            }
-        }
-
-        private void HitAnimationStartHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
-        {
-            args.TrackEntry.Event += HitAnimationEvent;
-        }
-
-        private void HitAnimationCompleteHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
-        {
-            args.TrackEntry.Event -= HitAnimationEvent;
-        }
-
-        private void HitAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
-        {
-            if(GamePlayerOwner.PlayerCharacterData.BrawlerData.HitImpactEvent == evt.Data.Name) {
-                // TODO: damage
-            } else {
-                Debug.Log($"Unhandled hit end event: {evt.Data.Name}");
-            }
+            _brawlerBehavior.Damage();
         }
 #endregion
     }
