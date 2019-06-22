@@ -109,6 +109,10 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public override void Think(float dt)
         {
+            if(IsDead) {
+                return;
+            }
+
             switch(_state)
             {
             case NPCState.Idle:
