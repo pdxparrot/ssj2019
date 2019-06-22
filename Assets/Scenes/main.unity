@@ -284,6 +284,8 @@ MonoBehaviour:
     type: 3}
   _playerManagerPrefab: {fileID: 4161473966796991426, guid: 1224400b947db7d43a9208be5709be6f,
     type: 3}
+  _npcManagerPrefab: {fileID: 3038298033495707247, guid: 5f3e26e45fb1ef54497d2f9e6aa57f21,
+    type: 3}
 --- !u!1 &695438960
 GameObject:
   m_ObjectHideFlags: 0

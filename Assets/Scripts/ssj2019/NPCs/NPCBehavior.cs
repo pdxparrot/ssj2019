@@ -1,12 +1,16 @@
 ﻿using System.Linq;
 
+using JetBrains.Annotations;
+
 using pdxpartyparrot.Core.Actors;
+using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.NPCs;
 using pdxpartyparrot.ssj2019.Characters;
 using pdxpartyparrot.ssj2019.Data;
+using pdxpartyparrot.ssj2019.Players;
 using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
 
 using UnityEngine;
@@ -17,6 +21,13 @@ namespace pdxpartyparrot.ssj2019.NPCs
     [RequireComponent(typeof(BrawlerBehavior))]
     public sealed class NPCBehavior : Game.Characters.NPCs.NPCBehavior, IBrawlerBehaviorActions
     {
+        private enum NPCState
+        {
+            Idle,
+            Track,
+            Attack
+        }
+
         public NPCBehaviorData GameNPCBehaviorData => (NPCBehaviorData)NPCBehaviorData;
 
         public NPC GameNPCOwner => (NPC)Owner;
@@ -59,6 +70,15 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public override bool CanMove => base.CanMove && !IsBlocking;
 
+        [SerializeField]
+        [ReadOnly]
+        private NPCState _state = NPCState.Idle;
+
+        [SerializeField]
+        [ReadOnly]
+        [CanBeNull]
+        private Actor _target;
+
         private BrawlerBehavior _brawlerBehavior;
 
 #region Unity Lifecycle
@@ -83,8 +103,83 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public override void Think(float dt)
         {
-            // TODO: here we think but also queue movement and actions
+            switch(_state)
+            {
+            case NPCState.Idle:
+                HandleIdle();
+                break;
+            case NPCState.Track:
+                HandleTrack();
+                break;
+            case NPCState.Attack:
+                HandleAttack();
+                break;
+            }
         }
+
+#region NPC State
+        private void SetState(NPCState state)
+        {
+            if(NPCManager.Instance.DebugBehavior) {
+                Debug.Log($"NPC {Owner.Id} set state {state}");
+            }
+
+            _state = state;
+            switch(_state)
+            {
+            case NPCState.Idle:
+                SpineAnimationHelper.SetAnimation(GameNPCOwner.NPCCharacterData.BrawlerData.IdleAnimationName, false);
+                break;
+            case NPCState.Track:
+                break;
+            case NPCState.Attack:
+                break;
+            }
+        }
+
+        private void SetTarget(Actor target)
+        {
+            if(NPCManager.Instance.DebugBehavior) {
+                Debug.Log($"NPC {Owner.Id} targeting {target.Id}");
+            }
+
+            _target = target;
+        }
+
+        private void HandleIdle()
+        {
+            // TODO: if we have something in range to attack, attack it
+
+            // look for something to track
+            Player player = ActorManager.Instance.GetActors<Player>().NearestManhattan(Movement.Position) as Player;
+            if(null == player) {
+                return;
+            }
+
+            SetTarget(player);
+
+            SetState(NPCState.Track);
+        }
+
+        private void HandleTrack()
+        {
+            if(null == _target) {
+                if(NPCManager.Instance.DebugBehavior) {
+                    Debug.Log($"NPC {Owner.Id} lost target while tracking");
+                }
+
+                SetState(NPCState.Idle);
+                return;
+            }
+
+            GameNPCOwner.Agent.SetDestination(_target.Behavior.Movement.Position);
+        }
+
+        private void HandleAttack()
+        {
+            // TODO
+        }
+#endregion
 
 #region Spawn
         public override void OnDeSpawn()
@@ -98,7 +193,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 #region Brawler Actions
         public void OnIdle()
         {
-            SpineAnimationHelper.SetAnimation(GameNPCOwner.NPCCharacterData.BrawlerData.IdleAnimationName, false);
+            SetState(NPCState.Idle);
         }
 
         public void OnAttack()

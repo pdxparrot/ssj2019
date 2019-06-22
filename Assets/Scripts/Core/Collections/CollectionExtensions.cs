@@ -38,8 +38,29 @@ namespace pdxpartyparrot.Core.Collections
 
             for(int i=0; i<collection.Count; ++i) {
                 T element = collection.ElementAt(i);
+                Vector3 epos = element.transform.position;
 
-                float dist = Vector3.Distance(element.transform.position, position);
+                float dist = Vector3.Distance(epos, position);
+                if(dist < bestDistance) {
+                    bestDistance = dist;
+                    bestIdx = i;
+                }
+            }
+
+            return bestIdx < 0 ? null : collection.ElementAt(bestIdx);
+        }
+
+        [CanBeNull]
+        public static T NearestManhattan<T>(this IReadOnlyCollection<T> collection, Vector3 position) where T: Component
+        {
+            int bestIdx = -1;
+            float bestDistance = float.PositiveInfinity;
+
+            for(int i=0; i<collection.Count; ++i) {
+                T element = collection.ElementAt(i);
+                Vector3 epos = element.transform.position;
+
+                float dist = Mathf.Abs(epos.x - position.x) + Mathf.Abs(epos.y - position.y) + Mathf.Abs(epos.z - position.z);
                 if(dist < bestDistance) {
                     bestDistance = dist;
                     bestIdx = i;
@@ -57,8 +78,29 @@ namespace pdxpartyparrot.Core.Collections
 
             for(int i=0; i<collection.Count; ++i) {
                 T element = collection.ElementAt(i);
+                Vector3 epos = element.transform.position;
 
-                float dist = Vector3.Distance(element.transform.position, position);
+                float dist = Vector3.Distance(epos, position);
+                if(dist > bestDistance) {
+                    bestDistance = dist;
+                    bestIdx = i;
+                }
+            }
+
+            return bestIdx < 0 ? null : collection.ElementAt(bestIdx);
+        }
+
+        [CanBeNull]
+        public static T FurthestManhattan<T>(this IReadOnlyCollection<T> collection, Vector3 position) where T: Component
+        {
+            int bestIdx = -1;
+            float bestDistance = float.NegativeInfinity;
+
+            for(int i=0; i<collection.Count; ++i) {
+                T element = collection.ElementAt(i);
+                Vector3 epos = element.transform.position;
+
+                float dist = Mathf.Abs(epos.x - position.x) + Mathf.Abs(epos.y - position.y) + Mathf.Abs(epos.z - position.z);
                 if(dist > bestDistance) {
                     bestDistance = dist;
                     bestIdx = i;

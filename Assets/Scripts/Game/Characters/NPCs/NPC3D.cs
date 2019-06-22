@@ -29,12 +29,16 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         [CanBeNull]
         private PooledObject _pooledObject;
 
+        public NavMeshAgent Agent { get; private set; }
+
 #region Unity Lifecycle
         protected override void Awake()
         {
             base.Awake();
 
             Assert.IsTrue(Behavior is NPCBehavior);
+
+            Agent = GetComponent<NavMeshAgent>();
 
             _pooledObject = GetComponent<PooledObject>();
             if(null != _pooledObject) {
