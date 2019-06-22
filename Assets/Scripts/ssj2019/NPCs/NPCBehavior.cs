@@ -40,6 +40,15 @@ namespace pdxpartyparrot.ssj2019.NPCs
         [SerializeField]
         private Interactables _interactables;
 
+        public override Vector3 MoveDirection
+        {
+            get
+            {
+                Vector3 nextPosition = GameNPCOwner.NextPosition;
+                return nextPosition - Movement.Position;
+            }
+        }
+
         private bool CanJump => !IsBlocking;
 
         private bool CanAttack => !IsBlocking;
@@ -139,6 +148,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             {
             case NPCState.Idle:
                 SpineAnimationHelper.SetAnimation(GameNPCOwner.NPCCharacterData.BrawlerData.IdleAnimationName, false);
+                GameNPCOwner.ResetPath();
                 break;
             case NPCState.Track:
                 break;
@@ -208,7 +218,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             }
 
             // can't attack our target, so follow it
-            GameNPCOwner.Agent.SetDestination(_target.Behavior.Movement.Position);
+            GameNPCOwner.UpdatePath(_target.Behavior.Movement.Position);
         }
 
         private void HandleAttack()

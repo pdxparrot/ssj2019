@@ -24,6 +24,10 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         public NPCBehavior NPCBehavior => (NPCBehavior)Behavior;
 #endregion
 
+#region Pathing
+        public Vector3 NextPosition => Vector3.zero;
+#endregion
+
         [CanBeNull]
         private PooledObject _pooledObject;
 
@@ -47,6 +51,18 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
             base.Initialize(id, behaviorData);
         }
+
+#region Pathing
+        public void UpdatePath(Vector3 target)
+        {
+            Debug.LogWarning("TODO: NPC2D.UpdatePath()");
+        }
+
+        public void ResetPath()
+        {
+            Debug.LogWarning("TODO: NPC2D.ResetPath()");
+        }
+#endregion
 
         public void Recycle()
         {

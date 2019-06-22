@@ -1,5 +1,8 @@
-﻿using pdxpartyparrot.Game.Data.Characters;
+﻿using pdxpartyparrot.Core.Data;
+using pdxpartyparrot.Core.Math;
+using pdxpartyparrot.Game.Data.Characters;
 
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Game.Characters.NPCs
@@ -10,6 +13,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
         public INPC NPC => (INPC)Owner;
 
+        public abstract Vector3 MoveDirection { get; }
+
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -17,7 +22,64 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
             Assert.IsTrue(Owner is INPC);
         }
+
+        protected virtual void LateUpdate()
+        {
+            IsMoving = MoveDirection.sqrMagnitude > MathUtil.Epsilon;
+        }
 #endregion
+
+        public override void Initialize(ActorBehaviorData behaviorData)
+        {
+            Assert.IsTrue(behaviorData is NPCBehaviorData);
+
+            base.Initialize(behaviorData);
+        }
+
+        protected override void AnimationUpdate(float dt)
+        {
+            if(!CanMove) {
+                return;
+            }
+
+            Vector3 moveDirection = MoveDirection;
+
+            AlignToMovement(moveDirection);
+
+            if(null != Animator) {
+                Animator.SetFloat(NPCBehaviorData.MoveXAxisParam, CanMove ? Mathf.Abs(moveDirection.x) : 0.0f);
+                Animator.SetFloat(NPCBehaviorData.MoveZAxisParam, CanMove ? Mathf.Abs(moveDirection.y) : 0.0f);
+            }
+
+            base.AnimationUpdate(dt);
+        }
+
+        // TODO: this doesn't work with navmesh for some reason :(
+        // turning off updatePosition causes it to never generate a path
+        /*protected override void PhysicsUpdate(float dt)
+        {
+            if(!CanMove) {
+                return;
+            }
+
+            if(!NPCBehaviorData.AllowAirControl && IsFalling) {
+                return;
+            }
+
+            Vector3 moveDirection = MoveDirection;
+
+            Vector3 velocity = moveDirection * NPCBehaviorData.MoveSpeed;
+            velocity = Movement.Rotation * velocity;
+
+            if(Movement.IsKinematic) {
+                Movement.Teleport(Movement.Position + velocity * dt);
+            } else {
+                velocity.y = Movement.Velocity.y;
+                Movement.Velocity = velocity;
+            }
+
+            base.PhysicsUpdate(dt);
+        }*/
 
 #region Events
         public virtual void OnRecycle()

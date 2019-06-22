@@ -26,10 +26,14 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         public NPCBehavior NPCBehavior => (NPCBehavior)Behavior;
 #endregion
 
+#region Pathing
+        public Vector3 NextPosition => _agent.nextPosition;
+#endregion
+
         [CanBeNull]
         private PooledObject _pooledObject;
 
-        public NavMeshAgent Agent { get; private set; }
+        private NavMeshAgent _agent;
 
 #region Unity Lifecycle
         protected override void Awake()
@@ -38,7 +42,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
             Assert.IsTrue(Behavior is NPCBehavior);
 
-            Agent = GetComponent<NavMeshAgent>();
+            _agent = GetComponent<NavMeshAgent>();
 
             _pooledObject = GetComponent<PooledObject>();
             if(null != _pooledObject) {
@@ -52,7 +56,37 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             Assert.IsTrue(behaviorData is NPCBehaviorData);
 
             base.Initialize(id, behaviorData);
+
+            _agent.speed = NPCBehavior.NPCBehaviorData.MoveSpeed;
+            _agent.angularSpeed = NPCBehavior.NPCBehaviorData.AngularMoveSpeed;
+            _agent.acceleration = NPCBehavior.NPCBehaviorData.MoveAcceleration;
+            _agent.stoppingDistance = NPCBehavior.NPCBehaviorData.StoppingDistance;
+            _agent.autoBraking = true;
+
+            _agent.radius = Radius;
+            _agent.height = Height;
         }
+
+#region Pathing
+        public void UpdatePath(Vector3 target)
+        {
+            if(!_agent.SetDestination(target)) {
+                Debug.LogWarning("Failed to set NPC destination!");
+                return;
+            }
+
+            if(_agent.pathPending) {
+                // TODO: whenever NPCManager moves to Game,
+                // we can do this when DebugBehavior is true
+                //Debug.Log($"NPC {Id} updating path from {Behavior.Movement.Position} to {target}");
+            }
+        }
+
+        public void ResetPath()
+        {
+            _agent.ResetPath();
+        }
+#endregion
 
         public void Recycle()
         {
