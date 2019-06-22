@@ -17,6 +17,18 @@ namespace pdxpartyparrot.Game.State
         [SerializeField]
         private AudioClip _endGameMusic;
 
+#region Unity Lifecycle
+        private void OnDestroy()
+        {
+            // have to remove the time here because OnExit() is tied to the timer completing
+            // which mucks up the TimeManager internal state
+            if(TimeManager.HasInstance) {
+                TimeManager.Instance.RemoveTimer(_completeTimer);
+            }
+            _completeTimer = null;
+        }
+#endregion
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -31,9 +43,6 @@ namespace pdxpartyparrot.Game.State
 
         public override void OnExit()
         {
-            TimeManager.Instance.RemoveTimer(_completeTimer);
-            _completeTimer = null;
-
             AudioManager.Instance.StopAllMusic();
 
             base.OnExit();
