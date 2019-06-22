@@ -24,15 +24,7 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         bool IsDead { get; }
 
-        bool IsBlocking { get; set; }
-
-        bool IsParry { get; set; }
-
-        bool IsStunned { get; set; }
-
         bool IsImmune { get; set; }
-
-        bool CanCancel { get; set; }
 
         // tells the brawler to go idle
         void OnIdle();
@@ -108,6 +100,8 @@ namespace pdxpartyparrot.ssj2019.Characters
         private BlockVolume _blockVolume;
 #endregion
 
+        [Space(10)]
+
         [SerializeField]
         [ReadOnly]
         private IBrawlerBehaviorActions _actionHandler;
@@ -148,13 +142,13 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         public void ToggleBlock()
         {
-            if(_actionHandler.IsBlocking) {
-                _actionHandler.IsBlocking = false;
+            if(_actionHandler.Brawler.IsBlocking) {
+                _actionHandler.Brawler.IsBlocking = false;
                 _blockEndEffectTrigger.Trigger(() => _actionHandler.OnIdle());
                 return;
             }
 
-            _actionHandler.IsBlocking = true;
+            _actionHandler.Brawler.IsBlocking = true;
             _blockBeginEffectTrigger.Trigger();
         }
 
@@ -192,7 +186,7 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         private void CancelActions()
         {
-            if(!_actionHandler.CanCancel) {
+            if(!_actionHandler.Brawler.CanCancel) {
                 return;
             }
 
@@ -202,8 +196,8 @@ namespace pdxpartyparrot.ssj2019.Characters
 
             // cancel blocks
             EnableBlockVolume(false);
-            _actionHandler.IsParry = false;
-            _actionHandler.IsBlocking = false;
+            _actionHandler.Brawler.IsParry = false;
+            _actionHandler.Brawler.IsBlocking = false;
 
             // cancel attacks
             EnableAttackVolume(false);
@@ -289,9 +283,9 @@ namespace pdxpartyparrot.ssj2019.Characters
             if(_actionHandler.BrawlerData.BlockVolumeSpawnEvent == evt.Data.Name) {
                 EnableBlockVolume(true);
             } else if(_actionHandler.BrawlerData.ParryWindowOpenEvent == evt.Data.Name) {
-                _actionHandler.IsParry = true;
+                _actionHandler.Brawler.IsParry = true;
             } else if(_actionHandler.BrawlerData.ParryWindowCloseEvent == evt.Data.Name) {
-                _actionHandler.IsParry = false;
+                _actionHandler.Brawler.IsParry = false;
             } else {
                 Debug.Log($"Unhandled block begin event: {evt.Data.Name}");
             }

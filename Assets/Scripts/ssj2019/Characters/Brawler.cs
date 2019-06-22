@@ -19,7 +19,49 @@ namespace pdxpartyparrot.ssj2019.Characters
             get => _health;
             set => _health = value;
         }
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _blocking;
+
+        public bool IsBlocking
+        {
+            get => _blocking;
+            set => _blocking = value;
+        }
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _parry;
+
+        public bool IsParry
+        {
+            get => _parry;
+            set => _parry = value;
+        }
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _stunned;
+
+        public bool IsStunned
+        {
+            get => _stunned;
+            set => _stunned = value;
+        }
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _canCancel = true;
+
+        public bool CanCancel
+        {
+            get => _canCancel;
+            set => _canCancel = value;
+        }
 #endregion
+
+        [Space(10)]
 
         [SerializeField]
         [ReadOnly]
@@ -30,6 +72,10 @@ namespace pdxpartyparrot.ssj2019.Characters
             _brawlerData = brawlerData;
 
             _health = _brawlerData.MaxHealth;
+            _blocking = false;
+            _parry = false;
+            _stunned = false;
+            _canCancel = true;
         }
     }
 }

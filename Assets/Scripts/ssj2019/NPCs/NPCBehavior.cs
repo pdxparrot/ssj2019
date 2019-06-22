@@ -50,43 +50,13 @@ namespace pdxpartyparrot.ssj2019.NPCs
             }
         }
 
-        private bool CanJump => !IsDead && !IsBlocking && !IsStunned && CanCancel;
+        private bool CanJump => !IsDead && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel;
 
-        private bool CanAttack => !IsDead && !IsBlocking && !IsStunned && CanCancel;
+        private bool CanAttack => !IsDead && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel;
 
-        private bool CanBlock => !IsDead && IsGrounded && !IsBlocking && !IsStunned && CanCancel;
+        private bool CanBlock => !IsDead && IsGrounded && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel;
 
         public bool IsDead => GameNPCOwner.IsDead;
-
-        [SerializeField]
-        [ReadOnly]
-        private bool _blocking;
-
-        public bool IsBlocking
-        {
-            get => _blocking;
-            set => _blocking = value;
-        }
-
-        [SerializeField]
-        [ReadOnly]
-        private bool _parry;
-
-        public bool IsParry
-        {
-            get => _parry;
-            set => _parry = value;
-        }
-
-        [SerializeField]
-        [ReadOnly]
-        private bool _stunned;
-
-        public bool IsStunned
-        {
-            get => _stunned;
-            set => _stunned = value;
-        }
 
         [SerializeField]
         [ReadOnly]
@@ -98,17 +68,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             set => _immune = value;
         }
 
-        [SerializeField]
-        [ReadOnly]
-        private bool _canCancel = true;
-
-        public bool CanCancel
-        {
-            get => _canCancel;
-            set => _canCancel = value;
-        }
-
-        public override bool CanMove => base.CanMove && !IsBlocking && !IsStunned && CanCancel && !IsDead;
+        public override bool CanMove => base.CanMove && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel && !IsDead;
 
         [SerializeField]
         [ReadOnly]
@@ -309,13 +269,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
         {
             base.OnSpawn(spawnpoint);
 
-            _blocking = false;
-            _parry = false;
-            _stunned = false;
-            _immune = false;
-            _canCancel = true;
-
             // TODO: add a small window of immunity on spawn
+            _immune = false;
         }
 
         public override void OnDeSpawn()
@@ -377,7 +332,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
         
         public void Block()
         {
-            if(IsBlocking) {
+            if(Brawler.IsBlocking) {
                 _brawlerBehavior.ToggleBlock();
                 return;
             }
