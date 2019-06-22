@@ -181,23 +181,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         private void HandleTrack()
         {
-            // lost target?
-            if(null == _target) {
-                if(NPCManager.Instance.DebugBehavior) {
-                    Debug.Log($"NPC {Owner.Id} lost target while tracking");
-                }
-
-                SetState(NPCState.Idle);
-                return;
-            }
-
-            // dead target?
-            if(_target is Player player && player.IsDead) {
-                if(NPCManager.Instance.DebugBehavior) {
-                    Debug.Log($"NPC {Owner.Id} track target died");
-                }
-
-                SetState(NPCState.Idle);
+            if(!EnsureTarget()) {
                 return;
             }
 
@@ -225,6 +209,36 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         private void HandleAttack()
         {
+            if(!EnsureTarget()) {
+                return;
+            }
+
+            // TODO: from here we're assuming our target is a Player, but what if it isn't?
+
+            var interactablePlayers = _interactables.GetInteractables<Player>();
+
+            // is our target interactable?
+            if(interactablePlayers.Contains(_target as Player)) {
+                // TODO: pass in last move
+                Attack(Vector3.zero);
+                return;
+            }
+
+            // if we have something else we can attack, attack it
+            if(interactablePlayers.Count > 0) {
+                SetTarget(interactablePlayers.ElementAt(0) as Player);
+
+                // TODO: pass in last move
+                Attack(Vector3.zero);
+                return;
+            }
+
+            // go back to tracking
+            SetState(NPCState.Track);
+        }
+
+        private bool EnsureTarget()
+        {
             // lost target?
             if(null == _target) {
                 if(NPCManager.Instance.DebugBehavior) {
@@ -232,7 +246,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 }
 
                 SetState(NPCState.Idle);
-                return;
+                return false;
             }
 
             // dead target?
@@ -242,11 +256,10 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 }
 
                 SetState(NPCState.Idle);
-                return;
+                return false;
             }
 
-            // TODO: pass in last move
-            Attack(Vector3.zero);
+            return true;
         }
 #endregion
 
