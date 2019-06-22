@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using JetBrains.Annotations;
 
@@ -47,6 +47,16 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             _pooledObject = GetComponent<PooledObject>();
             if(null != _pooledObject) {
                 _pooledObject.RecycleEvent += RecycleEventHandler;
+            }
+        }
+
+        private void LateUpdate()
+        {
+            // TODO: this works great except that
+            // the player can abuse the NPC re-accelerating
+            // by pausing and unpausing the game
+            if(!NPCBehavior.CanMove) {
+                _agent.velocity = Vector3.zero;
             }
         }
 #endregion

@@ -151,8 +151,10 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 GameNPCOwner.ResetPath();
                 break;
             case NPCState.Track:
+                //GameNPCOwner.ResetPath();
                 break;
             case NPCState.Attack:
+                //GameNPCOwner.ResetPath();
                 break;
             }
         }
