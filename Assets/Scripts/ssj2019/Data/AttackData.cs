@@ -25,5 +25,11 @@ namespace pdxpartyparrot.ssj2019.Data
         private int _damageAmount = 1;
 
         public int DamageAmount => _damageAmount;
+
+        [SerializeField]
+        [Min(0)]
+        private int _blockDamageAmount;
+
+        public int BlockDamageAmount => _blockDamageAmount;
     }
 }
