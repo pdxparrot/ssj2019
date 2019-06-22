@@ -2,24 +2,23 @@
 
 namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
 {
-    // TODO: make this not player-specific
-    public sealed class BlockBehaviorComponent : GamePlayerBehaviorComponent
+    public sealed class AttackBehaviorComponent : GameCharacterBehaviorComponent
     {
 #region Actions
-        public class BlockAction : CharacterBehaviorAction
+        public class AttackAction : CharacterBehaviorAction
         {
             public Vector3 Axes { get; set; }
 
             public override string ToString()
             {
-                return $"BlockAction(Axes: {Axes})";
+                return $"AttackAction(Axes: {Axes})";
             }
         }
 #endregion
 
         public override bool OnPerformed(CharacterBehaviorAction action)
         {
-            if(!(action is BlockAction)) {
+            if(!(action is AttackAction)) {
                 return false;
             }
 
