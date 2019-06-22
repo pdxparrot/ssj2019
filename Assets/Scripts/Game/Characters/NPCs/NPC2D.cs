@@ -8,12 +8,10 @@ using pdxpartyparrot.Core.ObjectPool;
 using pdxpartyparrot.Game.Data.Characters;
 
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Game.Characters.NPCs
 {
-    [RequireComponent(typeof(NavMeshAgent))]
     public abstract class NPC2D : Actor2D, INPC
     {
         public GameObject GameObject => gameObject;
