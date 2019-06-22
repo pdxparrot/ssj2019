@@ -100,6 +100,8 @@ namespace pdxpartyparrot.Game
 
         public virtual void GameOver()
         {
+            IsGameOver = true;
+
             GameOverEvent?.Invoke(this, EventArgs.Empty);
         }
     }

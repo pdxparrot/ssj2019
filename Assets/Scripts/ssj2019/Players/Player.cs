@@ -33,6 +33,24 @@ namespace pdxpartyparrot.ssj2019.Players
 
         private GameViewer PlayerGameViewer => (GameViewer)Viewer;
 
+        [Space(10)]
+
+#region Stats
+        [Header("Stats")]
+
+        [SerializeField]
+        [ReadOnly]
+        private int _health;
+
+        public int Health
+        {
+            get => _health;
+            set => _health = value;
+        }
+#endregion
+
+        public bool IsDead => Health < 1;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -98,6 +116,11 @@ namespace pdxpartyparrot.ssj2019.Players
             Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);
         }
 
+        private void InitializeStats()
+        {
+            Health = _playerCharacterData.MaxHealth;
+        }
+
 #region Spawn
         public override bool OnSpawn(SpawnPoint spawnpoint)
         {
@@ -119,6 +142,8 @@ namespace pdxpartyparrot.ssj2019.Players
 
             PlayerGameViewer.AddTarget(this);
 
+            InitializeStats();
+
             return true;
         }
 
@@ -129,6 +154,8 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             PlayerGameViewer.AddTarget(this);
+
+            InitializeStats();
 
             return true;
         }

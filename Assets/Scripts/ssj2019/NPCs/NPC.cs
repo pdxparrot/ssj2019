@@ -30,6 +30,24 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public NPCCharacterData NPCCharacterData => _characterData;
 
+        [Space(10)]
+
+#region Stats
+        [Header("Stats")]
+
+        [SerializeField]
+        [ReadOnly]
+        private int _health;
+
+        public int Health
+        {
+            get => _health;
+            set => _health = value;
+        }
+#endregion
+
+        public bool IsDead => Health < 1;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -80,6 +98,35 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);
         }
+
+        private void InitializeStats()
+        {
+            Health = _characterData.MaxHealth;
+        }
+
+#region Spawn
+        public override bool OnSpawn(SpawnPoint spawnpoint)
+        {
+            if(!base.OnSpawn(spawnpoint)) {
+                return false;
+            }
+
+            InitializeStats();
+
+            return true;
+        }
+
+        public override bool OnReSpawn(SpawnPoint spawnpoint)
+        {
+            if(!base.OnReSpawn(spawnpoint)) {
+                return false;
+            }
+
+            InitializeStats();
+
+            return true;
+        }
+#endregion
 
         public void Damage(Actor source, string type, int amount)
         {

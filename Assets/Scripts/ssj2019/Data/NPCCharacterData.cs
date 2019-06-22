@@ -26,6 +26,13 @@ namespace pdxpartyparrot.ssj2019.Data
 
         public AttackComboData AttackComboData => _attackComboData;
 
-        // TODO: override stats
+#region Stats
+        [Header("Stats")]
+
+        [SerializeField]
+        private int _maxHealth = 1;
+
+        public int MaxHealth => _maxHealth;
+#endregion
     }
 }

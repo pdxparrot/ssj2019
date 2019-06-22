@@ -56,11 +56,16 @@ namespace pdxpartyparrot.Game.NPCs
             foreach(SpawnGroup spawnGroup in _spawnGroups) {
                 spawnGroup.Shutdown();
             }
+
+            if(TimeManager.HasInstance && null != _waveTimer) {
+                TimeManager.Instance.RemoveTimer(_waveTimer);
+            }
+            _waveTimer = null;
         }
 
         public void Start()
         {
-            if(_spawnWaveData is TimedSpawnWaveData) {
+            if(null != _waveTimer) {
                 _waveTimer.Start(TimedSpawnWaveData.Duration);
             }
 
@@ -80,10 +85,9 @@ namespace pdxpartyparrot.Game.NPCs
 
             _spawnedCount = 0;
 
-            if(TimeManager.HasInstance) {
-                TimeManager.Instance.RemoveTimer(_waveTimer);
+            if(null != _waveTimer) {
+                _waveTimer.Stop();
             }
-            _waveTimer = null;
         }
 
 #region Events

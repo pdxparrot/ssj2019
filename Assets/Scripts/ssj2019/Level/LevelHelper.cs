@@ -1,6 +1,7 @@
 ﻿using System;
 
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.NPCs;
 
 using UnityEngine;
@@ -33,17 +34,14 @@ namespace pdxpartyparrot.ssj2019.Level
 
         private void OnDestroy()
         {
+            ShutdownWaveSpawner();
+
             if(GameManager.HasInstance) {
                 GameManager.Instance.GameStartClientEvent -= GameStartClientEventHandler;
                 GameManager.Instance.GameStartServerEvent -= GameStartServerEventHandler;
 
                 GameManager.Instance.UnRegisterLevelHelper(this);
             }
-
-            if(null != _waveSpawner) {
-                Destroy(_waveSpawner);
-            }
-            _waveSpawner = null;
         }
 #endregion
 
@@ -55,11 +53,25 @@ namespace pdxpartyparrot.ssj2019.Level
 
             _waveSpawner = Instantiate(_waveSpawnerPrefab);
             _waveSpawner.Initialize();
+
+            _waveSpawner.WaveCompleteEvent += WaveCompleteEventHandler;
+        }
+
+        private void ShutdownWaveSpawner()
+        {
+            if(null == _waveSpawner) {
+                return;
+            }
+
+            Destroy(_waveSpawner);
+            _waveSpawner = null;
         }
 
 #region Event Handlers
         private void GameStartServerEventHandler(object sender, EventArgs args)
         {
+            SpawnManager.Instance.Initialize();
+
             InitializeWaveSpawner();
 
             // TODO: this should wait until after we have all the players
@@ -71,6 +83,13 @@ namespace pdxpartyparrot.ssj2019.Level
         private void GameStartClientEventHandler(object sender, EventArgs args)
         {
             GameManager.Instance.Viewer.SetBounds(_cameraBounds);
+        }
+
+        private void WaveCompleteEventHandler(object sender, SpawnWaveEventArgs args)
+        {
+            if(args.IsFinalWave) {
+                GameManager.Instance.GameOver();
+            }
         }
 #endregion
     }

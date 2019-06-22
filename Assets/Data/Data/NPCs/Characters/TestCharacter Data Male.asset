@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterModelPrefab: {fileID: 3982071459547463407, guid: 06e255d23be88c047b9ddc94429d3dd9,
     type: 3}
+  _skinIndex: 0
   _attackComboData: {fileID: 11400000, guid: eccf4b5a93f4f96489bbf801a03db087, type: 2}
+  _maxHealth: 10

@@ -57,6 +57,9 @@ namespace pdxpartyparrot.ssj2019.Players
         private SpineAnimationEffectTriggerComponent _hitAnimationEffectTriggerComponent;
 #endregion
 
+        [SerializeField]
+        private EffectTrigger _deathEffectTrigger;
+
         [Space(10)]
 
 #region Action Volumes
@@ -205,9 +208,18 @@ namespace pdxpartyparrot.ssj2019.Players
 #region Events
         public void OnDamage(Actor source, string type, int amount)
         {
+            if(GamePlayerOwner.IsDead) {
+                return;
+            }
+
             Debug.Log($"Player {Owner.Id} damaged by {source.Id}");
 
-            _hitEffectTrigger.Trigger();
+            GamePlayerOwner.Health -= amount;
+            if(GamePlayerOwner.IsDead) {
+                _deathEffectTrigger.Trigger();
+            } else {
+                _hitEffectTrigger.Trigger();
+            }
         }
 #endregion
 

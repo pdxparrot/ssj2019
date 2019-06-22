@@ -76,6 +76,7 @@ MonoBehaviour:
   _blockEndAnimationEffectTriggerComponent: {fileID: 4756346590148829104}
   _hitEffectTrigger: {fileID: 1079242178650208271}
   _hitAnimationEffectTriggerComponent: {fileID: 6129758529191386186}
+  _deathEffectTrigger: {fileID: 6433857838732750911}
   _attackVolume: {fileID: 4234046138188009513}
   _blockVolume: {fileID: 2276791725628702472}
   _blocking: 0
@@ -176,7 +177,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1079242178650208271
 MonoBehaviour:
@@ -255,7 +256,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8939990823969181630
 BoxCollider:
@@ -387,7 +388,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1146156531379595911
 MonoBehaviour:
@@ -467,7 +468,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6966623934742709282
 MonoBehaviour:
@@ -546,7 +547,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8186399107253478634
 BoxCollider:
@@ -612,6 +613,7 @@ Transform:
   - {fileID: 7886281395392948275}
   - {fileID: 8400972290587829921}
   - {fileID: 814946197423954687}
+  - {fileID: 4627852137223526028}
   - {fileID: 6790831346791328268}
   - {fileID: 5471448559866563293}
   - {fileID: 4870319420291113269}
@@ -774,6 +776,7 @@ MonoBehaviour:
   _networkPlayer: {fileID: 4735179189841920839}
   _input: {fileID: 2194374668728194188}
   _playerCharacterData: {fileID: 0}
+  _health: 0
 --- !u!1 &7835375812971009641
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,7 +808,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7159524601455611885
 MonoBehaviour:
@@ -902,3 +905,66 @@ MonoBehaviour:
   _mouseSensitivity: 0.5
   _lastMoveBufferTimestampMs: 0
   _lastLookBufferTimestampMs: 0
+--- !u!1 &8777259801603241557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4627852137223526028}
+  - component: {fileID: 6433857838732750911}
+  - component: {fileID: 5675363421848045140}
+  m_Layer: 12
+  m_Name: Death Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4627852137223526028
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8777259801603241557}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7312426625843009650}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6433857838732750911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8777259801603241557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f0acf5094b571448a3663067cfbfe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 5675363421848045140}
+  _isRunning: 0
+--- !u!114 &5675363421848045140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8777259801603241557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _logMessage: player died
