@@ -14,5 +14,15 @@ namespace pdxpartyparrot.ssj2019.Data
         public class ReorderableList : ReorderableList<AttackData>
         {
         }
+
+        [SerializeField]
+        private string _damageType;
+
+        public string DamageType => _damageType;
+
+        [SerializeField]
+        private int _damageAmount = 1;
+
+        public int DamageAmount => _damageAmount;
     }
 }

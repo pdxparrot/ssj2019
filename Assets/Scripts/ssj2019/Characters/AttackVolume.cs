@@ -1,5 +1,8 @@
-﻿using pdxpartyparrot.Core.Actors;
+﻿using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Game.Actors;
+using pdxpartyparrot.ssj2019.Data;
 
 using UnityEngine;
 
@@ -12,6 +15,9 @@ namespace pdxpartyparrot.ssj2019.Characters
         private Actor _owner;
 
         private Collider _collider;
+
+        [CanBeNull]
+        public AttackData AttackData { get; set; }
 
 #region Unity Lifecycle
         private void Awake()
@@ -32,12 +38,16 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         private void OnTriggerEnter(Collider other)
         {
+            if(null == AttackData) {
+                return;
+            }
+
             IDamagable damagable = other.gameObject.GetComponent<IDamagable>();
             if(null == damagable) {
                 return;
             }
 
-            damagable.Damage(_owner);
+            damagable.Damage(_owner, AttackData.DamageType, AttackData.DamageAmount);
         }
 #endregion
     }

@@ -139,9 +139,9 @@ namespace pdxpartyparrot.ssj2019.Players
         }
 #endregion
 
-        public void Damage(Actor source)
+        public void Damage(Actor source, string type, int amount)
         {
-            GamePlayerBehavior.OnDamage(source);
+            GamePlayerBehavior.OnDamage(source, type, amount);
         }
     }
 }

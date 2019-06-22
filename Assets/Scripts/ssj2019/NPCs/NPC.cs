@@ -79,9 +79,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
             Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);
         }
 
-        public void Damage(Actor source)
+        public void Damage(Actor source, string type, int amount)
         {
-            GameNPCBehavior.OnDamage(source);
+            GameNPCBehavior.OnDamage(source, type, amount);
         }
     }
 }

@@ -210,7 +210,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 #endregion
 
 #region Events
-        public void OnDamage(Actor source)
+        public void OnDamage(Actor source, string type, int amount)
         {
             Debug.Log($"NPC {Owner.Id} damaged by {source.Id}");
         }

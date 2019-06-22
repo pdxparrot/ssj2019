@@ -196,7 +196,7 @@ namespace pdxpartyparrot.ssj2019.Players
 #endregion
 
 #region Events
-        public void OnDamage(Actor source)
+        public void OnDamage(Actor source, string type, int amount)
         {
             Debug.Log($"Player {Owner.Id} damaged by {source.Id}");
         }
