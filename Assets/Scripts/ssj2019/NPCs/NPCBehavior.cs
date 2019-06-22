@@ -6,6 +6,7 @@ using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.NPCs;
 using pdxpartyparrot.Game.Interactables;
@@ -49,11 +50,11 @@ namespace pdxpartyparrot.ssj2019.NPCs
             }
         }
 
-        private bool CanJump => !IsBlocking;
+        private bool CanJump => !IsDead && !IsBlocking && !IsStunned && CanCancel;
 
-        private bool CanAttack => !IsBlocking;
+        private bool CanAttack => !IsDead && !IsBlocking && !IsStunned && CanCancel;
 
-        private bool CanBlock => IsGrounded;
+        private bool CanBlock => !IsDead && IsGrounded && !IsBlocking && !IsStunned && CanCancel;
 
         public bool IsDead => GameNPCOwner.IsDead;
 
@@ -79,11 +80,35 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         [SerializeField]
         [ReadOnly]
+        private bool _stunned;
+
+        public bool IsStunned
+        {
+            get => _stunned;
+            set => _stunned = value;
+        }
+
+        [SerializeField]
+        [ReadOnly]
         private bool _immune;
 
-        public bool IsImmune => NPCManager.Instance.NPCsImmune || _immune;
+        public bool IsImmune
+        {
+            get => NPCManager.Instance.NPCsImmune || _immune;
+            set => _immune = value;
+        }
 
-        public override bool CanMove => base.CanMove && !IsBlocking && !IsDead;
+        [SerializeField]
+        [ReadOnly]
+        private bool _canCancel = true;
+
+        public bool CanCancel
+        {
+            get => _canCancel;
+            set => _canCancel = value;
+        }
+
+        public override bool CanMove => base.CanMove && !IsBlocking && !IsStunned && CanCancel && !IsDead;
 
         [SerializeField]
         [ReadOnly]
@@ -280,6 +305,19 @@ namespace pdxpartyparrot.ssj2019.NPCs
 #endregion
 
 #region Spawn
+        public override void OnSpawn(SpawnPoint spawnpoint)
+        {
+            base.OnSpawn(spawnpoint);
+
+            _blocking = false;
+            _parry = false;
+            _stunned = false;
+            _immune = false;
+            _canCancel = true;
+
+            // TODO: add a small window of immunity on spawn
+        }
+
         public override void OnDeSpawn()
         {
             GameManager.Instance.LevelHelper.WaveSpawner.CurrentWave.OnWaveSpawnMemberDone();
@@ -299,7 +337,17 @@ namespace pdxpartyparrot.ssj2019.NPCs
             _brawlerBehavior.Attack(GameNPCOwner.NPCCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(0));
         }
 
+        public void OnHit(bool blocked)
+        {
+            ClearActionBuffer();
+        }
+
         public void OnDead()
+        {
+            ClearActionBuffer();
+        }
+
+        public void OnDeathComplete()
         {
             NPC.Recycle();
         }
@@ -311,8 +359,6 @@ namespace pdxpartyparrot.ssj2019.NPCs
             if(!CanJump) {
                 return;
             }
-
-            //ClearActionBuffer();
 
             ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
         }

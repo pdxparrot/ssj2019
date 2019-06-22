@@ -4,6 +4,7 @@ using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.ssj2019.Characters;
@@ -26,11 +27,11 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public Brawler Brawler => GamePlayerOwner.Brawler;
 
-        private bool CanJump => !IsBlocking;
+        private bool CanJump => !IsDead && !IsBlocking && !IsStunned && CanCancel;
 
-        private bool CanAttack => !IsBlocking;
+        private bool CanAttack => !IsDead && !IsBlocking && !IsStunned && CanCancel;
 
-        private bool CanBlock => IsGrounded;
+        private bool CanBlock => !IsDead && IsGrounded && !IsBlocking && !IsStunned && CanCancel;
 
         public bool IsDead => GamePlayerOwner.IsDead;
 
@@ -56,11 +57,35 @@ namespace pdxpartyparrot.ssj2019.Players
 
         [SerializeField]
         [ReadOnly]
+        private bool _stunned;
+
+        public bool IsStunned
+        {
+            get => _stunned;
+            set => _stunned = value;
+        }
+
+        [SerializeField]
+        [ReadOnly]
         private bool _immune;
 
-        public bool IsImmune => PlayerManager.Instance.PlayersImmune || _immune;
+        public bool IsImmune
+        {
+            get => PlayerManager.Instance.PlayersImmune || _immune;
+            set => _immune = value;
+        }
 
-        public override bool CanMove => base.CanMove && !IsBlocking && !IsDead;
+        [SerializeField]
+        [ReadOnly]
+        private bool _canCancel = true;
+
+        public bool CanCancel
+        {
+            get => _canCancel;
+            set => _canCancel = value;
+        }
+
+       public override bool CanMove => base.CanMove && !IsBlocking && !IsStunned && CanCancel && !IsDead;
 
         private BrawlerBehavior _brawlerBehavior;
 
@@ -107,6 +132,21 @@ namespace pdxpartyparrot.ssj2019.Players
             rumbleEffect.GamepadListener = GamePlayerOwner.GamePlayerInput.GamepadListener;
         }
 
+#region Spawn
+        public override void OnSpawn(SpawnPoint spawnpoint)
+        {
+            base.OnSpawn(spawnpoint);
+
+            _blocking = false;
+            _parry = false;
+            _stunned = false;
+            _immune = false;
+            _canCancel = true;
+
+            // TODO: add a small window of immunity on spawn
+        }
+#endregion
+
 #region Brawler Actions
         public void OnIdle()
         {
@@ -118,9 +158,20 @@ namespace pdxpartyparrot.ssj2019.Players
             _brawlerBehavior.Attack(GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(0));
         }
 
+        public void OnHit(bool blocked)
+        {
+            ClearActionBuffer();
+        }
+
         public void OnDead()
         {
+            ClearActionBuffer();
+
             GameManager.Instance.PlayerDied(GamePlayerOwner);
+        }
+
+        public void OnDeathComplete()
+        {
         }
 #endregion
 
@@ -130,8 +181,6 @@ namespace pdxpartyparrot.ssj2019.Players
             if(!CanJump) {
                 return;
             }
-
-            //ClearActionBuffer();
 
             ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
         }

@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.NPCs
 {
+    // TODO this needs a Game level parent
     public sealed class NPCManager : SingletonBehavior<NPCManager>
     {
 #region Debug

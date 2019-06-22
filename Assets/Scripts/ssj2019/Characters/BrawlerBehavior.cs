@@ -28,11 +28,26 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         bool IsParry { get; set; }
 
+        bool IsStunned { get; set; }
+
+        bool IsImmune { get; set; }
+
+        bool CanCancel { get; set; }
+
+        // tells the brawler to go idle
         void OnIdle();
 
+        // triggers when the brawler should attack
         void OnAttack();
 
+        // triggers when the brawler is hit
+        void OnHit(bool blocked);
+
+        // triggers when the brawler is dead
         void OnDead();
+
+        // triggers when the brawler death animation completes
+        void OnDeathComplete();
     }
 
     public sealed class BrawlerBehavior : MonoBehaviour
@@ -149,22 +164,52 @@ namespace pdxpartyparrot.ssj2019.Characters
                 return;
             }
 
+            CancelActions();
+
+            // TODO: parry
+
             // TODO: somehow we need to handle chip damage
             // but for now we'll just dump all of it
-            if(_actionHandler.IsBlocking) {
+            // TODO: also blocking is all about the block volume
+            /*if(_actionHandler.IsBlocking) {
                 Debug.Log($"Brawler {_actionHandler.Owner.Id} blocked damaged by {source.Id} for {amount}");
                 _blockEffectTrigger.Trigger();
+                _actionHandler.OnHit(true);
                 return;
-            }
+            }*/
 
             Debug.Log($"Brawler {_actionHandler.Owner.Id} damaged by {source.Id} for {amount}");
 
             _actionHandler.Brawler.Health -= amount;
             if(_actionHandler.IsDead) {
-                _deathEffectTrigger.Trigger(() => _actionHandler.OnDead());
+                _deathEffectTrigger.Trigger(() => _actionHandler.OnDeathComplete());
+                _actionHandler.OnDead();
             } else {
-                _hitEffectTrigger.Trigger();
+                _hitEffectTrigger.Trigger(() => _actionHandler.OnIdle());
+                _actionHandler.OnHit(false);
             }
+        }
+
+        private void CancelActions()
+        {
+            if(!_actionHandler.CanCancel) {
+                return;
+            }
+
+            // if we're not inside a cancel window,
+            // we need to make sure we clean up after
+            // any animations that might be doing stuff
+
+            // cancel blocks
+            EnableBlockVolume(false);
+            _actionHandler.IsParry = false;
+            _actionHandler.IsBlocking = false;
+
+            // cancel attacks
+            EnableAttackVolume(false);
+
+            // idle out
+            _actionHandler.OnIdle();
         }
 
         private void InitializeEffects()
