@@ -5,9 +5,11 @@ using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.NPCs;
 
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace pdxpartyparrot.ssj2019.Level
 {
+    [RequireComponent(typeof(NavMeshSurface))]
     public sealed class LevelHelper : MonoBehaviour
     {
         [SerializeField]
