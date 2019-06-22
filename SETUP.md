@@ -3,6 +3,7 @@
 * Having the ability to generate a lot of the inital data / prefabs would make this a lot faster
   * https://docs.unity3d.com/ScriptReference/PrefabUtility.html
 * https://docs.unity3d.com/Packages/com.unity.inputsystem@0.2/changelog/CHANGELOG.html
+* https://github.com/Unity-Technologies/NavMeshComponents
 
 # Project Creation
 
