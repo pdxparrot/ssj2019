@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using pdxpartyparrot.Core.Collections;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Interactables
 {
-    public abstract class Interactables : MonoBehaviour
+    public abstract class Interactables : MonoBehaviour, IEnumerable<IInteractable>
     {
 #region Events
         public event EventHandler<InteractableEventArgs> InteractableAddedEvent;
@@ -25,6 +26,20 @@ namespace pdxpartyparrot.Game.Interactables
         public IReadOnlyCollection<IInteractable> GetInteractables<T>() where T: IInteractable
         {
             return _interactables.GetOrAdd(typeof(T));
+        }
+
+        public IEnumerator<IInteractable> GetEnumerator()
+        {
+            foreach(var kvp in _interactables) {
+                foreach(IInteractable interactable in kvp.Value) {
+                    yield return interactable;
+                }
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         public bool HasInteractables<T>() where T: IInteractable

@@ -1,11 +1,13 @@
 ﻿using pdxpartyparrot.Core.Actors;
+using pdxpartyparrot.Game.Interactables;
 
 using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Characters
 {
+    [RequireComponent(typeof(Interactables))]
     [RequireComponent(typeof(BoxCollider))]
-    public abstract class ActionVolume : MonoBehaviour
+    public abstract class ActionVolume : MonoBehaviour, IInteractable
     {
         [SerializeField]
         private Actor _owner;
@@ -15,6 +17,8 @@ namespace pdxpartyparrot.ssj2019.Characters
         protected BoxCollider _collider;
 
         protected bool Enabled { get; private set; }
+
+        public bool CanInteract => Enabled;
 
         public Vector3 Offset
         {
@@ -28,11 +32,15 @@ namespace pdxpartyparrot.ssj2019.Characters
             protected set => _collider.size = value;
         }
 
+        protected Interactables Interactables { get; private set; }
+
 #region Unity Lifecycle
         protected virtual void Awake()
         {
             _collider = GetComponent<BoxCollider>();
             _collider.isTrigger = true;
+
+            Interactables = GetComponent<Interactables>();
         }
 
         protected virtual void OnDrawGizmos()
@@ -44,7 +52,7 @@ namespace pdxpartyparrot.ssj2019.Characters
         }
 #endregion
 
-        public void EnableVolume(bool enable)
+        public virtual void EnableVolume(bool enable)
         {
             Enabled = enable;
         }

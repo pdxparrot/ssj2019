@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 
 using pdxpartyparrot.Game.Actors;
+using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ssj2019.Data;
 
 using UnityEngine;
@@ -13,24 +14,17 @@ namespace pdxpartyparrot.ssj2019.Characters
         private AttackData _attackData;
 
 #region Unity Lifecycle
+        protected override void Awake()
+        {
+            base.Awake();
+
+            Interactables.InteractableAddedEvent += InteractableAddedEventHandler;
+        }
+
         protected override void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
             base.OnDrawGizmos();
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if(!Enabled || null == _attackData) {
-                return;
-            }
-
-            IDamagable damagable = other.gameObject.GetComponent<IDamagable>();
-            if(null == damagable) {
-                return;
-            }
-
-            damagable.Damage(Owner, _attackData.DamageType, _attackData.DamageAmount);
         }
 #endregion
 
@@ -43,6 +37,40 @@ namespace pdxpartyparrot.ssj2019.Characters
 
             Offset = offset;
             Size = _attackData.AttackVolumeSize;
+        }
+
+        public override void EnableVolume(bool enable)
+        {
+            base.EnableVolume(enable);
+
+            if(!Enabled || null == _attackData) {
+                return;
+            }
+
+            foreach(IInteractable interactable in Interactables) {
+                AttackInteractable(interactable);
+            }
+        }
+
+#region Event Handlers
+        private void InteractableAddedEventHandler(object sender, InteractableEventArgs args)
+        {
+            if(!Enabled || null == _attackData) {
+                return;
+            }
+
+            AttackInteractable(args.Interactable);
+        }
+#endregion
+
+        private void AttackInteractable(IInteractable interactable)
+        {
+            IDamagable damagable = interactable.gameObject.GetComponent<IDamagable>();
+            if(null == damagable) {
+                return;
+            }
+
+            damagable.Damage(Owner, _attackData.DamageType, _attackData.DamageAmount);
         }
     }
 }

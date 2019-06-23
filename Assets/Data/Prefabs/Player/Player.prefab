@@ -301,6 +301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2879474997430178217}
   - component: {fileID: 8939990823969181630}
+  - component: {fileID: 5893360746039211080}
   - component: {fileID: 4234046138188009513}
   m_Layer: 16
   m_Name: Attack Volume
@@ -336,6 +337,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5893360746039211080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3783884987520704992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0be470c70abf64d8d4275094f6eaab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4234046138188009513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,6 +688,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8353411165582611084}
   - component: {fileID: 8186399107253478634}
+  - component: {fileID: 443324216448711571}
   - component: {fileID: 2276791725628702472}
   m_Layer: 12
   m_Name: Block Volume
@@ -710,6 +724,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &443324216448711571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5834506326356446408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0be470c70abf64d8d4275094f6eaab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2276791725628702472
 MonoBehaviour:
   m_ObjectHideFlags: 0

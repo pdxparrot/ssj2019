@@ -1,4 +1,4 @@
-﻿using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ssj2019.Data;
 
 using UnityEngine;
@@ -18,6 +18,16 @@ namespace pdxpartyparrot.ssj2019.Characters
         {
             get => _health;
             set => _health = value;
+        }
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _attacking;
+
+        public bool IsAttacking
+        {
+            get => _attacking;
+            set => _attacking = value;
         }
 
         [SerializeField]
@@ -79,6 +89,7 @@ namespace pdxpartyparrot.ssj2019.Characters
             _brawlerData = brawlerData;
 
             _health = _brawlerData.MaxHealth;
+            _attacking = false;
             _blocking = false;
             _parry = false;
             _stunned = false;
