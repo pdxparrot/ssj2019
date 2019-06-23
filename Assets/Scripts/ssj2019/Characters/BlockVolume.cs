@@ -1,33 +1,23 @@
-﻿using pdxpartyparrot.Core.Actors;
-
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Characters
 {
-    [RequireComponent(typeof(Collider))]
-    public sealed class BlockVolume : MonoBehaviour
+    public sealed class BlockVolume : ActionVolume
     {
-        [SerializeField]
-        private Actor _owner;
-
-        private Collider _collider;
-
 #region Unity Lifecycle
-        private void Awake()
+        protected override void OnDrawGizmos()
         {
-            _collider = GetComponent<Collider>();
-            _collider.isTrigger = true;
-        }
-
-        private void OnDrawGizmos()
-        {
-            if(!Application.isPlaying) {
-                return;
-            }
-
             Gizmos.color = Color.blue;
-            Gizmos.DrawCube(_collider.bounds.center, _collider.bounds.size);
+            base.OnDrawGizmos();
         }
 #endregion
+
+        public void SetBlock(Vector3 offset, Vector3 size, Vector3 direction)
+        {
+            offset.x *= Mathf.Sign(direction.x);
+
+            Offset = offset;
+            Size = size;
+        }
     }
 }

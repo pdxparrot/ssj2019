@@ -40,8 +40,6 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
                 return false;
             }
 
-            Behavior.ClearActionBuffer();
-
             Brawler.BrawlerBehavior.ToggleBlock();
 
             return true;

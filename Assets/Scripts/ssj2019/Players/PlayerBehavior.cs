@@ -23,8 +23,6 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public Player GamePlayerOwner => (Player)Owner;
 
-        public BrawlerData BrawlerData => GamePlayerOwner.PlayerCharacterData.BrawlerData;
-
         public Brawler Brawler => GamePlayerOwner.Brawler;
 
         private bool CanJump => !IsDead && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel;
@@ -139,6 +137,11 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public void OnDeathComplete()
         {
+        }
+
+        public void OnCancelActions()
+        {
+            ClearActionBuffer();
         }
 #endregion
 

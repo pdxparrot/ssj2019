@@ -21,7 +21,11 @@ namespace pdxpartyparrot.Core.Animation
 
         public void Pause(bool pause)
         {
-            SkeletonAnimation.timeScale = pause ? 0.0f : 1.0f;
+            // null check this just in case we pause
+            // before the skeleton link is valid
+            if(null != SkeletonAnimation) {
+                SkeletonAnimation.timeScale = pause ? 0.0f : 1.0f;
+            }
         }
 
         public void ResetAnimation()

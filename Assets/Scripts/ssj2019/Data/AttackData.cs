@@ -31,5 +31,15 @@ namespace pdxpartyparrot.ssj2019.Data
         private int _blockDamageAmount;
 
         public int BlockDamageAmount => _blockDamageAmount;
+
+        [SerializeField]
+        private Vector3 _attackVolumeOffset;
+
+        public Vector3 AttackVolumeOffset => _attackVolumeOffset;
+
+        [SerializeField]
+        private Vector3 _attackVolumeSize = new Vector3(1.0f, 1.0f, 1.0f);
+
+        public Vector3 AttackVolumeSize => _attackVolumeSize;
     }
 }

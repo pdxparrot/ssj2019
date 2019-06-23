@@ -16,8 +16,6 @@ namespace pdxpartyparrot.ssj2019.Characters
     {
         Actor Owner { get; }
 
-        BrawlerData BrawlerData { get; }
-
         Brawler Brawler { get; }
 
         CharacterBehaviorComponent.CharacterBehaviorAction LastAction { get; }
@@ -27,6 +25,8 @@ namespace pdxpartyparrot.ssj2019.Characters
         bool IsImmune { get; set; }
 
         bool CanBlock { get; }
+
+        Vector3 FacingDirection { get; }
 
         AttackData CurrentAttack { get; }
 
@@ -44,6 +44,8 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         // triggers when the brawler death animation completes
         void OnDeathComplete();
+
+        void OnCancelActions();
     }
 
     public sealed class BrawlerBehavior : MonoBehaviour
@@ -115,8 +117,8 @@ namespace pdxpartyparrot.ssj2019.Characters
 #region Unity Lifecycle
         private void Awake()
         {
-            _attackVolume.gameObject.SetActive(false);
-            _blockVolume.gameObject.SetActive(false);
+            EnableAttackVolume(false);
+            EnableBlockVolume(false);
 
             InitializeEffects();
         }
@@ -142,7 +144,8 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         public void Attack()
         {
-            _attackVolume.AttackData = _actionHandler.CurrentAttack;
+            _attackVolume.SetAttack(_actionHandler.CurrentAttack, _actionHandler.FacingDirection);
+
             _attackEffectTrigger.Trigger(() => _actionHandler.OnIdle());
         }
 
@@ -154,13 +157,17 @@ namespace pdxpartyparrot.ssj2019.Characters
                 return;
             }
 
+            CancelActions();
+
+            _blockVolume.SetBlock(_actionHandler.Brawler.BrawlerData.BlockVolumeOffset, _actionHandler.Brawler.BrawlerData.BlockVolumeSize, _actionHandler.FacingDirection);
+
             _actionHandler.Brawler.IsBlocking = true;
             _blockBeginEffectTrigger.Trigger();
         }
 
         public void Damage(Actor source, string type, int amount)
         {
-            if(_actionHandler.IsDead) {
+            if(_actionHandler.IsDead || _actionHandler.IsImmune) {
                 return;
             }
 
@@ -208,6 +215,8 @@ namespace pdxpartyparrot.ssj2019.Characters
             // cancel attacks
             EnableAttackVolume(false);
 
+            _actionHandler.OnCancelActions();
+
             // idle out
             _actionHandler.OnIdle();
         }
@@ -244,12 +253,12 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         private void EnableAttackVolume(bool enable)
         {
-            _attackVolume.gameObject.SetActive(enable);
+            _attackVolume.EnableVolume(enable);
         }
 
         private void EnableBlockVolume(bool enable)
         {
-            _blockVolume.gameObject.SetActive(enable);
+            _blockVolume.EnableVolume(enable);
         }
 
 #region Event Handlers
@@ -265,9 +274,9 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         private void AttackAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
-            if(_actionHandler.BrawlerData.AttackVolumeSpawnEvent == evt.Data.Name) {
+            if(_actionHandler.Brawler.BrawlerData.AttackVolumeSpawnEvent == evt.Data.Name) {
                 EnableAttackVolume(true);
-            } else if(_actionHandler.BrawlerData.AttackVolumeDeSpawnEvent == evt.Data.Name) {
+            } else if(_actionHandler.Brawler.BrawlerData.AttackVolumeDeSpawnEvent == evt.Data.Name) {
                 EnableAttackVolume(false);
             } else {
                 Debug.LogWarning($"Unhandled attack event: {evt.Data.Name}");
@@ -286,11 +295,11 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         private void BlockBeginAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
-            if(_actionHandler.BrawlerData.BlockVolumeSpawnEvent == evt.Data.Name) {
+            if(_actionHandler.Brawler.BrawlerData.BlockVolumeSpawnEvent == evt.Data.Name) {
                 EnableBlockVolume(true);
-            } else if(_actionHandler.BrawlerData.ParryWindowOpenEvent == evt.Data.Name) {
+            } else if(_actionHandler.Brawler.BrawlerData.ParryWindowOpenEvent == evt.Data.Name) {
                 _actionHandler.Brawler.IsParry = true;
-            } else if(_actionHandler.BrawlerData.ParryWindowCloseEvent == evt.Data.Name) {
+            } else if(_actionHandler.Brawler.BrawlerData.ParryWindowCloseEvent == evt.Data.Name) {
                 _actionHandler.Brawler.IsParry = false;
             } else {
                 Debug.Log($"Unhandled block begin event: {evt.Data.Name}");
@@ -309,7 +318,7 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         private void BlockEndAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
-            if(_actionHandler.BrawlerData.BlockVolumeDeSpawnEvent == evt.Data.Name) {
+            if(_actionHandler.Brawler.BrawlerData.BlockVolumeDeSpawnEvent == evt.Data.Name) {
                 EnableBlockVolume(false);
             } else {
                 Debug.Log($"Unhandled block end event: {evt.Data.Name}");
@@ -328,7 +337,7 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         private void HitAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
-            if(_actionHandler.BrawlerData.HitImpactEvent == evt.Data.Name) {
+            if(_actionHandler.Brawler.BrawlerData.HitImpactEvent == evt.Data.Name) {
                 // TODO: damage
             } else {
                 Debug.Log($"Unhandled hit end event: {evt.Data.Name}");

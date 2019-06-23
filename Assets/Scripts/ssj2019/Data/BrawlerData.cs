@@ -74,6 +74,20 @@ namespace pdxpartyparrot.ssj2019.Data
 
         [Space(10)]
 
+#region Attack Volumes
+        [SerializeField]
+        private Vector3 _blockVolumeOffset;
+
+        public Vector3 BlockVolumeOffset => _blockVolumeOffset;
+
+        [SerializeField]
+        private Vector3 _blockVolumeSize = new Vector3(1.0f, 1.0f, 1.0f);
+
+        public Vector3 BlockVolumeSize => _blockVolumeSize;
+#endregion
+
+        [Space(10)]
+
         [SerializeField]
         private AttackComboData _attackComboData;
 

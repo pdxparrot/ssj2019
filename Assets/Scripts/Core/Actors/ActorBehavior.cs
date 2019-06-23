@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using pdxpartyparrot.Core.Animation;
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Effects;
+using pdxpartyparrot.Core.Math;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
 
@@ -37,6 +38,8 @@ namespace pdxpartyparrot.Core.Actors
         private ActorMovement _movement;
 
         public ActorMovement Movement => _movement;
+
+        public Vector3 FacingDirection { get; private set; }
 
         public bool IsMoving { get; protected set; }
 
@@ -169,18 +172,24 @@ namespace pdxpartyparrot.Core.Actors
 
         protected void SetFacing(Vector3 direction)
         {
+            if(direction.sqrMagnitude < MathUtil.Epsilon) {
+                return;
+            }
+
+            FacingDirection = direction;
+
 #if USE_SPINE
             if(null != SpineAnimationHelper) {
-                SpineAnimationHelper.SetFacing(direction);
+                SpineAnimationHelper.SetFacing(FacingDirection);
             }
 #endif
 
             if(null != SpriteAnimationHelper) {
-                SpriteAnimationHelper.SetFacing(direction);
+                SpriteAnimationHelper.SetFacing(FacingDirection);
             }
 
             if(null != Owner.Model && BehaviorData.AnimateModel) {
-                Owner.Model.transform.forward = direction;
+                Owner.Model.transform.forward = FacingDirection;
             }
         }
 

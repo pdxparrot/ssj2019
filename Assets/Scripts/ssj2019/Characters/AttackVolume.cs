@@ -1,6 +1,5 @@
 ﻿using JetBrains.Annotations;
 
-using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.ssj2019.Data;
 
@@ -8,37 +7,21 @@ using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Characters
 {
-    [RequireComponent(typeof(Collider))]
-    public sealed class AttackVolume : MonoBehaviour
+    public sealed class AttackVolume : ActionVolume
     {
-        [SerializeField]
-        private Actor _owner;
-
-        private Collider _collider;
-
         [CanBeNull]
-        public AttackData AttackData { get; set; }
+        private AttackData _attackData;
 
 #region Unity Lifecycle
-        private void Awake()
+        protected override void OnDrawGizmos()
         {
-            _collider = GetComponent<Collider>();
-            _collider.isTrigger = true;
-        }
-
-        private void OnDrawGizmos()
-        {
-            if(!Application.isPlaying) {
-                return;
-            }
-
             Gizmos.color = Color.red;
-            Gizmos.DrawCube(_collider.bounds.center, _collider.bounds.size);
+            base.OnDrawGizmos();
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if(null == AttackData) {
+            if(!Enabled || null == _attackData) {
                 return;
             }
 
@@ -47,8 +30,19 @@ namespace pdxpartyparrot.ssj2019.Characters
                 return;
             }
 
-            damagable.Damage(_owner, AttackData.DamageType, AttackData.DamageAmount);
+            damagable.Damage(Owner, _attackData.DamageType, _attackData.DamageAmount);
         }
 #endregion
+
+        public void SetAttack([NotNull] AttackData attackData, Vector3 direction)
+        {
+            _attackData = attackData;
+
+            Vector3 offset = _attackData.AttackVolumeOffset;
+            offset.x *= Mathf.Sign(direction.x);
+
+            Offset = offset;
+            Size = _attackData.AttackVolumeSize;
+        }
     }
 }

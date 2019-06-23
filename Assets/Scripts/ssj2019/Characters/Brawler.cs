@@ -72,6 +72,8 @@ namespace pdxpartyparrot.ssj2019.Characters
         [ReadOnly]
         private BrawlerData _brawlerData;
 
+        public BrawlerData BrawlerData => _brawlerData;
+
         public void Initialize(BrawlerData brawlerData)
         {
             _brawlerData = brawlerData;

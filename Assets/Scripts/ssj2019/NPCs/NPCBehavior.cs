@@ -34,8 +34,6 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public NPC GameNPCOwner => (NPC)Owner;
 
-        public BrawlerData BrawlerData => GameNPCOwner.NPCCharacterData.BrawlerData;
-
         public Brawler Brawler => GameNPCOwner.Brawler;
 
         [SerializeField]
@@ -317,6 +315,11 @@ namespace pdxpartyparrot.ssj2019.NPCs
         public void OnDeathComplete()
         {
             NPC.Recycle();
+        }
+
+        public void OnCancelActions()
+        {
+            ClearActionBuffer();
         }
 #endregion
 

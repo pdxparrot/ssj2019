@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1011391a36fda02429da9d8b82d3fedc, type: 3}
   m_Name: TestAttack Data
   m_EditorClassIdentifier: 
+  _damageType: 
+  _damageAmount: 1
+  _blockDamageAmount: 0
+  _attackVolumeOffset: {x: 0.75, y: 1.286, z: 0}
+  _attackVolumeSize: {x: 0.75, y: 0.75, z: 0.75}
