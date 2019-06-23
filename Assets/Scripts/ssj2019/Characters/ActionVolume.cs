@@ -1,4 +1,5 @@
 ﻿using pdxpartyparrot.Core.Actors;
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Interactables;
 
 using UnityEngine;
@@ -16,7 +17,15 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         protected BoxCollider _collider;
 
-        protected bool Enabled { get; private set; }
+        [SerializeField]
+        [ReadOnly]
+        private bool _enabled;
+
+        protected bool Enabled
+        {
+            get => _enabled;
+            private set => _enabled = value;
+        }
 
         public bool CanInteract => Enabled;
 

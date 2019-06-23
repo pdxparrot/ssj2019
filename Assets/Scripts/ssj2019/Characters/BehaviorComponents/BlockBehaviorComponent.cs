@@ -31,7 +31,7 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
                 return false;
             }
 
-            if(Brawler.IsBlocking) {
+            if(BrawlerAction.ActionType.Block == Brawler.CurrentAction.Type) {
                 Brawler.BrawlerBehavior.ToggleBlock();
                 return true;
             }

@@ -131,7 +131,7 @@ namespace pdxpartyparrot.ssj2019.Characters
         private void Update()
         {
             // pump the action buffer
-            if(_actionHandler.LastAction is AttackBehaviorComponent.AttackAction attackAction && !_actionHandler.Brawler.IsAttacking) {
+            if(_actionHandler.LastAction is AttackBehaviorComponent.AttackAction attackAction && BrawlerAction.ActionType.Idle == _actionHandler.Brawler.CurrentAction.Type) {
                 _actionHandler.OnAttack(attackAction);
             }
         }
@@ -146,17 +146,17 @@ namespace pdxpartyparrot.ssj2019.Characters
         {
             _attackVolume.SetAttack(_actionHandler.CurrentAttack, _actionHandler.FacingDirection);
 
-            _actionHandler.Brawler.IsAttacking = true;
+            _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Attack);
             _attackEffectTrigger.Trigger(() => {
-                _actionHandler.Brawler.IsAttacking = false;
+                _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
                 _actionHandler.OnIdle();
             });
         }
 
         public void ToggleBlock()
         {
-            if(_actionHandler.Brawler.IsBlocking) {
-                _actionHandler.Brawler.IsBlocking = false;
+            if(BrawlerAction.ActionType.Block == _actionHandler.Brawler.CurrentAction.Type) {
+                _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
                 _blockEndEffectTrigger.Trigger(() => _actionHandler.OnIdle());
                 return;
             }
@@ -165,7 +165,7 @@ namespace pdxpartyparrot.ssj2019.Characters
 
             _blockVolume.SetBlock(_actionHandler.Brawler.BrawlerData.BlockVolumeOffset, _actionHandler.Brawler.BrawlerData.BlockVolumeSize, _actionHandler.FacingDirection);
 
-            _actionHandler.Brawler.IsBlocking = true;
+                _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Block);
             _blockBeginEffectTrigger.Trigger();
         }
 
@@ -174,8 +174,6 @@ namespace pdxpartyparrot.ssj2019.Characters
             if(_actionHandler.IsDead || _actionHandler.IsImmune) {
                 return;
             }
-
-            CancelActions();
 
             // TODO: parry
 
@@ -191,6 +189,8 @@ namespace pdxpartyparrot.ssj2019.Characters
 
             Debug.Log($"Brawler {_actionHandler.Owner.Id} damaged by {source.Id} for {amount}");
 
+            CancelActions();
+
             _actionHandler.Brawler.Health -= amount;
             if(_actionHandler.IsDead) {
                 _deathEffectTrigger.Trigger(() => _actionHandler.OnDeathComplete());
@@ -203,7 +203,7 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         private void CancelActions()
         {
-            if(!_actionHandler.Brawler.CanCancel) {
+            if(!_actionHandler.Brawler.CurrentAction.Cancellable) {
                 return;
             }
 
@@ -214,20 +214,14 @@ namespace pdxpartyparrot.ssj2019.Characters
             // cancel blocks
             EnableBlockVolume(false);
 
-            // reset a bunch of state and pray it doesn't screw anything up
-            _actionHandler.Brawler.IsParry = false;
-            _actionHandler.Brawler.IsBlocking = false;
-            _actionHandler.Brawler.IsAttacking = false;
-            _actionHandler.Brawler.CanCancel = true;
-            _actionHandler.Brawler.IsStunned = false;
-
             // cancel attacks
             EnableAttackVolume(false);
 
-            _actionHandler.OnCancelActions();
-
             // idle out
+            _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
             _actionHandler.OnIdle();
+
+            _actionHandler.OnCancelActions();
         }
 
         private void InitializeEffects()
@@ -307,9 +301,9 @@ namespace pdxpartyparrot.ssj2019.Characters
             if(_actionHandler.Brawler.BrawlerData.BlockVolumeSpawnEvent == evt.Data.Name) {
                 EnableBlockVolume(true);
             } else if(_actionHandler.Brawler.BrawlerData.ParryWindowOpenEvent == evt.Data.Name) {
-                _actionHandler.Brawler.IsParry = true;
+                //_actionHandler.Brawler.IsParry = true;
             } else if(_actionHandler.Brawler.BrawlerData.ParryWindowCloseEvent == evt.Data.Name) {
-                _actionHandler.Brawler.IsParry = false;
+                //_actionHandler.Brawler.IsParry = false;
             } else {
                 Debug.Log($"Unhandled block begin event: {evt.Data.Name}");
             }

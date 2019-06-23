@@ -25,11 +25,11 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public Brawler Brawler => GamePlayerOwner.Brawler;
 
-        private bool CanJump => !IsDead && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel;
+        private bool CanJump => !IsDead && Brawler.CurrentAction.CanAct;
 
-        private bool CanAttack => !IsDead && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel;
+        private bool CanAttack => !IsDead && Brawler.CurrentAction.CanAct;
 
-        public bool CanBlock => !IsDead && IsGrounded && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel;
+        public bool CanBlock => !IsDead && IsGrounded && Brawler.CurrentAction.CanAct;
 
         public bool IsDead => GamePlayerOwner.IsDead;
 
@@ -43,7 +43,7 @@ namespace pdxpartyparrot.ssj2019.Players
             set => _immune = value;
         }
 
-        public override bool CanMove => base.CanMove && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel && !IsDead;
+        public override bool CanMove => base.CanMove && !IsDead && Brawler.CurrentAction.CanAct;
 
         // TODO: this depends on which piece of a combo we're in and other factors
         public AttackData CurrentAttack => GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(0);

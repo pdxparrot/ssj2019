@@ -48,11 +48,11 @@ namespace pdxpartyparrot.ssj2019.NPCs
             }
         }
 
-        private bool CanJump => !IsDead && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel;
+        private bool CanJump => !IsDead && Brawler.CurrentAction.CanAct;
 
-        private bool CanAttack => !IsDead && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel;
+        private bool CanAttack => !IsDead && Brawler.CurrentAction.CanAct;
 
-        public bool CanBlock => !IsDead && IsGrounded && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel;
+        public bool CanBlock => !IsDead && IsGrounded && Brawler.CurrentAction.CanAct;
 
         public bool IsDead => GameNPCOwner.IsDead;
 
@@ -66,7 +66,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             set => _immune = value;
         }
 
-        public override bool CanMove => base.CanMove && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel && !IsDead;
+        public override bool CanMove => base.CanMove && !IsDead && Brawler.CurrentAction.CanAct;
 
         // TODO: this depends on which piece of a combo we're in and other factors
         public AttackData CurrentAttack => GameNPCOwner.NPCCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(0);
