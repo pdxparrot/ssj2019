@@ -26,6 +26,8 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         bool IsImmune { get; set; }
 
+        bool CanBlock { get; }
+
         // tells the brawler to go idle
         void OnIdle();
 
@@ -105,6 +107,8 @@ namespace pdxpartyparrot.ssj2019.Characters
         [SerializeField]
         [ReadOnly]
         private IBrawlerBehaviorActions _actionHandler;
+
+        public bool CanBlock => _actionHandler.CanBlock;
 
 #region Unity Lifecycle
         private void Awake()

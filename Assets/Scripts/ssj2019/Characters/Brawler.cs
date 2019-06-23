@@ -64,6 +64,11 @@ namespace pdxpartyparrot.ssj2019.Characters
         [Space(10)]
 
         [SerializeField]
+        private BrawlerBehavior _brawlerBehavior;
+
+        public BrawlerBehavior BrawlerBehavior => _brawlerBehavior;
+
+        [SerializeField]
         [ReadOnly]
         private BrawlerData _brawlerData;
 

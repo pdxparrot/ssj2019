@@ -31,7 +31,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
         private bool CanAttack => !IsDead && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel;
 
-        private bool CanBlock => !IsDead && IsGrounded && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel;
+        public bool CanBlock => !IsDead && IsGrounded && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel;
 
         public bool IsDead => GamePlayerOwner.IsDead;
 
@@ -47,6 +47,12 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public override bool CanMove => base.CanMove && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel && !IsDead;
 
+        [SerializeField]
+        private AttackBehaviorComponent _attackBehaviorComponent;
+
+        [SerializeField]
+        private BlockBehaviorComponent _blockBehaviorComponent;
+
         private BrawlerBehavior _brawlerBehavior;
 
 #region Unity Lifecycle
@@ -57,6 +63,9 @@ namespace pdxpartyparrot.ssj2019.Players
             base.Awake();
 
             _brawlerBehavior = GetComponent<BrawlerBehavior>();
+
+            _attackBehaviorComponent.Brawler = GamePlayerOwner.Brawler;
+            _blockBehaviorComponent.Brawler = GamePlayerOwner.Brawler;
         }
 #endregion
 
@@ -154,18 +163,8 @@ namespace pdxpartyparrot.ssj2019.Players
         
         public void Block()
         {
-            if(Brawler.IsBlocking) {
-                _brawlerBehavior.ToggleBlock();
-                return;
-            }
-
-            if(!CanBlock) {
-                return;
-            }
-
-            ClearActionBuffer();
-
-            _brawlerBehavior.ToggleBlock();
+            ActionPerformed(new BlockBehaviorComponent.BlockAction{
+            });
         }
 #endregion
 

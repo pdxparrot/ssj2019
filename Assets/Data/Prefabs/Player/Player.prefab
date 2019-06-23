@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 8628578926028440972}
   - component: {fileID: 326472827522828124}
   - component: {fileID: 1550674950824046361}
+  - component: {fileID: 2342830165173679034}
+  - component: {fileID: 1883176091393127105}
   m_Layer: 12
   m_Name: Behavior
   m_TagString: Untagged
@@ -89,13 +91,15 @@ MonoBehaviour:
     - {fileID: 8628578926028440972}
     - {fileID: 326472827522828124}
     - {fileID: 1550674950824046361}
+    - {fileID: 2342830165173679034}
+    - {fileID: 1883176091393127105}
   _isGrounded: 0
   _isSliding: 0
   _lastActionBufferTimestampMs: 0
   _moveDirection: {x: 0, y: 0, z: 0}
-  _blocking: 0
-  _parry: 0
   _immune: 0
+  _attackBehaviorComponent: {fileID: 2342830165173679034}
+  _blockBehaviorComponent: {fileID: 1883176091393127105}
 --- !u!114 &515719160455454119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +164,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: 00c1c44626c43724188d395aba4b9726, type: 2}
   _jumpEffect: {fileID: 0}
+--- !u!114 &2342830165173679034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243353592151571374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0afee64b78e3394a9a56118d6326ff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _brawler: {fileID: 0}
+--- !u!114 &1883176091393127105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243353592151571374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d3f75dae79a26843ac679b8b4689b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _brawler: {fileID: 0}
 --- !u!1 &2485863649417268582
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,6 +992,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 0
+  _blocking: 0
+  _parry: 0
+  _stunned: 0
+  _canCancel: 1
+  _brawlerBehavior: {fileID: 6328656578635918927}
   _brawlerData: {fileID: 0}
 --- !u!114 &463285651185603561
 MonoBehaviour:

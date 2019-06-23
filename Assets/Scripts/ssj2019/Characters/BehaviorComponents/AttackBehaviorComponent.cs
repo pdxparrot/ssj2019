@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ssj2019.Characters;
+
+using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
 {
@@ -15,6 +18,12 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
             }
         }
 #endregion
+
+        [SerializeField]
+        [ReadOnly]
+        private Brawler _brawler;
+
+        public Brawler Brawler { get; set; }
 
         public override bool OnPerformed(CharacterBehaviorAction action)
         {

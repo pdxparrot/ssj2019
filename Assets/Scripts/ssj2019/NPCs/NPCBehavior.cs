@@ -54,7 +54,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         private bool CanAttack => !IsDead && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel;
 
-        private bool CanBlock => !IsDead && IsGrounded && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel;
+        public bool CanBlock => !IsDead && IsGrounded && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel;
 
         public bool IsDead => GameNPCOwner.IsDead;
 
@@ -79,6 +79,12 @@ namespace pdxpartyparrot.ssj2019.NPCs
         [CanBeNull]
         private Actor _target;
 
+        [SerializeField]
+        private AttackBehaviorComponent _attackBehaviorComponent;
+
+        [SerializeField]
+        private BlockBehaviorComponent _blockBehaviorComponent;
+
         private BrawlerBehavior _brawlerBehavior;
 
 #region Unity Lifecycle
@@ -89,6 +95,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
             Assert.IsTrue(Owner is NPC);
 
             _brawlerBehavior = GetComponent<BrawlerBehavior>();
+
+            _attackBehaviorComponent.Brawler = GameNPCOwner.Brawler;
+            _blockBehaviorComponent.Brawler = GameNPCOwner.Brawler;
         }
 #endregion
 
@@ -332,18 +341,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
         
         public void Block()
         {
-            if(Brawler.IsBlocking) {
-                _brawlerBehavior.ToggleBlock();
-                return;
-            }
-
-            if(!CanBlock) {
-                return;
-            }
-
-            ClearActionBuffer();
-
-            _brawlerBehavior.ToggleBlock();
+            ActionPerformed(new BlockBehaviorComponent.BlockAction{
+            });
         }
 #endregion
 

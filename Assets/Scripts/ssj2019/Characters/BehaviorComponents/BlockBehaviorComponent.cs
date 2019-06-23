@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ssj2019.Characters;
+
+using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
 {
@@ -16,13 +19,30 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
         }
 #endregion
 
+        [SerializeField]
+        [ReadOnly]
+        private Brawler _brawler;
+
+        public Brawler Brawler { get; set; }
+
         public override bool OnPerformed(CharacterBehaviorAction action)
         {
             if(!(action is BlockAction)) {
                 return false;
             }
 
-// TODO
+            if(Brawler.IsBlocking) {
+                Brawler.BrawlerBehavior.ToggleBlock();
+                return true;
+            }
+
+            if(!Brawler.BrawlerBehavior.CanBlock) {
+                return false;
+            }
+
+            Behavior.ClearActionBuffer();
+
+            Brawler.BrawlerBehavior.ToggleBlock();
 
             return true;
         }
