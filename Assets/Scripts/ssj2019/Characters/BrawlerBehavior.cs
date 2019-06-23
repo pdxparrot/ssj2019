@@ -28,11 +28,13 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         bool CanBlock { get; }
 
+        AttackData CurrentAttack { get; }
+
         // tells the brawler to go idle
         void OnIdle();
 
         // triggers when the brawler should attack
-        void OnAttack();
+        void OnAttack(AttackBehaviorComponent.AttackAction action);
 
         // triggers when the brawler is hit
         void OnHit(bool blocked);
@@ -126,9 +128,9 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         private void Update()
         {
-            // process actions here rather than Think() so that they're instantaneous
-            if(_actionHandler.LastAction is AttackBehaviorComponent.AttackAction && !_attackEffectTrigger.IsRunning) {
-                _actionHandler.OnAttack();
+            // pump the action buffer
+            if(_actionHandler.LastAction is AttackBehaviorComponent.AttackAction attackAction && !_attackEffectTrigger.IsRunning) {
+                _actionHandler.OnAttack(attackAction);
             }
         }
 #endregion
@@ -138,9 +140,9 @@ namespace pdxpartyparrot.ssj2019.Characters
             _actionHandler = actionHandler;
         }
 
-        public void Attack(AttackData attackData)
+        public void Attack()
         {
-            _attackVolume.AttackData = attackData;
+            _attackVolume.AttackData = _actionHandler.CurrentAttack;
             _attackEffectTrigger.Trigger(() => _actionHandler.OnIdle());
         }
 

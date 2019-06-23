@@ -47,6 +47,9 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public override bool CanMove => base.CanMove && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel && !IsDead;
 
+        // TODO: this depends on which piece of a combo we're in and other factors
+        public AttackData CurrentAttack => GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(0);
+
         [SerializeField]
         private AttackBehaviorComponent _attackBehaviorComponent;
 
@@ -117,9 +120,9 @@ namespace pdxpartyparrot.ssj2019.Players
             SpineAnimationHelper.SetAnimation(GamePlayerOwner.PlayerCharacterData.BrawlerData.IdleAnimationName, false);
         }
 
-        public void OnAttack()
+        public void OnAttack(AttackBehaviorComponent.AttackAction action)
         {
-            _brawlerBehavior.Attack(GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(0));
+            ActionPerformed(action);
         }
 
         public void OnHit(bool blocked)
@@ -161,9 +164,10 @@ namespace pdxpartyparrot.ssj2019.Players
             });
         }
         
-        public void Block()
+        public void Block(Vector3 lastMove)
         {
             ActionPerformed(new BlockBehaviorComponent.BlockAction{
+                Axes = lastMove,
             });
         }
 #endregion

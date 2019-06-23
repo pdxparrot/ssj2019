@@ -31,7 +31,7 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
                 return false;
             }
 
-// TODO
+            Brawler.BrawlerBehavior.Attack();
 
             return true;
         }

@@ -70,6 +70,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public override bool CanMove => base.CanMove && !Brawler.IsBlocking && !Brawler.IsStunned && Brawler.CanCancel && !IsDead;
 
+        // TODO: this depends on which piece of a combo we're in and other factors
+        public AttackData CurrentAttack => GameNPCOwner.NPCCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(0);
+
         [SerializeField]
         [ReadOnly]
         private NPCState _state = NPCState.Idle;
@@ -296,9 +299,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
             SetState(NPCState.Idle);
         }
 
-        public void OnAttack()
+        public void OnAttack(AttackBehaviorComponent.AttackAction action)
         {
-            _brawlerBehavior.Attack(GameNPCOwner.NPCCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(0));
+            ActionPerformed(action);
         }
 
         public void OnHit(bool blocked)
@@ -339,9 +342,10 @@ namespace pdxpartyparrot.ssj2019.NPCs
             });
         }
         
-        public void Block()
+        public void Block(Vector3 lastMove)
         {
             ActionPerformed(new BlockBehaviorComponent.BlockAction{
+                Axes = lastMove,
             });
         }
 #endregion

@@ -114,7 +114,7 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             if(context.performed) {
-                GamePlayer.GamePlayerBehavior.Block();
+                GamePlayer.GamePlayerBehavior.Block(LastMove);
             } else if(context.canceled) {
                 Debug.LogWarning("TODO: handle block cancel");
             }
