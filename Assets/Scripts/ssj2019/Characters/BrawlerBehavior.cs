@@ -323,9 +323,9 @@ namespace pdxpartyparrot.ssj2019.Characters
             if(_actionHandler.Brawler.BrawlerData.BlockVolumeSpawnEvent == evt.Data.Name) {
                 _blockVolume.EnableVolume(true);
             } else if(_actionHandler.Brawler.BrawlerData.ParryWindowOpenEvent == evt.Data.Name) {
-                //_actionHandler.Brawler.IsParry = true;
+                action.Type = BrawlerAction.ActionType.Parry;
             } else if(_actionHandler.Brawler.BrawlerData.ParryWindowCloseEvent == evt.Data.Name) {
-                //_actionHandler.Brawler.IsParry = false;
+                action.Type = BrawlerAction.ActionType.Block;
             } else {
                 Debug.Log($"Unhandled block begin event: {evt.Data.Name}");
             }

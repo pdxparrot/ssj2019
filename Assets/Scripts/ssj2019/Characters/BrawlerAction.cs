@@ -18,7 +18,11 @@ namespace pdxpartyparrot.ssj2019.Characters
         [SerializeField]
         private ActionType _type;
 
-        public ActionType Type => _type;
+        public ActionType Type
+        {
+            get => _type;
+            set => _type = value;
+        }
 
         [SerializeField]
         private bool _cancellable;
