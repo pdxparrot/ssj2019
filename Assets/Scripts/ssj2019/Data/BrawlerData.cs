@@ -70,6 +70,16 @@ namespace pdxpartyparrot.ssj2019.Data
         private string _hitImpactEvent = "hit_impact";
 
         public string HitImpactEvent => _hitImpactEvent;
+
+        [SerializeField]
+        private string _hitStunEvent = "stun_no_block_cancel";
+
+        public string HitStunEvent => _hitStunEvent;
+
+        [SerializeField]
+        private string _hitImmunityEvent = "immunity";
+
+        public string HitImmunityEvent => _hitImmunityEvent;
 #endregion
 
         [Space(10)]

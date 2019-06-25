@@ -211,7 +211,10 @@ namespace pdxpartyparrot.ssj2019.Characters
                 _deathEffectTrigger.Trigger(() => _actionHandler.OnDeathComplete());
                 _actionHandler.OnDead();
             } else {
-                _hitEffectTrigger.Trigger(() => _actionHandler.OnIdle());
+                _hitEffectTrigger.Trigger(() => {
+                    _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
+                    _actionHandler.OnIdle();
+                });
                 _actionHandler.OnHit(false);
             }
 
@@ -327,7 +330,7 @@ namespace pdxpartyparrot.ssj2019.Characters
             } else if(_actionHandler.Brawler.BrawlerData.ParryWindowCloseEvent == evt.Data.Name) {
                 action.Type = BrawlerAction.ActionType.Block;
             } else {
-                Debug.Log($"Unhandled block begin event: {evt.Data.Name}");
+                Debug.LogWarning($"Unhandled block begin event: {evt.Data.Name}");
             }
 
             _actionHandler.Brawler.CurrentAction = action;
@@ -350,7 +353,7 @@ namespace pdxpartyparrot.ssj2019.Characters
             if(_actionHandler.Brawler.BrawlerData.BlockVolumeDeSpawnEvent == evt.Data.Name) {
                 _blockVolume.EnableVolume(false);
             } else {
-                Debug.Log($"Unhandled block end event: {evt.Data.Name}");
+                Debug.LogWarning($"Unhandled block end event: {evt.Data.Name}");
             }
 
             _actionHandler.Brawler.CurrentAction = action;
@@ -368,11 +371,19 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         private void HitAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
+            BrawlerAction action = _actionHandler.Brawler.CurrentAction;
+
             if(_actionHandler.Brawler.BrawlerData.HitImpactEvent == evt.Data.Name) {
-                // TODO: damage
+                // TODO: what do we do with this?
+            } else if(_actionHandler.Brawler.BrawlerData.HitStunEvent == evt.Data.Name) {
+                action.IsStunned = true;
+            } else if(_actionHandler.Brawler.BrawlerData.HitImmunityEvent == evt.Data.Name) {
+                action.IsImmune = true;
             } else {
-                Debug.Log($"Unhandled hit end event: {evt.Data.Name}");
+                Debug.LogWarning($"Unhandled hit end event: {evt.Data.Name}");
             }
+
+            _actionHandler.Brawler.CurrentAction = action;
         }
 #endregion
     }
