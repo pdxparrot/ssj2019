@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.DebugMenu;
+using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace pdxpartyparrot.Core.Actors
         [SerializeField]
         private float _actorThinkRateMs = 10.0f;
 
-        private float ActorThinkRateSeconds => _actorThinkRateMs * 0.001f;
+        private float ActorThinkRateSeconds => _actorThinkRateMs * TimeManager.MilliSecondsToSeconds;
 
 #region Debug
         [SerializeField]

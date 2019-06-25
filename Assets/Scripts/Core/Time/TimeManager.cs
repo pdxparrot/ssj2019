@@ -12,6 +12,8 @@ namespace pdxpartyparrot.Core.Time
 {
     public sealed class TimeManager : SingletonBehavior<TimeManager>
     {
+        public const float MilliSecondsToSeconds = 0.001f;
+
         [Serializable]
         private sealed class Timer : ITimer
         {
@@ -51,7 +53,7 @@ namespace pdxpartyparrot.Core.Time
 
             public void StartMillis(long timerMs)
             {
-                Start(timerMs * 0.001f);
+                Start(timerMs * MilliSecondsToSeconds);
             }
 
             public void Start(IntRangeConfig timerSeconds)
@@ -75,7 +77,7 @@ namespace pdxpartyparrot.Core.Time
 
             public void ReStartMillis(long timerMs)
             {
-                ReStart(timerMs * 0.001f);
+                ReStart(timerMs * MilliSecondsToSeconds);
             }
 
             public void Stop()
@@ -253,7 +255,7 @@ namespace pdxpartyparrot.Core.Time
 
         private IEnumerator UpdateRoutine()
         {
-            WaitForSeconds wait = new WaitForSeconds(_updateRateMs / 1000.0f);
+            WaitForSeconds wait = new WaitForSeconds(_updateRateMs * MilliSecondsToSeconds);
 
             float lastRun = UnityEngine.Time.time;
             while(true) {

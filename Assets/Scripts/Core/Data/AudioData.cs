@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using pdxpartyparrot.Core.Audio;
+using pdxpartyparrot.Core.Time;
 
 using UnityEngine;
 using UnityEngine.Audio;
@@ -92,11 +93,11 @@ namespace pdxpartyparrot.Core.Data
         [SerializeField]
         private float _updateCrossfadeUpdateMs = 50.0f;
 
-        public float UpdateCrossfadeUpdateSeconds => _updateCrossfadeUpdateMs / 1000.0f;
+        public float UpdateCrossfadeUpdateSeconds => _updateCrossfadeUpdateMs * TimeManager.MilliSecondsToSeconds;
 
         [SerializeField]
         private float _updateMusicTransitionMs = 100.0f;
 
-        public float UpdateMusicTransitionSeconds => _updateMusicTransitionMs / 1000.0f;
+        public float UpdateMusicTransitionSeconds => _updateMusicTransitionMs * TimeManager.MilliSecondsToSeconds;
     }
 }

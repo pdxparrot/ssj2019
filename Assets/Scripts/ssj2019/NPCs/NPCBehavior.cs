@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Data;
+using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
@@ -88,6 +89,10 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         private BrawlerBehavior _brawlerBehavior;
 
+        private ITimer _stateCooldown;
+
+        private ITimer _attackCooldown;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -99,6 +104,20 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             _attackBehaviorComponent.Brawler = GameNPCOwner.Brawler;
             _blockBehaviorComponent.Brawler = GameNPCOwner.Brawler;
+
+            _stateCooldown = TimeManager.Instance.AddTimer();
+            _attackCooldown = TimeManager.Instance.AddTimer();
+        }
+
+        protected override void OnDestroy()
+        {
+            if(TimeManager.HasInstance) {
+                TimeManager.Instance.RemoveTimer(_stateCooldown);
+                _stateCooldown = null;
+
+                TimeManager.Instance.RemoveTimer(_attackCooldown);
+                _attackCooldown = null;
+            }
         }
 #endregion
 
@@ -113,7 +132,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public override void Think(float dt)
         {
-            if(IsDead) {
+            if(IsDead || _stateCooldown.IsRunning) {
                 return;
             }
 
@@ -151,6 +170,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 GameNPCOwner.Stop(true);
                 break;
             }
+
+            _stateCooldown.Start(GameNPCOwner.NPCCharacterData.StateCooldownSeconds);
         }
 
         private void SetTarget(Actor target)
@@ -299,11 +320,15 @@ namespace pdxpartyparrot.ssj2019.NPCs
         public void OnAttack(AttackBehaviorComponent.AttackAction action)
         {
             ActionPerformed(action);
+
+            _attackCooldown.Start(GameNPCOwner.NPCCharacterData.AttackCooldownSeconds);
         }
 
         public void OnHit(bool blocked)
         {
             ClearActionBuffer();
+
+            _attackCooldown.Stop();
         }
 
         public void OnDead()
@@ -330,12 +355,14 @@ namespace pdxpartyparrot.ssj2019.NPCs
             }
 
             ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
+
+            _attackCooldown.Stop();
         }
 
         // TODO: we might want the entire move buffer
         public void Attack(Vector3 lastMove)
         {
-            if(!CanAttack) {
+            if(!CanAttack || _attackCooldown.IsRunning) {
                 return;
             }
 
@@ -349,6 +376,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
             ActionPerformed(new BlockBehaviorComponent.BlockAction{
                 Axes = lastMove,
             });
+
+            _attackCooldown.Stop();
         }
 #endregion
 

@@ -8,6 +8,7 @@ using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.DebugMenu;
+using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -160,7 +161,7 @@ namespace pdxpartyparrot.Core.ObjectPool
         [Tooltip("The time between expand routine frames")]
         private float _expandCooldownMs = 100.0f;
 
-        public float ExpandCooldownSeconds => _expandCooldownMs / 1000.0f;
+        public float ExpandCooldownSeconds => _expandCooldownMs * TimeManager.MilliSecondsToSeconds;
 
         [SerializeField]
         [Tooltip("The number of pooled objects to expand by each frame of the expand routine")]
