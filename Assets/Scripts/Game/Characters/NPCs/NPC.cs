@@ -26,6 +26,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         void ResetPath();
 #endregion
 
+        void Stop(bool resetPath);
+
         void Recycle();
     }
 }

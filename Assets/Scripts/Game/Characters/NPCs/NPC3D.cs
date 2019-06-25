@@ -56,7 +56,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             // the player can abuse the NPC re-accelerating
             // by pausing and unpausing the game
             if(!NPCBehavior.CanMove) {
-                _agent.velocity = Vector3.zero;
+                Stop(false);
             }
         }
 #endregion
@@ -97,6 +97,15 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             _agent.ResetPath();
         }
 #endregion
+
+        public void Stop(bool resetPath)
+        {
+            _agent.velocity = Vector3.zero;
+
+            if(resetPath) {
+                ResetPath();
+            }
+        }
 
         public void Recycle()
         {

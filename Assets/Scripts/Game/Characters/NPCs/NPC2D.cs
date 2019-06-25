@@ -64,6 +64,15 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         }
 #endregion
 
+        public void Stop(bool resetPath)
+        {
+            Debug.LogWarning("TODO: NPC2D.Stop()");
+
+            if(resetPath) {
+                ResetPath();
+            }
+        }
+
         public void Recycle()
         {
             NPCBehavior.OnRecycle();
