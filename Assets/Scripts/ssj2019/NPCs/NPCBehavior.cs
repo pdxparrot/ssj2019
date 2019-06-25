@@ -63,7 +63,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public bool IsImmune
         {
-            get => NPCManager.Instance.NPCsImmune || _immune;
+            get => NPCManager.Instance.NPCsImmune || _immune || GameNPCOwner.Brawler.CurrentAction.IsImmune;
             set => _immune = value;
         }
 
@@ -363,6 +363,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
             if(!CanJump) {
                 return;
             }
+
+            _brawlerBehavior.CancelActions();
 
             ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
 

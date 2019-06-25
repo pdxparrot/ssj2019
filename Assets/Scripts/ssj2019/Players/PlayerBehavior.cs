@@ -39,7 +39,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public bool IsImmune
         {
-            get => PlayerManager.Instance.PlayersImmune || _immune;
+            get => PlayerManager.Instance.PlayersImmune || _immune || GamePlayerOwner.Brawler.CurrentAction.IsImmune;
             set => _immune = value;
         }
 
@@ -151,6 +151,8 @@ namespace pdxpartyparrot.ssj2019.Players
             if(!CanJump) {
                 return;
             }
+
+            _brawlerBehavior.CancelActions();
 
             ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
         }

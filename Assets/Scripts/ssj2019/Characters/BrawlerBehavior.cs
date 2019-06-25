@@ -210,7 +210,7 @@ namespace pdxpartyparrot.ssj2019.Characters
             }
         }
 
-        private void CancelActions()
+        public void CancelActions()
         {
             if(!_actionHandler.Brawler.CurrentAction.Cancellable) {
                 return;
@@ -281,18 +281,21 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         private void AttackAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
+            BrawlerAction action = _actionHandler.Brawler.CurrentAction;
+
             if(_actionHandler.Brawler.BrawlerData.AttackVolumeSpawnEvent == evt.Data.Name) {
                 _lastAttackHit = false;
+
                _attackVolume.EnableVolume(true);
             } else if(_actionHandler.Brawler.BrawlerData.AttackVolumeDeSpawnEvent == evt.Data.Name) {
                 _attackVolume.EnableVolume(false);
 
-                if(_lastAttackHit) {
-                    Debug.Log($"TODO: Brawler {_actionHandler.Owner.Id} can combo!");
-                }
+                Debug.Log($"TODO: Brawler {_actionHandler.Owner.Id} can combo!");
             } else {
                 Debug.LogWarning($"Unhandled attack event: {evt.Data.Name}");
             }
+
+            _actionHandler.Brawler.CurrentAction = action;
         }
 
         private void BlockBeginAnimationStartHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
