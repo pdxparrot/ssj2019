@@ -18,7 +18,7 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         Brawler Brawler { get; }
 
-        CharacterBehaviorComponent.CharacterBehaviorAction LastAction { get; }
+        CharacterBehaviorComponent.CharacterBehaviorAction NextAction { get; }
 
         bool IsDead { get; }
 
@@ -29,6 +29,8 @@ namespace pdxpartyparrot.ssj2019.Characters
         Vector3 FacingDirection { get; }
 
         AttackData CurrentAttack { get; }
+
+        void PopNextAction();
 
         // tells the brawler to go idle
         void OnIdle();
@@ -131,8 +133,9 @@ namespace pdxpartyparrot.ssj2019.Characters
         private void Update()
         {
             // pump the action buffer
-            if(_actionHandler.LastAction is AttackBehaviorComponent.AttackAction attackAction && BrawlerAction.ActionType.Idle == _actionHandler.Brawler.CurrentAction.Type) {
+            if(BrawlerAction.ActionType.Idle == _actionHandler.Brawler.CurrentAction.Type && _actionHandler.NextAction is AttackBehaviorComponent.AttackAction attackAction) {
                 _actionHandler.OnAttack(attackAction);
+                _actionHandler.PopNextAction();
             }
         }
 #endregion

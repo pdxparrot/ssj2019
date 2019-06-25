@@ -95,7 +95,6 @@ MonoBehaviour:
     - {fileID: 1883176091393127105}
   _isGrounded: 0
   _isSliding: 0
-  _lastActionBufferTimestampMs: 0
   _moveDirection: {x: 0, y: 0, z: 0}
   _immune: 0
   _attackBehaviorComponent: {fileID: 2342830165173679034}
@@ -362,6 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _owner: {fileID: 463285651185603561}
+  _enabled: 0
 --- !u!1 &4152845487771813311
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,6 +749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _owner: {fileID: 463285651185603561}
+  _enabled: 0
 --- !u!1 &6470206989884079331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,12 +1019,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 0
-  _blocking: 0
-  _parry: 0
-  _stunned: 0
-  _canCancel: 1
   _brawlerBehavior: {fileID: 6328656578635918927}
   _brawlerData: {fileID: 0}
+  _currentAction:
+    _type: 0
+    _cancellable: 0
+    _immune: 0
+    _stunned: 0
 --- !u!114 &463285651185603561
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -20,6 +20,24 @@ namespace pdxpartyparrot.Game.Characters
 {
     public abstract class CharacterBehavior : ActorBehavior
     {
+        private struct ActionBufferEntry
+        {
+            public long TimestampMs { get; }
+
+            public CharacterBehaviorComponent.CharacterBehaviorAction Action { get; }
+
+            public ActionBufferEntry(CharacterBehaviorComponent.CharacterBehaviorAction action)
+            {
+                TimestampMs = TimeManager.Instance.CurrentUnixMs;
+                Action = action;
+            }
+
+            public bool Expired(int timeout)
+            {
+                return TimeManager.Instance.CurrentUnixMs - TimestampMs > timeout;
+            }
+        }
+
         public ICharacterMovement CharacterMovement => (ICharacterMovement)Movement;
 
         [CanBeNull]
@@ -62,15 +80,10 @@ namespace pdxpartyparrot.Game.Characters
         public override bool CanMove => base.CanMove && !GameStateManager.Instance.GameManager.IsGameOver;
 
 #region Action Buffer
-        [SerializeField]
-        [ReadOnly]
-        private long _lastActionBufferTimestampMs;
+        [CanBeNull]
+        private CircularBuffer<ActionBufferEntry> _actionBuffer;
 
-        private bool ActionBufferExpired => TimeManager.Instance.CurrentUnixMs - _lastActionBufferTimestampMs > CharacterBehaviorData.ActionBufferTimeoutMs;
-
-        private CircularBuffer<CharacterBehaviorComponent.CharacterBehaviorAction> _actionBuffer;
-
-        public CharacterBehaviorComponent.CharacterBehaviorAction LastAction => _actionBuffer.Tail;
+        public CharacterBehaviorComponent.CharacterBehaviorAction NextAction => null == _actionBuffer || _actionBuffer.Count < 1 ? null : _actionBuffer.Head.Action;
 #endregion
 
         private DebugMenuNode _debugMenuNode;
@@ -94,7 +107,7 @@ namespace pdxpartyparrot.Game.Characters
         {
             base.Update();
 
-            if(_actionBuffer.Count > 0 && ActionBufferExpired) {
+            while(null != _actionBuffer && _actionBuffer.Count > 0 && _actionBuffer.Head.Expired(CharacterBehaviorData.ActionBufferTimeoutMs)) {
                 _actionBuffer.RemoveOldest();
             }
 
@@ -110,7 +123,7 @@ namespace pdxpartyparrot.Game.Characters
 
             base.Initialize(behaviorData);
 
-            _actionBuffer = new CircularBuffer<CharacterBehaviorComponent.CharacterBehaviorAction>(CharacterBehaviorData.ActionBufferSize);
+            _actionBuffer = new CircularBuffer<ActionBufferEntry>(CharacterBehaviorData.ActionBufferSize);
 
             foreach(CharacterBehaviorComponent component in _components.Items) {
                 component.Initialize(this);
@@ -156,13 +169,17 @@ namespace pdxpartyparrot.Game.Characters
 #region Action Buffer
         public void BufferAction(CharacterBehaviorComponent.CharacterBehaviorAction action)
         {
-            _actionBuffer.Add(action);
-            _lastActionBufferTimestampMs = TimeManager.Instance.CurrentUnixMs;
+            _actionBuffer?.Add(new ActionBufferEntry(action));
+        }
+
+        public void PopNextAction()
+        {
+            _actionBuffer?.RemoveOldest();
         }
 
         public void ClearActionBuffer()
         {
-            _actionBuffer.Clear();
+            _actionBuffer?.Clear();
         }
 #endregion
 
@@ -215,11 +232,13 @@ namespace pdxpartyparrot.Game.Characters
         {
             _debugMenuNode = DebugMenuManager.Instance.AddNode(() => $"Game.CharacterBehavior {Owner.Id}");
             _debugMenuNode.RenderContentsAction = () => {
-                GUILayout.BeginVertical("Action Buffer", GUI.skin.box);
-                    foreach(var action in _actionBuffer) {
-                        GUILayout.Label(action.ToString());
-                    }
-                GUILayout.EndVertical();
+                if(null != _actionBuffer) {
+                    GUILayout.BeginVertical("Action Buffer", GUI.skin.box);
+                        foreach(var action in _actionBuffer) {
+                            GUILayout.Label(action.ToString());
+                        }
+                    GUILayout.EndVertical();
+                }
             };
         }
 
