@@ -47,15 +47,15 @@ namespace pdxpartyparrot.ssj2019.Characters
             set => _stunned = value;
         }
 
-        public bool CanAct => Type != ActionType.Block && Cancellable && !IsStunned;
+        public bool CanAct => Cancellable && !IsStunned;
 
         public BrawlerAction(ActionType type)
         {
             _type = type;
 
-            _cancellable = true;
+            _cancellable = type != ActionType.Block;
             _immune = false;
-            _stunned = false;
+            _stunned = type == ActionType.Block;
         }
     }
 }

@@ -166,7 +166,9 @@ namespace pdxpartyparrot.ssj2019.Characters
         {
             if(BrawlerAction.ActionType.Block == _actionHandler.Brawler.CurrentAction.Type) {
                 _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
-                _blockEndEffectTrigger.Trigger(() => _actionHandler.OnIdle());
+                _blockEndEffectTrigger.Trigger(() => {
+                    _actionHandler.OnIdle();
+                });
                 return;
             }
 
@@ -174,7 +176,7 @@ namespace pdxpartyparrot.ssj2019.Characters
 
             _blockVolume.SetBlock(_actionHandler.Brawler.BrawlerData.BlockVolumeOffset, _actionHandler.Brawler.BrawlerData.BlockVolumeSize, _actionHandler.FacingDirection);
 
-                _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Block);
+            _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Block);
             _blockBeginEffectTrigger.Trigger();
         }
 
@@ -310,6 +312,8 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         private void BlockBeginAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
+            BrawlerAction action = _actionHandler.Brawler.CurrentAction;
+
             if(_actionHandler.Brawler.BrawlerData.BlockVolumeSpawnEvent == evt.Data.Name) {
                 _blockVolume.EnableVolume(true);
             } else if(_actionHandler.Brawler.BrawlerData.ParryWindowOpenEvent == evt.Data.Name) {
@@ -319,6 +323,8 @@ namespace pdxpartyparrot.ssj2019.Characters
             } else {
                 Debug.Log($"Unhandled block begin event: {evt.Data.Name}");
             }
+
+            _actionHandler.Brawler.CurrentAction = action;
         }
 
         private void BlockEndAnimationStartHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
@@ -333,11 +339,15 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         private void BlockEndAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
+            BrawlerAction action = _actionHandler.Brawler.CurrentAction;
+
             if(_actionHandler.Brawler.BrawlerData.BlockVolumeDeSpawnEvent == evt.Data.Name) {
                 _blockVolume.EnableVolume(false);
             } else {
                 Debug.Log($"Unhandled block end event: {evt.Data.Name}");
             }
+
+            _actionHandler.Brawler.CurrentAction = action;
         }
 
         private void HitAnimationStartHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
