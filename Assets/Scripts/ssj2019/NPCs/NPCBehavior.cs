@@ -119,6 +119,15 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 _attackCooldown = null;
             }
         }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+
+            Vector3 position = transform.position;
+            position.y += Owner.Height * 0.5f;
+            Gizmos.DrawLine(position, position + new Vector3(GameNPCOwner.NPCCharacterData.MaxTrackDistance * Mathf.Sign(FacingDirection.x), 0.0f, 0.0f));
+        }
 #endregion
 
         public override void Initialize(ActorBehaviorData behaviorData)
