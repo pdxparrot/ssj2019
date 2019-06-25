@@ -124,6 +124,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
         {
             Gizmos.color = Color.red;
 
+            // TODO: probably should be a sphere
             Vector3 position = transform.position;
             position.y += Owner.Height * 0.5f;
             Gizmos.DrawLine(position, position + new Vector3(GameNPCOwner.NPCCharacterData.MaxTrackDistance * Mathf.Sign(FacingDirection.x), 0.0f, 0.0f));

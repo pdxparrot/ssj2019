@@ -1,4 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+
+using JetBrains.Annotations;
 
 using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Interactables;
@@ -10,6 +12,10 @@ namespace pdxpartyparrot.ssj2019.Characters
 {
     public sealed class AttackVolume : ActionVolume
     {
+#region Events
+        public event EventHandler<AttackVolumeEventArgs> AttackHitEvent;
+#endregion
+
         [CanBeNull]
         private AttackData _attackData;
 
@@ -71,6 +77,10 @@ namespace pdxpartyparrot.ssj2019.Characters
             }
 
             damagable.Damage(Owner, _attackData.DamageType, _attackData.DamageAmount);
+
+            AttackHitEvent?.Invoke(this, new AttackVolumeEventArgs{
+                HitTarget = damagable,
+            });
         }
     }
 }

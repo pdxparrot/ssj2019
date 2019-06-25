@@ -116,11 +116,17 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         public bool CanBlock => _actionHandler.CanBlock;
 
+        [SerializeField]
+        [ReadOnly]
+        private bool _lastAttackHit;
+
 #region Unity Lifecycle
         private void Awake()
         {
-            EnableAttackVolume(false);
-            EnableBlockVolume(false);
+            _attackVolume.EnableVolume(false);
+            _attackVolume.AttackHitEvent += AttackVolumeHitEventHandler;
+
+            _blockVolume.EnableVolume(false);
 
             InitializeEffects();
         }
@@ -215,10 +221,10 @@ namespace pdxpartyparrot.ssj2019.Characters
             // any animations that might be doing stuff
 
             // cancel blocks
-            EnableBlockVolume(false);
+            _blockVolume.EnableVolume(false);
 
             // cancel attacks
-            EnableAttackVolume(false);
+            _attackVolume.EnableVolume(false);
 
             // idle out
             _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
@@ -257,17 +263,12 @@ namespace pdxpartyparrot.ssj2019.Characters
             _hitAnimationEffectTriggerComponent.CompleteEvent -= HitAnimationCompleteHandler;
         }
 
-        private void EnableAttackVolume(bool enable)
-        {
-            _attackVolume.EnableVolume(enable);
-        }
-
-        private void EnableBlockVolume(bool enable)
-        {
-            _blockVolume.EnableVolume(enable);
-        }
-
 #region Event Handlers
+        private void AttackVolumeHitEventHandler(object sender, AttackVolumeEventArgs args)
+        {
+            _lastAttackHit = true;
+        }
+
         private void AttackAnimationStartHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
         {
             args.TrackEntry.Event += AttackAnimationEvent;
@@ -281,9 +282,14 @@ namespace pdxpartyparrot.ssj2019.Characters
         private void AttackAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
             if(_actionHandler.Brawler.BrawlerData.AttackVolumeSpawnEvent == evt.Data.Name) {
-                EnableAttackVolume(true);
+                _lastAttackHit = false;
+               _attackVolume.EnableVolume(true);
             } else if(_actionHandler.Brawler.BrawlerData.AttackVolumeDeSpawnEvent == evt.Data.Name) {
-                EnableAttackVolume(false);
+                _attackVolume.EnableVolume(false);
+
+                if(_lastAttackHit) {
+                    Debug.Log($"TODO: Brawler {_actionHandler.Owner.Id} can combo!");
+                }
             } else {
                 Debug.LogWarning($"Unhandled attack event: {evt.Data.Name}");
             }
@@ -302,7 +308,7 @@ namespace pdxpartyparrot.ssj2019.Characters
         private void BlockBeginAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
             if(_actionHandler.Brawler.BrawlerData.BlockVolumeSpawnEvent == evt.Data.Name) {
-                EnableBlockVolume(true);
+                _blockVolume.EnableVolume(true);
             } else if(_actionHandler.Brawler.BrawlerData.ParryWindowOpenEvent == evt.Data.Name) {
                 //_actionHandler.Brawler.IsParry = true;
             } else if(_actionHandler.Brawler.BrawlerData.ParryWindowCloseEvent == evt.Data.Name) {
@@ -325,7 +331,7 @@ namespace pdxpartyparrot.ssj2019.Characters
         private void BlockEndAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
             if(_actionHandler.Brawler.BrawlerData.BlockVolumeDeSpawnEvent == evt.Data.Name) {
-                EnableBlockVolume(false);
+                _blockVolume.EnableVolume(false);
             } else {
                 Debug.Log($"Unhandled block end event: {evt.Data.Name}");
             }
