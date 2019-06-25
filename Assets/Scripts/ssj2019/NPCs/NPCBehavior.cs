@@ -181,8 +181,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
             }
 
             // look for something to track
-            Player player = ActorManager.Instance.GetActors<Player>().NearestManhattan(Movement.Position) as Player;
-            if(null != player) {
+            Player player = ActorManager.Instance.GetActors<Player>().NearestManhattan(Movement.Position, out float distance) as Player;
+            if(null != player && GameNPCOwner.NPCCharacterData.CanTrackDistance(distance)) {
                 SetTarget(player);
 
                 SetState(NPCState.Track);

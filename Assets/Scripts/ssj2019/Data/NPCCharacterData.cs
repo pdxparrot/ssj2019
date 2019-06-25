@@ -25,5 +25,19 @@ namespace pdxpartyparrot.ssj2019.Data
         private BrawlerData _brawlerData;
 
         public BrawlerData BrawlerData => _brawlerData;
+
+        [SerializeField]
+        [Min(0.0f)]
+        private float _maxTrackDistance = 1.0f;
+
+        public float MaxTrackDistance => _maxTrackDistance;
+
+        public bool CanTrackDistance(float distance)
+        {
+            if(MaxTrackDistance <= 0.0f) {
+                return true;
+            }
+            return distance <= MaxTrackDistance;
+        }
     }
 }

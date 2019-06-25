@@ -16,3 +16,4 @@ MonoBehaviour:
     type: 3}
   _skinIndex: 0
   _brawlerData: {fileID: 11400000, guid: 705369aa8222dd14b8af2e4915847463, type: 2}
+  _maxTrackDistance: 5
