@@ -172,9 +172,9 @@ namespace pdxpartyparrot.Core.Actors
 
         protected void SetFacing(Vector3 direction)
         {
-            if(direction.sqrMagnitude < MathUtil.Epsilon) {
+            /*if(direction.sqrMagnitude < MathUtil.Epsilon) {
                 return;
-            }
+            }*/
 
             FacingDirection = direction;
 
