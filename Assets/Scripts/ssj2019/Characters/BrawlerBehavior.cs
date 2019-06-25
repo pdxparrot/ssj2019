@@ -1,4 +1,4 @@
-﻿using pdxpartyparrot.Core.Actors;
+using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
@@ -164,7 +164,7 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         public void ToggleBlock()
         {
-            if(BrawlerAction.ActionType.Block == _actionHandler.Brawler.CurrentAction.Type) {
+            if(_actionHandler.Brawler.CurrentAction.IsBlocking) {
                 _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
                 _blockEndEffectTrigger.Trigger(() => {
                     _actionHandler.OnIdle();
