@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EngineData
   m_EditorClassIdentifier: 
   _enableVSync: 0
-  _targetFrameRate: -1
+  _targetFrameRate: 30
