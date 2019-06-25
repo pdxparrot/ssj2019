@@ -159,9 +159,9 @@ namespace pdxpartyparrot.ssj2019.Players
         }
 #endregion
 
-        public void Damage(Actor source, string type, int amount)
+        public bool Damage(Actor source, string type, int amount, Bounds attackBounds)
         {
-            GamePlayerBehavior.OnDamage(source, type, amount);
+            return GamePlayerBehavior.OnDamage(source, type, amount, attackBounds);
         }
     }
 }

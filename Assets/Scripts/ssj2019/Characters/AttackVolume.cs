@@ -49,7 +49,7 @@ namespace pdxpartyparrot.ssj2019.Characters
         {
             base.EnableVolume(enable);
 
-            if(!Enabled || null == _attackData) {
+            if(!IsEnabled || null == _attackData) {
                 return;
             }
 
@@ -61,7 +61,7 @@ namespace pdxpartyparrot.ssj2019.Characters
 #region Event Handlers
         private void InteractableAddedEventHandler(object sender, InteractableEventArgs args)
         {
-            if(!Enabled || null == _attackData) {
+            if(!IsEnabled || null == _attackData) {
                 return;
             }
 
@@ -76,11 +76,11 @@ namespace pdxpartyparrot.ssj2019.Characters
                 return;
             }
 
-            damagable.Damage(Owner, _attackData.DamageType, _attackData.DamageAmount);
-
-            AttackHitEvent?.Invoke(this, new AttackVolumeEventArgs{
-                HitTarget = damagable,
-            });
+            if(damagable.Damage(Owner, _attackData.DamageType, _attackData.DamageAmount, _collider.bounds)) {
+                AttackHitEvent?.Invoke(this, new AttackVolumeEventArgs{
+                    HitTarget = damagable,
+                });
+            }
         }
     }
 }

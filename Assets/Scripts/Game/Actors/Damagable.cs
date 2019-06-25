@@ -1,9 +1,11 @@
 ﻿using pdxpartyparrot.Core.Actors;
 
+using UnityEngine;
+
 namespace pdxpartyparrot.Game.Actors
 {
     public interface IDamagable
     {
-        void Damage(Actor source, string type, int amount);
+        bool Damage(Actor source, string type, int amount, Bounds damageVolume);
     }
 }

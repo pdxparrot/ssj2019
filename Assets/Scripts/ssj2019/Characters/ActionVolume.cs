@@ -21,13 +21,13 @@ namespace pdxpartyparrot.ssj2019.Characters
         [ReadOnly]
         private bool _enabled;
 
-        protected bool Enabled
+        protected bool IsEnabled
         {
             get => _enabled;
             private set => _enabled = value;
         }
 
-        public bool CanInteract => Enabled;
+        public bool CanInteract => IsEnabled;
 
         public Vector3 Offset
         {
@@ -54,7 +54,7 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         protected virtual void OnDrawGizmos()
         {
-            if(!Application.isPlaying || !Enabled) {
+            if(!Application.isPlaying || !IsEnabled) {
                 return;
             }
             Gizmos.DrawCube(transform.position + _collider.center, _collider.size);
@@ -63,7 +63,12 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         public virtual void EnableVolume(bool enable)
         {
-            Enabled = enable;
+            IsEnabled = enable;
+        }
+
+        public bool Intersects(Bounds attackBounds)
+        {
+            return IsEnabled && _collider.bounds.Intersects(attackBounds);
         }
     }
 }

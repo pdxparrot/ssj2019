@@ -180,23 +180,27 @@ namespace pdxpartyparrot.ssj2019.Characters
             _blockBeginEffectTrigger.Trigger();
         }
 
-        public void Damage(Actor source, string type, int amount)
+        public bool Damage(Actor source, string type, int amount, Bounds attackBounds)
         {
             if(_actionHandler.IsDead || _actionHandler.IsImmune) {
-                return;
+                return false;
             }
 
-            // TODO: parry
+            // did we block the damage?
+            if(_actionHandler.Brawler.CurrentAction.IsBlocking && _blockVolume.Intersects(attackBounds)) {
+                if(BrawlerAction.ActionType.Parry == _actionHandler.Brawler.CurrentAction.Type) {
+                    Debug.Log($"TODO: Brawler {_actionHandler.Owner.Id} can parry");
+                }
 
-            // TODO: somehow we need to handle chip damage
-            // but for now we'll just dump all of it
-            // TODO: also blocking is all about the block volume
-            /*if(_actionHandler.IsBlocking) {
+                // TODO: somehow we need to handle chip damage
+                // but for now we'll just dump all of it
+
                 Debug.Log($"Brawler {_actionHandler.Owner.Id} blocked damaged by {source.Id} for {amount}");
+
                 _blockEffectTrigger.Trigger();
                 _actionHandler.OnHit(true);
-                return;
-            }*/
+                return false;
+            }
 
             Debug.Log($"Brawler {_actionHandler.Owner.Id} damaged by {source.Id} for {amount}");
 
@@ -210,6 +214,8 @@ namespace pdxpartyparrot.ssj2019.Characters
                 _hitEffectTrigger.Trigger(() => _actionHandler.OnIdle());
                 _actionHandler.OnHit(false);
             }
+
+            return true;
         }
 
         public void CancelActions()

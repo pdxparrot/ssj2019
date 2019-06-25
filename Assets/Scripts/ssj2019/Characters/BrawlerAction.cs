@@ -12,7 +12,7 @@ namespace pdxpartyparrot.ssj2019.Characters
             Idle,
             Attack,
             Block,
-            //Parry
+            Parry
         }
 
         [SerializeField]
@@ -49,13 +49,20 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         public bool CanAct => Cancellable && !IsStunned;
 
+        public bool IsBlocking => ActionType.Block == Type || ActionType.Parry == Type;
+
         public BrawlerAction(ActionType type)
         {
             _type = type;
 
-            _cancellable = type != ActionType.Block;
+            _cancellable = true;
             _immune = false;
-            _stunned = type == ActionType.Block;
+            _stunned = false;
+
+            if(IsBlocking) {
+                _cancellable = false;
+                _stunned = true;
+            }
         }
     }
 }

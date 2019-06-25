@@ -178,9 +178,9 @@ namespace pdxpartyparrot.ssj2019.Players
 #endregion
 
 #region Events
-        public void OnDamage(Actor source, string type, int amount)
+        public bool OnDamage(Actor source, string type, int amount, Bounds attackBounds)
         {
-            _brawlerBehavior.Damage(source, type, amount);
+            return _brawlerBehavior.Damage(source, type, amount, attackBounds);
         }
 #endregion
     }
