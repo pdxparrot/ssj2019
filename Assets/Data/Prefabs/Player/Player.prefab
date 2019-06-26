@@ -62,6 +62,7 @@ MonoBehaviour:
   _deathEffectTrigger: {fileID: 6433857838732750911}
   _attackVolume: {fileID: 4234046138188009513}
   _blockVolume: {fileID: 2276791725628702472}
+  _lastAttackHit: 0
 --- !u!114 &1466622540529787529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -837,6 +838,7 @@ GameObject:
   - component: {fileID: 7607716014734449759}
   - component: {fileID: 8451773348438022286}
   - component: {fileID: 463285651185603561}
+  - component: {fileID: 2283031837605121169}
   m_Layer: 12
   m_Name: Player
   m_TagString: Untagged
@@ -1043,6 +1045,18 @@ MonoBehaviour:
   _networkPlayer: {fileID: 4735179189841920839}
   _input: {fileID: 2194374668728194188}
   _playerCharacterData: {fileID: 0}
+--- !u!114 &2283031837605121169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7312426625843009653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c8cd0537f5b0c44fb9af95ab3d97eda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7835375812971009641
 GameObject:
   m_ObjectHideFlags: 0

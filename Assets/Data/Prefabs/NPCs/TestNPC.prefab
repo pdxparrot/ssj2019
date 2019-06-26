@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2964251014156437722}
   - component: {fileID: 7185525476932000284}
   - component: {fileID: 2803644518033097450}
+  - component: {fileID: -4657313582181378616}
   m_Layer: 13
   m_Name: TestNPC
   m_TagString: Untagged
@@ -126,12 +127,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 0
-  _blocking: 0
-  _parry: 0
-  _stunned: 0
-  _canCancel: 1
   _brawlerBehavior: {fileID: 2457662190061875137}
   _brawlerData: {fileID: 0}
+  _currentAction:
+    _type: 0
+    _cancellable: 0
+    _immune: 0
+    _stunned: 0
 --- !u!114 &7185525476932000284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +163,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _notes: This prefab is currently marked for testing, but it would be nice if it
     could mature into being the only NPC prefab we actually need.
+--- !u!114 &-4657313582181378616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186639333687257279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c8cd0537f5b0c44fb9af95ab3d97eda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2006412280590400529
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _owner: {fileID: 7185525476932000284}
+  _enabled: 0
 --- !u!1 &3101530218937401475
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,6 +814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _owner: {fileID: 7185525476932000284}
+  _enabled: 0
 --- !u!1 &8100230599278707358
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,6 +956,7 @@ MonoBehaviour:
   _deathEffectTrigger: {fileID: 6237249302560061764}
   _attackVolume: {fileID: 4356007661132845643}
   _blockVolume: {fileID: 5793994074923292069}
+  _lastAttackHit: 0
 --- !u!114 &7670571906903510832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -972,7 +989,6 @@ MonoBehaviour:
     - {fileID: 171347820613495406}
   _isGrounded: 0
   _isSliding: 0
-  _lastActionBufferTimestampMs: 0
   _interactables: {fileID: 4908680204030065229}
   _immune: 0
   _state: 0

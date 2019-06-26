@@ -244,6 +244,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return;
             }
 
+            // This will change in the future where the target will become the grid position,
+            // Not just the targets location, if the actor has a Grid script
             // can't attack our target, so follow it
             GameNPCOwner.UpdatePath(_target.Behavior.Movement.Position);
         }
