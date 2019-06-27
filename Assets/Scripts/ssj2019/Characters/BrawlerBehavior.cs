@@ -165,8 +165,8 @@ namespace pdxpartyparrot.ssj2019.Characters
         public void ToggleBlock()
         {
             if(_actionHandler.Brawler.CurrentAction.IsBlocking) {
-                _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
                 _blockEndEffectTrigger.Trigger(() => {
+                    _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
                     _actionHandler.OnIdle();
                 });
                 return;
