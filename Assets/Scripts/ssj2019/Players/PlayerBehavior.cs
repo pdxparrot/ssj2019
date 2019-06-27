@@ -164,11 +164,17 @@ namespace pdxpartyparrot.ssj2019.Players
                 return;
             }
 
-            BufferAction(new AttackBehaviorComponent.AttackAction{
-                Axes = lastMove,
-            });
+            if(BrawlerAction.ActionType.Attack == Brawler.CurrentAction.Type) {
+                BufferAction(new AttackBehaviorComponent.AttackAction{
+                    Axes = lastMove,
+                });
+            } else {
+                ActionPerformed(new AttackBehaviorComponent.AttackAction{
+                    Axes = lastMove,
+                });
+            }
         }
-        
+
         public void Block(Vector3 lastMove)
         {
             ActionPerformed(new BlockBehaviorComponent.BlockAction{

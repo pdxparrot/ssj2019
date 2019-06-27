@@ -136,14 +136,14 @@ namespace pdxpartyparrot.ssj2019.Characters
             ShutdownEffects();
         }
 
-        private void Update()
+        /*private void Update()
         {
             // pump the action buffer
             if(BrawlerAction.ActionType.Idle == _actionHandler.Brawler.CurrentAction.Type && _actionHandler.NextAction is AttackBehaviorComponent.AttackAction attackAction) {
                 _actionHandler.OnAttack(attackAction);
                 _actionHandler.PopNextAction();
             }
-        }
+        }*/
 #endregion
 
         public void Initialize(IBrawlerBehaviorActions actionHandler)
