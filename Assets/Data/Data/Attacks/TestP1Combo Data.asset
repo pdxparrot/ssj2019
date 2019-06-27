@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1011391a36fda02429da9d8b82d3fedc, type: 3}
-  m_Name: TestAttack Data
+  m_Script: {fileID: 11500000, guid: 265fd580bc219bc48b1e89e757b98aba, type: 3}
+  m_Name: TestP1Combo Data
   m_EditorClassIdentifier: 
-  _damageType: 
-  _damageAmount: 5
-  _blockDamageAmount: 0
-  _pushBackScale: 0
-  _attackVolumeOffset: {x: 0.75, y: 1.286, z: 0}
-  _attackVolumeSize: {x: 0.75, y: 0.75, z: 0.75}
+  _attackData:
+    _items:
+    - {fileID: 11400000, guid: 0b2e4817866041e40bdb8c8c36fc1c84, type: 2}
