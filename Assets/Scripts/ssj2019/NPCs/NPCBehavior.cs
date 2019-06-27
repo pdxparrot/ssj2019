@@ -49,11 +49,11 @@ namespace pdxpartyparrot.ssj2019.NPCs
             }
         }
 
-        private bool CanJump => !IsDead && Brawler.CurrentAction.CanAct;
+        private bool CanJump => !IsDead && Brawler.CurrentAction.Cancellable;
 
-        private bool CanAttack => !IsDead && Brawler.CurrentAction.CanAct;
+        private bool CanAttack => !IsDead && Brawler.CurrentAction.Cancellable;
 
-        public bool CanBlock => !IsDead && IsGrounded && Brawler.CurrentAction.CanAct;
+        public bool CanBlock => !IsDead && IsGrounded && Brawler.CurrentAction.Cancellable;
 
         public bool IsDead => GameNPCOwner.IsDead;
 
@@ -67,7 +67,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             set => _immune = value;
         }
 
-        public override bool CanMove => base.CanMove && !IsDead && Brawler.CurrentAction.CanAct;
+        public override bool CanMove => base.CanMove && !IsDead && !Brawler.CurrentAction.IsStunned;
 
         // TODO: this depends on which piece of a combo we're in and other factors
         public AttackData CurrentAttack => GameNPCOwner.NPCCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(0);
@@ -394,9 +394,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
 #endregion
 
 #region Events
-        public bool OnDamage(Actor source, string type, int amount, Bounds attackBounds)
+        public bool OnDamage(Actor source, string type, int amount, Bounds attackBounds, Vector3 force)
         {
-            return _brawlerBehavior.Damage(source, type, amount, attackBounds);
+            return _brawlerBehavior.Damage(source, type, amount, attackBounds, force);
         }
 #endregion
     }

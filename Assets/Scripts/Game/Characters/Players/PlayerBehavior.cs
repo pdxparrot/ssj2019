@@ -98,6 +98,8 @@ namespace pdxpartyparrot.Game.Characters.Players
                 return;
             }
 
+            // TODO: this interferes with forces :(
+
             Vector3 velocity = MoveDirection * PlayerBehaviorData.MoveSpeed;
             Quaternion rotation = Movement.Rotation;
             if(PlayerBehaviorData.AlignMovementWithViewer && null != Player.Viewer) {

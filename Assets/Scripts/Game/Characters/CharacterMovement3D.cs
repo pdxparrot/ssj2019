@@ -59,7 +59,7 @@ namespace pdxpartyparrot.Game.Characters
 
             rb.isKinematic = behaviorData.IsKinematic;
             rb.useGravity = !behaviorData.IsKinematic;
-            rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            //rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             rb.detectCollisions = true;
             rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
             rb.interpolation = RigidbodyInterpolation.Interpolate;

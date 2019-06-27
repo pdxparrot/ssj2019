@@ -180,7 +180,7 @@ namespace pdxpartyparrot.ssj2019.Characters
             _blockBeginEffectTrigger.Trigger();
         }
 
-        public bool Damage(Actor source, string type, int amount, Bounds attackBounds)
+        public bool Damage(Actor source, string type, int amount, Bounds attackBounds, Vector3 force)
         {
             if(_actionHandler.IsDead || _actionHandler.IsImmune) {
                 return false;
@@ -211,6 +211,8 @@ namespace pdxpartyparrot.ssj2019.Characters
                 _deathEffectTrigger.Trigger(() => _actionHandler.OnDeathComplete());
                 _actionHandler.OnDead();
             } else {
+                _actionHandler.Owner.Behavior.Movement.AddImpulse(force * amount);
+
                 _hitEffectTrigger.Trigger(() => {
                     _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
                     _actionHandler.OnIdle();

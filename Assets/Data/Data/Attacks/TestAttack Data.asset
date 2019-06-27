@@ -15,5 +15,6 @@ MonoBehaviour:
   _damageType: 
   _damageAmount: 1
   _blockDamageAmount: 0
+  _pushBackScale: 30
   _attackVolumeOffset: {x: 0.75, y: 1.286, z: 0}
   _attackVolumeSize: {x: 0.75, y: 0.75, z: 0.75}

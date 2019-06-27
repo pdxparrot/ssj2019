@@ -18,8 +18,14 @@
 * Create Data/Physics/frictionless.physicMaterial
   * Static Friction: 0
   * Dynamic Friction: 0
+  * Bounciness: 0
+  * Friction Combine: Multiply
+  * Bounce Combine: Multiply
 * Create Data/Physics/frictionless 2D.physicsMaterial2D
   * Friction: 0
+  * Bounciness: 0
+  * Friction Combine: Multiply
+  * Bounce Combine: Multiply
 * Copy Art/Core/pdxparrot.png
 * Copy Art/Core/progress.png
   * Texture Type: Sprite (2D and UI)
