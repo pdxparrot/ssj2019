@@ -9,9 +9,23 @@ namespace pdxpartyparrot.ssj2019.Data
     [Serializable]
     public sealed class PlayerData : ScriptableObject
     {
-        [SerializeField]
-        private Sprite[] _playerIndicators;
+        [Serializable]
+        public sealed class PlayerIndicatorState
+        {
+            [SerializeField]
+            private Sprite _playerIndicator;
 
-        public IReadOnlyCollection<Sprite> PlayerIndicators => _playerIndicators;
+            public Sprite PlayerIndicator => _playerIndicator;
+
+            [SerializeField]
+            private Color _playerColor;
+
+            public Color PlayerColor => _playerColor;
+        }
+
+        [SerializeField]
+        private PlayerIndicatorState[] _playerIndicators;
+
+        public IReadOnlyCollection<PlayerIndicatorState> PlayerIndicators => _playerIndicators;
     }
 }

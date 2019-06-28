@@ -1206,6 +1206,7 @@ MonoBehaviour:
   _input: {fileID: 2194374668728194188}
   _playerCharacterData: {fileID: 0}
   _playerIndicator: {fileID: 4879663505215756646}
+  _playerGroundIndicator: {fileID: 8995250057955054503}
   _playerNumber: -1
 --- !u!1 &7835375812971009641
 GameObject:

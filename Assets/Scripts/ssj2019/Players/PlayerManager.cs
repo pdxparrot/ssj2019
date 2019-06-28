@@ -16,7 +16,7 @@ namespace pdxpartyparrot.ssj2019.Players
         public PlayerData PlayerData => _playerData;
 
         [CanBeNull]
-        public Sprite GetPlayerIndicator(int playerNumber)
+        public PlayerData.PlayerIndicatorState GetPlayerIndicatorState(int playerNumber)
         {
             if(playerNumber < 0 || playerNumber >= PlayerData.PlayerIndicators.Count) {
                 return null;

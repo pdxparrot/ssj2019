@@ -37,6 +37,9 @@ namespace pdxpartyparrot.ssj2019.Players
         private SpriteRenderer _playerIndicator;
 
         [SerializeField]
+        private MeshRenderer _playerGroundIndicator;
+
+        [SerializeField]
         [ReadOnly]
         private int _playerNumber = -1;
 
@@ -114,7 +117,15 @@ namespace pdxpartyparrot.ssj2019.Players
 
             Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);
 
-            _playerIndicator.sprite = PlayerManager.Instance.GetPlayerIndicator(_playerNumber);
+            PlayerData.PlayerIndicatorState indicatorState = PlayerManager.Instance.GetPlayerIndicatorState(_playerNumber);
+            if(null != indicatorState) {
+                _playerIndicator.sprite = indicatorState.PlayerIndicator;
+                _playerIndicator.color = indicatorState.PlayerColor;
+
+                _playerGroundIndicator.material.color = indicatorState.PlayerColor;
+            } else {
+                Debug.LogWarning($"Unable to get indicator state for player {_playerNumber}");
+            }
         }
 
 #region Spawn
