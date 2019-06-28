@@ -18,10 +18,10 @@ MonoBehaviour:
     _playerColor: {r: 1, g: 0, b: 0, a: 1}
   - _playerIndicator: {fileID: 4904260536867662551, guid: d9217eb2dece2704ba7f391e5092f67f,
       type: 3}
-    _playerColor: {r: 0.073297024, g: 1, b: 0, a: 1}
+    _playerColor: {r: 0.1462264, g: 0.6134988, b: 1, a: 1}
   - _playerIndicator: {fileID: -1892254116581791175, guid: d9217eb2dece2704ba7f391e5092f67f,
       type: 3}
-    _playerColor: {r: 0, g: 0.13428688, b: 1, a: 1}
+    _playerColor: {r: 0.23113209, g: 1, b: 0.33413422, a: 1}
   - _playerIndicator: {fileID: 8825380593655530230, guid: d9217eb2dece2704ba7f391e5092f67f,
       type: 3}
-    _playerColor: {r: 0.80303, g: 0, b: 1, a: 1}
+    _playerColor: {r: 1, g: 0.9372188, b: 0, a: 1}
