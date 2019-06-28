@@ -12,9 +12,12 @@ using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Characters;
 using pdxpartyparrot.ssj2019.Data;
 
+using TMPro;
+
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.ssj2019.Players
 {
@@ -33,11 +36,19 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public PlayerCharacterData PlayerCharacterData => _playerCharacterData;
 
+#region Player Indicator
         [SerializeField]
-        private SpriteRenderer _playerIndicator;
+        [CanBeNull]
+        [FormerlySerializedAs("_playerIndicator")]
+        private SpriteRenderer _playerIndicatorSprite;
+
+        [SerializeField]
+        [CanBeNull]
+        private TextMeshPro _playerIndicatorText;
 
         [SerializeField]
         private MeshRenderer _playerGroundIndicator;
+#endregion
 
         [SerializeField]
         [ReadOnly]
@@ -119,8 +130,15 @@ namespace pdxpartyparrot.ssj2019.Players
 
             PlayerData.PlayerIndicatorState indicatorState = PlayerManager.Instance.GetPlayerIndicatorState(_playerNumber);
             if(null != indicatorState) {
-                _playerIndicator.sprite = indicatorState.PlayerIndicator;
-                _playerIndicator.color = indicatorState.PlayerColor;
+                if(null != _playerIndicatorSprite && null != indicatorState.PlayerIndicatorSprite) {
+                    _playerIndicatorSprite.sprite = indicatorState.PlayerIndicatorSprite;
+                    _playerIndicatorSprite.color = indicatorState.PlayerColor;
+                }
+
+                if(null != _playerIndicatorText) {
+                    _playerIndicatorText.text = indicatorState.PlayerIndicatorText;
+                    _playerIndicatorText.color = indicatorState.PlayerColor;
+                }
 
                 _playerGroundIndicator.material.color = indicatorState.PlayerColor;
             } else {

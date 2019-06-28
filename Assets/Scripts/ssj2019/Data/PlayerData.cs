@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.ssj2019.Data
 {
@@ -13,9 +14,15 @@ namespace pdxpartyparrot.ssj2019.Data
         public sealed class PlayerIndicatorState
         {
             [SerializeField]
-            private Sprite _playerIndicator;
+            [FormerlySerializedAs("_playerIndicator")]
+            private Sprite _playerIndicatorSprite;
 
-            public Sprite PlayerIndicator => _playerIndicator;
+            public Sprite PlayerIndicatorSprite => _playerIndicatorSprite;
+
+            [SerializeField]
+            private string _playerIndicatorText;
+
+            public string PlayerIndicatorText => _playerIndicatorText;
 
             [SerializeField]
             private Color _playerColor;
