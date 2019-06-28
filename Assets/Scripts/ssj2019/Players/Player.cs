@@ -36,6 +36,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public PlayerCharacterData PlayerCharacterData => _playerCharacterData;
 
+        // TODO: move this to its own component
 #region Player Indicator
         [SerializeField]
         [CanBeNull]
@@ -128,6 +129,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
             Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);
 
+            // TODO: move this to is own component
             PlayerData.PlayerIndicatorState indicatorState = PlayerManager.Instance.GetPlayerIndicatorState(_playerNumber);
             if(null != indicatorState) {
                 if(null != _playerIndicatorSprite && null != indicatorState.PlayerIndicatorSprite) {
@@ -163,6 +165,7 @@ namespace pdxpartyparrot.ssj2019.Players
                 } 
 
                 Debug.LogWarning($"Player {Id} stole free character {_playerCharacterData.Name}");
+
                 InitializeModel();
             }
 
