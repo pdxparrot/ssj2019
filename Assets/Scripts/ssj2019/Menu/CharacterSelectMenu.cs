@@ -161,7 +161,8 @@ namespace pdxpartyparrot.ssj2019.Menu
 #region Events
         public void OnReady()
         {
-            foreach(CharacterSelector characterSelector in _characterSelectors) {
+            for(int i=0; i < _characterSelectors.Length; ++i) {
+                CharacterSelector characterSelector = _characterSelectors[i];
                 if(null == characterSelector.PlayerCharacterData) {
                     continue;
                 }
@@ -172,7 +173,7 @@ namespace pdxpartyparrot.ssj2019.Menu
                     device = Keyboard.current;
                 }
 #endif
-                GameManager.Instance.AddCharacter(device, characterSelector.PlayerCharacterData);
+                GameManager.Instance.AddCharacter(device, i, characterSelector.PlayerCharacterData);
             }
 
             GameStateManager.Instance.StartLocal(GameManager.Instance.MainGameStatePrefab);

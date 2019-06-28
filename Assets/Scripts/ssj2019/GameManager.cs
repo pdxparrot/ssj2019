@@ -19,6 +19,13 @@ namespace pdxpartyparrot.ssj2019
 {
     public sealed class GameManager : GameManager<GameManager>
     {
+        private class PlayerEntry
+        {
+            public PlayerCharacterData PlayerCharacterData { get; set; }
+
+            public int PlayerNumber { get;  set;}
+        }
+
         [SerializeField]
         private MainGameState _mainGameStatePrefab;
 
@@ -35,7 +42,7 @@ namespace pdxpartyparrot.ssj2019
 
         public LevelHelper LevelHelper => _levelHelper;
 
-        private readonly Dictionary<InputDevice, PlayerCharacterData> _characters = new Dictionary<InputDevice, PlayerCharacterData>();
+        private readonly Dictionary<InputDevice, PlayerEntry> _characters = new Dictionary<InputDevice, PlayerEntry>();
 
         private readonly HashSet<Player> _activePlayers = new HashSet<Player>();
 
@@ -68,37 +75,47 @@ namespace pdxpartyparrot.ssj2019
         }
 
         //[Client]
-        public void AddCharacter(InputDevice device, PlayerCharacterData playerCharacterData)
+        public void AddCharacter(InputDevice device, int playerNumber, PlayerCharacterData playerCharacterData)
         {
-            _characters[device] = playerCharacterData;
+            _characters[device] = new PlayerEntry(){
+                PlayerCharacterData = playerCharacterData,
+                PlayerNumber = playerNumber,
+            };
         }
 
         //[Client]
         [CanBeNull]
-        public PlayerCharacterData AcquireCharacter(InputDevice device)
+        public PlayerCharacterData AcquireCharacter(InputDevice device, out int playerNumber)
         {
+            playerNumber = -1;
+
             if(device == null) {
                 return null;
             }
 
-            PlayerCharacterData playerCharacterData = _characters.GetOrDefault(device);
-            if(null == playerCharacterData) {
+            PlayerEntry playerEntry = _characters.GetOrDefault(device);
+            if(null == playerEntry) {
                 return null;
             }
 
             _characters.Remove(device);
-            return playerCharacterData;
+
+            playerNumber = playerEntry.PlayerNumber;
+            return playerEntry.PlayerCharacterData;
         }
 
         //[Client]
         [CanBeNull]
-        public PlayerCharacterData AcquireFreeCharacter()
+        public PlayerCharacterData AcquireFreeCharacter(out int playerNumber)
         {
             foreach(var kvp in _characters) {
                 _characters.Remove(kvp.Key);
-                return kvp.Value;
+
+                playerNumber = kvp.Value.PlayerNumber;
+                return kvp.Value.PlayerCharacterData;
             }
 
+            playerNumber = -1;
             return null;
         }
 

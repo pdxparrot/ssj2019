@@ -844,7 +844,6 @@ GameObject:
   - component: {fileID: 2100147819986000443}
   - component: {fileID: 2840994552533144508}
   - component: {fileID: 8995250057955054503}
-  - component: {fileID: 2085521029431324994}
   m_Layer: 12
   m_Name: Player Ground Indicator
   m_TagString: Untagged
@@ -911,20 +910,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &2085521029431324994
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6375322862688808521}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &6470206989884079331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,6 +1205,8 @@ MonoBehaviour:
   _networkPlayer: {fileID: 4735179189841920839}
   _input: {fileID: 2194374668728194188}
   _playerCharacterData: {fileID: 0}
+  _playerIndicator: {fileID: 4879663505215756646}
+  _playerNumber: -1
 --- !u!1 &7835375812971009641
 GameObject:
   m_ObjectHideFlags: 0
