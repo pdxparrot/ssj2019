@@ -17,6 +17,8 @@ namespace pdxpartyparrot.Core.Util
 
         public int Max => _max;
 
+        public bool Valid => Min <= Max;
+
         public IntRangeConfig(int min, int max)
         {
             _min = min;
@@ -25,14 +27,18 @@ namespace pdxpartyparrot.Core.Util
 
         public int GetRandomValue()
         {
-            return PartyParrotManager.Instance.Random.Next(_min, _max);
+            return Valid ? PartyParrotManager.Instance.Random.Next(Min, Max) : 0;
         }
 
         // rounds down
         public int GetPercentValue(float pct)
         {
+            if(!Valid) {
+                return 0;
+            }
+
             pct = Mathf.Clamp01(pct);
-            return (int)(_min + (pct * (_max - _min)));
+            return (int)(Min + (pct * (Max - Min)));
         }
     }
 
@@ -49,6 +55,8 @@ namespace pdxpartyparrot.Core.Util
 
         public float Max => _max;
 
+        public bool Valid => Min <= Max;
+
         public FloatRangeConfig(float min, float max)
         {
             _min = min;
@@ -57,13 +65,17 @@ namespace pdxpartyparrot.Core.Util
 
         public float GetRandomValue()
         {
-            return PartyParrotManager.Instance.Random.NextSingle(_min, _max);
+            return Valid ? PartyParrotManager.Instance.Random.NextSingle(Min, Max) : 0.0f;
         }
 
         public float GetPercentValue(float pct)
         {
+            if(!Valid) {
+                return 0.0f;
+            }
+
             pct = Mathf.Clamp01(pct);
-            return _min + (pct * (_max - _min));
+            return Min + (pct * (Max - Min));
         }
     }
 }

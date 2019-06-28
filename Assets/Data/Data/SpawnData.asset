@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: SpawnData
   m_EditorClassIdentifier: 
   _playerSpawnPointTag: player
-  _types: []
+  _types:
+  - _tag: test
+    _spawnMethod: 1

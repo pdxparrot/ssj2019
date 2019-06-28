@@ -222,6 +222,10 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 SetState(NPCState.Track);
                 return;
             }
+
+            // legit idle, avoid other NPCs
+            // TODO: not sure why this doesn't force avoidance :(
+            GameNPCOwner.UpdatePath(Movement.Position);
         }
 
         private void HandleTrack()
@@ -315,6 +319,18 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             // TODO: add a small window of immunity on spawn
             _immune = false;
+
+            SetState(NPCState.Idle);
+        }
+
+        public override void OnReSpawn(SpawnPoint spawnpoint)
+        {
+            base.OnReSpawn(spawnpoint);
+
+            // TODO: add a small window of immunity on respawn
+            _immune = false;
+
+            SetState(NPCState.Idle);
         }
 
         public override void OnDeSpawn()

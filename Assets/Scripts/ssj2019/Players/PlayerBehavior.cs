@@ -110,6 +110,14 @@ namespace pdxpartyparrot.ssj2019.Players
             // TODO: add a small window of immunity on spawn
             _immune = false;
         }
+
+        public override void OnReSpawn(SpawnPoint spawnpoint)
+        {
+            base.OnReSpawn(spawnpoint);
+
+            // TODO: add a small window of immunity on spawn
+            _immune = false;
+        }
 #endregion
 
 #region Brawler Actions
