@@ -122,6 +122,10 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         private void OnDrawGizmos()
         {
+            if(!Application.isPlaying) {
+                return;
+            }
+
             Gizmos.color = Color.red;
 
             // TODO: probably should be a sphere

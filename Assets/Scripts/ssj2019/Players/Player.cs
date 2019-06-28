@@ -33,6 +33,13 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public PlayerCharacterData PlayerCharacterData => _playerCharacterData;
 
+        [SerializeField]
+        private SpriteRenderer _playerIndicator;
+
+        [SerializeField]
+        [ReadOnly]
+        private int _playerNumber = -1;
+
         private GameViewer PlayerGameViewer => (GameViewer)Viewer;
 
         public bool IsDead => Brawler.Health < 1;
@@ -66,7 +73,7 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 #endif
 
-            _playerCharacterData = GameManager.Instance.AcquireCharacter(device);
+            _playerCharacterData = GameManager.Instance.AcquireCharacter(device, out _playerNumber);
             if(null == _playerCharacterData) {
                 // this is "ok", we have a chance to recover when we spawn
                 Debug.LogWarning($"Player {Id} failed to get a character");
@@ -106,6 +113,8 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);
+
+            _playerIndicator.sprite = PlayerManager.Instance.GetPlayerIndicator(_playerNumber);
         }
 
 #region Spawn
@@ -118,13 +127,15 @@ namespace pdxpartyparrot.ssj2019.Players
             if(null == _playerCharacterData) {
                 // if something junked up and we didn't get a character, we have a chance to steal one
                 // TODO: we have no model tho, ugh :(
-                _playerCharacterData = GameManager.Instance.AcquireFreeCharacter();
+                _playerCharacterData = GameManager.Instance.AcquireFreeCharacter(out _playerNumber);
                 if(null == _playerCharacterData) {
                     // this is bad ya'll
                     Debug.LogError($"No characters available for player {Id}!");
                     return false;
                 } 
+
                 Debug.LogWarning($"Player {Id} stole free character {_playerCharacterData.Name}");
+                InitializeModel();
             }
 
             PlayerGameViewer.AddTarget(this);
