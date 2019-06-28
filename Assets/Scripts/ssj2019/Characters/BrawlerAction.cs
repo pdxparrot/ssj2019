@@ -51,8 +51,6 @@ namespace pdxpartyparrot.ssj2019.Characters
             set => _stunned = value;
         }
 
-        public bool CanAct => Cancellable && !IsStunned;
-
         public bool IsBlocking => ActionType.Block == Type || ActionType.Parry == Type;
 
         public BrawlerAction(ActionType type)

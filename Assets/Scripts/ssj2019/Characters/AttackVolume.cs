@@ -2,6 +2,7 @@
 
 using JetBrains.Annotations;
 
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ssj2019.Data;
@@ -16,8 +17,14 @@ namespace pdxpartyparrot.ssj2019.Characters
         public event EventHandler<AttackVolumeEventArgs> AttackHitEvent;
 #endregion
 
+        [SerializeField]
+        [ReadOnly]
         [CanBeNull]
         private AttackData _attackData;
+
+        [SerializeField]
+        [ReadOnly]
+        private Vector3 _direction;
 
 #region Unity Lifecycle
         protected override void Awake()
@@ -37,6 +44,7 @@ namespace pdxpartyparrot.ssj2019.Characters
         public void SetAttack([NotNull] AttackData attackData, Vector3 direction)
         {
             _attackData = attackData;
+            _direction = direction;
 
             Vector3 offset = _attackData.AttackVolumeOffset;
             offset.x *= Mathf.Sign(direction.x);
@@ -76,7 +84,7 @@ namespace pdxpartyparrot.ssj2019.Characters
                 return;
             }
 
-            if(damagable.Damage(Owner, _attackData.DamageType, _attackData.DamageAmount, _collider.bounds)) {
+            if(damagable.Damage(Owner, _attackData.DamageType, _attackData.DamageAmount, _collider.bounds, _direction * _attackData.PushBackScale)) {
                 AttackHitEvent?.Invoke(this, new AttackVolumeEventArgs{
                     HitTarget = damagable,
                 });

@@ -6,6 +6,6 @@ namespace pdxpartyparrot.Game.Actors
 {
     public interface IDamagable
     {
-        bool Damage(Actor source, string type, int amount, Bounds damageVolume);
+        bool Damage(Actor source, string type, int amount, Bounds damageVolume, Vector3 force);
     }
 }

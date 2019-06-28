@@ -39,7 +39,7 @@ namespace pdxpartyparrot.Core.Actors
 
         public ActorMovement Movement => _movement;
 
-        public Vector3 FacingDirection { get; private set; }
+        public Vector3 FacingDirection { get; private set; } = new Vector3(1.0f, 0.0f, 0.0f);
 
         public bool IsMoving { get; protected set; }
 
@@ -172,11 +172,11 @@ namespace pdxpartyparrot.Core.Actors
 
         protected void SetFacing(Vector3 direction)
         {
-            /*if(direction.sqrMagnitude < MathUtil.Epsilon) {
+            if(direction.sqrMagnitude < MathUtil.Epsilon) {
                 return;
-            }*/
+            }
 
-            FacingDirection = direction;
+            FacingDirection = Vector3.ClampMagnitude(direction, 1.0f);
 
 #if USE_SPINE
             if(null != SpineAnimationHelper) {

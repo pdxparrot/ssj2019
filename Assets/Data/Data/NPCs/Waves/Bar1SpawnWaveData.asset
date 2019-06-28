@@ -20,11 +20,11 @@ MonoBehaviour:
         type: 2}
       _tag: test
       _delay:
-        _min: 1
-        _max: 1
+        _min: 5
+        _max: 10
       _count:
-        _min: 1
-        _max: 1
-      _poolSize: 1
+        _min: 10
+        _max: 20
+      _poolSize: 60
       _once: 1
   _waveMusic: {fileID: 0}

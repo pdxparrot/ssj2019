@@ -51,7 +51,7 @@ namespace pdxpartyparrot.Core.Animation
 
             // TODO: if the skeleton is scaled, does this unscale it?
             // if so, we might have to take the Abs() first
-            SkeletonAnimation.Skeleton.ScaleX = direction.x < 0 ? -1.0f : 1.0f;
+            SkeletonAnimation.Skeleton.ScaleX = Mathf.Sign(direction.x);
         }
     }
 }
