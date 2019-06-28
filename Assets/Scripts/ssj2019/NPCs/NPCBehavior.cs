@@ -21,7 +21,10 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ssj2019.NPCs
 {
+    // TODO: abstract this more into separate components
+
     [RequireComponent(typeof(BrawlerBehavior))]
+    [RequireComponent(typeof(NPCFidgetBehavior))]
     public sealed class NPCBehavior : Game.Characters.NPCs.NPCBehavior, IBrawlerBehaviorActions
     {
         private enum NPCState
@@ -89,6 +92,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         private BrawlerBehavior _brawlerBehavior;
 
+        private NPCFidgetBehavior _fidgetBehavior;
+
         private ITimer _stateCooldown;
 
         private ITimer _attackCooldown;
@@ -101,6 +106,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
             Assert.IsTrue(Owner is NPC);
 
             _brawlerBehavior = GetComponent<BrawlerBehavior>();
+
+            _fidgetBehavior = GetComponent<NPCFidgetBehavior>();
+            _fidgetBehavior.Initialize(GameNPCOwner);
 
             _attackBehaviorComponent.Brawler = GameNPCOwner.Brawler;
             _blockBehaviorComponent.Brawler = GameNPCOwner.Brawler;
@@ -176,6 +184,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             {
             case NPCState.Idle:
                 SpineAnimationHelper.SetAnimation(GameNPCOwner.NPCCharacterData.BrawlerData.IdleAnimationName, false);
+                _fidgetBehavior.Origin = Movement.Position;
                 GameNPCOwner.ResetPath();
                 break;
             case NPCState.Track:
@@ -223,9 +232,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return;
             }
 
-            // legit idle, avoid other NPCs
-            // TODO: not sure why this doesn't force avoidance :(
-            GameNPCOwner.UpdatePath(Movement.Position);
+            _fidgetBehavior.Fidget();
         }
 
         private void HandleTrack()
