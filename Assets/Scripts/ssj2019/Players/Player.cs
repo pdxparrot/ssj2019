@@ -12,9 +12,12 @@ using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Characters;
 using pdxpartyparrot.ssj2019.Data;
 
+using TMPro;
+
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.ssj2019.Players
 {
@@ -32,6 +35,25 @@ namespace pdxpartyparrot.ssj2019.Players
         private PlayerCharacterData _playerCharacterData;
 
         public PlayerCharacterData PlayerCharacterData => _playerCharacterData;
+
+        // TODO: move this to its own component
+#region Player Indicator
+        [SerializeField]
+        [CanBeNull]
+        [FormerlySerializedAs("_playerIndicator")]
+        private SpriteRenderer _playerIndicatorSprite;
+
+        [SerializeField]
+        [CanBeNull]
+        private TextMeshPro _playerIndicatorText;
+
+        [SerializeField]
+        private MeshRenderer _playerGroundIndicator;
+#endregion
+
+        [SerializeField]
+        [ReadOnly]
+        private int _playerNumber = -1;
 
         private GameViewer PlayerGameViewer => (GameViewer)Viewer;
 
@@ -66,7 +88,7 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 #endif
 
-            _playerCharacterData = GameManager.Instance.AcquireCharacter(device);
+            _playerCharacterData = GameManager.Instance.AcquireCharacter(device, out _playerNumber);
             if(null == _playerCharacterData) {
                 // this is "ok", we have a chance to recover when we spawn
                 Debug.LogWarning($"Player {Id} failed to get a character");
@@ -106,6 +128,24 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);
+
+            // TODO: move this to is own component
+            PlayerData.PlayerIndicatorState indicatorState = PlayerManager.Instance.GetPlayerIndicatorState(_playerNumber);
+            if(null != indicatorState) {
+                if(null != _playerIndicatorSprite && null != indicatorState.PlayerIndicatorSprite) {
+                    _playerIndicatorSprite.sprite = indicatorState.PlayerIndicatorSprite;
+                    _playerIndicatorSprite.color = indicatorState.PlayerColor;
+                }
+
+                if(null != _playerIndicatorText) {
+                    _playerIndicatorText.text = indicatorState.PlayerIndicatorText;
+                    _playerIndicatorText.color = indicatorState.PlayerColor;
+                }
+
+                _playerGroundIndicator.material.color = indicatorState.PlayerColor;
+            } else {
+                Debug.LogWarning($"Unable to get indicator state for player {_playerNumber}");
+            }
         }
 
 #region Spawn
@@ -117,14 +157,16 @@ namespace pdxpartyparrot.ssj2019.Players
 
             if(null == _playerCharacterData) {
                 // if something junked up and we didn't get a character, we have a chance to steal one
-                // TODO: we have no model tho, ugh :(
-                _playerCharacterData = GameManager.Instance.AcquireFreeCharacter();
+                _playerCharacterData = GameManager.Instance.AcquireFreeCharacter(out _playerNumber);
                 if(null == _playerCharacterData) {
                     // this is bad ya'll
                     Debug.LogError($"No characters available for player {Id}!");
                     return false;
                 } 
+
                 Debug.LogWarning($"Player {Id} stole free character {_playerCharacterData.Name}");
+
+                InitializeModel();
             }
 
             PlayerGameViewer.AddTarget(this);

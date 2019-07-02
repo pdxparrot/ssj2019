@@ -81,7 +81,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         public void UpdatePath(Vector3 target)
         {
             if(!_agent.SetDestination(target)) {
-                Debug.LogWarning("Failed to set NPC destination!");
+                Debug.LogWarning($"Failed to set NPC destination: {target}");
                 return;
             }
 

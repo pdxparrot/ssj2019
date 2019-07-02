@@ -49,3 +49,4 @@ MonoBehaviour:
     type: 2}
   _playerPrefab: {fileID: 463285651185603561, guid: 36550949b70b3014d8a4fd0d38306db2,
     type: 3}
+  _playerData: {fileID: 11400000, guid: fdf6cfdddae56a540815488b1fd4babf, type: 2}

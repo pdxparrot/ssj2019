@@ -907,6 +907,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1094174836598082451}
   - component: {fileID: 2457662190061875137}
+  - component: {fileID: 7354327572179901474}
   - component: {fileID: 7670571906903510832}
   - component: {fileID: 256798335153925517}
   - component: {fileID: 4012403951289823003}
@@ -959,6 +960,23 @@ MonoBehaviour:
   _attackVolume: {fileID: 4356007661132845643}
   _blockVolume: {fileID: 5793994074923292069}
   _lastAttackHit: 0
+--- !u!114 &7354327572179901474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9003367007530177534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0526fdf8c2121c44af6226f23697634, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cooldownMs: 100
+  _fidgetRange:
+    _min: 0.5
+    _max: 1
+  _origin: {x: 0, y: 0, z: 0}
 --- !u!114 &7670571906903510832
 MonoBehaviour:
   m_ObjectHideFlags: 0

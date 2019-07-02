@@ -15,6 +15,6 @@ MonoBehaviour:
   _name: Cody
   _characterPortraitPrefab: {fileID: 626089794780383238, guid: 8fcd1c64454b02f44804dc824dfe021a,
     type: 3}
-  _characterModelPrefab: {fileID: 3204080472430291362, guid: ab2803260de98834895c1bb899a03b12,
+  _characterModelPrefab: {fileID: 3982071459547463407, guid: 8fef7378fc77b0e42a67ea760f4dc331,
     type: 3}
   _brawlerData: {fileID: 11400000, guid: 2a5ded57fa761fc41bb969b8ef96f07d, type: 2}

@@ -18,6 +18,9 @@ namespace pdxpartyparrot.Core.World
         public string Tag => _tag;
 
         [SerializeField]
+        private FloatRangeConfig _spawnRange;
+
+        [SerializeField]
         [ReadOnly]
         private Actor _owner;
 
@@ -38,7 +41,7 @@ namespace pdxpartyparrot.Core.World
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, 1.0f);
+            Gizmos.DrawWireSphere(transform.position, _spawnRange.Max <= 0.0f ? 1.0f : _spawnRange.Max);
         }
 #endregion
 
@@ -61,7 +64,11 @@ namespace pdxpartyparrot.Core.World
             Transform actorTransform = actor.transform;
             Transform thisTransform = transform;
 
-            actorTransform.position = thisTransform.position;
+            Vector3 offset = new Vector3(_spawnRange.GetRandomValue() * PartyParrotManager.Instance.Random.NextSign(),
+                                         0.0f,
+                                         _spawnRange.GetRandomValue() * PartyParrotManager.Instance.Random.NextSign());
+
+            actorTransform.position = thisTransform.position + offset;
             actorTransform.rotation = thisTransform.rotation;
 
             actor.gameObject.SetActive(true);
