@@ -184,8 +184,10 @@ namespace pdxpartyparrot.ssj2019.NPCs
             {
             case NPCState.Idle:
                 SpineAnimationHelper.SetAnimation(GameNPCOwner.NPCCharacterData.BrawlerData.IdleAnimationName, false);
-                _fidgetBehavior.Origin = Movement.Position;
                 GameNPCOwner.ResetPath();
+
+                // have to use the transform here since physics lags behind
+                _fidgetBehavior.Origin = Owner.transform.position;
                 break;
             case NPCState.Track:
                 break;
