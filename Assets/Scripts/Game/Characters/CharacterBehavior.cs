@@ -36,6 +36,11 @@ namespace pdxpartyparrot.Game.Characters
             {
                 return TimeManager.Instance.CurrentUnixMs - TimestampMs > timeout;
             }
+
+            public override string ToString()
+            {
+                return $"[{TimestampMs}]: {Action}";
+            }
         }
 
         public ICharacterMovement CharacterMovement => (ICharacterMovement)Movement;

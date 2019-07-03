@@ -78,6 +78,7 @@ MonoBehaviour:
   _owner: {fileID: 463285651185603561}
   _behaviorData: {fileID: 0}
   _movement: {fileID: 515719160455454119}
+  _isMoving: 0
   _spineAnimationHelper: {fileID: 1402089305333961099}
   _spineSkinHelper: {fileID: 8044426963685100265}
   _spriteAnimationHelper: {fileID: 9001812890377953706}
@@ -98,6 +99,7 @@ MonoBehaviour:
   _isSliding: 0
   _moveDirection: {x: 0, y: 0, z: 0}
   _immune: 0
+  _currentComboIndex: 0
   _attackBehaviorComponent: {fileID: 2342830165173679034}
   _blockBehaviorComponent: {fileID: 1883176091393127105}
 --- !u!114 &515719160455454119
@@ -677,7 +679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 1402089305333961099}
-  _spineAnimationName: Punch01
+  _spineAnimationName: 
   _spineAnimationTrack: 0
   _waitForComplete: 1
 --- !u!1 &5420301058010389892

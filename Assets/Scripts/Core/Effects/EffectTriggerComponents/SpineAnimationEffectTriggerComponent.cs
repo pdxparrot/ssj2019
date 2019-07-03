@@ -27,8 +27,20 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         [SerializeField]
         private string _spineAnimationName = "default";
 
+        public string SpineAnimationName
+        {
+            get => _spineAnimationName;
+            set => _spineAnimationName = value;
+        }
+
         [SerializeField]
         private int _spineAnimationTrack;
+
+        public int SpineAnimationTrack
+        {
+            get => _spineAnimationTrack;
+            set => _spineAnimationTrack = value;
+        }
 
         [SerializeField]
         private bool _waitForComplete = true;

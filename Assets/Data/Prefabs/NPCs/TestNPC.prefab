@@ -881,7 +881,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 1655421340564284999}
-  _spineAnimationName: Punch01
+  _spineAnimationName: 
   _spineAnimationTrack: 0
   _waitForComplete: 1
 --- !u!1 &9003367007530177534
@@ -959,11 +959,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0526fdf8c2121c44af6226f23697634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cooldownMs: 100
+  _cooldownSeconds: 5
   _fidgetRange:
     _min: 0.5
     _max: 1
   _origin: {x: 0, y: 0, z: 0}
+  _offset: {x: 0, y: 0, z: 0}
 --- !u!114 &7670571906903510832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -979,6 +980,7 @@ MonoBehaviour:
   _owner: {fileID: 7185525476932000284}
   _behaviorData: {fileID: 0}
   _movement: {fileID: 256798335153925517}
+  _isMoving: 0
   _spineAnimationHelper: {fileID: 1655421340564284999}
   _spineSkinHelper: {fileID: 5537966649986345550}
   _spriteAnimationHelper: {fileID: 1842215167110611934}
@@ -998,6 +1000,7 @@ MonoBehaviour:
   _isSliding: 0
   _interactables: {fileID: 4908680204030065229}
   _immune: 0
+  _currentComboIndex: 0
   _state: 0
   _target: {fileID: 0}
   _attackBehaviorComponent: {fileID: 5887927068430922675}
