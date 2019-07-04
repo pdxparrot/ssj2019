@@ -193,6 +193,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _brawler: {fileID: 0}
+--- !u!1 &1781775709381118993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8338910519638184812}
+  m_Layer: 12
+  m_Name: Player Indicator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8338910519638184812
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781775709381118993}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3290403125037874893}
+  - {fileID: 2100147819986000443}
+  - {fileID: 4559701499958086347}
+  m_Father: {fileID: 7312426625843009650}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2485863649417268582
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,7 +339,7 @@ GameObject:
   - component: {fileID: 3290403125037874893}
   - component: {fileID: 4879663505215756646}
   m_Layer: 12
-  m_Name: Player Overhead Indicator
+  m_Name: Overhead Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -319,12 +352,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3036079993360629652}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 2.02, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
-  m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 13
+  m_Father: {fileID: 8338910519638184812}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4879663505215756646
 SpriteRenderer:
@@ -919,7 +952,7 @@ GameObject:
   - component: {fileID: 684513735817380804}
   - component: {fileID: 1060657990496669321}
   m_Layer: 12
-  m_Name: Player Indicator Text
+  m_Name: Indicator Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -932,12 +965,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6253863379177076484}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.075, y: 0.075, z: 0.075}
   m_Children: []
-  m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 15
+  m_Father: {fileID: 8338910519638184812}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1121,7 +1154,7 @@ GameObject:
   - component: {fileID: 2840994552533144508}
   - component: {fileID: 8995250057955054503}
   m_Layer: 12
-  m_Name: Player Ground Indicator
+  m_Name: Ground Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1134,12 +1167,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6375322862688808521}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.1, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1.5, y: 1.500001, z: 1.500001}
   m_Children: []
-  m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 14
+  m_Father: {fileID: 8338910519638184812}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &2840994552533144508
 MeshFilter:
@@ -1304,9 +1337,7 @@ Transform:
   - {fileID: 1949689036593770953}
   - {fileID: 2879474997430178217}
   - {fileID: 8353411165582611084}
-  - {fileID: 3290403125037874893}
-  - {fileID: 2100147819986000443}
-  - {fileID: 4559701499958086347}
+  - {fileID: 8338910519638184812}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
