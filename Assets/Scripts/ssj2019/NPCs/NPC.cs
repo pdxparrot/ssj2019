@@ -38,6 +38,10 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public Brawler Brawler { get; private set; }
 
+        private CharacterModel _characterModel;
+
+        public CharacterModel CharacterModel => _characterModel;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -71,8 +75,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return;
             }
 
-            CharacterModel model = Instantiate(_characterData.CharacterModelPrefab, Model.transform);
-            model.InitializeBehavior(Behavior, _characterData.SkinIndex);
+            _characterModel = Instantiate(_characterData.CharacterModelPrefab, Model.transform);
+            _characterModel.InitializeBehavior(Behavior, _characterData.SkinIndex);
         }
 
 #region Spawn

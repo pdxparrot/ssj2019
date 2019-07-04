@@ -255,6 +255,7 @@ GameObject:
   - component: {fileID: 3711383812989656454}
   - component: {fileID: 6941888120933034583}
   - component: {fileID: 6596496072749091446}
+  - component: {fileID: 6164204977663408656}
   - component: {fileID: 4356007661132845643}
   m_Layer: 17
   m_Name: Attack Volume
@@ -302,6 +303,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be0be470c70abf64d8d4275094f6eaab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6164204977663408656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2861679878649671080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fd8daaed7b64148a34acb96ba14ce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonRenderer: {fileID: 0}
+  boneName: 
+  followZPosition: 1
+  followBoneRotation: 1
+  followSkeletonFlip: 1
+  followLocalScale: 0
+  initializeOnAwake: 1
 --- !u!114 &4356007661132845643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -814,6 +834,7 @@ GameObject:
   - component: {fileID: 8257721174215013484}
   - component: {fileID: 2010566273011737595}
   - component: {fileID: 6822565998251041767}
+  - component: {fileID: 9001537913531854504}
   - component: {fileID: 5793994074923292069}
   m_Layer: 13
   m_Name: Block Volume
@@ -861,6 +882,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be0be470c70abf64d8d4275094f6eaab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9001537913531854504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7740976043853635704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fd8daaed7b64148a34acb96ba14ce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonRenderer: {fileID: 0}
+  boneName: 
+  followZPosition: 1
+  followBoneRotation: 1
+  followSkeletonFlip: 1
+  followLocalScale: 0
+  initializeOnAwake: 1
 --- !u!114 &5793994074923292069
 MonoBehaviour:
   m_ObjectHideFlags: 0

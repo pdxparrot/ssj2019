@@ -48,6 +48,10 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public Brawler Brawler { get; private set; }
 
+        private CharacterModel _characterModel;
+
+        public CharacterModel CharacterModel => _characterModel;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -72,6 +76,10 @@ namespace pdxpartyparrot.ssj2019.Players
                 device = Keyboard.current;
             }
 #endif
+
+            // TODO: the server needs the character data and model setup
+            // so those need to move out of here and into Initialize()
+            // and need to not be directly dependent on the input device like they are now
 
             _playerCharacterData = GameManager.Instance.AcquireCharacter(device, out _playerNumber);
             if(null == _playerCharacterData) {
@@ -99,8 +107,8 @@ namespace pdxpartyparrot.ssj2019.Players
                 return;
             }
 
-            CharacterModel model = Instantiate(_playerCharacterData.CharacterModelPrefab, Model.transform);
-            model.InitializeBehavior(Behavior, 0);
+            _characterModel = Instantiate(_playerCharacterData.CharacterModelPrefab, Model.transform);
+            _characterModel.InitializeBehavior(Behavior, 0);
 
             PlayerData.PlayerIndicatorState indicatorState = PlayerManager.Instance.GetPlayerIndicatorState(_playerNumber);
             if(null != indicatorState) {

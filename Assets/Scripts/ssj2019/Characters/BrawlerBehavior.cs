@@ -18,6 +18,8 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         Brawler Brawler { get; }
 
+        CharacterModel CharacterModel { get; }
+
         CharacterBehaviorComponent.CharacterBehaviorAction NextAction { get; }
 
         bool IsDead { get; }
@@ -148,7 +150,11 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         public void Attack()
         {
+            // TODO: calling Initialize() here is dumb, but we can't do it in our own Initialize()
+            // because the models haven't been initialized yet (and that NEEDS to get changed cuz this is dumb)
+            _attackVolume.Initialize(_actionHandler.CharacterModel.SpineModel);
             _attackVolume.SetAttack(_actionHandler.CurrentAttack, _actionHandler.FacingDirection);
+
             _attackAnimationEffectTriggerComponent.SpineAnimationName = _actionHandler.CurrentAttack.AnimationName;
 
             _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Attack);
@@ -186,7 +192,10 @@ namespace pdxpartyparrot.ssj2019.Characters
 
             CancelActions(false);
 
-            _blockVolume.SetBlock(_actionHandler.Brawler.BrawlerData.BlockVolumeOffset, _actionHandler.Brawler.BrawlerData.BlockVolumeSize, _actionHandler.FacingDirection);
+            // TODO: calling Initialize() here is dumb, but we can't do it in our own Initialize()
+            // because the models haven't been initialized yet (and that NEEDS to get changed cuz this is dumb)
+            _blockVolume.Initialize(_actionHandler.CharacterModel.SpineModel);
+            _blockVolume.SetBlock(_actionHandler.Brawler.BrawlerData.BlockVolumeOffset, _actionHandler.Brawler.BrawlerData.BlockVolumeSize, _actionHandler.FacingDirection, _actionHandler.Brawler.BrawlerData.BlockBoneName);
 
             _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Block);
             _blockBeginEffectTrigger.Trigger();

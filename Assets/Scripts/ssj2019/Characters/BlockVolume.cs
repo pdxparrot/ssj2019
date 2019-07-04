@@ -12,12 +12,14 @@ namespace pdxpartyparrot.ssj2019.Characters
         }
 #endregion
 
-        public void SetBlock(Vector3 offset, Vector3 size, Vector3 direction)
+        public void SetBlock(Vector3 offset, Vector3 size, Vector3 direction, string boneName)
         {
             offset.x *= Mathf.Sign(direction.x);
 
             Offset = offset;
             Size = size;
+
+            BoneFollower.SetBone(boneName);
         }
     }
 }

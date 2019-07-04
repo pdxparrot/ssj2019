@@ -25,6 +25,8 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public Brawler Brawler => GamePlayerOwner.Brawler;
 
+        public CharacterModel CharacterModel => GamePlayerOwner.CharacterModel;
+
         private bool CanJump => !IsDead && Brawler.CurrentAction.Cancellable;
 
         private bool CanAttack => !IsDead && Brawler.CurrentAction.Cancellable;

@@ -52,5 +52,10 @@ namespace pdxpartyparrot.ssj2019.Data
         private string _animationName = "default";
 
         public string AnimationName => _animationName;
+
+        [SerializeField]
+        private string _boneName = "root";
+
+        public string BoneName => _boneName;
     }
 }

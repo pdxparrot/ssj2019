@@ -7,6 +7,8 @@ using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ssj2019.Data;
 
+using Spine.Unity;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Characters
@@ -51,6 +53,8 @@ namespace pdxpartyparrot.ssj2019.Characters
 
             Offset = offset;
             Size = _attackData.AttackVolumeSize;
+
+            BoneFollower.SetBone(attackData.BoneName);
         }
 
         public override void EnableVolume(bool enable)

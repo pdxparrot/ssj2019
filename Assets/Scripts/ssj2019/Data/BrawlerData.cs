@@ -73,7 +73,7 @@ namespace pdxpartyparrot.ssj2019.Data
 
         [Space(10)]
 
-#region Attack Volumes
+#region Action Volumes
         [SerializeField]
         private Vector3 _blockVolumeOffset;
 
@@ -83,6 +83,11 @@ namespace pdxpartyparrot.ssj2019.Data
         private Vector3 _blockVolumeSize = new Vector3(1.0f, 1.0f, 1.0f);
 
         public Vector3 BlockVolumeSize => _blockVolumeSize;
+
+        [SerializeField]
+        private string _blockBoneName = "root";
+
+        public string BlockBoneName => _blockBoneName;
 #endregion
 
         [Space(10)]

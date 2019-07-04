@@ -2,12 +2,15 @@
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Interactables;
 
+using Spine.Unity;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Characters
 {
     [RequireComponent(typeof(Interactables))]
     [RequireComponent(typeof(BoxCollider))]
+    [RequireComponent(typeof(BoneFollower))]
     public abstract class ActionVolume : MonoBehaviour, IInteractable
     {
         [SerializeField]
@@ -43,6 +46,8 @@ namespace pdxpartyparrot.ssj2019.Characters
 
         protected Interactables Interactables { get; private set; }
 
+        protected BoneFollower BoneFollower { get; private set; }
+
 #region Unity Lifecycle
         protected virtual void Awake()
         {
@@ -50,6 +55,7 @@ namespace pdxpartyparrot.ssj2019.Characters
             _collider.isTrigger = true;
 
             Interactables = GetComponent<Interactables>();
+            BoneFollower = GetComponent<BoneFollower>();
         }
 
         protected virtual void OnDrawGizmos()
@@ -60,6 +66,11 @@ namespace pdxpartyparrot.ssj2019.Characters
             Gizmos.DrawCube(transform.position + _collider.center, _collider.size);
         }
 #endregion
+
+        public void Initialize(SkeletonRenderer skeletonRenderer)
+        {
+            BoneFollower.SkeletonRenderer = skeletonRenderer;
+        }
 
         public virtual void EnableVolume(bool enable)
         {
