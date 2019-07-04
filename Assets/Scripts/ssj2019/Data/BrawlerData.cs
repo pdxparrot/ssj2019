@@ -10,17 +10,6 @@ namespace pdxpartyparrot.ssj2019.Data
     {
         [Space(10)]
 
-#region Animations
-        [Header("Animations")]
-
-        [SerializeField]
-        private string _idleAnimationName = "Idle";
-
-        public string IdleAnimationName => _idleAnimationName;
-#endregion
-
-        [Space(10)]
-
 #region Action Volume Events
         [Header("Action Volume Events")]
 

@@ -240,7 +240,7 @@ MonoBehaviour:
   _tag: player
   _spawnRange:
     _min: 0
-    _max: 0
+    _max: 0.5
   _owner: {fileID: 0}
 --- !u!4 &516796179
 Transform:
@@ -751,7 +751,7 @@ MonoBehaviour:
   _tag: test
   _spawnRange:
     _min: 0
-    _max: 1.5
+    _max: 1
   _owner: {fileID: 0}
 --- !u!1 &1502804038
 GameObject:
