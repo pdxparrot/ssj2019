@@ -47,5 +47,10 @@ namespace pdxpartyparrot.ssj2019.Data
         private Vector3 _attackVolumeSize = new Vector3(1.0f, 1.0f, 1.0f);
 
         public Vector3 AttackVolumeSize => _attackVolumeSize;
+
+        [SerializeField]
+        private string _animationName = "default";
+
+        public string AnimationName => _animationName;
     }
 }

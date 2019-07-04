@@ -33,6 +33,8 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public bool IsDead => GamePlayerOwner.IsDead;
 
+        [Space(10)]
+
         [SerializeField]
         [ReadOnly]
         private bool _immune;
@@ -45,8 +47,11 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public override bool CanMove => base.CanMove && !IsDead && !Brawler.CurrentAction.IsStunned;
 
-        // TODO: this depends on which piece of a combo we're in and other factors
-        public AttackData CurrentAttack => GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(0);
+        [SerializeField]
+        [ReadOnly]
+        private int _currentComboIndex;
+
+        public AttackData CurrentAttack => GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(_currentComboIndex);
 
         [SerializeField]
         private AttackBehaviorComponent _attackBehaviorComponent;
@@ -123,12 +128,27 @@ namespace pdxpartyparrot.ssj2019.Players
 #region Brawler Actions
         public void OnIdle()
         {
-            SpineAnimationHelper.SetAnimation(GamePlayerOwner.PlayerCharacterData.BrawlerData.IdleAnimationName, false);
+            _idleEffect.Trigger();
         }
 
         public void OnAttack(AttackBehaviorComponent.AttackAction action)
         {
             ActionPerformed(action);
+        }
+
+        public bool OnAdvanceCombo()
+        {
+            if(_currentComboIndex >= GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackComboData.AttackData.Count - 1) {
+                return false;
+            }
+
+            _currentComboIndex++;
+            return true;
+        }
+
+        public void OnComboFail()
+        {
+            _currentComboIndex = 0;
         }
 
         public void OnHit(bool blocked)
@@ -160,7 +180,7 @@ namespace pdxpartyparrot.ssj2019.Players
                 return;
             }
 
-            _brawlerBehavior.CancelActions();
+            _brawlerBehavior.CancelActions(false);
 
             ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
         }

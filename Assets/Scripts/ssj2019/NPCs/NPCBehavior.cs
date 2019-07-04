@@ -40,6 +40,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public Brawler Brawler => GameNPCOwner.Brawler;
 
+        [Space(10)]
+
         [SerializeField]
         private Interactables _interactables;
 
@@ -72,8 +74,11 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public override bool CanMove => base.CanMove && !IsDead && !Brawler.CurrentAction.IsStunned;
 
-        // TODO: this depends on which piece of a combo we're in and other factors
-        public AttackData CurrentAttack => GameNPCOwner.NPCCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(0);
+        [SerializeField]
+        [ReadOnly]
+        private int _currentComboIndex;
+
+        public AttackData CurrentAttack => GameNPCOwner.NPCCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(_currentComboIndex);
 
         [SerializeField]
         [ReadOnly]
@@ -183,9 +188,12 @@ namespace pdxpartyparrot.ssj2019.NPCs
             switch(_state)
             {
             case NPCState.Idle:
-                SpineAnimationHelper.SetAnimation(GameNPCOwner.NPCCharacterData.BrawlerData.IdleAnimationName, false);
-                _fidgetBehavior.Origin = Movement.Position;
                 GameNPCOwner.ResetPath();
+
+                // have to use the transform here since physics lags behind
+                _fidgetBehavior.Origin = Owner.transform.position;
+
+                _idleEffect.Trigger();
                 break;
             case NPCState.Track:
                 break;
@@ -361,6 +369,21 @@ namespace pdxpartyparrot.ssj2019.NPCs
             _attackCooldown.Start(GameNPCOwner.NPCCharacterData.AttackCooldownSeconds);
         }
 
+        public bool OnAdvanceCombo()
+        {
+            if(_currentComboIndex >= GameNPCOwner.NPCCharacterData.BrawlerData.AttackComboData.AttackData.Count - 1) {
+                return false;
+            }
+
+            _currentComboIndex++;
+            return true;
+        }
+
+        public void OnComboFail()
+        {
+            _currentComboIndex = 0;
+        }
+
         public void OnHit(bool blocked)
         {
             ClearActionBuffer();
@@ -391,7 +414,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return;
             }
 
-            _brawlerBehavior.CancelActions();
+            _brawlerBehavior.CancelActions(false);
 
             ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
 

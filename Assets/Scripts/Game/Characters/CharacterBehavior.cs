@@ -7,6 +7,7 @@ using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.DebugMenu;
+using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
@@ -35,6 +36,11 @@ namespace pdxpartyparrot.Game.Characters
             public bool Expired(int timeout)
             {
                 return TimeManager.Instance.CurrentUnixMs - TimestampMs > timeout;
+            }
+
+            public override string ToString()
+            {
+                return $"[{TimestampMs}]: {Action}";
             }
         }
 
@@ -75,6 +81,16 @@ namespace pdxpartyparrot.Game.Characters
         }
 
         public bool IsFalling => Movement.UseGravity && (!IsGrounded && !IsSliding && Movement.Velocity.y < 0.0f);
+#endregion
+
+        [Space(10)]
+
+#region Effects
+        [Header("Character Effects")]
+
+        [SerializeField]
+        [CanBeNull]
+        protected EffectTrigger _idleEffect;
 #endregion
 
         public override bool CanMove => base.CanMove && !GameStateManager.Instance.GameManager.IsGameOver;
