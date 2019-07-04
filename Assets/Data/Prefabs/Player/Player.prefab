@@ -202,6 +202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8338910519638184812}
+  - component: {fileID: 7662034392016381256}
   m_Layer: 12
   m_Name: Player Indicator
   m_TagString: Untagged
@@ -220,12 +221,27 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4559701499958086347}
   - {fileID: 3290403125037874893}
   - {fileID: 2100147819986000443}
-  - {fileID: 4559701499958086347}
   m_Father: {fileID: 7312426625843009650}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7662034392016381256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781775709381118993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aaaa25cbeb9b994f9a1759e50d0878a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sprite: {fileID: 4879663505215756646}
+  _text: {fileID: 1060657990496669321}
+  _ground: {fileID: 8995250057955054503}
 --- !u!1 &2485863649417268582
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,7 +373,7 @@ Transform:
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
   m_Father: {fileID: 8338910519638184812}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4879663505215756646
 SpriteRenderer:
@@ -970,7 +986,7 @@ RectTransform:
   m_LocalScale: {x: 0.075, y: 0.075, z: 0.075}
   m_Children: []
   m_Father: {fileID: 8338910519638184812}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1172,7 +1188,7 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.500001, z: 1.500001}
   m_Children: []
   m_Father: {fileID: 8338910519638184812}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &2840994552533144508
 MeshFilter:
@@ -1514,9 +1530,7 @@ MonoBehaviour:
   _networkPlayer: {fileID: 4735179189841920839}
   _input: {fileID: 2194374668728194188}
   _playerCharacterData: {fileID: 0}
-  _playerIndicatorSprite: {fileID: 4879663505215756646}
-  _playerIndicatorText: {fileID: 1060657990496669321}
-  _playerGroundIndicator: {fileID: 8995250057955054503}
+  _playerIndicator: {fileID: 7662034392016381256}
   _playerNumber: -1
 --- !u!1 &7835375812971009641
 GameObject:

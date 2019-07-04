@@ -72,23 +72,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             }
 
             CharacterModel model = Instantiate(_characterData.CharacterModelPrefab, Model.transform);
-
-            if(null != model.ModelSprite) {
-                Behavior.SpriteAnimationHelper.AddRenderer(model.ModelSprite);
-            }
-
-            if(null != model.SpineModel) {
-                Behavior.SpineAnimationHelper.SkeletonAnimation = model.SpineModel;
-
-                Behavior.SpineSkinHelper.SkeletonAnimation = model.SpineModel;
-                if(_characterData.SkinIndex < 0) {
-                    Behavior.SpineSkinHelper.SetRandomSkin();
-                } else {
-                    Behavior.SpineSkinHelper.SetSkin(_characterData.SkinIndex);
-                }
-            }
-
-            Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);
+            model.InitializeBehavior(Behavior, _characterData.SkinIndex);
         }
 
 #region Spawn

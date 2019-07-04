@@ -12,12 +12,9 @@ using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Characters;
 using pdxpartyparrot.ssj2019.Data;
 
-using TMPro;
-
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.ssj2019.Players
 {
@@ -36,20 +33,8 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public PlayerCharacterData PlayerCharacterData => _playerCharacterData;
 
-        // TODO: move this to its own component
-#region Player Indicator
         [SerializeField]
-        [CanBeNull]
-        [FormerlySerializedAs("_playerIndicator")]
-        private SpriteRenderer _playerIndicatorSprite;
-
-        [SerializeField]
-        [CanBeNull]
-        private TextMeshPro _playerIndicatorText;
-
-        [SerializeField]
-        private MeshRenderer _playerGroundIndicator;
-#endregion
+        private PlayerIndicator _playerIndicator;
 
         [SerializeField]
         [ReadOnly]
@@ -115,34 +100,11 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             CharacterModel model = Instantiate(_playerCharacterData.CharacterModelPrefab, Model.transform);
+            model.InitializeBehavior(Behavior, 0);
 
-            if(null != model.ModelSprite) {
-                Behavior.SpriteAnimationHelper.AddRenderer(model.ModelSprite);
-            }
-
-            if(null != model.SpineModel) {
-                Behavior.SpineAnimationHelper.SkeletonAnimation = model.SpineModel;
-
-                Behavior.SpineSkinHelper.SkeletonAnimation = model.SpineModel;
-                // TODO: skin?
-            }
-
-            Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);
-
-            // TODO: move this to is own component
             PlayerData.PlayerIndicatorState indicatorState = PlayerManager.Instance.GetPlayerIndicatorState(_playerNumber);
             if(null != indicatorState) {
-                if(null != _playerIndicatorSprite && null != indicatorState.PlayerIndicatorSprite) {
-                    _playerIndicatorSprite.sprite = indicatorState.PlayerIndicatorSprite;
-                    _playerIndicatorSprite.color = indicatorState.PlayerColor;
-                }
-
-                if(null != _playerIndicatorText) {
-                    _playerIndicatorText.text = indicatorState.PlayerIndicatorText;
-                    _playerIndicatorText.color = indicatorState.PlayerColor;
-                }
-
-                _playerGroundIndicator.material.color = indicatorState.PlayerColor;
+                _playerIndicator.Initialize(indicatorState);
             } else {
                 Debug.LogWarning($"Unable to get indicator state for player {_playerNumber}");
             }
