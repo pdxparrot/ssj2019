@@ -12,18 +12,16 @@ namespace pdxpartyparrot.Game.Characters.Players
 {
     public abstract class PlayerBehavior : CharacterBehavior
     {
-        [CanBeNull]
-        public PlayerBehaviorData PlayerBehaviorData => (PlayerBehaviorData)CharacterBehaviorData;
-
-        public IPlayer Player => (IPlayer)Owner;
-
-        [Space(10)]
-
         [SerializeField]
         [ReadOnly]
         private Vector3 _moveDirection;
 
         public Vector3 MoveDirection => _moveDirection;
+
+        [CanBeNull]
+        public PlayerBehaviorData PlayerBehaviorData => (PlayerBehaviorData)CharacterBehaviorData;
+
+        public IPlayer Player => (IPlayer)Owner;
 
 #region Unity Lifecycle
         protected override void Awake()

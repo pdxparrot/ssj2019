@@ -38,10 +38,6 @@ namespace pdxpartyparrot.ssj2019.Characters
         // triggers when the brawler should attack
         void OnAttack(AttackBehaviorComponent.AttackAction action);
 
-        bool OnAdvanceCombo();
-
-        void OnComboFail();
-
         // triggers when the brawler is hit
         void OnHit(bool blocked);
 
@@ -139,6 +135,15 @@ namespace pdxpartyparrot.ssj2019.Characters
         {
             ShutdownEffects();
         }
+
+        /*private void Update()
+        {
+            // pump the action buffer
+            if(BrawlerAction.ActionType.Idle == _actionHandler.Brawler.CurrentAction.Type && _actionHandler.NextAction is AttackBehaviorComponent.AttackAction attackAction) {
+                _actionHandler.OnAttack(attackAction);
+                _actionHandler.PopNextAction();
+            }
+        }*/
 #endregion
 
         public void Initialize(IBrawlerBehaviorActions actionHandler)
@@ -149,29 +154,12 @@ namespace pdxpartyparrot.ssj2019.Characters
         public void Attack()
         {
             _attackVolume.SetAttack(_actionHandler.CurrentAttack, _actionHandler.FacingDirection);
-            _attackAnimationEffectTriggerComponent.SpineAnimationName = _actionHandler.CurrentAttack.AnimationName;
 
             _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Attack);
             _attackEffectTrigger.Trigger(() => {
                 _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
                 _actionHandler.OnIdle();
             });
-        }
-
-        private void Combo()
-        {
-            if(!(_actionHandler.NextAction is AttackBehaviorComponent.AttackAction attackAction)) {
-                return;
-            }
-
-            if(_actionHandler.OnAdvanceCombo()) {
-                _actionHandler.PopNextAction();
-                _actionHandler.OnAttack(attackAction);
-            } else {
-                _actionHandler.OnComboFail();
-
-                CancelActions(true);
-            }
         }
 
         public void ToggleBlock()
@@ -184,7 +172,7 @@ namespace pdxpartyparrot.ssj2019.Characters
                 return;
             }
 
-            CancelActions(false);
+            CancelActions();
 
             _blockVolume.SetBlock(_actionHandler.Brawler.BrawlerData.BlockVolumeOffset, _actionHandler.Brawler.BrawlerData.BlockVolumeSize, _actionHandler.FacingDirection);
 
@@ -216,7 +204,7 @@ namespace pdxpartyparrot.ssj2019.Characters
 
             Debug.Log($"Brawler {_actionHandler.Owner.Id} damaged by {source.Id} for {amount}");
 
-            CancelActions(false);
+            CancelActions();
 
             _actionHandler.Brawler.Health -= amount;
             if(_actionHandler.IsDead) {
@@ -235,9 +223,9 @@ namespace pdxpartyparrot.ssj2019.Characters
             return true;
         }
 
-        public void CancelActions(bool force)
+        public void CancelActions()
         {
-            if(!force && !_actionHandler.Brawler.CurrentAction.Cancellable) {
+            if(!_actionHandler.Brawler.CurrentAction.Cancellable) {
                 return;
             }
 
@@ -315,7 +303,7 @@ namespace pdxpartyparrot.ssj2019.Characters
             } else if(_actionHandler.Brawler.BrawlerData.AttackVolumeDeSpawnEvent == evt.Data.Name) {
                 _attackVolume.EnableVolume(false);
 
-                Combo();
+                Debug.Log($"TODO: Brawler {_actionHandler.Owner.Id} can combo!");
             } else {
                 Debug.LogWarning($"Unhandled attack event: {evt.Data.Name}");
             }

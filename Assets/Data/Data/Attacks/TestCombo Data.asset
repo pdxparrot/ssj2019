@@ -15,4 +15,3 @@ MonoBehaviour:
   _attackData:
     _items:
     - {fileID: 11400000, guid: a252acba28613df4592992d0ea53e879, type: 2}
-    - {fileID: 11400000, guid: 69641e5696fd2364eb5d109d538bc4d1, type: 2}

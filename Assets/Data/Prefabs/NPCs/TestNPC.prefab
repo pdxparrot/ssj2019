@@ -38,7 +38,6 @@ Transform:
   - {fileID: 1094174836598082451}
   - {fileID: 5799514567658862580}
   - {fileID: 6113046870706547328}
-  - {fileID: 5322075833772066362}
   - {fileID: 7319547281115459226}
   - {fileID: 562440987492900035}
   - {fileID: 7419802528756265072}
@@ -194,7 +193,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 809502310432792466}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6631989109035438992
 MonoBehaviour:
@@ -242,7 +241,6 @@ MonoBehaviour:
   _spineAnimation: {fileID: 1655421340564284999}
   _spineAnimationName: Hit
   _spineAnimationTrack: 0
-  _loop: 0
   _waitForComplete: 1
 --- !u!1 &2861679878649671080
 GameObject:
@@ -275,7 +273,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 809502310432792466}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &6941888120933034583
 BoxCollider:
@@ -391,73 +389,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _skeletonAnimation: {fileID: 0}
---- !u!1 &4704313243502639277
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5322075833772066362}
-  - component: {fileID: 8823639518845711383}
-  - component: {fileID: 8571219625105808411}
-  m_Layer: 13
-  m_Name: Idle Effect
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5322075833772066362
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4704313243502639277}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 809502310432792466}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8823639518845711383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4704313243502639277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03f0acf5094b571448a3663067cfbfe3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _triggerOnComplete:
-    _items: []
-  _components:
-    _items:
-    - {fileID: 8571219625105808411}
-  _isRunning: 0
---- !u!114 &8571219625105808411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4704313243502639277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 745ddbe86c3017845bce908d5c336f05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spineAnimation: {fileID: 1655421340564284999}
-  _spineAnimationName: Idle
-  _spineAnimationTrack: 0
-  _loop: 1
-  _waitForComplete: 0
 --- !u!1 &5134342241720023164
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,7 +540,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 809502310432792466}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6163520276177178404
 MonoBehaviour:
@@ -657,7 +588,6 @@ MonoBehaviour:
   _spineAnimation: {fileID: 1655421340564284999}
   _spineAnimationName: Unblock
   _spineAnimationTrack: 0
-  _loop: 0
   _waitForComplete: 1
 --- !u!1 &6752568096242502146
 GameObject:
@@ -689,7 +619,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 809502310432792466}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5641737771736793805
 MonoBehaviour:
@@ -753,7 +683,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 809502310432792466}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2970808422812650086
 MonoBehaviour:
@@ -801,7 +731,6 @@ MonoBehaviour:
   _spineAnimation: {fileID: 1655421340564284999}
   _spineAnimationName: Block
   _spineAnimationTrack: 0
-  _loop: 0
   _waitForComplete: 1
 --- !u!1 &7740976043853635704
 GameObject:
@@ -834,7 +763,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 809502310432792466}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2010566273011737595
 BoxCollider:
@@ -906,7 +835,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 809502310432792466}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6994903446394223841
 MonoBehaviour:
@@ -952,9 +881,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 1655421340564284999}
-  _spineAnimationName: 
+  _spineAnimationName: Punch01
   _spineAnimationTrack: 0
-  _loop: 0
   _waitForComplete: 1
 --- !u!1 &9003367007530177534
 GameObject:
@@ -1031,12 +959,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0526fdf8c2121c44af6226f23697634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cooldownSeconds: 5
+  _cooldownMs: 100
   _fidgetRange:
     _min: 0.5
     _max: 1
   _origin: {x: 0, y: 0, z: 0}
-  _offset: {x: 0, y: 0, z: 0}
 --- !u!114 &7670571906903510832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1052,7 +979,6 @@ MonoBehaviour:
   _owner: {fileID: 7185525476932000284}
   _behaviorData: {fileID: 0}
   _movement: {fileID: 256798335153925517}
-  _isMoving: 0
   _spineAnimationHelper: {fileID: 1655421340564284999}
   _spineSkinHelper: {fileID: 5537966649986345550}
   _spriteAnimationHelper: {fileID: 1842215167110611934}
@@ -1070,10 +996,8 @@ MonoBehaviour:
     - {fileID: 171347820613495406}
   _isGrounded: 0
   _isSliding: 0
-  _idleEffect: {fileID: 8823639518845711383}
   _interactables: {fileID: 4908680204030065229}
   _immune: 0
-  _currentComboIndex: 0
   _state: 0
   _target: {fileID: 0}
   _attackBehaviorComponent: {fileID: 5887927068430922675}

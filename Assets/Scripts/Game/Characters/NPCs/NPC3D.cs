@@ -10,7 +10,6 @@ using pdxpartyparrot.Game.Data.Characters;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Assertions;
-using UnityEngine.Rendering;
 
 namespace pdxpartyparrot.Game.Characters.NPCs
 {
@@ -36,10 +35,6 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
         private NavMeshAgent _agent;
 
-#if UNITY_EDITOR
-        private LineRenderer _debugPathRenderer;
-#endif
-
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -53,22 +48,6 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             if(null != _pooledObject) {
                 _pooledObject.RecycleEvent += RecycleEventHandler;
             }
-
-#if UNITY_EDITOR
-            _debugPathRenderer = gameObject.AddComponent<LineRenderer>();
-            _debugPathRenderer.shadowCastingMode = ShadowCastingMode.Off;
-            _debugPathRenderer.receiveShadows = false;
-            _debugPathRenderer.allowOcclusionWhenDynamic = false;
-            _debugPathRenderer.startWidth = 0.1f;
-            _debugPathRenderer.endWidth = 0.1f;
-#endif
-        }
-
-        private void Update()
-        {
-#if UNITY_EDITOR
-            DebugRenderPath();
-#endif
         }
 
         private void LateUpdate()
@@ -91,7 +70,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             _agent.speed = NPCBehavior.NPCBehaviorData.MoveSpeed;
             _agent.angularSpeed = NPCBehavior.NPCBehaviorData.AngularMoveSpeed;
             _agent.acceleration = NPCBehavior.NPCBehaviorData.MoveAcceleration;
-            _agent.stoppingDistance = Radius + NPCBehavior.NPCBehaviorData.StoppingDistance;
+            _agent.stoppingDistance = NPCBehavior.NPCBehaviorData.StoppingDistance;
             _agent.autoBraking = true;
 
             _agent.radius = Radius;
@@ -117,21 +96,6 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         {
             _agent.ResetPath();
         }
-
-#if UNITY_EDITOR
-        private void DebugRenderPath()
-        {
-            if(!_agent.hasPath) {
-                _debugPathRenderer.positionCount = 0;
-                return;
-            }
-
-            _debugPathRenderer.positionCount = _agent.path.corners.Length;
-            for(int i=0; i<_agent.path.corners.Length; ++i) {
-                _debugPathRenderer.SetPosition(i, _agent.path.corners[i]);
-            }
-        }
-#endif
 #endregion
 
         public void Stop(bool resetPath)

@@ -41,15 +41,7 @@ namespace pdxpartyparrot.Core.Actors
 
         public Vector3 FacingDirection { get; private set; } = new Vector3(1.0f, 0.0f, 0.0f);
 
-        [SerializeField]
-        [ReadOnly]
-        private bool _isMoving;
-
-        public bool IsMoving
-        {
-            get => _isMoving;
-            protected set => _isMoving = value;
-        }
+        public bool IsMoving { get; protected set; }
 
         public virtual bool CanMove => !PartyParrotManager.Instance.IsPaused && (null == _actorAnimator || !_actorAnimator.IsAnimating);
 #endregion
