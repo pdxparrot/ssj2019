@@ -33,6 +33,8 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public bool IsDead => GamePlayerOwner.IsDead;
 
+        [Space(10)]
+
         [SerializeField]
         [ReadOnly]
         private bool _immune;
@@ -126,7 +128,7 @@ namespace pdxpartyparrot.ssj2019.Players
 #region Brawler Actions
         public void OnIdle()
         {
-            SpineAnimationHelper.SetAnimation(GamePlayerOwner.PlayerCharacterData.BrawlerData.IdleAnimationName, false);
+            _idleEffect.Trigger();
         }
 
         public void OnAttack(AttackBehaviorComponent.AttackAction action)

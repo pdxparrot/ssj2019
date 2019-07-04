@@ -40,6 +40,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public Brawler Brawler => GameNPCOwner.Brawler;
 
+        [Space(10)]
+
         [SerializeField]
         private Interactables _interactables;
 
@@ -186,11 +188,12 @@ namespace pdxpartyparrot.ssj2019.NPCs
             switch(_state)
             {
             case NPCState.Idle:
-                SpineAnimationHelper.SetAnimation(GameNPCOwner.NPCCharacterData.BrawlerData.IdleAnimationName, false);
                 GameNPCOwner.ResetPath();
 
                 // have to use the transform here since physics lags behind
                 _fidgetBehavior.Origin = Owner.transform.position;
+
+                _idleEffect.Trigger();
                 break;
             case NPCState.Track:
                 break;
