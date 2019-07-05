@@ -77,12 +77,6 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         [SerializeField]
         [ReadOnly]
-        private int _currentComboIndex;
-
-        public AttackData CurrentAttack => GameNPCOwner.NPCCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(_currentComboIndex);
-
-        [SerializeField]
-        [ReadOnly]
         private NPCState _state = NPCState.Idle;
 
         [SerializeField]
@@ -368,21 +362,6 @@ namespace pdxpartyparrot.ssj2019.NPCs
             ActionPerformed(action);
 
             _attackCooldown.Start(GameNPCOwner.NPCCharacterData.AttackCooldownSeconds);
-        }
-
-        public bool OnAdvanceCombo()
-        {
-            if(_currentComboIndex >= GameNPCOwner.NPCCharacterData.BrawlerData.AttackComboData.AttackData.Count - 1) {
-                return false;
-            }
-
-            _currentComboIndex++;
-            return true;
-        }
-
-        public void OnComboFail()
-        {
-            _currentComboIndex = 0;
         }
 
         public void OnHit(bool blocked)

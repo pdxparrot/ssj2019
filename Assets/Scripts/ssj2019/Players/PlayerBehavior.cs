@@ -8,7 +8,6 @@ using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.ssj2019.Characters.Brawlers;
-using pdxpartyparrot.ssj2019.Data.Brawlers;
 using pdxpartyparrot.ssj2019.Data.Players;
 using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
 
@@ -48,18 +47,6 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public override bool CanMove => base.CanMove && !IsDead && !Brawler.CurrentAction.IsStunned;
 
-        [SerializeField]
-        [ReadOnly]
-        private int _currentComboIndex;
-
-        public AttackData CurrentAttack => GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(_currentComboIndex);
-
-        [SerializeField]
-        private AttackBehaviorComponent _attackBehaviorComponent;
-
-        [SerializeField]
-        private BlockBehaviorComponent _blockBehaviorComponent;
-
         private BrawlerBehavior _brawlerBehavior;
 
 #region Unity Lifecycle
@@ -70,9 +57,6 @@ namespace pdxpartyparrot.ssj2019.Players
             base.Awake();
 
             _brawlerBehavior = GetComponent<BrawlerBehavior>();
-
-            _attackBehaviorComponent.Brawler = GamePlayerOwner.Brawler;
-            _blockBehaviorComponent.Brawler = GamePlayerOwner.Brawler;
         }
 #endregion
 
@@ -135,21 +119,6 @@ namespace pdxpartyparrot.ssj2019.Players
         public void OnAttack(AttackBehaviorComponent.AttackAction action)
         {
             ActionPerformed(action);
-        }
-
-        public bool OnAdvanceCombo()
-        {
-            if(_currentComboIndex >= GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackComboData.AttackData.Count - 1) {
-                return false;
-            }
-
-            _currentComboIndex++;
-            return true;
-        }
-
-        public void OnComboFail()
-        {
-            _currentComboIndex = 0;
         }
 
         public void OnHit(bool blocked)

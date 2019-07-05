@@ -1,3 +1,7 @@
+using System.Linq;
+
+using JetBrains.Annotations;
+
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
@@ -29,8 +33,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         Vector3 FacingDirection { get; }
 
-        AttackData CurrentAttack { get; }
-
         void PopNextAction();
 
         // tells the brawler to go idle
@@ -38,10 +40,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         // triggers when the brawler should attack
         void OnAttack(AttackBehaviorComponent.AttackAction action);
-
-        bool OnAdvanceCombo();
-
-        void OnComboFail();
 
         // triggers when the brawler is hit
         void OnHit(bool blocked);
@@ -96,10 +94,12 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         private SpineAnimationEffectTriggerComponent _hitAnimationEffectTriggerComponent;
 #endregion
 
+#region Death Animations
         [SerializeField]
         private EffectTrigger _deathEffectTrigger;
 
         public EffectTrigger DeathEffectTrigger => _deathEffectTrigger;
+#endregion
 
         [Space(10)]
 
@@ -115,9 +115,34 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         [Space(10)]
 
+#region Attacks
         [SerializeField]
         [ReadOnly]
+        private int _currentComboIndex;
+
+        [SerializeField]
+        [ReadOnly]
+        private int _currentAttackIndex;
+
+        [CanBeNull]
+        public AttackData CurrentAttack => null == Brawler ? null : Brawler.BrawlerData.AttackComboData.ElementAt(_currentComboIndex).AttackData.ElementAt(_currentAttackIndex);
+#endregion
+
+        [SerializeField]
+        private AttackBehaviorComponent _attackBehaviorComponent;
+
+        [SerializeField]
+        private BlockBehaviorComponent _blockBehaviorComponent;
+
+        [Space(10)]
+
+        [SerializeField]
+        [ReadOnly]
+        [CanBeNull]
         private IBrawlerBehaviorActions _actionHandler;
+
+        [CanBeNull]
+        private Brawler Brawler => null == _actionHandler ? null : _actionHandler.Brawler;
 
         public bool CanBlock => _actionHandler.CanBlock;
 
@@ -142,23 +167,26 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         }
 #endregion
 
-        public void Initialize(IBrawlerBehaviorActions actionHandler)
+        public void Initialize([NotNull] IBrawlerBehaviorActions actionHandler)
         {
             _actionHandler = actionHandler;
+
+            _attackBehaviorComponent.Brawler = _actionHandler.Brawler;
+            _blockBehaviorComponent.Brawler = _actionHandler.Brawler;
         }
 
         public void Attack()
         {
             // TODO: calling Initialize() here is dumb, but we can't do it in our own Initialize()
             // because the models haven't been initialized yet (and that NEEDS to get changed cuz this is dumb)
-            _attackVolume.Initialize(_actionHandler.Brawler.Model.SpineModel);
-            _attackVolume.SetAttack(_actionHandler.CurrentAttack, _actionHandler.FacingDirection);
+            _attackVolume.Initialize(Brawler.Model.SpineModel);
+            _attackVolume.SetAttack(CurrentAttack, _actionHandler.FacingDirection);
 
-            _attackAnimationEffectTriggerComponent.SpineAnimationName = _actionHandler.CurrentAttack.AnimationName;
+            _attackAnimationEffectTriggerComponent.SpineAnimationName = CurrentAttack.AnimationName;
 
-            _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Attack);
+            Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Attack);
             _attackEffectTrigger.Trigger(() => {
-                _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
+                Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
                 _actionHandler.OnIdle();
             });
         }
@@ -169,21 +197,37 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 return;
             }
 
-            if(_actionHandler.OnAdvanceCombo()) {
+            if(AdvanceCombo()) {
                 _actionHandler.PopNextAction();
                 _actionHandler.OnAttack(attackAction);
             } else {
-                _actionHandler.OnComboFail();
+                ComboFail();
 
                 CancelActions(true);
             }
         }
 
+        private bool AdvanceCombo()
+        {
+            if(_currentAttackIndex >= Brawler.BrawlerData.AttackComboData.ElementAt(_currentComboIndex).AttackData.Count - 1) {
+                return false;
+            }
+
+            _currentAttackIndex++;
+            return true;
+        }
+
+        private void ComboFail()
+        {
+            _currentComboIndex = 0;
+            _currentAttackIndex = 0;
+        }
+
         public void ToggleBlock()
         {
-            if(_actionHandler.Brawler.CurrentAction.IsBlocking) {
+            if(Brawler.CurrentAction.IsBlocking) {
                 _blockEndEffectTrigger.Trigger(() => {
-                    _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
+                    Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
                     _actionHandler.OnIdle();
                 });
                 return;
@@ -193,10 +237,10 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
             // TODO: calling Initialize() here is dumb, but we can't do it in our own Initialize()
             // because the models haven't been initialized yet (and that NEEDS to get changed cuz this is dumb)
-            _blockVolume.Initialize(_actionHandler.Brawler.Model.SpineModel);
-            _blockVolume.SetBlock(_actionHandler.Brawler.BrawlerData.BlockVolumeOffset, _actionHandler.Brawler.BrawlerData.BlockVolumeSize, _actionHandler.FacingDirection, _actionHandler.Brawler.BrawlerData.BlockBoneName);
+            _blockVolume.Initialize(Brawler.Model.SpineModel);
+            _blockVolume.SetBlock(Brawler.BrawlerData.BlockVolumeOffset, Brawler.BrawlerData.BlockVolumeSize, _actionHandler.FacingDirection, Brawler.BrawlerData.BlockBoneName);
 
-            _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Block);
+            Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Block);
             _blockBeginEffectTrigger.Trigger();
         }
 
@@ -207,8 +251,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             // did we block the damage?
-            if(_actionHandler.Brawler.CurrentAction.IsBlocking && _blockVolume.Intersects(attackBounds)) {
-                if(BrawlerAction.ActionType.Parry == _actionHandler.Brawler.CurrentAction.Type) {
+            if(Brawler.CurrentAction.IsBlocking && _blockVolume.Intersects(attackBounds)) {
+                if(BrawlerAction.ActionType.Parry == Brawler.CurrentAction.Type) {
                     Debug.Log($"TODO: Brawler {_actionHandler.Owner.Id} can parry");
                 }
 
@@ -226,7 +270,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
             CancelActions(false);
 
-            _actionHandler.Brawler.Health -= amount;
+            Brawler.Health -= amount;
             if(_actionHandler.IsDead) {
                 _deathEffectTrigger.Trigger(() => _actionHandler.OnDeathComplete());
                 _actionHandler.OnDead();
@@ -234,7 +278,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 //_actionHandler.Owner.Behavior.Movement.AddImpulse(force * amount);
 
                 _hitEffectTrigger.Trigger(() => {
-                    _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
+                    Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
                     _actionHandler.OnIdle();
                 });
                 _actionHandler.OnHit(false);
@@ -245,7 +289,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         public void CancelActions(bool force)
         {
-            if(!force && !_actionHandler.Brawler.CurrentAction.Cancellable) {
+            if(!force && !Brawler.CurrentAction.Cancellable) {
                 return;
             }
 
@@ -260,7 +304,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             _attackVolume.EnableVolume(false);
 
             // idle out
-            _actionHandler.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
+            Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
             _actionHandler.OnIdle();
 
             _actionHandler.OnCancelActions();
@@ -314,13 +358,13 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         private void AttackAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
-            BrawlerAction action = _actionHandler.Brawler.CurrentAction;
+            BrawlerAction action = Brawler.CurrentAction;
 
-            if(_actionHandler.Brawler.BrawlerData.AttackVolumeSpawnEvent == evt.Data.Name) {
+            if(Brawler.BrawlerData.AttackVolumeSpawnEvent == evt.Data.Name) {
                 _lastAttackHit = false;
 
                _attackVolume.EnableVolume(true);
-            } else if(_actionHandler.Brawler.BrawlerData.AttackVolumeDeSpawnEvent == evt.Data.Name) {
+            } else if(Brawler.BrawlerData.AttackVolumeDeSpawnEvent == evt.Data.Name) {
                 _attackVolume.EnableVolume(false);
 
                 Combo();
@@ -328,7 +372,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 Debug.LogWarning($"Unhandled attack event: {evt.Data.Name}");
             }
 
-            _actionHandler.Brawler.CurrentAction = action;
+            Brawler.CurrentAction = action;
         }
 
         private void BlockBeginAnimationStartHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
@@ -343,19 +387,19 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         private void BlockBeginAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
-            BrawlerAction action = _actionHandler.Brawler.CurrentAction;
+            BrawlerAction action = Brawler.CurrentAction;
 
-            if(_actionHandler.Brawler.BrawlerData.BlockVolumeSpawnEvent == evt.Data.Name) {
+            if(Brawler.BrawlerData.BlockVolumeSpawnEvent == evt.Data.Name) {
                 _blockVolume.EnableVolume(true);
-            } else if(_actionHandler.Brawler.BrawlerData.ParryWindowOpenEvent == evt.Data.Name) {
+            } else if(Brawler.BrawlerData.ParryWindowOpenEvent == evt.Data.Name) {
                 action.Type = BrawlerAction.ActionType.Parry;
-            } else if(_actionHandler.Brawler.BrawlerData.ParryWindowCloseEvent == evt.Data.Name) {
+            } else if(Brawler.BrawlerData.ParryWindowCloseEvent == evt.Data.Name) {
                 action.Type = BrawlerAction.ActionType.Block;
             } else {
                 Debug.LogWarning($"Unhandled block begin event: {evt.Data.Name}");
             }
 
-            _actionHandler.Brawler.CurrentAction = action;
+            Brawler.CurrentAction = action;
         }
 
         private void BlockEndAnimationStartHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
@@ -370,15 +414,15 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         private void BlockEndAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
-            BrawlerAction action = _actionHandler.Brawler.CurrentAction;
+            BrawlerAction action = Brawler.CurrentAction;
 
-            if(_actionHandler.Brawler.BrawlerData.BlockVolumeDeSpawnEvent == evt.Data.Name) {
+            if(Brawler.BrawlerData.BlockVolumeDeSpawnEvent == evt.Data.Name) {
                 _blockVolume.EnableVolume(false);
             } else {
                 Debug.LogWarning($"Unhandled block end event: {evt.Data.Name}");
             }
 
-            _actionHandler.Brawler.CurrentAction = action;
+            Brawler.CurrentAction = action;
         }
 
         private void HitAnimationStartHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
@@ -393,19 +437,19 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         private void HitAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
-            BrawlerAction action = _actionHandler.Brawler.CurrentAction;
+            BrawlerAction action = Brawler.CurrentAction;
 
-            if(_actionHandler.Brawler.BrawlerData.HitImpactEvent == evt.Data.Name) {
+            if(Brawler.BrawlerData.HitImpactEvent == evt.Data.Name) {
                 // TODO: what do we do with this?
-            } else if(_actionHandler.Brawler.BrawlerData.HitStunEvent == evt.Data.Name) {
+            } else if(Brawler.BrawlerData.HitStunEvent == evt.Data.Name) {
                 action.IsStunned = true;
-            } else if(_actionHandler.Brawler.BrawlerData.HitImmunityEvent == evt.Data.Name) {
+            } else if(Brawler.BrawlerData.HitImmunityEvent == evt.Data.Name) {
                 action.IsImmune = true;
             } else {
                 Debug.LogWarning($"Unhandled hit end event: {evt.Data.Name}");
             }
 
-            _actionHandler.Brawler.CurrentAction = action;
+            Brawler.CurrentAction = action;
         }
 #endregion
     }

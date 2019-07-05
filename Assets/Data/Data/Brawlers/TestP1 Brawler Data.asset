@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a50a40e9ad164c45baf74211decdeae, type: 3}
   m_Name: TestP1 Brawler Data
   m_EditorClassIdentifier: 
-  _idleAnimationName: Idle
   _attackVolumeSpawnEvent: attack_spawnvolume
   _attackVolumeDeSpawnEvent: attack_despawnvolume
   _blockVolumeSpawnEvent: block_spawnvolume
@@ -24,5 +23,7 @@ MonoBehaviour:
   _hitImmunityEvent: immunity
   _blockVolumeOffset: {x: 0.5, y: 1.286, z: 0}
   _blockVolumeSize: {x: 1, y: 1, z: 1}
-  _attackComboData: {fileID: 11400000, guid: eccf4b5a93f4f96489bbf801a03db087, type: 2}
+  _blockBoneName: root
+  _attackComboData:
+  - {fileID: 11400000, guid: eccf4b5a93f4f96489bbf801a03db087, type: 2}
   _maxHealth: 100

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using UnityEngine;
 
@@ -94,9 +95,9 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
 
 #region Attacks
         [SerializeField]
-        private AttackComboData _attackComboData;
+        private AttackComboData[] _attackComboData;
 
-        public AttackComboData AttackComboData => _attackComboData;
+        public IReadOnlyCollection<AttackComboData> AttackComboData => _attackComboData;
 #endregion
 
         [Space(10)]

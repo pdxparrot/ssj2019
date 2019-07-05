@@ -1058,6 +1058,10 @@ MonoBehaviour:
   _deathEffectTrigger: {fileID: 6237249302560061764}
   _attackVolume: {fileID: 4356007661132845643}
   _blockVolume: {fileID: 5793994074923292069}
+  _currentComboIndex: 0
+  _currentAttackIndex: 0
+  _attackBehaviorComponent: {fileID: 5887927068430922675}
+  _blockBehaviorComponent: {fileID: 171347820613495406}
   _lastAttackHit: 0
 --- !u!114 &7354327572179901474
 MonoBehaviour:
@@ -1113,7 +1117,6 @@ MonoBehaviour:
   _idleEffect: {fileID: 8823639518845711383}
   _interactables: {fileID: 4908680204030065229}
   _immune: 0
-  _currentComboIndex: 0
   _state: 0
   _target: {fileID: 0}
   _attackBehaviorComponent: {fileID: 5887927068430922675}

@@ -15,6 +15,7 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
         {
         }
 
+#region Damage
         [SerializeField]
         private string _damageType;
 
@@ -31,13 +32,21 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
         private int _blockDamageAmount;
 
         public int BlockDamageAmount => _blockDamageAmount;
+#endregion
 
+        [Space(10)]
+
+#region Push Back
         [SerializeField]
         [Min(0)]
         private int _pushBackScale;
 
         public int PushBackScale => _pushBackScale;
+#endregion
 
+        [Space(10)]
+
+#region Attack Volume
         [SerializeField]
         private Vector3 _attackVolumeOffset;
 
@@ -49,13 +58,18 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
         public Vector3 AttackVolumeSize => _attackVolumeSize;
 
         [SerializeField]
-        private string _animationName = "default";
-
-        public string AnimationName => _animationName;
-
-        [SerializeField]
         private string _boneName = "root";
 
         public string BoneName => _boneName;
+#endregion
+
+        [Space(10)]
+
+#region Animation
+        [SerializeField]
+        private string _animationName = "default";
+
+        public string AnimationName => _animationName;
+#endregion
     }
 }
