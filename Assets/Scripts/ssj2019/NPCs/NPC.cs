@@ -38,10 +38,6 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public Brawler Brawler { get; private set; }
 
-        private CharacterModel _characterModel;
-
-        public CharacterModel CharacterModel => _characterModel;
-
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -62,11 +58,6 @@ namespace pdxpartyparrot.ssj2019.NPCs
             _characterData = GameNPCBehavior.GameNPCBehaviorData.CharacterOptions.GetRandomEntry();
 
             InitializeModel();
-
-            Billboard billboard = Model.GetComponent<Billboard>();
-            if(billboard != null) {
-                billboard.Camera = GameManager.Instance.Viewer.Camera;
-            }
         }
 
         private void InitializeModel()
@@ -75,8 +66,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return;
             }
 
-            _characterModel = Instantiate(_characterData.CharacterModelPrefab, Model.transform);
-            _characterModel.InitializeBehavior(Behavior, _characterData.SkinIndex);
+            Brawler.InitializeModel(Behavior, _characterData.CharacterModelPrefab, Model, _characterData.SkinIndex);
         }
 
 #region Spawn

@@ -40,8 +40,6 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public Brawler Brawler => GameNPCOwner.Brawler;
 
-        public CharacterModel CharacterModel => GameNPCOwner.CharacterModel;
-
         [Space(10)]
 
         [SerializeField]

@@ -1,3 +1,4 @@
+using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ssj2019.Data;
 
@@ -38,6 +39,8 @@ namespace pdxpartyparrot.ssj2019.Characters
         [ReadOnly]
         private BrawlerAction _currentAction;
 
+        public CharacterModel CharacterModel { get; private set; }
+
         public BrawlerAction CurrentAction
         {
             get => _currentAction;
@@ -51,6 +54,17 @@ namespace pdxpartyparrot.ssj2019.Characters
             _health = _brawlerData.MaxHealth;
 
             CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
+        }
+
+        public void InitializeModel(ActorBehavior behavior, CharacterModel prefab, GameObject parent, int skinIndex)
+        {
+            CharacterModel = Instantiate(prefab, parent.transform);
+            CharacterModel.InitializeBehavior(behavior, skinIndex);
+
+            Billboard billboard = parent.GetComponent<Billboard>();
+            if(billboard != null) {
+                billboard.Camera = GameManager.Instance.Viewer.Camera;
+            }
         }
     }
 }

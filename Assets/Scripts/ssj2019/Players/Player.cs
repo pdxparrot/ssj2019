@@ -48,10 +48,6 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public Brawler Brawler { get; private set; }
 
-        private CharacterModel _characterModel;
-
-        public CharacterModel CharacterModel => _characterModel;
-
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -89,14 +85,9 @@ namespace pdxpartyparrot.ssj2019.Players
                 Debug.Log($"Player {Id} got character {_playerCharacterData.Name}");
             }
 
-            InitializeModel();
-
             PlayerViewer = GameManager.Instance.Viewer;
 
-            Billboard billboard = Model.GetComponent<Billboard>();
-            if(billboard != null) {
-                billboard.Camera = PlayerViewer.Viewer.Camera;
-            }
+            InitializeModel();
 
             return true;
         }
@@ -107,8 +98,7 @@ namespace pdxpartyparrot.ssj2019.Players
                 return;
             }
 
-            _characterModel = Instantiate(_playerCharacterData.CharacterModelPrefab, Model.transform);
-            _characterModel.InitializeBehavior(Behavior, 0);
+            Brawler.InitializeModel(Behavior, _playerCharacterData.CharacterModelPrefab, Model, 0);
 
             PlayerData.PlayerIndicatorState indicatorState = PlayerManager.Instance.GetPlayerIndicatorState(_playerNumber);
             if(null != indicatorState) {

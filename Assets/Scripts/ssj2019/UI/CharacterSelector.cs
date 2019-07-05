@@ -152,7 +152,7 @@ namespace pdxpartyparrot.ssj2019.UI
 
         public bool OnCancel(InputAction.CallbackContext context)
         {
-          if(!IsOurDevice(context.control.device)) {
+            if(!IsOurDevice(context.control.device)) {
                 return false;
             }
 
@@ -167,7 +167,7 @@ namespace pdxpartyparrot.ssj2019.UI
 
         public bool OnMove(InputAction.CallbackContext context)
         {
-          if(!IsOurDevice(context.control.device)) {
+            if(!IsOurDevice(context.control.device)) {
                 return false;
             }
 
