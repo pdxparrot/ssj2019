@@ -5,6 +5,7 @@ using pdxpartyparrot.ssj2019.Characters.Brawlers;
 using pdxpartyparrot.ssj2019.Data.Brawlers;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.ssj2019.Data.NPCs
 {
@@ -13,9 +14,10 @@ namespace pdxpartyparrot.ssj2019.Data.NPCs
     public sealed class NPCCharacterData : ScriptableObject
     {
         [SerializeField]
-        private CharacterModel _characterModelPrefab;
+        [FormerlySerializedAs("_characterModelPrefab")]
+        private BrawlerModel _brawlerModelPrefab;
 
-        public CharacterModel CharacterModelPrefab => _characterModelPrefab;
+        public BrawlerModel BrawlerModelPrefab => _brawlerModelPrefab;
 
         [SerializeField]
         [Tooltip("Set to -1 for a random skin")]

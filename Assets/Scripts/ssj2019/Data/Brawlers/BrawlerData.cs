@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using UnityEngine;
 
@@ -92,10 +92,12 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
 
         [Space(10)]
 
+#region Attacks
         [SerializeField]
         private AttackComboData _attackComboData;
 
         public AttackComboData AttackComboData => _attackComboData;
+#endregion
 
         [Space(10)]
 

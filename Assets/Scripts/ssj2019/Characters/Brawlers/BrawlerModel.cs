@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 {
-    public sealed class CharacterModel : MonoBehaviour
+    public sealed class BrawlerModel : MonoBehaviour
     {
         [SerializeField]
         [CanBeNull]

@@ -39,7 +39,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         [ReadOnly]
         private BrawlerAction _currentAction;
 
-        public CharacterModel CharacterModel { get; private set; }
+        public BrawlerModel Model { get; private set; }
 
         public BrawlerAction CurrentAction
         {
@@ -56,10 +56,10 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
         }
 
-        public void InitializeModel(ActorBehavior behavior, CharacterModel prefab, GameObject parent, int skinIndex)
+        public void InitializeModel(ActorBehavior behavior, BrawlerModel modelPrefab, GameObject parent, int skinIndex)
         {
-            CharacterModel = Instantiate(prefab, parent.transform);
-            CharacterModel.InitializeBehavior(behavior, skinIndex);
+            Model = Instantiate(modelPrefab, parent.transform);
+            Model.InitializeBehavior(behavior, skinIndex);
 
             Billboard billboard = parent.GetComponent<Billboard>();
             if(billboard != null) {

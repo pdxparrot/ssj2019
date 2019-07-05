@@ -5,6 +5,7 @@ using pdxpartyparrot.ssj2019.Characters.Brawlers;
 using pdxpartyparrot.ssj2019.Data.Brawlers;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.ssj2019.Data.Players
 {
@@ -28,9 +29,10 @@ namespace pdxpartyparrot.ssj2019.Data.Players
         public GameObject CharacterPortraitPrefab => _characterPortraitPrefab;
 
         [SerializeField]
-        private CharacterModel _characterModelPrefab;
+        [FormerlySerializedAs("_characterModelPrefab")]
+        private BrawlerModel _brawlerModelPrefab;
 
-        public CharacterModel CharacterModelPrefab => _characterModelPrefab;
+        public BrawlerModel BrawlerModelPrefab => _brawlerModelPrefab;
 
         [SerializeField]
         private BrawlerData _brawlerData;

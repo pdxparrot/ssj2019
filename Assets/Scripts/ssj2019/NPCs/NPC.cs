@@ -66,7 +66,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return;
             }
 
-            Brawler.InitializeModel(Behavior, _characterData.CharacterModelPrefab, Model, _characterData.SkinIndex);
+            Brawler.InitializeModel(Behavior, _characterData.BrawlerModelPrefab, Model, _characterData.SkinIndex);
         }
 
 #region Spawn
