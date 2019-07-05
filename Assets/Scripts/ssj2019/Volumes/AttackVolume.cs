@@ -5,13 +5,11 @@ using JetBrains.Annotations;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Interactables;
-using pdxpartyparrot.ssj2019.Data;
-
-using Spine.Unity;
+using pdxpartyparrot.ssj2019.Data.Brawlers;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ssj2019.Characters
+namespace pdxpartyparrot.ssj2019.Volumes
 {
     public sealed class AttackVolume : ActionVolume
     {

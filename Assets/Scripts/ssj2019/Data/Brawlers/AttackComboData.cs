@@ -5,9 +5,9 @@ using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ssj2019.Data
+namespace pdxpartyparrot.ssj2019.Data.Brawlers
 {
-    [CreateAssetMenu(fileName="AttackComboData", menuName="pdxpartyparrot/ssj2019/Data/Characters/AttackCombo Data")]
+    [CreateAssetMenu(fileName="AttackComboData", menuName="pdxpartyparrot/ssj2019/Data/Brawlers/AttackCombo Data")]
     [Serializable]
     public sealed class AttackComboData : ScriptableObject
     {

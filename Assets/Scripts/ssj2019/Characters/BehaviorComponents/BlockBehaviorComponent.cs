@@ -1,5 +1,5 @@
 ﻿using pdxpartyparrot.Core.Util;
-using pdxpartyparrot.ssj2019.Characters;
+using pdxpartyparrot.ssj2019.Characters.Brawlers;
 
 using UnityEngine;
 

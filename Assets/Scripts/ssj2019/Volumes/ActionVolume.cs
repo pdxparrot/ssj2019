@@ -6,7 +6,7 @@ using Spine.Unity;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ssj2019.Characters
+namespace pdxpartyparrot.ssj2019.Volumes
 {
     [RequireComponent(typeof(Interactables))]
     [RequireComponent(typeof(BoxCollider))]

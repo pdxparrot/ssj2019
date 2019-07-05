@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace pdxpartyparrot.ssj2019.Characters
+namespace pdxpartyparrot.ssj2019.Volumes
 {
     public sealed class BlockVolume : ActionVolume
     {

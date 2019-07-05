@@ -3,14 +3,15 @@ using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
-using pdxpartyparrot.ssj2019.Data;
+using pdxpartyparrot.ssj2019.Data.Brawlers;
 using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
+using pdxpartyparrot.ssj2019.Volumes;
 
 using Spine;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ssj2019.Characters
+namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 {
     public interface IBrawlerBehaviorActions
     {

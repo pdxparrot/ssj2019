@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ssj2019.Characters
+namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 {
     [Serializable]
     public struct BrawlerAction

@@ -2,9 +2,9 @@
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ssj2019.Data
+namespace pdxpartyparrot.ssj2019.Data.Brawlers
 {
-    [CreateAssetMenu(fileName="BrawlerData", menuName="pdxpartyparrot/ssj2019/Data/Brawler Data")]
+    [CreateAssetMenu(fileName="BrawlerData", menuName="pdxpartyparrot/ssj2019/Data/Brawlers/Brawler Data")]
     [Serializable]
     public sealed class BrawlerData : ScriptableObject
     {

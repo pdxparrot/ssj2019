@@ -1,10 +1,10 @@
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Util;
-using pdxpartyparrot.ssj2019.Data;
+using pdxpartyparrot.ssj2019.Data.Brawlers;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ssj2019.Characters
+namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 {
     public sealed class Brawler : MonoBehaviour
     {

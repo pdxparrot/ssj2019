@@ -4,9 +4,9 @@ using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ssj2019.Data
+namespace pdxpartyparrot.ssj2019.Data.Brawlers
 {
-    [CreateAssetMenu(fileName="AttackData", menuName="pdxpartyparrot/ssj2019/Data/Characters/Attack Data")]
+    [CreateAssetMenu(fileName="AttackData", menuName="pdxpartyparrot/ssj2019/Data/Brawlers/Attack Data")]
     [Serializable]
     public sealed class AttackData : ScriptableObject
     {

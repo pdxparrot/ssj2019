@@ -2,7 +2,7 @@
 
 using pdxpartyparrot.Game.Actors;
 
-namespace pdxpartyparrot.ssj2019.Characters
+namespace pdxpartyparrot.ssj2019.Volumes
 {
     public sealed class AttackVolumeEventArgs : EventArgs
     {

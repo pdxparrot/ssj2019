@@ -1,7 +1,8 @@
 ﻿using System;
 
 using pdxpartyparrot.Core.Time;
-using pdxpartyparrot.ssj2019.Characters;
+using pdxpartyparrot.ssj2019.Characters.Brawlers;
+using pdxpartyparrot.ssj2019.Data.Brawlers;
 
 using UnityEngine;
 
