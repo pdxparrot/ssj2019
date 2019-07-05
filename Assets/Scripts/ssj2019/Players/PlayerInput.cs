@@ -1,7 +1,7 @@
 ﻿using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Game.Players.Input;
-using pdxpartyparrot.ssj2019.Data;
+using pdxpartyparrot.ssj2019.Data.Players;
 using pdxpartyparrot.ssj2019.Input;
 
 using UnityEngine;

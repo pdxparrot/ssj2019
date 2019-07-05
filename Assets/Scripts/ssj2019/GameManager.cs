@@ -9,6 +9,7 @@ using pdxpartyparrot.Game;
 using pdxpartyparrot.Game.State;
 using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Data;
+using pdxpartyparrot.ssj2019.Data.Players;
 using pdxpartyparrot.ssj2019.Level;
 using pdxpartyparrot.ssj2019.Players;
 

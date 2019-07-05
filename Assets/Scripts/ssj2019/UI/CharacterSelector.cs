@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Util;
-using pdxpartyparrot.ssj2019.Data;
+using pdxpartyparrot.ssj2019.Data.Players;
 using pdxpartyparrot.ssj2019.Menu;
 
 using TMPro;

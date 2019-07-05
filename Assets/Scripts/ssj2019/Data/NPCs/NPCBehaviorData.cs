@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ssj2019.Data
+namespace pdxpartyparrot.ssj2019.Data.NPCs
 {
     [CreateAssetMenu(fileName="NPCBehaviorData", menuName="pdxpartyparrot/ssj2019/Data/NPCs/NPCBehavior Data")]
     [Serializable]

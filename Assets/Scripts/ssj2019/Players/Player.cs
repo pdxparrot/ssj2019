@@ -10,7 +10,7 @@ using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Characters;
-using pdxpartyparrot.ssj2019.Data;
+using pdxpartyparrot.ssj2019.Data.Players;
 
 using UnityEngine;
 using UnityEngine.Assertions;

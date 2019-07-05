@@ -5,7 +5,7 @@ using pdxpartyparrot.ssj2019.Characters;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ssj2019.Data
+namespace pdxpartyparrot.ssj2019.Data.NPCs
 {
     [CreateAssetMenu(fileName="NPCCharacterData", menuName="pdxpartyparrot/ssj2019/Data/NPCs/NPCCharacter Data")]
     [Serializable]

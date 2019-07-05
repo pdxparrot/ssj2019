@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-using pdxpartyparrot.ssj2019.Data;
+using pdxpartyparrot.ssj2019.Data.Players;
 
 using TMPro;
 

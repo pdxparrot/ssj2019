@@ -13,6 +13,7 @@ using pdxpartyparrot.Game.Characters.NPCs;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ssj2019.Characters;
 using pdxpartyparrot.ssj2019.Data;
+using pdxpartyparrot.ssj2019.Data.NPCs;
 using pdxpartyparrot.ssj2019.Players;
 using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
 

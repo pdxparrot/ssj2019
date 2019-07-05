@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace pdxpartyparrot.ssj2019.Data
+namespace pdxpartyparrot.ssj2019.Data.Players
 {
-    [CreateAssetMenu(fileName="PlayerData", menuName="pdxpartyparrot/ssj2019/Data/Player/Player Data")]
+    [CreateAssetMenu(fileName="PlayerData", menuName="pdxpartyparrot/ssj2019/Data/Players/Player Data")]
     [Serializable]
     public sealed class PlayerData : ScriptableObject
     {

@@ -9,6 +9,7 @@ using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.ssj2019.Characters;
 using pdxpartyparrot.ssj2019.Data;
+using pdxpartyparrot.ssj2019.Data.Players;
 using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
 
 using UnityEngine;

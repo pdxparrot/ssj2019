@@ -5,9 +5,9 @@ using pdxpartyparrot.ssj2019.Characters;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ssj2019.Data
+namespace pdxpartyparrot.ssj2019.Data.Players
 {
-    [CreateAssetMenu(fileName="PlayerCharacterData", menuName="pdxpartyparrot/ssj2019/Data/Player/PlayerCharacter Data")]
+    [CreateAssetMenu(fileName="PlayerCharacterData", menuName="pdxpartyparrot/ssj2019/Data/Players/PlayerCharacter Data")]
     [Serializable]
     public sealed class PlayerCharacterData : ScriptableObject
     {

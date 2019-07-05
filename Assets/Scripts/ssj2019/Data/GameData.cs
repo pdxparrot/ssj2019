@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ssj2019.Camera;
+using pdxpartyparrot.ssj2019.Data.Players;
 
 using UnityEngine;
 
