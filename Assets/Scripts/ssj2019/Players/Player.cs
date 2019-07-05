@@ -83,6 +83,8 @@ namespace pdxpartyparrot.ssj2019.Players
                 Debug.LogWarning($"Player {Id} failed to get a character");
             } else {
                 Debug.Log($"Player {Id} got character {_playerCharacterData.Name}");
+
+                Brawler.Initialize(_playerCharacterData.BrawlerData);
             }
 
             PlayerViewer = GameManager.Instance.Viewer;
@@ -126,12 +128,14 @@ namespace pdxpartyparrot.ssj2019.Players
 
                 Debug.LogWarning($"Player {Id} stole free character {_playerCharacterData.Name}");
 
+                Brawler.Initialize(_playerCharacterData.BrawlerData);
+
                 InitializeModel();
             }
 
             PlayerGameViewer.AddTarget(this);
 
-            Brawler.Initialize(PlayerCharacterData.BrawlerData);
+            Brawler.OnSpawn();
 
             GameManager.Instance.PlayerSpawned(this);
 
@@ -146,7 +150,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
             PlayerGameViewer.AddTarget(this);
 
-            Brawler.Initialize(PlayerCharacterData.BrawlerData);
+            Brawler.OnReSpawn();
 
             GameManager.Instance.PlayerSpawned(this);
 

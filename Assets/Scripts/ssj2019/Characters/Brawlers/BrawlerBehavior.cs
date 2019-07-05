@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 
 using JetBrains.Annotations;
@@ -14,6 +15,7 @@ using pdxpartyparrot.ssj2019.Volumes;
 using Spine;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 {
@@ -146,10 +148,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         public bool CanBlock => _actionHandler.CanBlock;
 
-        [SerializeField]
-        [ReadOnly]
-        private bool _lastAttackHit;
-
 #region Unity Lifecycle
         private void Awake()
         {
@@ -169,14 +167,39 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         public void Initialize([NotNull] IBrawlerBehaviorActions actionHandler)
         {
+            Assert.IsNotNull(actionHandler.Brawler);
+
             _actionHandler = actionHandler;
 
             _attackBehaviorComponent.Brawler = _actionHandler.Brawler;
             _blockBehaviorComponent.Brawler = _actionHandler.Brawler;
         }
 
-        public void Attack()
+        public void Initialize()
         {
+            Assert.IsNotNull(Brawler);
+            Assert.IsNotNull(Brawler.BrawlerData);
+            Assert.IsNotNull(Brawler.BrawlerData.AttackComboData);
+            Assert.IsTrue(Brawler.BrawlerData.AttackComboData.Count > 0);
+
+            // validate that the first attack in each combo is uniquely identifiable
+            HashSet<string> combos = new HashSet<string>();
+            foreach(AttackComboData comboData in Brawler.BrawlerData.AttackComboData) {
+                Assert.IsTrue(comboData.AttackData.Count > 0);
+
+                string id = comboData.AttackData.ElementAt(0).Id;
+                Assert.IsFalse(combos.Contains(id));
+                combos.Add(id);
+            }
+
+            // TODO: first attack must always be directionless
+            //Assert.IsTrue(Brawler.BrawlerData.AttackComboData.ElementAt(0).AttackData.ElementAt(0));
+        }
+
+        public void Attack(AttackBehaviorComponent.AttackAction attackAction)
+        {
+            InitializeCombo(attackAction);
+
             // TODO: calling Initialize() here is dumb, but we can't do it in our own Initialize()
             // because the models haven't been initialized yet (and that NEEDS to get changed cuz this is dumb)
             _attackVolume.Initialize(Brawler.Model.SpineModel);
@@ -189,6 +212,17 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
                 _actionHandler.OnIdle();
             });
+        }
+
+#region Combos
+        private void InitializeCombo(AttackBehaviorComponent.AttackAction attackAction)
+        {
+            _currentComboIndex = 0;
+
+            // TODO: find an attack that best matches the input
+            // with index 0 being our fallback directionless attack
+
+            _currentAttackIndex = 0;
         }
 
         private void Combo()
@@ -222,6 +256,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             _currentComboIndex = 0;
             _currentAttackIndex = 0;
         }
+#endregion
 
         public void ToggleBlock()
         {
@@ -310,6 +345,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             _actionHandler.OnCancelActions();
         }
 
+#region Effects
         private void InitializeEffects()
         {
             _attackAnimationEffectTriggerComponent.StartEvent += AttackAnimationStartHandler;
@@ -339,11 +375,11 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             _hitAnimationEffectTriggerComponent.StartEvent -= HitAnimationStartHandler;
             _hitAnimationEffectTriggerComponent.CompleteEvent -= HitAnimationCompleteHandler;
         }
+#endregion
 
 #region Event Handlers
         private void AttackVolumeHitEventHandler(object sender, AttackVolumeEventArgs args)
         {
-            _lastAttackHit = true;
         }
 
         private void AttackAnimationStartHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
@@ -361,8 +397,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             BrawlerAction action = Brawler.CurrentAction;
 
             if(Brawler.BrawlerData.AttackVolumeSpawnEvent == evt.Data.Name) {
-                _lastAttackHit = false;
-
                _attackVolume.EnableVolume(true);
             } else if(Brawler.BrawlerData.AttackVolumeDeSpawnEvent == evt.Data.Name) {
                 _attackVolume.EnableVolume(false);

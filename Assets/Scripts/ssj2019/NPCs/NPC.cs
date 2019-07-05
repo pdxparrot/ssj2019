@@ -57,6 +57,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             _characterData = GameNPCBehavior.GameNPCBehaviorData.CharacterOptions.GetRandomEntry();
 
+            Brawler.Initialize(_characterData.BrawlerData);
+
             InitializeModel();
         }
 
@@ -78,7 +80,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             NPCManager.Instance.Register(this);
 
-            Brawler.Initialize(NPCCharacterData.BrawlerData);
+            Brawler.OnSpawn();
 
             return true;
         }
@@ -91,7 +93,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             NPCManager.Instance.Register(this);
 
-            Brawler.Initialize(NPCCharacterData.BrawlerData);
+            Brawler.OnReSpawn();
 
             return true;
         }

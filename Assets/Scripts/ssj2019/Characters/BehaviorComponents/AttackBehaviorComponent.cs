@@ -27,11 +27,11 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
 
         public override bool OnPerformed(CharacterBehaviorAction action)
         {
-            if(!(action is AttackAction)) {
+            if(!(action is AttackAction attackAction)) {
                 return false;
             }
 
-            Brawler.BrawlerBehavior.Attack();
+            Brawler.BrawlerBehavior.Attack(attackAction);
 
             return true;
         }

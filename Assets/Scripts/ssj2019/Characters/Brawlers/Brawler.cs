@@ -50,10 +50,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         public void Initialize(BrawlerData brawlerData)
         {
             _brawlerData = brawlerData;
-
-            _health = _brawlerData.MaxHealth;
-
-            CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
+            _brawlerBehavior.Initialize();
         }
 
         public void InitializeModel(ActorBehavior behavior, BrawlerModel modelPrefab, GameObject parent, int skinIndex)
@@ -66,5 +63,21 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 billboard.Camera = GameManager.Instance.Viewer.Camera;
             }
         }
+
+#region Spawn
+        public void OnSpawn()
+        {
+            _health = _brawlerData.MaxHealth;
+
+            CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
+        }
+
+        public void OnReSpawn()
+        {
+            _health = _brawlerData.MaxHealth;
+
+            CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
+        }
+#endregion
     }
 }

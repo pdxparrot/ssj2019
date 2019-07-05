@@ -15,6 +15,9 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
         {
         }
 
+        // TODO: when we have a direction, this should expand to include that
+        public string Id => "attack";
+
 #region Damage
         [SerializeField]
         private string _damageType;

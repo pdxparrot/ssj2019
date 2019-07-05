@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using pdxpartyparrot.Core.Actors;
+﻿using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
