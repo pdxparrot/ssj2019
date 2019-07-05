@@ -19,4 +19,4 @@ MonoBehaviour:
   _attackVolumeOffset: {x: 0, y: 0, z: 0}
   _attackVolumeSize: {x: 0.75, y: 0.75, z: 0.75}
   _animationName: Punch01
-  _boneName: Hand_IK_L
+  _boneName: Hand_IK_R
