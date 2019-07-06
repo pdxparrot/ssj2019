@@ -12,6 +12,11 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
     public sealed class AttackComboData : ScriptableObject
     {
         [SerializeField]
+        private string _name;
+
+        public string Name => _name;
+
+        [SerializeField]
         [ReorderableList]
         private AttackData.ReorderableList _attackData = new AttackData.ReorderableList();
 

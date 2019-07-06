@@ -120,14 +120,17 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 #region Attacks
         [SerializeField]
         [ReadOnly]
-        private int _currentComboIndex;
+        private int _currentComboIndex = -1;
 
         [SerializeField]
         [ReadOnly]
         private int _currentAttackIndex;
 
         [CanBeNull]
-        public AttackData CurrentAttack => null == Brawler ? null : Brawler.BrawlerData.AttackComboData.ElementAt(_currentComboIndex).AttackData.ElementAt(_currentAttackIndex);
+        public AttackComboData CurrentCombo => null == Brawler || _currentComboIndex < 0 ? null : Brawler.BrawlerData.AttackComboData.ElementAt(_currentComboIndex);
+
+        [CanBeNull]
+        public AttackData CurrentAttack => null == CurrentCombo ? null : CurrentCombo.AttackData.ElementAt(_currentAttackIndex);
 #endregion
 
         [SerializeField]
@@ -142,6 +145,9 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         [ReadOnly]
         [CanBeNull]
         private IBrawlerBehaviorActions _actionHandler;
+
+        [CanBeNull]
+        private Actor Owner => null == _actionHandler ? null : _actionHandler.Owner;
 
         [CanBeNull]
         private Brawler Brawler => null == _actionHandler ? null : _actionHandler.Brawler;
@@ -198,7 +204,13 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         public void Attack(AttackBehaviorComponent.AttackAction attackAction)
         {
-            InitializeCombo(attackAction);
+            if(_currentComboIndex < 0) {
+                InitializeCombo(attackAction);
+            }
+
+            if(GameManager.Instance.DebugBrawlers) {
+                Debug.Log($"Brawler {Owner.Id} starting attack {CurrentAttack.Name}");
+            }
 
             // TODO: calling Initialize() here is dumb, but we can't do it in our own Initialize()
             // because the models haven't been initialized yet (and that NEEDS to get changed cuz this is dumb)
@@ -222,12 +234,17 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             // TODO: find an attack that best matches the input
             // with index 0 being our fallback directionless attack
 
+            if(GameManager.Instance.DebugBrawlers) {
+                Debug.Log($"Brawler {Owner.Id} starting combo {CurrentCombo.Name}");
+            }
+
             _currentAttackIndex = 0;
         }
 
         private void Combo()
         {
             if(!(_actionHandler.NextAction is AttackBehaviorComponent.AttackAction attackAction)) {
+                ComboFail();
                 return;
             }
 
@@ -243,7 +260,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         private bool AdvanceCombo()
         {
-            if(_currentAttackIndex >= Brawler.BrawlerData.AttackComboData.ElementAt(_currentComboIndex).AttackData.Count - 1) {
+            if(_currentAttackIndex >= CurrentCombo.AttackData.Count - 1) {
                 return false;
             }
 
@@ -253,7 +270,11 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         private void ComboFail()
         {
-            _currentComboIndex = 0;
+            if(GameManager.Instance.DebugBrawlers) {
+                Debug.Log($"Brawler {Owner.Id} combo failed / exhausted");
+            }
+
+            _currentComboIndex = -1;
             _currentAttackIndex = 0;
         }
 #endregion
@@ -288,20 +309,24 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             // did we block the damage?
             if(Brawler.CurrentAction.IsBlocking && _blockVolume.Intersects(attackBounds)) {
                 if(BrawlerAction.ActionType.Parry == Brawler.CurrentAction.Type) {
-                    Debug.Log($"TODO: Brawler {_actionHandler.Owner.Id} can parry");
+                    Debug.Log($"TODO: Brawler {Owner.Id} can parry");
                 }
 
                 // TODO: somehow we need to handle chip damage
                 // but for now we'll just dump all of it
 
-                Debug.Log($"Brawler {_actionHandler.Owner.Id} blocked damaged by {source.Id} for {amount}");
+                if(GameManager.Instance.DebugBrawlers) {
+                    Debug.Log($"Brawler {Owner.Id} blocked damaged by {source.Id} for {amount}");
+                }
 
                 _blockEffectTrigger.Trigger();
                 _actionHandler.OnHit(true);
                 return false;
             }
 
-            Debug.Log($"Brawler {_actionHandler.Owner.Id} damaged by {source.Id} for {amount}");
+            if(GameManager.Instance.DebugBrawlers) {
+                Debug.Log($"Brawler {Owner.Id} damaged by {source.Id} for {amount}");
+            }
 
             CancelActions(false);
 
@@ -310,7 +335,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 _deathEffectTrigger.Trigger(() => _actionHandler.OnDeathComplete());
                 _actionHandler.OnDead();
             } else {
-                //_actionHandler.Owner.Behavior.Movement.AddImpulse(force * amount);
+                //Owner.Behavior.Movement.AddImpulse(force * amount);
 
                 _hitEffectTrigger.Trigger(() => {
                     Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
@@ -374,6 +399,20 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
             _hitAnimationEffectTriggerComponent.StartEvent -= HitAnimationStartHandler;
             _hitAnimationEffectTriggerComponent.CompleteEvent -= HitAnimationCompleteHandler;
+        }
+#endregion
+
+#region Spawn
+        public void OnSpawn()
+        {
+            _currentComboIndex = -1;
+            _currentAttackIndex = 0;
+        }
+
+        public void OnReSpawn()
+        {
+            _currentComboIndex = -1;
+            _currentAttackIndex = 0;
         }
 #endregion
 

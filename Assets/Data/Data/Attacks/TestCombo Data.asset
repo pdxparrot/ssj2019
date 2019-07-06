@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 265fd580bc219bc48b1e89e757b98aba, type: 3}
   m_Name: TestCombo Data
   m_EditorClassIdentifier: 
+  _name: Test NPC Combo
   _attackData:
     _items:
     - {fileID: 11400000, guid: a252acba28613df4592992d0ea53e879, type: 2}

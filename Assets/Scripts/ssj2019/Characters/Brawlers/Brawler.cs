@@ -70,6 +70,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             _health = _brawlerData.MaxHealth;
 
             CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
+
+            _brawlerBehavior.OnSpawn();
         }
 
         public void OnReSpawn()
@@ -77,6 +79,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             _health = _brawlerData.MaxHealth;
 
             CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
+
+            _brawlerBehavior.OnReSpawn();
         }
 #endregion
     }

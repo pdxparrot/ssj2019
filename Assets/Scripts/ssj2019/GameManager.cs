@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.Collections;
+using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game;
 using pdxpartyparrot.Game.State;
@@ -27,6 +28,13 @@ namespace pdxpartyparrot.ssj2019
             public int PlayerNumber { get;  set;}
         }
 
+#region Debug
+        [SerializeField]
+        private bool _debugBrawlers;
+
+        public bool DebugBrawlers => _debugBrawlers;
+#endregion
+
         [SerializeField]
         private MainGameState _mainGameStatePrefab;
 
@@ -46,6 +54,24 @@ namespace pdxpartyparrot.ssj2019
         private readonly Dictionary<InputDevice, PlayerEntry> _characters = new Dictionary<InputDevice, PlayerEntry>();
 
         private readonly HashSet<Player> _activePlayers = new HashSet<Player>();
+
+        private DebugMenuNode _debugMenuNode;
+
+#region Unity Lifecycle
+        protected override void Awake()
+        {
+            base.Awake();
+
+            InitDebugMenu();
+        }
+
+        protected override void OnDestroy()
+        {
+            DestroyDebugMenu();
+
+            base.OnDestroy();
+        }
+#endregion
 
         public override void Shutdown()
         {
@@ -135,5 +161,21 @@ namespace pdxpartyparrot.ssj2019
             }
         }
 #endregion
+
+        private void InitDebugMenu()
+        {
+            _debugMenuNode = DebugMenuManager.Instance.AddNode(() => "ssj2019.GameManager");
+            _debugMenuNode.RenderContentsAction = () => {
+                _debugBrawlers = GUILayout.Toggle(_debugBrawlers, "Debug Brawlers");
+            };
+        }
+
+        private void DestroyDebugMenu()
+        {
+            if(DebugMenuManager.HasInstance) {
+                DebugMenuManager.Instance.RemoveNode(_debugMenuNode);
+            }
+            _debugMenuNode = null;
+        }
     }
 }
