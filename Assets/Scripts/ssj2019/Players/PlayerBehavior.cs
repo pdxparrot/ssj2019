@@ -29,6 +29,8 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public bool CanBlock => !IsDead && IsGrounded && Brawler.CurrentAction.Cancellable;
 
+        private bool CanDash => !IsDead && Brawler.CurrentAction.Cancellable;
+
         public bool IsDead => GamePlayerOwner.IsDead;
 
         [Space(10)]
@@ -174,6 +176,19 @@ namespace pdxpartyparrot.ssj2019.Players
         public void Block(Vector3 lastMove)
         {
             ActionPerformed(new BlockBehaviorComponent.BlockAction{
+                Axes = lastMove,
+            });
+        }
+
+        public void Dash(Vector3 lastMove)
+        {
+            if(!CanDash) {
+                return;
+            }
+
+            _brawlerBehavior.CancelActions(false);
+
+            ActionPerformed(new DashBehaviorComponent.DashAction{
                 Axes = lastMove,
             });
         }

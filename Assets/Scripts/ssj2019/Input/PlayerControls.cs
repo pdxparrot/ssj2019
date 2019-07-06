@@ -75,6 +75,17 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""bindings"": []
+                },
+                {
+                    ""name"": ""dash"",
+                    ""id"": ""496bddd6-7d31-418c-8359-ef595963fa7c"",
+                    ""expectedControlLayout"": ""Button"",
+                    ""continuous"": false,
+                    ""passThrough"": false,
+                    ""initialStateCheck"": false,
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""bindings"": []
                 }
             ],
             ""bindings"": [
@@ -305,6 +316,30 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""isComposite"": false,
                     ""isPartOfComposite"": false,
                     ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f540bebb-a084-4960-9078-ce6264b7326f"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5959b1c8-44b3-4089-a478-7d103a3d469a"",
+                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
                 }
             ]
         }
@@ -318,6 +353,7 @@ namespace pdxpartyparrot.ssj2019.Input
             m_Player_jump = m_Player.GetAction("jump");
             m_Player_attack = m_Player.GetAction("attack");
             m_Player_block = m_Player.GetAction("block");
+            m_Player_dash = m_Player.GetAction("dash");
         }
 
         ~PlayerControls()
@@ -375,6 +411,7 @@ namespace pdxpartyparrot.ssj2019.Input
         private InputAction m_Player_jump;
         private InputAction m_Player_attack;
         private InputAction m_Player_block;
+        private InputAction m_Player_dash;
         public struct PlayerActions
         {
             private PlayerControls m_Wrapper;
@@ -384,6 +421,7 @@ namespace pdxpartyparrot.ssj2019.Input
             public InputAction @jump { get { return m_Wrapper.m_Player_jump; } }
             public InputAction @attack { get { return m_Wrapper.m_Player_attack; } }
             public InputAction @block { get { return m_Wrapper.m_Player_block; } }
+            public InputAction @dash { get { return m_Wrapper.m_Player_dash; } }
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -409,6 +447,9 @@ namespace pdxpartyparrot.ssj2019.Input
                     block.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlock;
                     block.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlock;
                     block.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlock;
+                    dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                    dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                    dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -428,6 +469,9 @@ namespace pdxpartyparrot.ssj2019.Input
                     block.started += instance.OnBlock;
                     block.performed += instance.OnBlock;
                     block.canceled += instance.OnBlock;
+                    dash.started += instance.OnDash;
+                    dash.performed += instance.OnDash;
+                    dash.canceled += instance.OnDash;
                 }
             }
         }
@@ -445,6 +489,7 @@ namespace pdxpartyparrot.ssj2019.Input
             void OnJump(InputAction.CallbackContext context);
             void OnAttack(InputAction.CallbackContext context);
             void OnBlock(InputAction.CallbackContext context);
+            void OnDash(InputAction.CallbackContext context);
         }
     }
 }

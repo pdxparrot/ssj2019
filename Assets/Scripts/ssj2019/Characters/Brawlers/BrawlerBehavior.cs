@@ -226,6 +226,11 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             });
         }
 
+        public void Dash(DashBehaviorComponent.DashAction dashAction)
+        {
+            Debug.Log("TODO: dash");
+        }
+
 #region Combos
         private void InitializeCombo(AttackBehaviorComponent.AttackAction attackAction)
         {

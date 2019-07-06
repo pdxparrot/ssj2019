@@ -61,6 +61,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public bool CanBlock => !IsDead && IsGrounded && Brawler.CurrentAction.Cancellable;
 
+        private bool CanDash => !IsDead && Brawler.CurrentAction.Cancellable;
+
         public bool IsDead => GameNPCOwner.IsDead;
 
         [SerializeField]
@@ -426,6 +428,19 @@ namespace pdxpartyparrot.ssj2019.NPCs
             });
 
             _attackCooldown.Stop();
+        }
+
+        public void Dash(Vector3 lastMove)
+        {
+            if(!CanDash) {
+                return;
+            }
+
+            _brawlerBehavior.CancelActions(false);
+
+            ActionPerformed(new DashBehaviorComponent.DashAction{
+                Axes = lastMove,
+            });
         }
 #endregion
 

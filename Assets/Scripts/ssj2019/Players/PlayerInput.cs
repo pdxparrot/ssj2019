@@ -119,6 +119,21 @@ namespace pdxpartyparrot.ssj2019.Players
                 Debug.LogWarning("TODO: handle block cancel");
             }
         }
+
+        public void OnDash(InputAction.CallbackContext context)
+        {
+            if(!InputEnabled || !IsOurDevice(context)) {
+                return;
+            }
+
+            if(PlayerManager.Instance.DebugInput) {
+                Debug.Log($"Dash: {context.action.phase}");
+            }
+
+            if(context.performed) {
+                GamePlayer.GamePlayerBehavior.Dash(LastMove);
+            }
+        }
 #endregion
     }
 }
