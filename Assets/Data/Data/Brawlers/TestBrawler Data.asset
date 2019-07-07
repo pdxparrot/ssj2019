@@ -24,6 +24,5 @@ MonoBehaviour:
   _blockVolumeOffset: {x: 0.5, y: 1.286, z: 0}
   _blockVolumeSize: {x: 0.75, y: 0.75, z: 0.75}
   _blockBoneName: root
-  _attackComboData:
-  - {fileID: 11400000, guid: f5bc036627c10eb41af51638242c7466, type: 2}
+  _comboData: {fileID: 11400000, guid: f5bc036627c10eb41af51638242c7466, type: 2}
   _maxHealth: 10

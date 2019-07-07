@@ -93,11 +93,11 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
 
         [Space(10)]
 
-#region Attacks
+#region Combos
         [SerializeField]
-        private AttackComboData[] _attackComboData;
+        private ComboData _comboData;
 
-        public IReadOnlyCollection<AttackComboData> AttackComboData => _attackComboData;
+        public ComboData ComboData => _comboData;
 #endregion
 
         [Space(10)]

@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 265fd580bc219bc48b1e89e757b98aba, type: 3}
-  m_Name: TestP1Combo Data
+  m_Name: TestCombo Data
   m_EditorClassIdentifier: 
-  _name: Test Player Combo
-  _attackData:
-    _items:
-    - {fileID: 11400000, guid: 0b2e4817866041e40bdb8c8c36fc1c84, type: 2}
-    - {fileID: 11400000, guid: 8e3f44b103df21d46874c2d86319c1b2, type: 2}
+  _name: Test NPC Combo
+  _type: 0
+  _attackData: {fileID: 0}
+  _combos:
+  - {fileID: 11400000, guid: 3297872793e348e47adcfa342b3faec2, type: 2}
+  - {fileID: 11400000, guid: 4d7dad345492d7e4a9347d65691f9b74, type: 2}

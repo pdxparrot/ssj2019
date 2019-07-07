@@ -43,10 +43,16 @@ namespace pdxpartyparrot.ssj2019.Data.NPCs
         public float StateCooldownSeconds => _stateCooldownMs * TimeManager.MilliSecondsToSeconds;
 
         [SerializeField]
-        [Tooltip("How long to pause between attacks, on top of any other cooldowns")]
+        [Tooltip("How long to pause after attacking, on top of any other cooldowns")]
         private float _attackCooldownMs;
 
         public float AttackCooldownSeconds => _attackCooldownMs * TimeManager.MilliSecondsToSeconds;
+
+        [SerializeField]
+        [Tooltip("How long to pause after dashing, on top of any other cooldowns")]
+        private float _dashCooldownMs;
+
+        public float DashCooldownSeconds => _dashCooldownMs * TimeManager.MilliSecondsToSeconds;
 
         public bool CanTrackDistance(float distance)
         {

@@ -116,7 +116,7 @@ namespace pdxpartyparrot.ssj2019.Players
             _idleEffect.Trigger();
         }
 
-        public void OnAttack(AttackBehaviorComponent.AttackAction action)
+        public void OnCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
         {
             ActionPerformed(action);
         }
@@ -162,7 +162,7 @@ namespace pdxpartyparrot.ssj2019.Players
                 return;
             }
 
-            if(BrawlerAction.ActionType.Attack == Brawler.CurrentAction.Type) {
+            if(Brawler.CurrentAction.CanQueue) {
                 BufferAction(new AttackBehaviorComponent.AttackAction{
                     Axes = lastMove,
                 });
@@ -173,6 +173,7 @@ namespace pdxpartyparrot.ssj2019.Players
             }
         }
 
+        // TODO: does this really need the move input?
         public void Block(Vector3 lastMove)
         {
             ActionPerformed(new BlockBehaviorComponent.BlockAction{
@@ -180,17 +181,22 @@ namespace pdxpartyparrot.ssj2019.Players
             });
         }
 
+        // TODO: does this really need the move input?
         public void Dash(Vector3 lastMove)
         {
             if(!CanDash) {
                 return;
             }
 
-            _brawlerBehavior.CancelActions(false);
-
-            ActionPerformed(new DashBehaviorComponent.DashAction{
-                Axes = lastMove,
-            });
+            if(Brawler.CurrentAction.CanQueue) {
+                BufferAction(new DashBehaviorComponent.DashAction{
+                    Axes = lastMove,
+                });
+            } else {
+                ActionPerformed(new DashBehaviorComponent.DashAction{
+                    Axes = lastMove,
+                });
+            }
         }
 #endregion
 

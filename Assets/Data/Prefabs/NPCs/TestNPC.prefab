@@ -1013,6 +1013,7 @@ GameObject:
   - component: {fileID: 1482694962723182602}
   - component: {fileID: 5887927068430922675}
   - component: {fileID: 171347820613495406}
+  - component: {fileID: 4579292172737694567}
   m_Layer: 13
   m_Name: Behavior
   m_TagString: Untagged
@@ -1058,11 +1059,10 @@ MonoBehaviour:
   _deathEffectTrigger: {fileID: 6237249302560061764}
   _attackVolume: {fileID: 4356007661132845643}
   _blockVolume: {fileID: 5793994074923292069}
-  _currentComboIndex: 0
-  _currentAttackIndex: 0
+  _currentComboMove: {fileID: 0}
   _attackBehaviorComponent: {fileID: 5887927068430922675}
   _blockBehaviorComponent: {fileID: 171347820613495406}
-  _lastAttackHit: 0
+  _dashBehaviorComponent: {fileID: 4579292172737694567}
 --- !u!114 &7354327572179901474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1112,6 +1112,7 @@ MonoBehaviour:
     - {fileID: 1482694962723182602}
     - {fileID: 5887927068430922675}
     - {fileID: 171347820613495406}
+    - {fileID: 4579292172737694567}
   _isGrounded: 0
   _isSliding: 0
   _idleEffect: {fileID: 8823639518845711383}
@@ -1119,8 +1120,6 @@ MonoBehaviour:
   _immune: 0
   _state: 0
   _target: {fileID: 0}
-  _attackBehaviorComponent: {fileID: 5887927068430922675}
-  _blockBehaviorComponent: {fileID: 171347820613495406}
 --- !u!114 &256798335153925517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1196,6 +1195,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d3f75dae79a26843ac679b8b4689b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _brawler: {fileID: 0}
+--- !u!114 &4579292172737694567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9003367007530177534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a838ff939b91c314399507dd80659d25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _brawler: {fileID: 0}

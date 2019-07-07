@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Actors;
@@ -40,8 +37,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         // tells the brawler to go idle
         void OnIdle();
 
-        // triggers when the brawler should attack
-        void OnAttack(AttackBehaviorComponent.AttackAction action);
+        // triggers when the brawler should combo
+        void OnCombo(CharacterBehaviorComponent.CharacterBehaviorAction action);
 
         // triggers when the brawler is hit
         void OnHit(bool blocked);
@@ -120,17 +117,11 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 #region Attacks
         [SerializeField]
         [ReadOnly]
-        private int _currentComboIndex = -1;
-
-        [SerializeField]
-        [ReadOnly]
-        private int _currentAttackIndex;
+        [CanBeNull]
+        private ComboData _currentComboMove;
 
         [CanBeNull]
-        public AttackComboData CurrentCombo => null == Brawler || _currentComboIndex < 0 ? null : Brawler.BrawlerData.AttackComboData.ElementAt(_currentComboIndex);
-
-        [CanBeNull]
-        public AttackData CurrentAttack => null == CurrentCombo ? null : CurrentCombo.AttackData.ElementAt(_currentAttackIndex);
+        private AttackData CurrentAttack => null == _currentComboMove ? null : _currentComboMove.AttackData;
 #endregion
 
         [SerializeField]
@@ -138,6 +129,9 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         [SerializeField]
         private BlockBehaviorComponent _blockBehaviorComponent;
+
+        [SerializeField]
+        private DashBehaviorComponent _dashBehaviorComponent;
 
         [Space(10)]
 
@@ -179,33 +173,23 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
             _attackBehaviorComponent.Brawler = _actionHandler.Brawler;
             _blockBehaviorComponent.Brawler = _actionHandler.Brawler;
+            _dashBehaviorComponent.Brawler = _actionHandler.Brawler;
         }
 
         public void Initialize()
         {
             Assert.IsNotNull(Brawler);
             Assert.IsNotNull(Brawler.BrawlerData);
-            Assert.IsNotNull(Brawler.BrawlerData.AttackComboData);
-            Assert.IsTrue(Brawler.BrawlerData.AttackComboData.Count > 0);
+            Assert.IsNotNull(Brawler.BrawlerData.ComboData);
 
-            // validate that the first attack in each combo is uniquely identifiable
-            HashSet<string> combos = new HashSet<string>();
-            foreach(AttackComboData comboData in Brawler.BrawlerData.AttackComboData) {
-                Assert.IsTrue(comboData.AttackData.Count > 0);
-
-                string id = comboData.AttackData.ElementAt(0).Id;
-                Assert.IsFalse(combos.Contains(id));
-                combos.Add(id);
-            }
-
-            // TODO: first attack must always be directionless
-            //Assert.IsTrue(Brawler.BrawlerData.AttackComboData.ElementAt(0).AttackData.ElementAt(0));
+            Brawler.BrawlerData.ComboData.Validate();
         }
 
         public void Attack(AttackBehaviorComponent.AttackAction attackAction)
         {
-            if(_currentComboIndex < 0) {
-                InitializeCombo(attackAction);
+            if(!AdvanceCombo(attackAction)) {
+                ComboFail();
+                return;
             }
 
             if(GameManager.Instance.DebugBrawlers) {
@@ -228,49 +212,50 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         public void Dash(DashBehaviorComponent.DashAction dashAction)
         {
-            Debug.Log("TODO: dash");
-        }
-
-#region Combos
-        private void InitializeCombo(AttackBehaviorComponent.AttackAction attackAction)
-        {
-            _currentComboIndex = 0;
-
-            // TODO: find an attack that best matches the input
-            // with index 0 being our fallback directionless attack
-
-            if(GameManager.Instance.DebugBrawlers) {
-                Debug.Log($"Brawler {Owner.Id} starting combo {CurrentCombo.Name}");
-            }
-
-            _currentAttackIndex = 0;
-        }
-
-        private void Combo()
-        {
-            if(!(_actionHandler.NextAction is AttackBehaviorComponent.AttackAction attackAction)) {
+            if(!AdvanceCombo(dashAction)) {
                 ComboFail();
                 return;
             }
 
-            if(AdvanceCombo()) {
-                _actionHandler.PopNextAction();
-                _actionHandler.OnAttack(attackAction);
-            } else {
-                ComboFail();
-
-                CancelActions(true);
+            if(GameManager.Instance.DebugBrawlers) {
+                Debug.Log($"Brawler {Owner.Id} starting dash");
             }
+
+            Debug.Log("TODO: dash");
         }
 
-        private bool AdvanceCombo()
+#region Combos
+        private bool AdvanceCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
         {
-            if(_currentAttackIndex >= CurrentCombo.AttackData.Count - 1) {
+            if(null == _currentComboMove) {
+                _currentComboMove = Brawler.BrawlerData.ComboData.NextMove(action);
+                Assert.IsNotNull(_currentComboMove);
+            } else {
+                _currentComboMove = _currentComboMove.NextMove(action);
+            }
+
+            if(null == _currentComboMove) {
                 return false;
             }
 
-            _currentAttackIndex++;
+            if(GameManager.Instance.DebugBrawlers) {
+                Debug.Log($"Brawler {Owner.Id} starting combo {_currentComboMove.Name}");
+            }
+
             return true;
+        }
+
+        private void Combo()
+        {
+            CharacterBehaviorComponent.CharacterBehaviorAction action = _actionHandler.NextAction;
+            if(!(action is AttackBehaviorComponent.AttackAction) && !(action is DashBehaviorComponent.DashAction)) {
+                ComboFail();
+                return;
+            }
+
+            _actionHandler.PopNextAction();
+
+            _actionHandler.OnCombo(action);
         }
 
         private void ComboFail()
@@ -279,8 +264,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 Debug.Log($"Brawler {Owner.Id} combo failed / exhausted");
             }
 
-            _currentComboIndex = -1;
-            _currentAttackIndex = 0;
+            _currentComboMove = null;
         }
 #endregion
 
@@ -410,14 +394,12 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 #region Spawn
         public void OnSpawn()
         {
-            _currentComboIndex = -1;
-            _currentAttackIndex = 0;
+            _currentComboMove = null;
         }
 
         public void OnReSpawn()
         {
-            _currentComboIndex = -1;
-            _currentAttackIndex = 0;
+            _currentComboMove = null;
         }
 #endregion
 

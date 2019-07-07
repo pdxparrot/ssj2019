@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1550674950824046361}
   - component: {fileID: 2342830165173679034}
   - component: {fileID: 1883176091393127105}
+  - component: {fileID: 774517619430092363}
   m_Layer: 12
   m_Name: Behavior
   m_TagString: Untagged
@@ -62,11 +63,10 @@ MonoBehaviour:
   _deathEffectTrigger: {fileID: 6433857838732750911}
   _attackVolume: {fileID: 4234046138188009513}
   _blockVolume: {fileID: 2276791725628702472}
-  _currentComboIndex: 0
-  _currentAttackIndex: 0
+  _currentComboMove: {fileID: 0}
   _attackBehaviorComponent: {fileID: 2342830165173679034}
   _blockBehaviorComponent: {fileID: 1883176091393127105}
-  _lastAttackHit: 0
+  _dashBehaviorComponent: {fileID: 774517619430092363}
 --- !u!114 &1466622540529787529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,6 +99,7 @@ MonoBehaviour:
     - {fileID: 1550674950824046361}
     - {fileID: 2342830165173679034}
     - {fileID: 1883176091393127105}
+    - {fileID: 774517619430092363}
   _isGrounded: 0
   _isSliding: 0
   _idleEffect: {fileID: 8260880877772567660}
@@ -191,6 +192,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d3f75dae79a26843ac679b8b4689b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _brawler: {fileID: 0}
+--- !u!114 &774517619430092363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243353592151571374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a838ff939b91c314399507dd80659d25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _brawler: {fileID: 0}

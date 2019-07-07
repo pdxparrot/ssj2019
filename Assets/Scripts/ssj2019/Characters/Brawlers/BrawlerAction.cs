@@ -12,7 +12,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             Idle,
             Attack,
             Block,
-            Parry
+            Parry,
+            Dash
         }
 
         [SerializeField]
@@ -51,6 +52,9 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             set => _stunned = value;
         }
 
+        // true if other actions can queue while this one is in progress
+        public bool CanQueue => ActionType.Attack == Type || ActionType.Dash == Type;
+
         public bool IsBlocking => ActionType.Block == Type || ActionType.Parry == Type;
 
         public BrawlerAction(ActionType type)
@@ -61,7 +65,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             _immune = false;
             _stunned = false;
 
-            if(IsBlocking) {
+            // some types of actions can't be cancelled out of
+            if(IsBlocking || ActionType.Dash == Type) {
                 _cancellable = false;
                 _stunned = true;
             }

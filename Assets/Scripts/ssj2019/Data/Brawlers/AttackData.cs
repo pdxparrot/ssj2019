@@ -1,7 +1,5 @@
 ﻿using System;
 
-using pdxpartyparrot.Core.Util;
-
 using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Data.Brawlers
@@ -10,18 +8,33 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
     [Serializable]
     public sealed class AttackData : ScriptableObject
     {
-        [Serializable]
-        public class ReorderableList : ReorderableList<AttackData>
+        public enum Direction
         {
+            None,
+            Up,
+            Down,
+            Left,
+            Right
         }
 
-        // TODO: when we have a direction, this should expand to include that
-        public string Id => "attack";
+        public string Id => $"{AttackDirection}_{_airAttack}";
 
         [SerializeField]
         private string _name;
 
         public string Name => _name;
+
+        [Space(10)]
+        
+        [SerializeField]
+        private Direction _attackDirection = Direction.None;
+
+        public Direction AttackDirection => _attackDirection;
+
+        [SerializeField]
+        private bool _airAttack;
+
+        public bool AirAttack => _airAttack;
 
         [Space(10)]
 

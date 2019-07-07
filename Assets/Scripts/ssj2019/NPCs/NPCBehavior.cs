@@ -86,12 +86,6 @@ namespace pdxpartyparrot.ssj2019.NPCs
         [CanBeNull]
         private Actor _target;
 
-        [SerializeField]
-        private AttackBehaviorComponent _attackBehaviorComponent;
-
-        [SerializeField]
-        private BlockBehaviorComponent _blockBehaviorComponent;
-
         private BrawlerBehavior _brawlerBehavior;
 
         private NPCFidgetBehavior _fidgetBehavior;
@@ -99,6 +93,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
         private ITimer _stateCooldown;
 
         private ITimer _attackCooldown;
+
+        private ITimer _dashCooldown;
 
 #region Unity Lifecycle
         protected override void Awake()
@@ -112,11 +108,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
             _fidgetBehavior = GetComponent<NPCFidgetBehavior>();
             _fidgetBehavior.Initialize(GameNPCOwner);
 
-            _attackBehaviorComponent.Brawler = GameNPCOwner.Brawler;
-            _blockBehaviorComponent.Brawler = GameNPCOwner.Brawler;
-
             _stateCooldown = TimeManager.Instance.AddTimer();
             _attackCooldown = TimeManager.Instance.AddTimer();
+            _dashCooldown = TimeManager.Instance.AddTimer();
         }
 
         protected override void OnDestroy()
@@ -127,6 +121,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
                 TimeManager.Instance.RemoveTimer(_attackCooldown);
                 _attackCooldown = null;
+
+                TimeManager.Instance.RemoveTimer(_dashCooldown);
+                _dashCooldown = null;
             }
         }
 
@@ -359,11 +356,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
             SetState(NPCState.Idle);
         }
 
-        public void OnAttack(AttackBehaviorComponent.AttackAction action)
+        public void OnCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
         {
             ActionPerformed(action);
-
-            _attackCooldown.Start(GameNPCOwner.NPCCharacterData.AttackCooldownSeconds);
         }
 
         public void OnHit(bool blocked)
@@ -371,6 +366,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             ClearActionBuffer();
 
             _attackCooldown.Stop();
+            _dashCooldown.Stop();
         }
 
         public void OnDead()
@@ -401,23 +397,27 @@ namespace pdxpartyparrot.ssj2019.NPCs
             ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
 
             _attackCooldown.Stop();
+            _dashCooldown.Stop();
         }
 
         // TODO: we might want the entire move buffer
         public void Attack(Vector3 lastMove)
         {
-            if(!CanAttack || _attackCooldown.IsRunning) {
+            if(!CanAttack) {
                 return;
             }
 
-            if(BrawlerAction.ActionType.Attack == Brawler.CurrentAction.Type) {
+            if(Brawler.CurrentAction.CanQueue) {
                 BufferAction(new AttackBehaviorComponent.AttackAction{
                     Axes = lastMove,
                 });
-            } else {
+            } else if(!_attackCooldown.IsRunning) {
                 ActionPerformed(new AttackBehaviorComponent.AttackAction{
                     Axes = lastMove,
                 });
+
+                _attackCooldown.Start(GameNPCOwner.NPCCharacterData.AttackCooldownSeconds);
+                _dashCooldown.Stop();
             }
         }
         
@@ -428,6 +428,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             });
 
             _attackCooldown.Stop();
+            _dashCooldown.Stop();
         }
 
         public void Dash(Vector3 lastMove)
@@ -436,11 +437,18 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return;
             }
 
-            _brawlerBehavior.CancelActions(false);
+            if(Brawler.CurrentAction.CanQueue) {
+                BufferAction(new DashBehaviorComponent.DashAction{
+                    Axes = lastMove,
+                });
+            } else if(!_dashCooldown.IsRunning) {
+                ActionPerformed(new DashBehaviorComponent.DashAction{
+                    Axes = lastMove,
+                });
 
-            ActionPerformed(new DashBehaviorComponent.DashAction{
-                Axes = lastMove,
-            });
+                _attackCooldown.Stop();
+                _dashCooldown.Start(GameNPCOwner.NPCCharacterData.DashCooldownSeconds);
+            }
         }
 #endregion
 

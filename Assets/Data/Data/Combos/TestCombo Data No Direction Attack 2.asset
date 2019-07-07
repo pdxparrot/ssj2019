@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 265fd580bc219bc48b1e89e757b98aba, type: 3}
-  m_Name: TestCombo Data
+  m_Name: TestCombo Data No Direction Attack 2
   m_EditorClassIdentifier: 
-  _name: Test NPC Combo
-  _attackData:
-    _items:
-    - {fileID: 11400000, guid: a252acba28613df4592992d0ea53e879, type: 2}
-    - {fileID: 11400000, guid: 69641e5696fd2364eb5d109d538bc4d1, type: 2}
+  _name: Test NPC Combo No Direction Attack 2
+  _type: 1
+  _attackData: {fileID: 11400000, guid: 69641e5696fd2364eb5d109d538bc4d1, type: 2}
+  _combos: []
