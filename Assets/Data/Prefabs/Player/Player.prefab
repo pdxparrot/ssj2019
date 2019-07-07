@@ -1,5 +1,68 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &94780056344037258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4790981211668434238}
+  - component: {fileID: 4254428544176821508}
+  - component: {fileID: 8379026244741991667}
+  m_Layer: 12
+  m_Name: Dash Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4790981211668434238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94780056344037258}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7312426625843009650}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4254428544176821508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94780056344037258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f0acf5094b571448a3663067cfbfe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 8379026244741991667}
+  _isRunning: 0
+--- !u!114 &8379026244741991667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94780056344037258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _logMessage: player dash
 --- !u!1 &243353592151571374
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,6 +121,7 @@ MonoBehaviour:
   _blockEndEffectTrigger: {fileID: 6966623934742709282}
   _blockEndAnimationEffectTriggerComponent: {fileID: 4756346590148829104}
   _blockEffectTrigger: {fileID: 6478466866726388021}
+  _dashEffectTrigger: {fileID: 4254428544176821508}
   _hitEffectTrigger: {fileID: 1079242178650208271}
   _hitAnimationEffectTriggerComponent: {fileID: 6129758529191386186}
   _deathEffectTrigger: {fileID: 6433857838732750911}
@@ -240,7 +304,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1079242178650208271
 MonoBehaviour:
@@ -409,7 +473,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8939990823969181630
 BoxCollider:
@@ -821,7 +885,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8186399107253478634
 BoxCollider:
@@ -996,6 +1060,7 @@ Transform:
   - {fileID: 5471448559866563293}
   - {fileID: 4870319420291113269}
   - {fileID: 985820185993223690}
+  - {fileID: 4790981211668434238}
   - {fileID: 1949689036593770953}
   - {fileID: 2879474997430178217}
   - {fileID: 8353411165582611084}
@@ -1499,7 +1564,7 @@ PrefabInstance:
     - target: {fileID: 2721963720331797485, guid: 4ccb41fc5c8ebd44e826dfee305c4881,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2721963720331797485, guid: 4ccb41fc5c8ebd44e826dfee305c4881,
         type: 3}

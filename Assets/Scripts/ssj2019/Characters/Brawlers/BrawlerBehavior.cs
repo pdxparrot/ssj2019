@@ -83,6 +83,11 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         public EffectTrigger BlockEffectTrigger => _blockEffectTrigger;
 #endregion
 
+#region Dash Animations
+        [SerializeField]
+        private EffectTrigger _dashEffectTrigger;
+#endregion
+
 #region Hit Animations
         [SerializeField]
         private EffectTrigger _hitEffectTrigger;
@@ -222,6 +227,12 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             Debug.Log("TODO: dash");
+
+            Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Dash);
+            _dashEffectTrigger.Trigger(() => {
+                Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
+                _actionHandler.OnIdle();
+            });
         }
 
 #region Combos

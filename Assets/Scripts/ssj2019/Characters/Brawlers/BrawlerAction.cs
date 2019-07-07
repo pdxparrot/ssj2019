@@ -70,6 +70,11 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 _cancellable = false;
                 _stunned = true;
             }
+
+            // some types of actions make the brawler immune
+            if(ActionType.Dash == Type) {
+                _immune = true;
+            }
         }
     }
 }
