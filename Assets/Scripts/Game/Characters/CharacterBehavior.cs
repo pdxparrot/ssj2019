@@ -93,7 +93,40 @@ namespace pdxpartyparrot.Game.Characters
         protected EffectTrigger _idleEffect;
 #endregion
 
-        public override bool CanMove => base.CanMove && !GameStateManager.Instance.GameManager.IsGameOver;
+        // TODO: this has become too expensive for a property
+        // make it a method instead
+        public override bool CanMove
+        {
+            get
+            {
+                // TODO: make this configurable
+                if(GameStateManager.Instance.GameManager.IsGameOver) {
+                    return false;
+                }
+
+                foreach(CharacterBehaviorComponent component in _components.Items) {
+                    if(!component.CanMove) {
+                        return false;
+                    }
+                }
+
+                return base.CanMove;
+            }
+        }
+
+        // TODO: this can be a parameter to the GetCanMove() method
+        private bool CanMoveNoComponents
+        {
+            get
+            {
+                // TODO: make this configurable
+                if(GameStateManager.Instance.GameManager.IsGameOver) {
+                    return false;
+                }
+
+                return base.CanMove;
+            }
+        }
 
 #region Action Buffer
         [CanBeNull]
@@ -218,7 +251,7 @@ namespace pdxpartyparrot.Game.Characters
 
         protected override void AnimationUpdate(float dt)
         {
-            if(!CanMove) {
+            if(!CanMoveNoComponents) {
                 return;
             }
 
@@ -227,7 +260,7 @@ namespace pdxpartyparrot.Game.Characters
 
         protected override void PhysicsUpdate(float dt)
         {
-            if(!CanMove) {
+            if(!CanMoveNoComponents) {
                 return;
             }
 

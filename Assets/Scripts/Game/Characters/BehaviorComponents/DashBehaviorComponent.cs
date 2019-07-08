@@ -4,12 +4,16 @@ using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Time;
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data.Characters.BehaviorComponents;
 
 using UnityEngine;
 
 namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 {
+    // TODO: make air dashing configurable
+    // TODO: make it possible to perform a dash action
+    // without invoking the cooldown (action parameter)
     public class DashBehaviorComponent : CharacterBehaviorComponent
     {
 #region Actions
@@ -46,12 +50,19 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         public bool CanDash => !IsDashing && !IsDashCooldown;
 
+        public override bool CanMove => !IsDashing;
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _wasKinematic;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
             base.Awake();
 
             _dashTimer = TimeManager.Instance.AddTimer();
+            _dashTimer.StopEvent += DashStopEventHandler;
             _dashTimer.TimesUpEvent += DashTimesUpEventHandler;
 
             _cooldownTimer = TimeManager.Instance.AddTimer();
@@ -77,9 +88,12 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
                 return false;
             }
 
-// TODO: base movement but faster
+            Vector3 moveDirection = Behavior.FacingDirection;
+            Vector3 velocity = moveDirection * Behavior.CharacterBehaviorData.MoveSpeed * DashBehaviorComponentData.DashMoveSpeedModifier;
 
-            return false;
+            Behavior.Movement.Teleport(Behavior.Movement.Position + velocity * dt);
+
+            return true;
         }
 
         public override bool OnPerformed(CharacterBehaviorAction action)
@@ -88,19 +102,39 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
                 return false;
             }
 
+            StartDashing();
+
+            return true;
+        }
+
+        private void StartDashing()
+        {
+            _wasKinematic = Behavior.Movement.IsKinematic;
+            Behavior.Movement.IsKinematic = true;
+
             _dashTimer.Start(DashBehaviorComponentData.DashTimeSeconds);
 
             if(null != _dashEffect) {
                 _dashEffect.Trigger();
             }
+        }
 
-            return true;
+        private void StopDashing()
+        {
+            Behavior.Movement.IsKinematic = _wasKinematic;
+
+            _cooldownTimer.Start(DashBehaviorComponentData.DashCooldownSeconds);
         }
 
 #region Event Handlers
+        private void DashStopEventHandler(object sender, EventArgs args)
+        {
+            StopDashing();
+        }
+
         private void DashTimesUpEventHandler(object sender, EventArgs args)
         {
-            _cooldownTimer.Start(DashBehaviorComponentData.DashCooldownSeconds);
+            StopDashing();
         }
 #endregion
     }

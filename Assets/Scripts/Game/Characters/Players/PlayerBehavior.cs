@@ -71,6 +71,7 @@ namespace pdxpartyparrot.Game.Characters.Players
         protected override void AnimationUpdate(float dt)
         {
             if(!CanMove) {
+                base.AnimationUpdate(dt);
                 return;
             }
 
@@ -83,8 +84,8 @@ namespace pdxpartyparrot.Game.Characters.Players
             AlignToMovement(forward);
 
             if(null != Animator) {
-                Animator.SetFloat(PlayerBehaviorData.MoveXAxisParam, CanMove ? Mathf.Abs(MoveDirection.x) : 0.0f);
-                Animator.SetFloat(PlayerBehaviorData.MoveZAxisParam, CanMove ? Mathf.Abs(MoveDirection.y) : 0.0f);
+                Animator.SetFloat(CharacterBehaviorData.MoveXAxisParam, CanMove ? Mathf.Abs(MoveDirection.x) : 0.0f);
+                Animator.SetFloat(CharacterBehaviorData.MoveZAxisParam, CanMove ? Mathf.Abs(MoveDirection.y) : 0.0f);
             }
 
             base.AnimationUpdate(dt);
@@ -93,16 +94,17 @@ namespace pdxpartyparrot.Game.Characters.Players
         protected override void PhysicsUpdate(float dt)
         {
             if(!CanMove) {
+                base.PhysicsUpdate(dt);
                 return;
             }
 
-            if(!PlayerBehaviorData.AllowAirControl && IsFalling) {
+            if(!CharacterBehaviorData.AllowAirControl && IsFalling) {
                 return;
             }
 
             // TODO: this interferes with forces :(
 
-            Vector3 velocity = MoveDirection * PlayerBehaviorData.MoveSpeed;
+            Vector3 velocity = MoveDirection * CharacterBehaviorData.MoveSpeed;
             Quaternion rotation = Movement.Rotation;
             if(PlayerBehaviorData.AlignMovementWithViewer && null != Player.Viewer) {
                 // rotate with the camera instead of the movement
