@@ -105,7 +105,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             _brawlerBehavior = GetComponent<BrawlerBehavior>();
 
             _fidgetBehavior = GetComponent<NPCFidgetBehavior>();
-            _fidgetBehavior.Initialize(NPCBrawler);
+            _fidgetBehavior.Initialize(NPCOwner);
 
             _stateCooldown = TimeManager.Instance.AddTimer();
             _attackCooldown = TimeManager.Instance.AddTimer();
@@ -174,14 +174,14 @@ namespace pdxpartyparrot.ssj2019.NPCs
         private void SetState(State state)
         {
             if(NPCManager.Instance.DebugBehavior) {
-                Debug.Log($"NPC {Owner.Id} set state {state}");
+                Debug.Log($"NPCBrawler {Owner.Id} set state {state}");
             }
 
             _state = state;
             switch(_state)
             {
             case State.Idle:
-                NPCBrawler.ResetPath();
+                NPCOwner.ResetPath();
 
                 // have to use the transform here since physics lags behind
                 _fidgetBehavior.Origin = Owner.transform.position;
@@ -375,7 +375,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public void OnDeathComplete()
         {
-            NPC.Recycle();
+            NPCOwner.Recycle();
         }
 
         public void OnCancelActions()

@@ -11,7 +11,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
     {
         public NPCBehaviorData NPCBehaviorData => (NPCBehaviorData)BehaviorData;
 
-        public INPC NPC => (INPC)Owner;
+        public INPC NPCOwner => (INPC)Owner;
 
         public abstract Vector3 MoveDirection { get; }
 
