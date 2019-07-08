@@ -13,7 +13,7 @@ using UnityEngine.Profiling;
 
 namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 {
-    public sealed class GroundCheckBehaviorComponent : CharacterBehaviorComponent
+    public class GroundCheckBehaviorComponent : CharacterBehaviorComponent
     {
 #region Events
         public event EventHandler<EventArgs> SlopeLimitEvent;

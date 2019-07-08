@@ -1,5 +1,8 @@
 using System;
 
+using pdxpartyparrot.Game.Data.Characters.BehaviorComponents;
+using pdxpartyparrot.ssj2019.Data.Characters.BehaviorComponents;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Data.Brawlers
@@ -101,16 +104,16 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
 
         [Space(10)]
 
-#region Dash
+#region Jump / Dash
         [SerializeField]
-        private float _dashSeconds = 1.0f;
+        private JumpBehaviorComponentData _jumpBehaviorComponentData;
 
-        public float DashSeconds => _dashSeconds;
+        public JumpBehaviorComponentData JumpBehaviorComponentData => _jumpBehaviorComponentData;
 
         [SerializeField]
-        private float _dashSpeedModifier = 2.0f;
+        private DashBehaviorComponentData _dashBehaviorComponentData;
 
-        public float DashSpeedModifier => _dashSpeedModifier;
+        public DashBehaviorComponentData DashBehaviorComponentData => _dashBehaviorComponentData;
 #endregion
 
         [Space(10)]

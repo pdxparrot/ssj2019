@@ -83,11 +83,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         public EffectTrigger BlockEffectTrigger => _blockEffectTrigger;
 #endregion
 
-#region Dash Animations
-        [SerializeField]
-        private EffectTrigger _dashEffectTrigger;
-#endregion
-
 #region Hit Animations
         [SerializeField]
         private EffectTrigger _hitEffectTrigger;
@@ -130,6 +125,9 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 #endregion
 
         [SerializeField]
+        private JumpBehaviorComponent _jumpBehaviorComponent;
+
+        [SerializeField]
         private AttackBehaviorComponent _attackBehaviorComponent;
 
         [SerializeField]
@@ -137,6 +135,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         [SerializeField]
         private DashBehaviorComponent _dashBehaviorComponent;
+
+        public DashBehaviorComponent DashBehaviorComponent => _dashBehaviorComponent;
 
         [Space(10)]
 
@@ -175,10 +175,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             Assert.IsNotNull(actionHandler.Brawler);
 
             _actionHandler = actionHandler;
-
-            _attackBehaviorComponent.Brawler = _actionHandler.Brawler;
-            _blockBehaviorComponent.Brawler = _actionHandler.Brawler;
-            _dashBehaviorComponent.Brawler = _actionHandler.Brawler;
         }
 
         public void Initialize()
@@ -186,6 +182,11 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             Assert.IsNotNull(Brawler);
             Assert.IsNotNull(Brawler.BrawlerData);
             Assert.IsNotNull(Brawler.BrawlerData.ComboData);
+
+            _jumpBehaviorComponent.JumpBehaviorComponentData = Brawler.BrawlerData.JumpBehaviorComponentData;
+            _attackBehaviorComponent.Brawler = Brawler;
+            _blockBehaviorComponent.Brawler = Brawler;
+            _dashBehaviorComponent.DashBehaviorComponentData = Brawler.BrawlerData.DashBehaviorComponentData;
 
             Brawler.BrawlerData.ComboData.Validate();
         }
@@ -215,7 +216,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             });
         }
 
-        public void Dash(DashBehaviorComponent.DashAction dashAction)
+        /*public void Dash(DashBehaviorComponent.DashAction dashAction)
         {
             if(!AdvanceCombo(dashAction)) {
                 ComboFail();
@@ -233,7 +234,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
                 _actionHandler.OnIdle();
             });
-        }
+        }*/
 
 #region Combos
         private bool AdvanceCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)

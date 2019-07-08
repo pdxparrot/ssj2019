@@ -8,7 +8,7 @@ using UnityEngine;
 namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 {
     [RequireComponent(typeof(JumpBehaviorComponent))]
-    public sealed class HoverBehaviorComponent : CharacterBehaviorComponent
+    public class HoverBehaviorComponent : CharacterBehaviorComponent
     {
 #region Actions
         public class HoverAction : CharacterBehaviorAction

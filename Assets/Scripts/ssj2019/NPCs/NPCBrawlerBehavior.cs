@@ -430,20 +430,16 @@ namespace pdxpartyparrot.ssj2019.NPCs
             _dashCooldown.Stop();
         }
 
-        public void Dash(Vector3 lastMove)
+        public void Dash()
         {
-            if(!CanDash) {
+            if(!CanDash || !_brawlerBehavior.DashBehaviorComponent.CanDash) {
                 return;
             }
 
             if(Brawler.CurrentAction.CanQueue) {
-                BufferAction(new DashBehaviorComponent.DashAction{
-                    Axes = lastMove,
-                });
+                BufferAction(DashBehaviorComponent.DashAction.Default);
             } else if(!_dashCooldown.IsRunning) {
-                ActionPerformed(new DashBehaviorComponent.DashAction{
-                    Axes = lastMove,
-                });
+                ActionPerformed(DashBehaviorComponent.DashAction.Default);
 
                 _attackCooldown.Stop();
                 _dashCooldown.Start(NPCBrawler.NPCBrawlerData.DashCooldownSeconds);

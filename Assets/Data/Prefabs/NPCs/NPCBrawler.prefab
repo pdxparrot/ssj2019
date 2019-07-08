@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7185525476932000284}
   - component: {fileID: 2803644518033097450}
   m_Layer: 13
-  m_Name: TestNPC
+  m_Name: NPCBrawler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,6 +43,7 @@ Transform:
   - {fileID: 562440987492900035}
   - {fileID: 7419802528756265072}
   - {fileID: 6970363255316021077}
+  - {fileID: 83785461833827475}
   - {fileID: 6288140937166054733}
   - {fileID: 8367300055314557411}
   - {fileID: 3711383812989656454}
@@ -149,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _model: {fileID: 3101530218937401475}
   _behavior: {fileID: 7670571906903510832}
-  _characterData: {fileID: 0}
+  _npcBrawlerData: {fileID: 0}
 --- !u!114 &2803644518033097450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,7 +196,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 809502310432792466}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6631989109035438992
 MonoBehaviour:
@@ -277,7 +278,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 809502310432792466}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &6941888120933034583
 BoxCollider:
@@ -680,6 +681,54 @@ MonoBehaviour:
   _spineAnimationTrack: 0
   _loop: 0
   _waitForComplete: 1
+--- !u!1 &6708938913309655336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 83785461833827475}
+  - component: {fileID: 820153282091356693}
+  m_Layer: 13
+  m_Name: Jump Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &83785461833827475
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6708938913309655336}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 809502310432792466}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &820153282091356693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6708938913309655336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f0acf5094b571448a3663067cfbfe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items: []
+  _isRunning: 0
 --- !u!1 &6752568096242502146
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,7 +903,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 809502310432792466}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4321034046357433653
 MonoBehaviour:
@@ -919,7 +968,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 809502310432792466}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2010566273011737595
 BoxCollider:
@@ -1118,13 +1167,13 @@ MonoBehaviour:
   _blockEndEffectTrigger: {fileID: 6163520276177178404}
   _blockEndAnimationEffectTriggerComponent: {fileID: 6588978275413240049}
   _blockEffectTrigger: {fileID: 5641737771736793805}
-  _dashEffectTrigger: {fileID: 4321034046357433653}
   _hitEffectTrigger: {fileID: 6631989109035438992}
   _hitAnimationEffectTriggerComponent: {fileID: 7726666953507074508}
   _deathEffectTrigger: {fileID: 6237249302560061764}
   _attackVolume: {fileID: 4356007661132845643}
   _blockVolume: {fileID: 5793994074923292069}
   _currentComboMove: {fileID: 0}
+  _jumpBehaviorComponent: {fileID: 1482694962723182602}
   _attackBehaviorComponent: {fileID: 5887927068430922675}
   _blockBehaviorComponent: {fileID: 171347820613495406}
   _dashBehaviorComponent: {fileID: 4579292172737694567}
@@ -1235,8 +1284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cfb49116408201459778de310704684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: a0a7b7fa6f161d048b64474ef8dd76a9, type: 2}
-  _jumpEffect: {fileID: 0}
+  _data: {fileID: 0}
+  _jumpEffect: {fileID: 820153282091356693}
 --- !u!114 &5887927068430922675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1275,4 +1324,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a838ff939b91c314399507dd80659d25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _brawler: {fileID: 0}
+  _data: {fileID: 0}
+  _dashEffect: {fileID: 4321034046357433653}

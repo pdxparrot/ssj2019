@@ -131,7 +131,7 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             if(context.performed) {
-                GamePlayer.GamePlayerBehavior.Dash(LastMove);
+                GamePlayer.GamePlayerBehavior.Dash();
             }
         }
 #endregion
