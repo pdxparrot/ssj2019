@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 using UnityEngine;
 
@@ -98,6 +97,20 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
         private ComboData _comboData;
 
         public ComboData ComboData => _comboData;
+#endregion
+
+        [Space(10)]
+
+#region Dash
+        [SerializeField]
+        private float _dashSeconds = 1.0f;
+
+        public float DashSeconds => _dashSeconds;
+
+        [SerializeField]
+        private float _dashSpeedModifier = 2.0f;
+
+        public float DashSpeedModifier => _dashSpeedModifier;
 #endregion
 
         [Space(10)]
