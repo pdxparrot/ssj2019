@@ -4,14 +4,13 @@ using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Time;
-using pdxpartyparrot.ssj2019.Data.Characters.BehaviorComponents;
+using pdxpartyparrot.Game.Data.Characters.BehaviorComponents;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
+namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 {
-    // TODO: make this core
-    public class DashBehaviorComponent : GameCharacterBehaviorComponent
+    public class DashBehaviorComponent : CharacterBehaviorComponent
     {
 #region Actions
         public class DashAction : CharacterBehaviorAction

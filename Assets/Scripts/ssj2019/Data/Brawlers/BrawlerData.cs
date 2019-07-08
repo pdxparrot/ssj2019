@@ -1,7 +1,6 @@
 using System;
 
 using pdxpartyparrot.Game.Data.Characters.BehaviorComponents;
-using pdxpartyparrot.ssj2019.Data.Characters.BehaviorComponents;
 
 using UnityEngine;
 

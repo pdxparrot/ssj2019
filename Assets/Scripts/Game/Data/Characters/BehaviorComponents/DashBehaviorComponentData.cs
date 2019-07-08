@@ -1,12 +1,10 @@
 ﻿using System;
 
-using pdxpartyparrot.Game.Data.Characters.BehaviorComponents;
-
 using UnityEngine;
 
-namespace pdxpartyparrot.ssj2019.Data.Characters.BehaviorComponents
+namespace pdxpartyparrot.Game.Data.Characters.BehaviorComponents
 {
-    [CreateAssetMenu(fileName="DashBehaviorComponentData", menuName="pdxpartyparrot/ssj2019/Data/Behavior Components/DashBehaviorComponent Data")]
+    [CreateAssetMenu(fileName="DashBehaviorComponentData", menuName="pdxpartyparrot/Game/Data/Behavior Components/DashBehaviorComponent Data")]
     [Serializable]
     public class DashBehaviorComponentData : CharacterBehaviorComponentData
     {
