@@ -12,7 +12,6 @@ using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.NPCs;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ssj2019.Characters.Brawlers;
-using pdxpartyparrot.ssj2019.Data.Brawlers;
 using pdxpartyparrot.ssj2019.Data.NPCs;
 using pdxpartyparrot.ssj2019.Players;
 using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
@@ -26,20 +25,20 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
     [RequireComponent(typeof(BrawlerBehavior))]
     [RequireComponent(typeof(NPCFidgetBehavior))]
-    public sealed class NPCBehavior : Game.Characters.NPCs.NPCBehavior, IBrawlerBehaviorActions
+    public sealed class NPCBrawlerBehavior : NPCBehavior, IBrawlerBehaviorActions
     {
-        private enum NPCState
+        private enum State
         {
             Idle,
             Track,
             Attack
         }
 
-        public NPCBehaviorData GameNPCBehaviorData => (NPCBehaviorData)NPCBehaviorData;
+        public NPCBrawlerBehaviorData NPCBrawlerBehaviorData => (NPCBrawlerBehaviorData)NPCBehaviorData;
 
-        public NPC GameNPCOwner => (NPC)Owner;
+        public NPCBrawler NPCBrawler => (NPCBrawler)Owner;
 
-        public Brawler Brawler => GameNPCOwner.Brawler;
+        public Brawler Brawler => NPCBrawler.Brawler;
 
         [Space(10)]
 
@@ -50,7 +49,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
         {
             get
             {
-                Vector3 nextPosition = GameNPCOwner.NextPosition;
+                Vector3 nextPosition = NPCBrawler.NextPosition;
                 return nextPosition - Movement.Position;
             }
         }
@@ -63,7 +62,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         private bool CanDash => !IsDead && Brawler.CurrentAction.Cancellable;
 
-        public bool IsDead => GameNPCOwner.IsDead;
+        public bool IsDead => NPCBrawler.IsDead;
 
         [SerializeField]
         [ReadOnly]
@@ -71,7 +70,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public bool IsImmune
         {
-            get => NPCManager.Instance.NPCsImmune || _immune || GameNPCOwner.Brawler.CurrentAction.IsImmune;
+            get => NPCManager.Instance.NPCsImmune || _immune || NPCBrawler.Brawler.CurrentAction.IsImmune;
             set => _immune = value;
         }
 
@@ -79,7 +78,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         [SerializeField]
         [ReadOnly]
-        private NPCState _state = NPCState.Idle;
+        private State _state = State.Idle;
 
         [SerializeField]
         [ReadOnly]
@@ -101,12 +100,12 @@ namespace pdxpartyparrot.ssj2019.NPCs
         {
             base.Awake();
 
-            Assert.IsTrue(Owner is NPC);
+            Assert.IsTrue(Owner is NPCBrawler);
 
             _brawlerBehavior = GetComponent<BrawlerBehavior>();
 
             _fidgetBehavior = GetComponent<NPCFidgetBehavior>();
-            _fidgetBehavior.Initialize(GameNPCOwner);
+            _fidgetBehavior.Initialize(NPCBrawler);
 
             _stateCooldown = TimeManager.Instance.AddTimer();
             _attackCooldown = TimeManager.Instance.AddTimer();
@@ -138,13 +137,13 @@ namespace pdxpartyparrot.ssj2019.NPCs
             // TODO: probably should be a sphere
             Vector3 position = transform.position;
             position.y += Owner.Height * 0.5f;
-            Gizmos.DrawLine(position, position + new Vector3(GameNPCOwner.NPCCharacterData.MaxTrackDistance * Mathf.Sign(FacingDirection.x), 0.0f, 0.0f));
+            Gizmos.DrawLine(position, position + new Vector3(NPCBrawler.NPCBrawlerData.MaxTrackDistance * Mathf.Sign(FacingDirection.x), 0.0f, 0.0f));
         }
 #endregion
 
         public override void Initialize(ActorBehaviorData behaviorData)
         {
-            Assert.IsTrue(behaviorData is NPCBehaviorData);
+            Assert.IsTrue(behaviorData is NPCBrawlerBehaviorData);
 
             base.Initialize(behaviorData);
 
@@ -159,20 +158,20 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             switch(_state)
             {
-            case NPCState.Idle:
+            case State.Idle:
                 HandleIdle();
                 break;
-            case NPCState.Track:
+            case State.Track:
                 HandleTrack();
                 break;
-            case NPCState.Attack:
+            case State.Attack:
                 HandleAttack();
                 break;
             }
         }
 
 #region NPC State
-        private void SetState(NPCState state)
+        private void SetState(State state)
         {
             if(NPCManager.Instance.DebugBehavior) {
                 Debug.Log($"NPC {Owner.Id} set state {state}");
@@ -181,22 +180,22 @@ namespace pdxpartyparrot.ssj2019.NPCs
             _state = state;
             switch(_state)
             {
-            case NPCState.Idle:
-                GameNPCOwner.ResetPath();
+            case State.Idle:
+                NPCBrawler.ResetPath();
 
                 // have to use the transform here since physics lags behind
                 _fidgetBehavior.Origin = Owner.transform.position;
 
                 _idleEffect.Trigger();
                 break;
-            case NPCState.Track:
+            case State.Track:
                 break;
-            case NPCState.Attack:
-                GameNPCOwner.Stop(true);
+            case State.Attack:
+                NPCBrawler.Stop(true);
                 break;
             }
 
-            _stateCooldown.Start(GameNPCOwner.NPCCharacterData.StateCooldownSeconds);
+            _stateCooldown.Start(NPCBrawler.NPCBrawlerData.StateCooldownSeconds);
         }
 
         private void SetTarget(Actor target)
@@ -215,22 +214,22 @@ namespace pdxpartyparrot.ssj2019.NPCs
             if(interactablePlayers.Count > 0) {
                 SetTarget(interactablePlayers.ElementAt(0) as Player);
 
-                SetState(NPCState.Attack);
+                SetState(State.Attack);
                 return;
             }
 
             // if we already have a target, track it
             if(null != _target) {
-                SetState(NPCState.Track);
+                SetState(State.Track);
                 return;
             }
 
             // look for something to track
             Player player = ActorManager.Instance.GetActors<Player>().NearestManhattan(Movement.Position, out float distance) as Player;
-            if(null != player && GameNPCOwner.NPCCharacterData.CanTrackDistance(distance)) {
+            if(null != player && NPCBrawler.NPCBrawlerData.CanTrackDistance(distance)) {
                 SetTarget(player);
 
-                SetState(NPCState.Track);
+                SetState(State.Track);
                 return;
             }
 
@@ -249,7 +248,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             // is our target interactable?
             if(interactablePlayers.Contains(_target as Player)) {
-                SetState(NPCState.Attack);
+                SetState(State.Attack);
                 return;
             }
 
@@ -257,12 +256,12 @@ namespace pdxpartyparrot.ssj2019.NPCs
             if(interactablePlayers.Count > 0) {
                 SetTarget(interactablePlayers.ElementAt(0) as Player);
 
-                SetState(NPCState.Attack);
+                SetState(State.Attack);
                 return;
             }
 
             // can't attack our target, so follow it
-            GameNPCOwner.UpdatePath(_target.Behavior.Movement.Position);
+            NPCBrawler.UpdatePath(_target.Behavior.Movement.Position);
         }
 
         private void HandleAttack()
@@ -292,7 +291,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             }
 
             // go back to tracking
-            SetState(NPCState.Track);
+            SetState(State.Track);
         }
 
         private bool EnsureTarget()
@@ -303,7 +302,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                     Debug.Log($"NPC {Owner.Id} lost target while attacking");
                 }
 
-                SetState(NPCState.Idle);
+                SetState(State.Idle);
                 return false;
             }
 
@@ -313,7 +312,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                     Debug.Log($"NPC {Owner.Id} attack target died");
                 }
 
-                SetState(NPCState.Idle);
+                SetState(State.Idle);
                 return false;
             }
 
@@ -329,7 +328,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             // TODO: add a small window of immunity on spawn
             _immune = false;
 
-            SetState(NPCState.Idle);
+            SetState(State.Idle);
         }
 
         public override void OnReSpawn(SpawnPoint spawnpoint)
@@ -339,7 +338,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             // TODO: add a small window of immunity on respawn
             _immune = false;
 
-            SetState(NPCState.Idle);
+            SetState(State.Idle);
         }
 
         public override void OnDeSpawn()
@@ -353,7 +352,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 #region Brawler Actions
         public void OnIdle()
         {
-            SetState(NPCState.Idle);
+            SetState(State.Idle);
         }
 
         public void OnCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
@@ -416,7 +415,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                     Axes = lastMove,
                 });
 
-                _attackCooldown.Start(GameNPCOwner.NPCCharacterData.AttackCooldownSeconds);
+                _attackCooldown.Start(NPCBrawler.NPCBrawlerData.AttackCooldownSeconds);
                 _dashCooldown.Stop();
             }
         }
@@ -447,7 +446,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 });
 
                 _attackCooldown.Stop();
-                _dashCooldown.Start(GameNPCOwner.NPCCharacterData.DashCooldownSeconds);
+                _dashCooldown.Start(NPCBrawler.NPCBrawlerData.DashCooldownSeconds);
             }
         }
 #endregion

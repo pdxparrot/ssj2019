@@ -9,9 +9,9 @@ using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.ssj2019.Data.NPCs
 {
-    [CreateAssetMenu(fileName="NPCCharacterData", menuName="pdxpartyparrot/ssj2019/Data/NPCs/NPCCharacter Data")]
+    [CreateAssetMenu(fileName="NPCBrawlerData", menuName="pdxpartyparrot/ssj2019/Data/NPCs/NPCBrawler Data")]
     [Serializable]
-    public sealed class NPCCharacterData : ScriptableObject
+    public sealed class NPCBrawlerData : ScriptableObject
     {
         [SerializeField]
         [FormerlySerializedAs("_characterModelPrefab")]

@@ -2,6 +2,7 @@
 
 using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Game.Characters.NPCs;
 
 using UnityEngine;
 
@@ -22,9 +23,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
         public bool DebugBehavior => _debugBehavior;
 #endregion
 
-        private readonly HashSet<NPC> _npcs = new HashSet<NPC>();
+        private readonly HashSet<INPC> _npcs = new HashSet<INPC>();
 
-        public IReadOnlyCollection<NPC> NPCs => _npcs;
+        public IReadOnlyCollection<INPC> NPCs => _npcs;
 
         private DebugMenuNode _debugMenuNode;
 
@@ -42,12 +43,12 @@ namespace pdxpartyparrot.ssj2019.NPCs
         }
 #endregion
 
-        public void Register(NPC npc)
+        public void Register(INPC npc)
         {
             _npcs.Add(npc);
         }
 
-        public void Unregister(NPC npc)
+        public void Unregister(INPC npc)
         {
             _npcs.Remove(npc);
         }
@@ -57,7 +58,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             _debugMenuNode = DebugMenuManager.Instance.AddNode(() => "ssj2019.NPCManager");
             _debugMenuNode.RenderContentsAction = () => {
                 GUILayout.BeginVertical("Players", GUI.skin.box);
-                    foreach(NPC npc in _npcs) {
+                    foreach(INPC npc in _npcs) {
                         GUILayout.Label($"{npc.Id} {npc.Behavior.Movement.Position}");
                     }
                 GUILayout.EndVertical();

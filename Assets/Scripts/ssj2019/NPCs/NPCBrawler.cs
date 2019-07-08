@@ -21,16 +21,16 @@ namespace pdxpartyparrot.ssj2019.NPCs
 {
     [RequireComponent(typeof(PooledObject))]
     [RequireComponent(typeof(Brawler))]
-    public sealed class NPC : NPC3D, IDamagable, IInteractable
+    public sealed class NPCBrawler : NPC3D, IDamagable, IInteractable
     {
-        public NPCBehavior GameNPCBehavior => (NPCBehavior)NPCBehavior;
+        public NPCBrawlerBehavior NPCBrawlerBehavior => (NPCBrawlerBehavior)NPCBehavior;
 
         [SerializeField]
         [ReadOnly]
         [CanBeNull]
-        private NPCCharacterData _characterData;
+        private NPCBrawlerData _npcBrawlerData;
 
-        public NPCCharacterData NPCCharacterData => _characterData;
+        public NPCBrawlerData NPCBrawlerData => _npcBrawlerData;
 
         public bool IsDead => Brawler.Health < 1;
 
@@ -43,7 +43,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
         {
             base.Awake();
             
-            Assert.IsTrue(NPCBehavior is NPCBehavior);
+            Assert.IsTrue(NPCBehavior is NPCBrawlerBehavior);
 
             Brawler = GetComponent<Brawler>();
         }
@@ -51,13 +51,13 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public override void Initialize(Guid id, ActorBehaviorData behaviorData)
         {
-            Assert.IsTrue(behaviorData is NPCBehaviorData);
+            Assert.IsTrue(behaviorData is NPCBrawlerBehaviorData);
 
             base.Initialize(id, behaviorData);
 
-            _characterData = GameNPCBehavior.GameNPCBehaviorData.CharacterOptions.GetRandomEntry();
+            _npcBrawlerData = NPCBrawlerBehavior.NPCBrawlerBehaviorData.BrawlerCharacterOptions.GetRandomEntry();
 
-            Brawler.Initialize(_characterData.BrawlerData);
+            Brawler.Initialize(NPCBrawlerData.BrawlerData);
 
             InitializeModel();
         }
@@ -68,7 +68,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return;
             }
 
-            Brawler.InitializeModel(Behavior, _characterData.BrawlerModelPrefab, Model, _characterData.SkinIndex);
+            Brawler.InitializeModel(Behavior, NPCBrawlerData.BrawlerModelPrefab, Model, NPCBrawlerData.SkinIndex);
         }
 
 #region Spawn
@@ -108,7 +108,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public bool Damage(Actor source, string type, int amount, Bounds attackBounds, Vector3 force)
         {
-            return GameNPCBehavior.OnDamage(source, type, amount, attackBounds, force);
+            return NPCBrawlerBehavior.OnDamage(source, type, amount, attackBounds, force);
         }
     }
 }

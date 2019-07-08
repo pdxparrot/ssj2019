@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5017a0fd1db64094e94bdc13c69b6a04, type: 3}
-  m_Name: TestNPCBehavior Data
+  m_Name: NPCBrawlerBehavior Data
   m_EditorClassIdentifier: 
   _actorLayer:
     serializedVersion: 2
@@ -33,6 +33,6 @@ MonoBehaviour:
   _angularMoveSpeed: 0
   _moveAcceleration: 5
   _stoppingDistance: 0.5
-  _characterOptions:
+  _brawlerCharacterOptions:
   - {fileID: 11400000, guid: a002d9ede1e1dce4a8671c63250bf5d8, type: 2}
   - {fileID: 11400000, guid: 4f184546214ec53478d553916d7af932, type: 2}
