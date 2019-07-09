@@ -115,9 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackAnimationEffectTriggerComponent: {fileID: 148933806714679601}
-  _blockBeginEffectTrigger: {fileID: 7159524601455611885}
   _blockBeginAnimationEffectTriggerComponent: {fileID: 4786865428053294427}
-  _blockEndEffectTrigger: {fileID: 6966623934742709282}
   _blockEndAnimationEffectTriggerComponent: {fileID: 4756346590148829104}
   _blockEffectTrigger: {fileID: 6478466866726388021}
   _hitEffectTrigger: {fileID: 1079242178650208271}
@@ -261,7 +259,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d3f75dae79a26843ac679b8b4689b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _brawler: {fileID: 0}
+  _brawlerBehavior: {fileID: 6328656578635918927}
+  _blockVolume: {fileID: 2276791725628702472}
+  _blockBeginEffectTrigger: {fileID: 7159524601455611885}
+  _blockEndEffectTrigger: {fileID: 6966623934742709282}
 --- !u!114 &774517619430092363
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _model: {fileID: 3101530218937401475}
   _behavior: {fileID: 7670571906903510832}
+  _facingDirection: {x: 1, y: 0, z: 0}
   _npcBrawlerData: {fileID: 0}
 --- !u!114 &2803644518033097450
 MonoBehaviour:
@@ -1160,11 +1161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8e5d462ae9c8b46b8d773fec28a2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackEffectTrigger: {fileID: 6994903446394223841}
   _attackAnimationEffectTriggerComponent: {fileID: 2119600318961684256}
-  _blockBeginEffectTrigger: {fileID: 2970808422812650086}
   _blockBeginAnimationEffectTriggerComponent: {fileID: 8877237017341337870}
-  _blockEndEffectTrigger: {fileID: 6163520276177178404}
   _blockEndAnimationEffectTriggerComponent: {fileID: 6588978275413240049}
   _blockEffectTrigger: {fileID: 5641737771736793805}
   _hitEffectTrigger: {fileID: 6631989109035438992}
@@ -1254,6 +1252,7 @@ MonoBehaviour:
     IsKinematic: 0
     Velocity: {x: 0, y: 0, z: 0}
     AngularVelocity: {x: 0, y: 0, z: 0}
+  _isComponentControlling: 0
 --- !u!114 &4012403951289823003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1298,7 +1297,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0afee64b78e3394a9a56118d6326ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _brawler: {fileID: 0}
+  _brawlerBehavior: {fileID: 2457662190061875137}
+  _attackVolume: {fileID: 4356007661132845643}
+  _attackEffectTrigger: {fileID: 6994903446394223841}
+  _attackAnimationEffectTriggerComponent: {fileID: 2119600318961684256}
 --- !u!114 &171347820613495406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1311,7 +1313,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d3f75dae79a26843ac679b8b4689b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _brawler: {fileID: 0}
+  _brawlerBehavior: {fileID: 2457662190061875137}
+  _blockVolume: {fileID: 5793994074923292069}
+  _blockBeginEffectTrigger: {fileID: 2970808422812650086}
+  _blockEndEffectTrigger: {fileID: 6163520276177178404}
 --- !u!114 &4579292172737694567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1326,3 +1331,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data: {fileID: 0}
   _dashEffect: {fileID: 4321034046357433653}
+  _wasUseGravity: 0

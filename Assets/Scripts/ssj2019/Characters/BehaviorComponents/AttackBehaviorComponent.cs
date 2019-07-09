@@ -57,7 +57,6 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
 
             _brawlerBehavior.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Attack);
             _attackEffectTrigger.Trigger(() => {
-                _brawlerBehavior.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
                 _brawlerBehavior.Idle();
             });
 

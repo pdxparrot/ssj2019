@@ -62,13 +62,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
 #region Block Animations
         [SerializeField]
-        private EffectTrigger _blockBeginEffectTrigger;
-
-        [SerializeField]
         private SpineAnimationEffectTriggerComponent _blockBeginAnimationEffectTriggerComponent;
-
-        [SerializeField]
-        private EffectTrigger _blockEndEffectTrigger;
 
         [SerializeField]
         private SpineAnimationEffectTriggerComponent _blockEndAnimationEffectTriggerComponent;
@@ -186,7 +180,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             Assert.IsNotNull(Brawler.BrawlerData.ComboData);
 
             _jumpBehaviorComponent.JumpBehaviorComponentData = Brawler.BrawlerData.JumpBehaviorComponentData;
-            _blockBehaviorComponent.Brawler = Brawler;
             _dashBehaviorComponent.DashBehaviorComponentData = Brawler.BrawlerData.DashBehaviorComponentData;
 
             Brawler.BrawlerData.ComboData.Validate();
@@ -245,6 +238,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         public void Idle()
         {
+            Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
+
             _actionHandler.OnIdle();
         }
 #endregion
@@ -265,8 +260,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
             Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Dash);
             _dashEffectTrigger.Trigger(() => {
-                Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
-                _actionHandler.OnIdle();
+                Idle();
             });
         }*/
 
@@ -313,27 +307,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         }
 #endregion
 
-        public void ToggleBlock()
-        {
-            if(Brawler.CurrentAction.IsBlocking) {
-                _blockEndEffectTrigger.Trigger(() => {
-                    Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
-                    _actionHandler.OnIdle();
-                });
-                return;
-            }
-
-            CancelActions(false);
-
-            // TODO: calling Initialize() here is dumb, but we can't do it in our own Initialize()
-            // because the models haven't been initialized yet (and that NEEDS to get changed cuz this is dumb)
-            _blockVolume.Initialize(Brawler.Model.SpineModel);
-            _blockVolume.SetBlock(Brawler.BrawlerData.BlockVolumeOffset, Brawler.BrawlerData.BlockVolumeSize, Owner.FacingDirection, Brawler.BrawlerData.BlockBoneName);
-
-            Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Block);
-            _blockBeginEffectTrigger.Trigger();
-        }
-
         public bool Damage(Actor source, string type, int amount, Bounds attackBounds, Vector3 force)
         {
             if(_actionHandler.IsDead || _actionHandler.IsImmune) {
@@ -375,8 +348,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 Owner.Behavior.Movement.AddImpulse(force * amount);
 
                 _hitEffectTrigger.Trigger(() => {
-                    Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
-                    _actionHandler.OnIdle();
+                    Idle();
                 });
 
                 _actionHandler.ClearActionBuffer();
@@ -403,8 +375,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             _attackVolume.EnableVolume(false);
 
             // idle out
-            Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
-            _actionHandler.OnIdle();
+            Idle();
         }
 
 #region Effects
