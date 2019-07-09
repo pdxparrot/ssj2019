@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8957b04b72775774793f41d1044968b1, type: 3}
   m_Name: DashBehaviorComponentData
   m_EditorClassIdentifier: 
-  _dashTimeSeconds: 0.5
-  _dashCooldownSeconds: 1
-  _dashMoveSpeedModifier: 5
+  _dashTimeSeconds: 0.25
+  _dashCooldownSeconds: 0.5
+  _dashDistance: 5
+  _disableGravity: 1

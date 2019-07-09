@@ -9,7 +9,7 @@ namespace pdxpartyparrot.Game.Data.Characters.BehaviorComponents
     public class DashBehaviorComponentData : CharacterBehaviorComponentData
     {
         [SerializeField]
-        [Range(0, 30)]
+        [Range(0.0f, 5.0f)]
         [Tooltip("How long the dash lasts")]
         private float _dashTimeSeconds = 1.0f;
 
@@ -22,10 +22,12 @@ namespace pdxpartyparrot.Game.Data.Characters.BehaviorComponents
         public float DashCooldownSeconds => _dashCooldownSeconds;
 
         [SerializeField]
-        [Range(0, 100)]
-        private float _dashMoveSpeedModifier = 2.0f;
+        [Range(0, 10)]
+        private float _dashDistance = 1.0f;
 
-        public float DashMoveSpeedModifier => _dashMoveSpeedModifier;
+        public float DashDistance => _dashDistance;
+
+        public float DashSpeed => DashDistance / DashTimeSeconds;
 
         [SerializeField]
         private bool _disableGravity = true;
