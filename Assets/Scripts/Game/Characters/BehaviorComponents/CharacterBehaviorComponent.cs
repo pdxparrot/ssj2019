@@ -27,8 +27,6 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         }
 #endregion
 
-        public virtual bool CanMove => true;
-
 #region Unity Lifecycle
         protected virtual void Awake()
         {

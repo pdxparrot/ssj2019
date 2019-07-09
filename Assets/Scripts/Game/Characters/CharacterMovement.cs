@@ -2,7 +2,7 @@
 {
     public interface ICharacterMovement
     {
-        bool IsKinematic { get; set; }
+        bool IsComponentControlling { get; set; }
 
         void Jump(float height);
 

@@ -1,5 +1,6 @@
 ﻿using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Data;
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data.Characters;
 
 using UnityEngine;
@@ -23,6 +24,12 @@ namespace pdxpartyparrot.Game.Characters
             }
         }
 
+        [SerializeField]
+        [ReadOnly]
+        private bool _isComponentControlling;
+
+        public bool IsComponentControlling { get; set; }
+
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -37,7 +44,9 @@ namespace pdxpartyparrot.Game.Characters
 
             // turn off gravity if we're grounded and not moving and not sliding
             // this should stop us sliding down slopes we shouldn't slide down
-            UseGravity = !IsKinematic && (!CharacterBehavior.IsGrounded || CharacterBehavior.IsMoving || CharacterBehavior.IsSliding);
+            if(!IsComponentControlling) {
+                UseGravity = !IsKinematic && (!CharacterBehavior.IsGrounded || CharacterBehavior.IsMoving || CharacterBehavior.IsSliding);
+            }
         }
 
         protected virtual void OnDrawGizmos()

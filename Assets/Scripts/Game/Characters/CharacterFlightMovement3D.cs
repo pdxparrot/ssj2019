@@ -17,6 +17,12 @@ namespace pdxpartyparrot.Game.Characters
 
         public CharacterFlightMovementData FlightMovementData => _data;
 
+        [SerializeField]
+        [ReadOnly]
+        private bool _isComponentControlling;
+
+        public bool IsComponentControlling { get; set; }
+
 #region Physics
         [SerializeField]
         [ReadOnly]

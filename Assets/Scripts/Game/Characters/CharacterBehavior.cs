@@ -95,24 +95,7 @@ namespace pdxpartyparrot.Game.Characters
 
         // TODO: this has become too expensive for a property
         // make it a method instead
-        public override bool CanMove
-        {
-            get
-            {
-                // TODO: make this configurable
-                if(GameStateManager.Instance.GameManager.IsGameOver) {
-                    return false;
-                }
-
-                foreach(CharacterBehaviorComponent component in _components.Items) {
-                    if(!component.CanMove) {
-                        return false;
-                    }
-                }
-
-                return base.CanMove;
-            }
-        }
+        public override bool CanMove => base.CanMove && !CharacterMovement.IsComponentControlling && !GameStateManager.Instance.GameManager.IsGameOver;
 
         // TODO: this can be a parameter to the GetCanMove() method
         private bool CanMoveNoComponents

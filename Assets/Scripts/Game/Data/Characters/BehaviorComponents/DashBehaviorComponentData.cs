@@ -26,5 +26,10 @@ namespace pdxpartyparrot.Game.Data.Characters.BehaviorComponents
         private float _dashMoveSpeedModifier = 2.0f;
 
         public float DashMoveSpeedModifier => _dashMoveSpeedModifier;
+
+        [SerializeField]
+        private bool _disableGravity = true;
+
+        public bool DisableGravity => _disableGravity;
     }
 }

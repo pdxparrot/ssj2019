@@ -50,7 +50,9 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         public bool CanDash => !IsDashing && !IsDashCooldown;
 
-        public override bool CanMove => !IsDashing;
+        [SerializeField]
+        [ReadOnly]
+        private bool _wasUseGravity;
 
 #region Unity Lifecycle
         protected override void Awake()
@@ -105,6 +107,12 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         private void StartDashing()
         {
+            Behavior.CharacterMovement.IsComponentControlling = true;
+
+            if(DashBehaviorComponentData.DisableGravity) {
+                _wasUseGravity = Behavior.Movement.UseGravity;
+                Behavior.Movement.UseGravity = false;
+            }
             Behavior.CharacterMovement.EnableDynamicCollisionDetection(true);
 
             _dashTimer.Start(DashBehaviorComponentData.DashTimeSeconds);
@@ -116,9 +124,15 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         private void StopDashing()
         {
+            _cooldownTimer.Start(DashBehaviorComponentData.DashCooldownSeconds);
+
             Behavior.CharacterMovement.EnableDynamicCollisionDetection(false);
 
-            _cooldownTimer.Start(DashBehaviorComponentData.DashCooldownSeconds);
+            if(DashBehaviorComponentData.DisableGravity) {
+                Behavior.Movement.UseGravity = _wasUseGravity;
+            }
+
+            Behavior.CharacterMovement.IsComponentControlling = false;
         }
 
 #region Event Handlers
