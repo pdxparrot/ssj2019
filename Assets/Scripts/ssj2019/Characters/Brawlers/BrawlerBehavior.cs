@@ -334,7 +334,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 _deathEffectTrigger.Trigger(() => _actionHandler.OnDeathComplete());
                 _actionHandler.OnDead();
             } else {
-                //Owner.Behavior.Movement.AddImpulse(force * amount);
+                Owner.Behavior.Movement.AddImpulse(force * amount);
 
                 _hitEffectTrigger.Trigger(() => {
                     Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
