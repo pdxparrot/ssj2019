@@ -53,13 +53,17 @@ namespace pdxpartyparrot.Game.Characters
         }
 #endregion
 
-        protected override void InitRigidbody(Rigidbody2D rb, ActorBehaviorData behaviorData)
+        protected override void InitRigidbody(ActorBehaviorData behaviorData)
         {
-            base.InitRigidbody(rb, behaviorData);
+            base.InitRigidbody(behaviorData);
 
-            rb.isKinematic = behaviorData.IsKinematic;
-            rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-            rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+            RigidBody.isKinematic = behaviorData.IsKinematic;
+            RigidBody.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+            RigidBody.interpolation = RigidbodyInterpolation2D.Interpolate;
+        }
+
+        public void EnableDynamicCollisionDetection(bool enable)
+        {
         }
 
         public virtual void Jump(float height)

@@ -137,7 +137,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             // TODO: probably should be a sphere
             Vector3 position = transform.position;
             position.y += Owner.Height * 0.5f;
-            Gizmos.DrawLine(position, position + new Vector3(NPCBrawler.NPCBrawlerData.MaxTrackDistance * Mathf.Sign(FacingDirection.x), 0.0f, 0.0f));
+            Gizmos.DrawLine(position, position + new Vector3(NPCBrawler.NPCBrawlerData.MaxTrackDistance * Mathf.Sign(Owner.FacingDirection.x), 0.0f, 0.0f));
         }
 #endregion
 

@@ -273,7 +273,7 @@ namespace pdxpartyparrot.Game.Characters
                 return;
             }
 
-            SetFacing(forward);
+            Owner.SetFacing(forward);
         }
 
 #region Debug Menu

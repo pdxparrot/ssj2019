@@ -52,10 +52,6 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         public override bool CanMove => !IsDashing;
 
-        [SerializeField]
-        [ReadOnly]
-        private bool _wasKinematic;
-
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -88,7 +84,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
                 return false;
             }
 
-            Vector3 moveDirection = Behavior.FacingDirection;
+            Vector3 moveDirection = Behavior.Owner.FacingDirection;
             Vector3 velocity = moveDirection * Behavior.CharacterBehaviorData.MoveSpeed * DashBehaviorComponentData.DashMoveSpeedModifier;
 
             Behavior.Movement.Teleport(Behavior.Movement.Position + velocity * dt);
@@ -109,8 +105,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         private void StartDashing()
         {
-            _wasKinematic = Behavior.Movement.IsKinematic;
-            Behavior.Movement.IsKinematic = true;
+            Behavior.CharacterMovement.EnableDynamicCollisionDetection(true);
 
             _dashTimer.Start(DashBehaviorComponentData.DashTimeSeconds);
 
@@ -121,7 +116,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         private void StopDashing()
         {
-            Behavior.Movement.IsKinematic = _wasKinematic;
+            Behavior.CharacterMovement.EnableDynamicCollisionDetection(false);
 
             _cooldownTimer.Start(DashBehaviorComponentData.DashCooldownSeconds);
         }

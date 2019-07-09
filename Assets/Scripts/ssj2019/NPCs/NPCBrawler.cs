@@ -21,7 +21,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 {
     [RequireComponent(typeof(PooledObject))]
     [RequireComponent(typeof(Brawler))]
-    public sealed class NPCBrawler : NPC3D, IDamagable, IInteractable
+    public sealed class NPCBrawler : NPC25D, IDamagable, IInteractable
     {
         public NPCBrawlerBehavior NPCBrawlerBehavior => (NPCBrawlerBehavior)NPCBehavior;
 

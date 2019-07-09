@@ -20,7 +20,7 @@ namespace pdxpartyparrot.ssj2019.Players
 {
     [RequireComponent(typeof(NetworkPlayer))]
     [RequireComponent(typeof(Brawler))]
-    public sealed class Player : Player3D, IDamagable, IInteractable
+    public sealed class Player : Player25D, IDamagable, IInteractable
     {
         public PlayerInput GamePlayerInput => (PlayerInput)PlayerInput;
 

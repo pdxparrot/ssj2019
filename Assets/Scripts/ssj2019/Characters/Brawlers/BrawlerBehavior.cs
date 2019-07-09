@@ -30,8 +30,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         bool CanBlock { get; }
 
-        Vector3 FacingDirection { get; }
-
         void PopNextAction();
 
         // tells the brawler to go idle
@@ -205,7 +203,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             // TODO: calling Initialize() here is dumb, but we can't do it in our own Initialize()
             // because the models haven't been initialized yet (and that NEEDS to get changed cuz this is dumb)
             _attackVolume.Initialize(Brawler.Model.SpineModel);
-            _attackVolume.SetAttack(CurrentAttack, _actionHandler.FacingDirection);
+            _attackVolume.SetAttack(CurrentAttack, Owner.FacingDirection);
 
             _attackAnimationEffectTriggerComponent.SpineAnimationName = CurrentAttack.AnimationName;
 
@@ -295,7 +293,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             // TODO: calling Initialize() here is dumb, but we can't do it in our own Initialize()
             // because the models haven't been initialized yet (and that NEEDS to get changed cuz this is dumb)
             _blockVolume.Initialize(Brawler.Model.SpineModel);
-            _blockVolume.SetBlock(Brawler.BrawlerData.BlockVolumeOffset, Brawler.BrawlerData.BlockVolumeSize, _actionHandler.FacingDirection, Brawler.BrawlerData.BlockBoneName);
+            _blockVolume.SetBlock(Brawler.BrawlerData.BlockVolumeOffset, Brawler.BrawlerData.BlockVolumeSize, Owner.FacingDirection, Brawler.BrawlerData.BlockBoneName);
 
             Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Block);
             _blockBeginEffectTrigger.Trigger();

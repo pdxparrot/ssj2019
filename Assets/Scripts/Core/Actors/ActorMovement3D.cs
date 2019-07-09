@@ -53,6 +53,8 @@ namespace pdxpartyparrot.Core.Actors
         [SerializeField]
         private Rigidbody _rigidbody;
 
+        protected Rigidbody RigidBody => _rigidbody;
+
         public override Vector3 Position
         {
             get => _rigidbody.position;
@@ -138,10 +140,10 @@ namespace pdxpartyparrot.Core.Actors
         {
             base.Initialize(behaviorData);
 
-            InitRigidbody(_rigidbody, behaviorData);
+            InitRigidbody(behaviorData);
         }
 
-        protected virtual void InitRigidbody(Rigidbody rb, ActorBehaviorData behaviorData)
+        protected virtual void InitRigidbody(ActorBehaviorData behaviorData)
         {
         }
 

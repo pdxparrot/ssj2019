@@ -62,18 +62,26 @@ namespace pdxpartyparrot.Game.Characters
         }
 #endregion
 
-        protected override void InitRigidbody(Rigidbody rb, ActorBehaviorData behaviorData)
+        protected override void InitRigidbody(ActorBehaviorData behaviorData)
         {
-            base.InitRigidbody(rb, behaviorData);
+            base.InitRigidbody(behaviorData);
 
-            rb.isKinematic = false;
-            rb.useGravity = true;
-            rb.freezeRotation = true;
-            rb.detectCollisions = true;
-            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+            CharacterBehaviorData characterBehaviorData = behaviorData as CharacterBehaviorData;
+            Assert.IsNotNull(characterBehaviorData);
+
+            RigidBody.isKinematic = false;
+            RigidBody.useGravity = true;
+            RigidBody.freezeRotation = true;
+            RigidBody.detectCollisions = true;
+            RigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
 
             // we run the follow cam in FixedUpdate() and interpolation interferes with that
-            rb.interpolation = RigidbodyInterpolation.None;
+            RigidBody.interpolation = RigidbodyInterpolation.None;
+        }
+
+        public void EnableDynamicCollisionDetection(bool enable)
+        {
+            RigidBody.collisionDetectionMode = enable ? CollisionDetectionMode.ContinuousDynamic : CollisionDetectionMode.ContinuousSpeculative;
         }
 
         public void Jump(float height)

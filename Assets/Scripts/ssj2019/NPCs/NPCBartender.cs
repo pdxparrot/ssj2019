@@ -9,7 +9,7 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ssj2019.NPCs
 {
-    public sealed class NPCBartender : NPC3D
+    public sealed class NPCBartender : NPC25D
     {
         public NPCBartenderBehavior NPCBartenderBehavior => (NPCBartenderBehavior)NPCBehavior;
 
