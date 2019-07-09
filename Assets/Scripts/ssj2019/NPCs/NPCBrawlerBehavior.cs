@@ -209,6 +209,10 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         private void HandleIdle()
         {
+            if(NPCManager.Instance.DumbBrawlers) {
+                return;
+            }
+
             // if we have something we can attack, attack it
             var interactablePlayers = _interactables.GetInteractables<Player>();
             if(interactablePlayers.Count > 0) {
@@ -238,6 +242,11 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         private void HandleTrack()
         {
+            if(NPCManager.Instance.DumbBrawlers) {
+                SetState(State.Idle);
+                return;
+            }
+
             if(!EnsureTarget()) {
                 return;
             }
@@ -266,6 +275,11 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         private void HandleAttack()
         {
+            if(NPCManager.Instance.DumbBrawlers) {
+                SetState(State.Idle);
+                return;
+            }
+
             if(!EnsureTarget()) {
                 return;
             }
@@ -293,6 +307,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             // go back to tracking
             SetState(State.Track);
         }
+#endregion
 
         private bool EnsureTarget()
         {
@@ -318,7 +333,6 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             return true;
         }
-#endregion
 
 #region Spawn
         public override void OnSpawn(SpawnPoint spawnpoint)

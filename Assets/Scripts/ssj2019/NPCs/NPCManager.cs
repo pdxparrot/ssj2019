@@ -21,6 +21,11 @@ namespace pdxpartyparrot.ssj2019.NPCs
         private bool _debugBehavior;
 
         public bool DebugBehavior => _debugBehavior;
+
+        [SerializeField]
+        private bool _dumbBrawlers;
+
+        public bool DumbBrawlers => _dumbBrawlers;
 #endregion
 
         private readonly HashSet<INPC> _npcs = new HashSet<INPC>();
@@ -65,6 +70,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
                 _npcsImmune = GUILayout.Toggle(_npcsImmune, "NPCs Immune");
                 _debugBehavior = GUILayout.Toggle(_debugBehavior, "Debug Behavior");
+
+                _dumbBrawlers = GUILayout.Toggle(_dumbBrawlers, "Dumb Brawlers");
             };
         }
 
