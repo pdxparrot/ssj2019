@@ -114,7 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8e5d462ae9c8b46b8d773fec28a2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackEffectTrigger: {fileID: 1146156531379595911}
   _attackAnimationEffectTriggerComponent: {fileID: 148933806714679601}
   _blockBeginEffectTrigger: {fileID: 7159524601455611885}
   _blockBeginAnimationEffectTriggerComponent: {fileID: 4786865428053294427}
@@ -189,6 +188,7 @@ MonoBehaviour:
     IsKinematic: 0
     Velocity: {x: 0, y: 0, z: 0}
     AngularVelocity: {x: 0, y: 0, z: 0}
+  _isComponentControlling: 0
 --- !u!114 &8628578926028440972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,7 +245,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0afee64b78e3394a9a56118d6326ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _brawler: {fileID: 0}
+  _brawlerBehavior: {fileID: 6328656578635918927}
+  _attackVolume: {fileID: 4234046138188009513}
+  _attackEffectTrigger: {fileID: 1146156531379595911}
+  _attackAnimationEffectTriggerComponent: {fileID: 148933806714679601}
 --- !u!114 &1883176091393127105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,6 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data: {fileID: 0}
   _dashEffect: {fileID: 4254428544176821508}
+  _wasUseGravity: 0
 --- !u!1 &444373045944589312
 GameObject:
   m_ObjectHideFlags: 0
@@ -1288,6 +1292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _model: {fileID: 4953237466135058469}
   _behavior: {fileID: 1466622540529787529}
+  _facingDirection: {x: 1, y: 0, z: 0}
   _networkPlayer: {fileID: 4735179189841920839}
   _input: {fileID: 2194374668728194188}
   _playerCharacterData: {fileID: 0}

@@ -57,13 +57,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
     {
         [Header("Animations")]
 
-#region Attack Animations
-        [SerializeField]
-        private EffectTrigger _attackEffectTrigger;
-
         [SerializeField]
         private SpineAnimationEffectTriggerComponent _attackAnimationEffectTriggerComponent;
-#endregion
 
 #region Block Animations
         [SerializeField]
@@ -122,7 +117,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         private ComboData _currentComboMove;
 
         [CanBeNull]
-        private AttackData CurrentAttack => null == _currentComboMove ? null : _currentComboMove.AttackData;
+        public AttackData CurrentAttack => null == _currentComboMove ? null : _currentComboMove.AttackData;
 #endregion
 
         [Space(10)]
@@ -150,7 +145,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         private Actor Owner => null == _actionHandler ? null : _actionHandler.Owner;
 
         [CanBeNull]
-        private Brawler Brawler => null == _actionHandler ? null : _actionHandler.Brawler;
+        public Brawler Brawler => null == _actionHandler ? null : _actionHandler.Brawler;
 
         private bool CanJump => !_actionHandler.IsDead && Brawler.CurrentAction.Cancellable;
 
@@ -191,7 +186,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             Assert.IsNotNull(Brawler.BrawlerData.ComboData);
 
             _jumpBehaviorComponent.JumpBehaviorComponentData = Brawler.BrawlerData.JumpBehaviorComponentData;
-            _attackBehaviorComponent.Brawler = Brawler;
             _blockBehaviorComponent.Brawler = Brawler;
             _dashBehaviorComponent.DashBehaviorComponentData = Brawler.BrawlerData.DashBehaviorComponentData;
 
@@ -248,33 +242,14 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 _actionHandler.ActionPerformed(DashBehaviorComponent.DashAction.Default);
             }
         }
+
+        public void Idle()
+        {
+            _actionHandler.OnIdle();
+        }
 #endregion
 
-        public void Attack(AttackBehaviorComponent.AttackAction attackAction)
-        {
-            if(!AdvanceCombo(attackAction)) {
-                ComboFail();
-                return;
-            }
-
-            if(GameManager.Instance.DebugBrawlers) {
-                Debug.Log($"Brawler {Owner.Id} starting attack {CurrentAttack.Name}");
-            }
-
-            // TODO: calling Initialize() here is dumb, but we can't do it in our own Initialize()
-            // because the models haven't been initialized yet (and that NEEDS to get changed cuz this is dumb)
-            _attackVolume.Initialize(Brawler.Model.SpineModel);
-            _attackVolume.SetAttack(CurrentAttack, Owner.FacingDirection);
-
-            _attackAnimationEffectTriggerComponent.SpineAnimationName = CurrentAttack.AnimationName;
-
-            Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Attack);
-            _attackEffectTrigger.Trigger(() => {
-                Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
-                _actionHandler.OnIdle();
-            });
-        }
-
+        // TODO: this should happen when the dash actually occurs
         /*public void Dash(DashBehaviorComponent.DashAction dashAction)
         {
             if(!AdvanceCombo(dashAction)) {
@@ -296,7 +271,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         }*/
 
 #region Combos
-        private bool AdvanceCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
+        public bool AdvanceCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
         {
             if(null == _currentComboMove) {
                 _currentComboMove = Brawler.BrawlerData.ComboData.NextMove(action);
@@ -328,7 +303,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             _actionHandler.ActionPerformed(action);
         }
 
-        private void ComboFail()
+        public void ComboFail()
         {
             if(GameManager.Instance.DebugBrawlers) {
                 Debug.Log($"Brawler {Owner.Id} combo failed / exhausted");
