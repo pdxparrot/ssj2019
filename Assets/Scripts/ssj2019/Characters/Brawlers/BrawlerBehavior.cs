@@ -6,6 +6,7 @@ using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.ssj2019.Data.Brawlers;
+using pdxpartyparrot.ssj2019.Characters.BehaviorComponents;
 using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
 using pdxpartyparrot.ssj2019.Volumes;
 
@@ -13,6 +14,8 @@ using Spine;
 
 using UnityEngine;
 using UnityEngine.Assertions;
+
+using DashBehaviorComponent = pdxpartyparrot.ssj2019.Characters.BehaviorComponents.DashBehaviorComponent;
 
 namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 {
@@ -230,9 +233,9 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             if(Brawler.CurrentAction.CanQueue) {
-                _actionHandler.BufferAction(DashBehaviorComponent.DashAction.Default);
+                _actionHandler.BufferAction(Game.Characters.BehaviorComponents.DashBehaviorComponent.DashAction.Default);
             } else {
-                _actionHandler.ActionPerformed(DashBehaviorComponent.DashAction.Default);
+                _actionHandler.ActionPerformed(Game.Characters.BehaviorComponents.DashBehaviorComponent.DashAction.Default);
             }
         }
 
@@ -243,26 +246,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             _actionHandler.OnIdle();
         }
 #endregion
-
-        // TODO: this should happen when the dash actually occurs
-        /*public void Dash(DashBehaviorComponent.DashAction dashAction)
-        {
-            if(!AdvanceCombo(dashAction)) {
-                ComboFail();
-                return;
-            }
-
-            if(GameManager.Instance.DebugBrawlers) {
-                Debug.Log($"Brawler {Owner.Id} starting dash");
-            }
-
-            Debug.Log("TODO: dash");
-
-            Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Dash);
-            _dashEffectTrigger.Trigger(() => {
-                Idle();
-            });
-        }*/
 
 #region Combos
         public bool AdvanceCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
@@ -288,7 +271,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         private void Combo()
         {
             CharacterBehaviorComponent.CharacterBehaviorAction action = _actionHandler.NextAction;
-            if(!(action is AttackBehaviorComponent.AttackAction) && !(action is DashBehaviorComponent.DashAction)) {
+            if(!(action is AttackBehaviorComponent.AttackAction) && !(action is Game.Characters.BehaviorComponents.DashBehaviorComponent.DashAction)) {
                 ComboFail();
                 return;
             }

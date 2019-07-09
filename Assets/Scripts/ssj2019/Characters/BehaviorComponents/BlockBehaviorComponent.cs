@@ -55,10 +55,18 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
         private void ToggleBlock()
         {
             if(_brawlerBehavior.Brawler.CurrentAction.IsBlocking) {
+                if(GameManager.Instance.DebugBrawlers) {
+                    Debug.Log($"Brawler {Behavior.Owner.Id} stopping block");
+                }
+
                 _blockEndEffectTrigger.Trigger(() => {
                     _brawlerBehavior.Idle();
                 });
                 return;
+            }
+
+            if(GameManager.Instance.DebugBrawlers) {
+                Debug.Log($"Brawler {Behavior.Owner.Id} starting block");
             }
 
             _brawlerBehavior.CancelActions(false);

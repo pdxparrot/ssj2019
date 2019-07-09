@@ -136,12 +136,12 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         }
 
 #region Event Handlers
-        private void DashStopEventHandler(object sender, EventArgs args)
+        protected virtual void DashStopEventHandler(object sender, EventArgs args)
         {
             StopDashing();
         }
 
-        private void DashTimesUpEventHandler(object sender, EventArgs args)
+        protected virtual void DashTimesUpEventHandler(object sender, EventArgs args)
         {
             StopDashing();
         }

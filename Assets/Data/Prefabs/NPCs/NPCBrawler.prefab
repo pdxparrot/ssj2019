@@ -1127,7 +1127,7 @@ GameObject:
   - component: {fileID: 1482694962723182602}
   - component: {fileID: 5887927068430922675}
   - component: {fileID: 171347820613495406}
-  - component: {fileID: 4579292172737694567}
+  - component: {fileID: 4945914547374958261}
   m_Layer: 13
   m_Name: Behavior
   m_TagString: Untagged
@@ -1174,7 +1174,7 @@ MonoBehaviour:
   _jumpBehaviorComponent: {fileID: 1482694962723182602}
   _attackBehaviorComponent: {fileID: 5887927068430922675}
   _blockBehaviorComponent: {fileID: 171347820613495406}
-  _dashBehaviorComponent: {fileID: 4579292172737694567}
+  _dashBehaviorComponent: {fileID: 4945914547374958261}
 --- !u!114 &7354327572179901474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1224,7 +1224,7 @@ MonoBehaviour:
     - {fileID: 1482694962723182602}
     - {fileID: 5887927068430922675}
     - {fileID: 171347820613495406}
-    - {fileID: 4579292172737694567}
+    - {fileID: 4945914547374958261}
   _isGrounded: 0
   _isSliding: 0
   _idleEffect: {fileID: 8823639518845711383}
@@ -1317,7 +1317,7 @@ MonoBehaviour:
   _blockVolume: {fileID: 5793994074923292069}
   _blockBeginEffectTrigger: {fileID: 2970808422812650086}
   _blockEndEffectTrigger: {fileID: 6163520276177178404}
---- !u!114 &4579292172737694567
+--- !u!114 &4945914547374958261
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1326,9 +1326,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 9003367007530177534}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a838ff939b91c314399507dd80659d25, type: 3}
+  m_Script: {fileID: 11500000, guid: db942fc835eb2774cb2937320393ec3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 0}
   _dashEffect: {fileID: 4321034046357433653}
   _wasUseGravity: 0
+  _brawlerBehavior: {fileID: 2457662190061875137}
