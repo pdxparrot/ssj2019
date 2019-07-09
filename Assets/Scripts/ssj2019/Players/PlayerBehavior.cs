@@ -3,11 +3,9 @@ using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
-using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.ssj2019.Characters.Brawlers;
 using pdxpartyparrot.ssj2019.Data.Players;
-using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -22,14 +20,6 @@ namespace pdxpartyparrot.ssj2019.Players
         public Player GamePlayerOwner => (Player)Owner;
 
         public Brawler Brawler => GamePlayerOwner.Brawler;
-
-        private bool CanJump => !IsDead && Brawler.CurrentAction.Cancellable;
-
-        private bool CanAttack => !IsDead && Brawler.CurrentAction.Cancellable;
-
-        public bool CanBlock => !IsDead && IsGrounded && Brawler.CurrentAction.Cancellable;
-
-        private bool CanDash => !IsDead && Brawler.CurrentAction.Cancellable;
 
         public bool IsDead => GamePlayerOwner.IsDead;
 
@@ -116,14 +106,8 @@ namespace pdxpartyparrot.ssj2019.Players
             _idleEffect.Trigger();
         }
 
-        public void OnCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
-        {
-            ActionPerformed(action);
-        }
-
         public void OnHit(bool blocked)
         {
-            ClearActionBuffer();
         }
 
         public void OnDead()
@@ -136,62 +120,27 @@ namespace pdxpartyparrot.ssj2019.Players
         public void OnDeathComplete()
         {
         }
-
-        public void OnCancelActions()
-        {
-            ClearActionBuffer();
-        }
 #endregion
 
 #region Actions
         public void Jump()
         {
-            if(!CanJump) {
-                return;
-            }
-
-            _brawlerBehavior.CancelActions(false);
-
-            ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
+            _brawlerBehavior.Jump();
         }
 
-        // TODO: we might want the entire move buffer
         public void Attack(Vector3 lastMove)
         {
-            if(!CanAttack) {
-                return;
-            }
-
-            if(Brawler.CurrentAction.CanQueue) {
-                BufferAction(new AttackBehaviorComponent.AttackAction{
-                    Axes = lastMove,
-                });
-            } else {
-                ActionPerformed(new AttackBehaviorComponent.AttackAction{
-                    Axes = lastMove,
-                });
-            }
+            _brawlerBehavior.Attack(lastMove);
         }
 
-        // TODO: does this really need the move input?
         public void Block(Vector3 lastMove)
         {
-            ActionPerformed(new BlockBehaviorComponent.BlockAction{
-                Axes = lastMove,
-            });
+            _brawlerBehavior.Block(lastMove);
         }
 
         public void Dash()
         {
-            if(!CanDash || !_brawlerBehavior.DashBehaviorComponent.CanDash) {
-                return;
-            }
-
-            if(Brawler.CurrentAction.CanQueue) {
-                BufferAction(DashBehaviorComponent.DashAction.Default);
-            } else {
-                ActionPerformed(DashBehaviorComponent.DashAction.Default);
-            }
+            _brawlerBehavior.Dash();
         }
 #endregion
 

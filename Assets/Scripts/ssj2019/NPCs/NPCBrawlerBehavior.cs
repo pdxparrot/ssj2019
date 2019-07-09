@@ -8,13 +8,11 @@ using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
-using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.NPCs;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ssj2019.Characters.Brawlers;
 using pdxpartyparrot.ssj2019.Data.NPCs;
 using pdxpartyparrot.ssj2019.Players;
-using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -53,14 +51,6 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return nextPosition - Movement.Position;
             }
         }
-
-        private bool CanJump => !IsDead && Brawler.CurrentAction.Cancellable;
-
-        private bool CanAttack => !IsDead && Brawler.CurrentAction.Cancellable;
-
-        public bool CanBlock => !IsDead && IsGrounded && Brawler.CurrentAction.Cancellable;
-
-        private bool CanDash => !IsDead && Brawler.CurrentAction.Cancellable;
 
         public bool IsDead => NPCBrawler.IsDead;
 
@@ -369,15 +359,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
             SetState(State.Idle);
         }
 
-        public void OnCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
-        {
-            ActionPerformed(action);
-        }
-
         public void OnHit(bool blocked)
         {
-            ClearActionBuffer();
-
             _attackCooldown.Stop();
             _dashCooldown.Stop();
         }
@@ -391,44 +374,22 @@ namespace pdxpartyparrot.ssj2019.NPCs
         {
             NPCOwner.Recycle();
         }
-
-        public void OnCancelActions()
-        {
-            ClearActionBuffer();
-        }
 #endregion
 
 #region Actions
         public void Jump()
         {
-            if(!CanJump) {
-                return;
-            }
-
-            _brawlerBehavior.CancelActions(false);
-
-            ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
+            _brawlerBehavior.Jump();
 
             _attackCooldown.Stop();
             _dashCooldown.Stop();
         }
 
-        // TODO: we might want the entire move buffer
         public void Attack(Vector3 lastMove)
         {
-            if(!CanAttack) {
-                return;
-            }
+            _brawlerBehavior.Attack(lastMove);
 
-            if(Brawler.CurrentAction.CanQueue) {
-                BufferAction(new AttackBehaviorComponent.AttackAction{
-                    Axes = lastMove,
-                });
-            } else if(!_attackCooldown.IsRunning) {
-                ActionPerformed(new AttackBehaviorComponent.AttackAction{
-                    Axes = lastMove,
-                });
-
+            if(!_attackCooldown.IsRunning) {
                 _attackCooldown.Start(NPCBrawler.NPCBrawlerData.AttackCooldownSeconds);
                 _dashCooldown.Stop();
             }
@@ -436,9 +397,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
         
         public void Block(Vector3 lastMove)
         {
-            ActionPerformed(new BlockBehaviorComponent.BlockAction{
-                Axes = lastMove,
-            });
+            _brawlerBehavior.Block(lastMove);
 
             _attackCooldown.Stop();
             _dashCooldown.Stop();
@@ -446,15 +405,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public void Dash()
         {
-            if(!CanDash || !_brawlerBehavior.DashBehaviorComponent.CanDash) {
-                return;
-            }
+            _brawlerBehavior.Dash();
 
-            if(Brawler.CurrentAction.CanQueue) {
-                BufferAction(DashBehaviorComponent.DashAction.Default);
-            } else if(!_dashCooldown.IsRunning) {
-                ActionPerformed(DashBehaviorComponent.DashAction.Default);
-
+            if(!_dashCooldown.IsRunning) {
                 _attackCooldown.Stop();
                 _dashCooldown.Start(NPCBrawler.NPCBrawlerData.DashCooldownSeconds);
             }

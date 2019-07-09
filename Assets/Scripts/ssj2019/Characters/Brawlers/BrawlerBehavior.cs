@@ -16,6 +16,8 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 {
+    // TODO: split this into some more useful core interfaces
+    // eg - action handling, state checking, etc
     public interface IBrawlerBehaviorActions
     {
         Actor Owner { get; }
@@ -24,19 +26,22 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         CharacterBehaviorComponent.CharacterBehaviorAction NextAction { get; }
 
+        bool IsGrounded { get; }
+
         bool IsDead { get; }
 
         bool IsImmune { get; set; }
 
-        bool CanBlock { get; }
+        void ActionPerformed(CharacterBehaviorComponent.CharacterBehaviorAction action);
+
+        void BufferAction(CharacterBehaviorComponent.CharacterBehaviorAction action);
 
         void PopNextAction();
 
+        void ClearActionBuffer();
+
         // tells the brawler to go idle
         void OnIdle();
-
-        // triggers when the brawler should combo
-        void OnCombo(CharacterBehaviorComponent.CharacterBehaviorAction action);
 
         // triggers when the brawler is hit
         void OnHit(bool blocked);
@@ -46,8 +51,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         // triggers when the brawler death animation completes
         void OnDeathComplete();
-
-        void OnCancelActions();
     }
 
     public sealed class BrawlerBehavior : MonoBehaviour
@@ -122,6 +125,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         private AttackData CurrentAttack => null == _currentComboMove ? null : _currentComboMove.AttackData;
 #endregion
 
+        [Space(10)]
+
         [SerializeField]
         private JumpBehaviorComponent _jumpBehaviorComponent;
 
@@ -133,8 +138,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         [SerializeField]
         private DashBehaviorComponent _dashBehaviorComponent;
-
-        public DashBehaviorComponent DashBehaviorComponent => _dashBehaviorComponent;
 
         [Space(10)]
 
@@ -149,7 +152,13 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         [CanBeNull]
         private Brawler Brawler => null == _actionHandler ? null : _actionHandler.Brawler;
 
-        public bool CanBlock => _actionHandler.CanBlock;
+        private bool CanJump => !_actionHandler.IsDead && Brawler.CurrentAction.Cancellable;
+
+        private bool CanAttack => !_actionHandler.IsDead && Brawler.CurrentAction.Cancellable;
+
+        public bool CanBlock => !_actionHandler.IsDead && _actionHandler.IsGrounded && Brawler.CurrentAction.Cancellable;
+
+        private bool CanDash => !_actionHandler.IsDead && Brawler.CurrentAction.Cancellable;
 
 #region Unity Lifecycle
         private void Awake()
@@ -188,6 +197,58 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
             Brawler.BrawlerData.ComboData.Validate();
         }
+
+#region Actions
+        public void Jump()
+        {
+            if(!CanJump) {
+                return;
+            }
+
+            CancelActions(false);
+
+            _actionHandler.ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
+        }
+
+        // TODO: we might want the entire move buffer
+        public void Attack(Vector3 lastMove)
+        {
+            if(!CanAttack) {
+                return;
+            }
+
+            if(Brawler.CurrentAction.CanQueue) {
+                _actionHandler.BufferAction(new AttackBehaviorComponent.AttackAction{
+                    Axes = lastMove,
+                });
+            } else {
+                _actionHandler.ActionPerformed(new AttackBehaviorComponent.AttackAction{
+                    Axes = lastMove,
+                });
+            }
+        }
+
+        // TODO: does this really need the move input?
+        public void Block(Vector3 lastMove)
+        {
+            _actionHandler.ActionPerformed(new BlockBehaviorComponent.BlockAction{
+                Axes = lastMove,
+            });
+        }
+
+        public void Dash()
+        {
+            if(!CanDash || !_dashBehaviorComponent.CanDash) {
+                return;
+            }
+
+            if(Brawler.CurrentAction.CanQueue) {
+                _actionHandler.BufferAction(DashBehaviorComponent.DashAction.Default);
+            } else {
+                _actionHandler.ActionPerformed(DashBehaviorComponent.DashAction.Default);
+            }
+        }
+#endregion
 
         public void Attack(AttackBehaviorComponent.AttackAction attackAction)
         {
@@ -264,8 +325,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             _actionHandler.PopNextAction();
-
-            _actionHandler.OnCombo(action);
+            _actionHandler.ActionPerformed(action);
         }
 
         private void ComboFail()
@@ -319,7 +379,10 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 }
 
                 _blockEffectTrigger.Trigger();
+
+                _actionHandler.ClearActionBuffer();
                 _actionHandler.OnHit(true);
+
                 return false;
             }
 
@@ -340,6 +403,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                     Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
                     _actionHandler.OnIdle();
                 });
+
+                _actionHandler.ClearActionBuffer();
                 _actionHandler.OnHit(false);
             }
 
@@ -365,8 +430,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             // idle out
             Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
             _actionHandler.OnIdle();
-
-            _actionHandler.OnCancelActions();
         }
 
 #region Effects
