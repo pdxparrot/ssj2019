@@ -15,6 +15,7 @@ using pdxpartyparrot.ssj2019.Level;
 using pdxpartyparrot.ssj2019.Players;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.ssj2019
@@ -82,11 +83,13 @@ namespace pdxpartyparrot.ssj2019
 
         public void RegisterLevelHelper(LevelHelper levelHelper)
         {
+            Assert.IsNull(_levelHelper);
             _levelHelper = levelHelper;
         }
 
         public void UnRegisterLevelHelper(LevelHelper levelHelper)
         {
+            Assert.IsTrue(levelHelper == _levelHelper);
             _levelHelper = null;
         }
 

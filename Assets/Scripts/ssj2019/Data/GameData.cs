@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ssj2019.Actors;
 using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Data.Players;
 
@@ -44,5 +45,12 @@ namespace pdxpartyparrot.ssj2019.Data
 
         public IReadOnlyCollection<PlayerCharacterData> PlayerCharacterData => _playerCharacterData.Items;
 #endregion
+
+        [Space(10)]
+
+        [SerializeField]
+        private TrainingDummy _trainingDummyPrefab;
+
+        public TrainingDummy TrainingDummyPrefab => _trainingDummyPrefab;
     }
 }
