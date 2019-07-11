@@ -5,9 +5,11 @@ using JetBrains.Annotations;
 using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.DebugMenu;
+using pdxpartyparrot.Core.ObjectPool;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game;
 using pdxpartyparrot.Game.State;
+using pdxpartyparrot.Game.UI;
 using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Data;
 using pdxpartyparrot.ssj2019.Data.Players;
@@ -80,6 +82,21 @@ namespace pdxpartyparrot.ssj2019
 
             base.Shutdown();
         }
+
+#region Object Pools
+        protected override void InitializeObjectPools()
+        {
+            PooledObject pooledObject = GameGameData.FloatingTextPrefab.GetComponent<PooledObject>();
+            ObjectPoolManager.Instance.InitializePoolAsync(GameUIManager.Instance.DefaultFloatingTextPoolName, pooledObject, GameGameData.FloatingTextPoolSize);
+        }
+
+        protected override void DestroyObjectPools()
+        {
+            if(ObjectPoolManager.HasInstance) {
+                ObjectPoolManager.Instance.DestroyPool(GameUIManager.Instance.DefaultFloatingTextPoolName);
+            }
+        }
+#endregion
 
         public void RegisterLevelHelper(LevelHelper levelHelper)
         {
