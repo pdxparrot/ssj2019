@@ -1,6 +1,7 @@
 ﻿using System;
 
-using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.DebugMenu;
+using pdxpartyparrot.Core.UI;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.NPCs;
 
@@ -13,19 +14,16 @@ namespace pdxpartyparrot.ssj2019.Level
     public sealed class LevelHelper : MonoBehaviour
     {
         [SerializeField]
-        [ReadOnly]
         private Collider2D _cameraBounds;
-
-        public Collider2D CameraBounds => _cameraBounds;
 
         [SerializeField]
         private WaveSpawner _waveSpawnerPrefab;
 
-        private WaveSpawner _waveSpawner;
-
-        public WaveSpawner WaveSpawner => _waveSpawner;
+        public WaveSpawner WaveSpawner { get; private set; }
 
         private NavMeshSurface _navMeshSurface;
+
+        private DebugMenuNode _debugMenuNode;
 
 #region Unity Lifecycle
         private void Awake()
@@ -36,10 +34,14 @@ namespace pdxpartyparrot.ssj2019.Level
 
             GameManager.Instance.GameStartServerEvent += GameStartServerEventHandler;
             GameManager.Instance.GameStartClientEvent += GameStartClientEventHandler;
+
+            InitDebugMenu();
         }
 
         private void OnDestroy()
         {
+            DestroyDebugMenu();
+
             ShutdownWaveSpawner();
 
             if(GameManager.HasInstance) {
@@ -57,20 +59,27 @@ namespace pdxpartyparrot.ssj2019.Level
                 return;
             }
 
-            _waveSpawner = Instantiate(_waveSpawnerPrefab);
-            _waveSpawner.Initialize();
+            WaveSpawner = Instantiate(_waveSpawnerPrefab);
+            WaveSpawner.Initialize();
 
-            _waveSpawner.WaveCompleteEvent += WaveCompleteEventHandler;
+            WaveSpawner.WaveCompleteEvent += WaveCompleteEventHandler;
         }
 
         private void ShutdownWaveSpawner()
         {
-            if(null == _waveSpawner) {
+            if(null == WaveSpawner) {
                 return;
             }
 
-            Destroy(_waveSpawner);
-            _waveSpawner = null;
+            Destroy(WaveSpawner);
+            WaveSpawner = null;
+        }
+
+        private void SpawnTrainingDummy()
+        {
+            Debug.Log("Spawning training dummy...");
+
+            Instantiate(GameManager.Instance.GameGameData.TrainingDummyPrefab, transform);
         }
 
 #region Event Handlers
@@ -84,8 +93,8 @@ namespace pdxpartyparrot.ssj2019.Level
             InitializeWaveSpawner();
 
             // TODO: this should wait until after we have all the players
-            if(null != _waveSpawner) {
-                _waveSpawner.StartSpawner();
+            if(null != WaveSpawner) {
+                WaveSpawner.StartSpawner();
             }
         }
 
@@ -101,5 +110,23 @@ namespace pdxpartyparrot.ssj2019.Level
             }
         }
 #endregion
+
+        private void InitDebugMenu()
+        {
+            _debugMenuNode = DebugMenuManager.Instance.AddNode(() => "ssj2019.Level");
+            _debugMenuNode.RenderContentsAction = () => {
+                if(GUIUtils.LayoutButton("Spawn Training Dummy")) {
+                    SpawnTrainingDummy();
+                }
+            };
+        }
+
+        private void DestroyDebugMenu()
+        {
+            if(DebugMenuManager.HasInstance) {
+                DebugMenuManager.Instance.RemoveNode(_debugMenuNode);
+            }
+            _debugMenuNode = null;
+        }
     }
 }

@@ -1,5 +1,6 @@
-﻿using pdxpartyparrot.Core.Util;
-using pdxpartyparrot.ssj2019.Characters;
+﻿using pdxpartyparrot.Core.Effects;
+using pdxpartyparrot.ssj2019.Characters.Brawlers;
+using pdxpartyparrot.ssj2019.Volumes;
 
 using UnityEngine;
 
@@ -20,10 +21,16 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
 #endregion
 
         [SerializeField]
-        [ReadOnly]
-        private Brawler _brawler;
+        private BrawlerBehavior _brawlerBehavior;
 
-        public Brawler Brawler { get; set; }
+        [SerializeField]
+        private BlockVolume _blockVolume;
+
+        [SerializeField]
+        private EffectTrigger _blockBeginEffectTrigger;
+
+        [SerializeField]
+        private EffectTrigger _blockEndEffectTrigger;
 
         public override bool OnPerformed(CharacterBehaviorAction action)
         {
@@ -31,18 +38,46 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
                 return false;
             }
 
-            if(Brawler.CurrentAction.IsBlocking) {
-                Brawler.BrawlerBehavior.ToggleBlock();
+            if(_brawlerBehavior.Brawler.CurrentAction.IsBlocking) {
+                ToggleBlock();
                 return true;
             }
 
-            if(!Brawler.BrawlerBehavior.CanBlock) {
+            if(!_brawlerBehavior.CanBlock) {
                 return false;
             }
 
-            Brawler.BrawlerBehavior.ToggleBlock();
+            ToggleBlock();
 
             return true;
+        }
+
+        private void ToggleBlock()
+        {
+            if(_brawlerBehavior.Brawler.CurrentAction.IsBlocking) {
+                if(GameManager.Instance.DebugBrawlers) {
+                    Debug.Log($"Brawler {Behavior.Owner.Id} stopping block");
+                }
+
+                _blockEndEffectTrigger.Trigger(() => {
+                    _brawlerBehavior.Idle();
+                });
+                return;
+            }
+
+            if(GameManager.Instance.DebugBrawlers) {
+                Debug.Log($"Brawler {Behavior.Owner.Id} starting block");
+            }
+
+            _brawlerBehavior.CancelActions(false);
+
+            // TODO: calling Initialize() here is dumb, but we can't do it in our own Initialize()
+            // because the models haven't been initialized yet (and that NEEDS to get changed cuz this is dumb)
+            _blockVolume.Initialize(_brawlerBehavior.Brawler.Model.SpineModel);
+            _blockVolume.SetBlock(_brawlerBehavior.Brawler.BrawlerData.BlockVolumeOffset, _brawlerBehavior.Brawler.BrawlerData.BlockVolumeSize, Behavior.Owner.FacingDirection, _brawlerBehavior.Brawler.BrawlerData.BlockBoneName);
+
+            _brawlerBehavior.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Block);
+            _blockBeginEffectTrigger.Trigger();
         }
     }
 }

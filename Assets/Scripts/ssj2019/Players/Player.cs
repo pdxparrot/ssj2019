@@ -9,21 +9,18 @@ using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ssj2019.Camera;
-using pdxpartyparrot.ssj2019.Characters;
-using pdxpartyparrot.ssj2019.Data;
-
-using TMPro;
+using pdxpartyparrot.ssj2019.Characters.Brawlers;
+using pdxpartyparrot.ssj2019.Data.Players;
 
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.ssj2019.Players
 {
     [RequireComponent(typeof(NetworkPlayer))]
     [RequireComponent(typeof(Brawler))]
-    public sealed class Player : Player3D, IDamagable, IInteractable
+    public sealed class Player : Player25D, IDamagable, IInteractable
     {
         public PlayerInput GamePlayerInput => (PlayerInput)PlayerInput;
 
@@ -36,20 +33,8 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public PlayerCharacterData PlayerCharacterData => _playerCharacterData;
 
-        // TODO: move this to its own component
-#region Player Indicator
         [SerializeField]
-        [CanBeNull]
-        [FormerlySerializedAs("_playerIndicator")]
-        private SpriteRenderer _playerIndicatorSprite;
-
-        [SerializeField]
-        [CanBeNull]
-        private TextMeshPro _playerIndicatorText;
-
-        [SerializeField]
-        private MeshRenderer _playerGroundIndicator;
-#endregion
+        private PlayerIndicator _playerIndicator;
 
         [SerializeField]
         [ReadOnly]
@@ -88,22 +73,23 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 #endif
 
+            // TODO: the server needs the character data and model setup
+            // so those need to move out of here and into Initialize()
+            // and need to not be directly dependent on the input device like they are now
+
             _playerCharacterData = GameManager.Instance.AcquireCharacter(device, out _playerNumber);
             if(null == _playerCharacterData) {
                 // this is "ok", we have a chance to recover when we spawn
                 Debug.LogWarning($"Player {Id} failed to get a character");
             } else {
                 Debug.Log($"Player {Id} got character {_playerCharacterData.Name}");
-            }
 
-            InitializeModel();
+                Brawler.Initialize(_playerCharacterData.BrawlerData);
+            }
 
             PlayerViewer = GameManager.Instance.Viewer;
 
-            Billboard billboard = Model.GetComponent<Billboard>();
-            if(billboard != null) {
-                billboard.Camera = PlayerViewer.Viewer.Camera;
-            }
+            InitializeModel();
 
             return true;
         }
@@ -114,35 +100,11 @@ namespace pdxpartyparrot.ssj2019.Players
                 return;
             }
 
-            CharacterModel model = Instantiate(_playerCharacterData.CharacterModelPrefab, Model.transform);
+            Brawler.InitializeModel(Behavior, _playerCharacterData.BrawlerModelPrefab, Model, 0);
 
-            if(null != model.ModelSprite) {
-                Behavior.SpriteAnimationHelper.AddRenderer(model.ModelSprite);
-            }
-
-            if(null != model.SpineModel) {
-                Behavior.SpineAnimationHelper.SkeletonAnimation = model.SpineModel;
-
-                Behavior.SpineSkinHelper.SkeletonAnimation = model.SpineModel;
-                // TODO: skin?
-            }
-
-            Behavior.SpriteAnimationHelper.AddRenderer(model.ShadowSprite);
-
-            // TODO: move this to is own component
             PlayerData.PlayerIndicatorState indicatorState = PlayerManager.Instance.GetPlayerIndicatorState(_playerNumber);
             if(null != indicatorState) {
-                if(null != _playerIndicatorSprite && null != indicatorState.PlayerIndicatorSprite) {
-                    _playerIndicatorSprite.sprite = indicatorState.PlayerIndicatorSprite;
-                    _playerIndicatorSprite.color = indicatorState.PlayerColor;
-                }
-
-                if(null != _playerIndicatorText) {
-                    _playerIndicatorText.text = indicatorState.PlayerIndicatorText;
-                    _playerIndicatorText.color = indicatorState.PlayerColor;
-                }
-
-                _playerGroundIndicator.material.color = indicatorState.PlayerColor;
+                _playerIndicator.Initialize(indicatorState);
             } else {
                 Debug.LogWarning($"Unable to get indicator state for player {_playerNumber}");
             }
@@ -166,12 +128,14 @@ namespace pdxpartyparrot.ssj2019.Players
 
                 Debug.LogWarning($"Player {Id} stole free character {_playerCharacterData.Name}");
 
+                Brawler.Initialize(_playerCharacterData.BrawlerData);
+
                 InitializeModel();
             }
 
             PlayerGameViewer.AddTarget(this);
 
-            Brawler.Initialize(PlayerCharacterData.BrawlerData);
+            Brawler.OnSpawn();
 
             GameManager.Instance.PlayerSpawned(this);
 
@@ -186,7 +150,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
             PlayerGameViewer.AddTarget(this);
 
-            Brawler.Initialize(PlayerCharacterData.BrawlerData);
+            Brawler.OnReSpawn();
 
             GameManager.Instance.PlayerSpawned(this);
 

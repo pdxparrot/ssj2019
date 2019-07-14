@@ -1,15 +1,11 @@
-﻿using System.Linq;
-
-using pdxpartyparrot.Core.Actors;
+﻿using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
-using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Characters.Players;
-using pdxpartyparrot.ssj2019.Characters;
-using pdxpartyparrot.ssj2019.Data;
-using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
+using pdxpartyparrot.ssj2019.Characters.Brawlers;
+using pdxpartyparrot.ssj2019.Data.Players;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -25,13 +21,9 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public Brawler Brawler => GamePlayerOwner.Brawler;
 
-        private bool CanJump => !IsDead && Brawler.CurrentAction.Cancellable;
-
-        private bool CanAttack => !IsDead && Brawler.CurrentAction.Cancellable;
-
-        public bool CanBlock => !IsDead && IsGrounded && Brawler.CurrentAction.Cancellable;
-
         public bool IsDead => GamePlayerOwner.IsDead;
+
+        [Space(10)]
 
         [SerializeField]
         [ReadOnly]
@@ -45,15 +37,6 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public override bool CanMove => base.CanMove && !IsDead && !Brawler.CurrentAction.IsStunned;
 
-        // TODO: this depends on which piece of a combo we're in and other factors
-        public AttackData CurrentAttack => GamePlayerOwner.PlayerCharacterData.BrawlerData.AttackComboData.AttackData.ElementAt(0);
-
-        [SerializeField]
-        private AttackBehaviorComponent _attackBehaviorComponent;
-
-        [SerializeField]
-        private BlockBehaviorComponent _blockBehaviorComponent;
-
         private BrawlerBehavior _brawlerBehavior;
 
 #region Unity Lifecycle
@@ -64,9 +47,6 @@ namespace pdxpartyparrot.ssj2019.Players
             base.Awake();
 
             _brawlerBehavior = GetComponent<BrawlerBehavior>();
-
-            _attackBehaviorComponent.Brawler = GamePlayerOwner.Brawler;
-            _blockBehaviorComponent.Brawler = GamePlayerOwner.Brawler;
         }
 #endregion
 
@@ -123,17 +103,11 @@ namespace pdxpartyparrot.ssj2019.Players
 #region Brawler Actions
         public void OnIdle()
         {
-            SpineAnimationHelper.SetAnimation(GamePlayerOwner.PlayerCharacterData.BrawlerData.IdleAnimationName, false);
-        }
-
-        public void OnAttack(AttackBehaviorComponent.AttackAction action)
-        {
-            ActionPerformed(action);
+            _idleEffect.Trigger();
         }
 
         public void OnHit(bool blocked)
         {
-            ClearActionBuffer();
         }
 
         public void OnDead()
@@ -146,48 +120,27 @@ namespace pdxpartyparrot.ssj2019.Players
         public void OnDeathComplete()
         {
         }
-
-        public void OnCancelActions()
-        {
-            ClearActionBuffer();
-        }
 #endregion
 
 #region Actions
         public void Jump()
         {
-            if(!CanJump) {
-                return;
-            }
-
-            _brawlerBehavior.CancelActions();
-
-            ActionPerformed(JumpBehaviorComponent.JumpAction.Default);
+            _brawlerBehavior.Jump();
         }
 
-        // TODO: we might want the entire move buffer
         public void Attack(Vector3 lastMove)
         {
-            if(!CanAttack) {
-                return;
-            }
-
-            if(BrawlerAction.ActionType.Attack == Brawler.CurrentAction.Type) {
-                BufferAction(new AttackBehaviorComponent.AttackAction{
-                    Axes = lastMove,
-                });
-            } else {
-                ActionPerformed(new AttackBehaviorComponent.AttackAction{
-                    Axes = lastMove,
-                });
-            }
+            _brawlerBehavior.Attack(lastMove);
         }
 
         public void Block(Vector3 lastMove)
         {
-            ActionPerformed(new BlockBehaviorComponent.BlockAction{
-                Axes = lastMove,
-            });
+            _brawlerBehavior.Block(lastMove);
+        }
+
+        public void Dash()
+        {
+            _brawlerBehavior.Dash();
         }
 #endregion
 

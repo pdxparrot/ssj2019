@@ -6,12 +6,12 @@ namespace pdxpartyparrot.Game.Characters
 {
     public class PlayerMovement2D : CharacterMovement2D
     {
-        protected override void InitRigidbody(Rigidbody2D rb, ActorBehaviorData behaviorData)
+        protected override void InitRigidbody(ActorBehaviorData behaviorData)
         {
-            base.InitRigidbody(rb, behaviorData);
+            base.InitRigidbody(behaviorData);
 
             // we run the follow cam in FixedUpdate() and interpolation interferes with that
-            rb.interpolation = RigidbodyInterpolation2D.None;
+            RigidBody.interpolation = RigidbodyInterpolation2D.None;
         }
     }
 }

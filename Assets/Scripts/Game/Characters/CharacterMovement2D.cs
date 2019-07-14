@@ -1,5 +1,6 @@
 ﻿using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Data;
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -22,6 +23,12 @@ namespace pdxpartyparrot.Game.Characters
             }
         }
 
+        [SerializeField]
+        [ReadOnly]
+        private bool _isComponentControlling;
+
+        public bool IsComponentControlling { get; set; }
+
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -36,7 +43,9 @@ namespace pdxpartyparrot.Game.Characters
 
             // turn off gravity if we're grounded and not moving and not sliding
             // this should stop us sliding down slopes we shouldn't slide down
-            UseGravity = !IsKinematic && (!CharacterBehavior.IsGrounded || CharacterBehavior.IsMoving || CharacterBehavior.IsSliding);
+            if(!IsComponentControlling) {
+                UseGravity = !IsKinematic && (!CharacterBehavior.IsGrounded || CharacterBehavior.IsMoving || CharacterBehavior.IsSliding);
+            }
         }
 
         protected virtual void OnDrawGizmos()
@@ -53,13 +62,17 @@ namespace pdxpartyparrot.Game.Characters
         }
 #endregion
 
-        protected override void InitRigidbody(Rigidbody2D rb, ActorBehaviorData behaviorData)
+        protected override void InitRigidbody(ActorBehaviorData behaviorData)
         {
-            base.InitRigidbody(rb, behaviorData);
+            base.InitRigidbody(behaviorData);
 
-            rb.isKinematic = behaviorData.IsKinematic;
-            rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-            rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+            RigidBody.isKinematic = behaviorData.IsKinematic;
+            RigidBody.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+            RigidBody.interpolation = RigidbodyInterpolation2D.Interpolate;
+        }
+
+        public void EnableDynamicCollisionDetection(bool enable)
+        {
         }
 
         public virtual void Jump(float height)
