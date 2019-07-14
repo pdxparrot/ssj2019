@@ -74,7 +74,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
             ComboEntry nextComboEntry = null;
             foreach(IComboEntry entry in comboEntry.comboEntries) {
-                if(comboEntry.Move.Equals(entry.Move)) {
+                if(move.Equals(entry.Move)) {
                     nextComboEntry = (ComboEntry)entry;
                     break;
                 }
