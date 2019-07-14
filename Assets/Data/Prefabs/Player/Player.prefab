@@ -123,7 +123,6 @@ MonoBehaviour:
   _deathEffectTrigger: {fileID: 6433857838732750911}
   _attackVolume: {fileID: 4234046138188009513}
   _blockVolume: {fileID: 2276791725628702472}
-  _currentComboMove: {fileID: 0}
   _jumpBehaviorComponent: {fileID: 1550674950824046361}
   _attackBehaviorComponent: {fileID: 2342830165173679034}
   _blockBehaviorComponent: {fileID: 1883176091393127105}
@@ -1069,6 +1068,54 @@ MonoBehaviour:
   _gamepadListener: {fileID: 0}
   _waitForComplete: 0
   _isPlaying: 0
+--- !u!1 &6949157458772260453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2367079448266288701}
+  - component: {fileID: 6254564640636822816}
+  m_Layer: 12
+  m_Name: KungFuGrid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2367079448266288701
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6949157458772260453}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7312426625843009650}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6254564640636822816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6949157458772260453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c8cd0537f5b0c44fb9af95ab3d97eda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxgridslots: 1
+  degreesbetweenslots: 90
+  attackslotdistance: 0.5
+  outerslotdistance: 2
+  owner: {fileID: 463285651185603561}
 --- !u!1 &7312426625843009653
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,7 +1134,6 @@ GameObject:
   - component: {fileID: 7607716014734449759}
   - component: {fileID: 8451773348438022286}
   - component: {fileID: 463285651185603561}
-  - component: {fileID: 1673213468291417793}
   m_Layer: 12
   m_Name: Player
   m_TagString: Untagged
@@ -1122,6 +1168,7 @@ Transform:
   - {fileID: 2879474997430178217}
   - {fileID: 8353411165582611084}
   - {fileID: 8338910519638184812}
+  - {fileID: 2367079448266288701}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1301,23 +1348,6 @@ MonoBehaviour:
   _playerCharacterData: {fileID: 0}
   _playerIndicator: {fileID: 7662034392016381256}
   _playerNumber: -1
---- !u!114 &1673213468291417793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7312426625843009653}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c8cd0537f5b0c44fb9af95ab3d97eda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxgridslots: 1
-  degreesbetweenslots: 90
-  attackslotdistance: 0.5
-  outerslotdistance: 2
-  owner: {fileID: 463285651185603561}
 --- !u!1 &7835375812971009641
 GameObject:
   m_ObjectHideFlags: 0
