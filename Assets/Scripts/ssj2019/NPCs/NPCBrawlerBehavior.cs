@@ -374,6 +374,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public void OnDead()
         {
+            StageManager.Instance.ReleaseKungFuGridSlot(_target, Owner);
             ClearActionBuffer();
         }
 

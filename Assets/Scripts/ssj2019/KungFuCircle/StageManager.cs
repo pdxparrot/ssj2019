@@ -59,5 +59,15 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
 
             return actorgrid.GetOuterSlotLocation(Attacker);
         }
+
+        public void ReleaseKungFuGridSlot(Actor target, Actor Attacker) {
+            KungFuGrid actorgrid = _KungFuGrids[target];
+            // check to see if we have already provided a slot for this NPC
+            if (filledgridslots.ContainsKey(Attacker))
+            {
+                actorgrid.EmptyGridSlot(filledgridslots[Attacker]);
+                filledgridslots.Remove(Attacker);
+            }
+        }
     }
 }

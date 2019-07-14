@@ -28,8 +28,7 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
         float[] innergridslotsdegrees;
 
         // Start is called before the first frame update
-        void Start()
-        {
+        void Start() {
             StageManager.Instance.Register(this);
             slotstaken = new bool[maxgridslots];
             innergridslotsdegrees = new float[maxgridslots];
@@ -49,9 +48,12 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
             return NewLocation;
         }
 
-        public void FillGridSlot(int i)
-        {
+        public void FillGridSlot(int i) {
             slotstaken[i] = true;
+        }
+
+        public void EmptyGridSlot(int i) {
+            slotstaken[i] = false;
         }
 
         public bool IsGridSlotAvailable(int i)
@@ -60,8 +62,7 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
         }
 
 
-        public int GetAvailableGridSlot()
-        {
+        public int GetAvailableGridSlot() {
             for (int i = 0; i < maxgridslots; i++)
             {
                 if (!slotstaken[i])
@@ -72,8 +73,7 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
             return -1;
         }
 
-        public Vector3 GetOuterSlotLocation(Actor Attacker)
-        {
+        public Vector3 GetOuterSlotLocation(Actor Attacker) {
             // Get the vector form from a quaternion ( i had no idea how else to get it in unity) 
             Vector3 ToVector = Attacker.Behavior.Movement.Position - Owner.Behavior.Movement.Position;
             ToVector.Normalize();
@@ -93,8 +93,7 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
             return false;
         }
 
-        private void OnDestroy()
-        {
+        private void OnDestroy() {
             if (StageManager.HasInstance)
                 StageManager.Instance.Unregister(this);
         }
