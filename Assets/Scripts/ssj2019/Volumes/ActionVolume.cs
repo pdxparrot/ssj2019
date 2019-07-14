@@ -55,7 +55,10 @@ namespace pdxpartyparrot.ssj2019.Volumes
             _collider.isTrigger = true;
 
             Interactables = GetComponent<Interactables>();
+
             BoneFollower = GetComponent<BoneFollower>();
+            BoneFollower.followLocalScale = false;
+            BoneFollower.followSkeletonFlip = false;
         }
 
         protected virtual void OnDrawGizmos()
