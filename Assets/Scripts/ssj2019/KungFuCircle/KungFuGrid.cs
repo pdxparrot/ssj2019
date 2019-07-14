@@ -19,7 +19,10 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
         public float attackslotdistance = .5f;
         public float outerslotdistance = 1;
 
-        private Transform ownertransform;
+        [SerializeField]
+        private Actor owner;
+
+        public Actor Owner => owner;
 
         bool[] slotstaken;
         float[] innergridslotsdegrees;
@@ -28,7 +31,6 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
         void Start()
         {
             StageManager.Instance.Register(this);
-            ownertransform = GetComponentInParent<Transform>();
             slotstaken = new bool[maxgridslots];
             innergridslotsdegrees = new float[maxgridslots];
 
@@ -39,18 +41,11 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
             }
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
-
         public Vector3 GetAttackSlotLocation(int i) {
-            ownertransform = GetComponentInParent<Transform>();
             // Get the vector form from a quaternion ( i had no idea how else to get it in unity) 
             Vector3 NewDirection = Quaternion.AngleAxis(innergridslotsdegrees[i], new Vector3(0, 1, 0)) * new Vector3(1, 1, 1);
             NewDirection.Normalize();
-            Vector3 NewLocation = (ownertransform.position + (NewDirection * attackslotdistance));
+            Vector3 NewLocation = (Owner.Behavior.Movement.Position + (NewDirection * attackslotdistance));
             return NewLocation;
         }
 
@@ -79,11 +74,10 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
 
         public Vector3 GetOuterSlotLocation(Actor Attacker)
         {
-            ownertransform = GetComponentInParent<Transform>();
             // Get the vector form from a quaternion ( i had no idea how else to get it in unity) 
-            Vector3 ToVector = Attacker.transform.position - ownertransform.position;
+            Vector3 ToVector = Attacker.Behavior.Movement.Position - Owner.Behavior.Movement.Position;
             ToVector.Normalize();
-            Vector3 NewLocation = (ownertransform.position + (ToVector * outerslotdistance));
+            Vector3 NewLocation = (Owner.Behavior.Movement.Position + (ToVector * outerslotdistance));
             return NewLocation;
         }
 

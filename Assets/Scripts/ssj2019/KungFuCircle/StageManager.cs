@@ -26,7 +26,7 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
 
         public void Register(KungFuGrid grid) {
             GridCount++;
-            Actor NewActor = grid.GetComponentInParent<Actor>();
+            Actor NewActor = grid.Owner;
             if (NewActor != null)
                 _KungFuGrids.Add(NewActor, grid);
 
@@ -34,7 +34,7 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
 
         public void Unregister(KungFuGrid grid) {
             GridCount--;
-            Actor NewActor = grid.GetComponentInParent<Actor>();
+            Actor NewActor = grid.Owner;
             if (NewActor != null)
                 _KungFuGrids.Remove(NewActor);
         }

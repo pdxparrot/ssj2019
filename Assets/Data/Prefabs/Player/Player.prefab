@@ -1317,6 +1317,7 @@ MonoBehaviour:
   degreesbetweenslots: 90
   attackslotdistance: 0.5
   outerslotdistance: 2
+  owner: {fileID: 463285651185603561}
 --- !u!1 &7835375812971009641
 GameObject:
   m_ObjectHideFlags: 0
