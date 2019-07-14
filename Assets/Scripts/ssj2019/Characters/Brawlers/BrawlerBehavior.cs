@@ -111,10 +111,10 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         [SerializeField]
         [ReadOnly]
         [CanBeNull]
-        private ComboData _currentComboMove;
+        private BrawlerCombo.IComboEntry _currentComboEntry;
 
         [CanBeNull]
-        public AttackData CurrentAttack => null == _currentComboMove ? null : _currentComboMove.AttackData;
+        public AttackData CurrentAttack => null == _currentComboEntry ? null : _currentComboEntry.Move.AttackData;
 #endregion
 
         [Space(10)]
@@ -180,12 +180,9 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         {
             Assert.IsNotNull(Brawler);
             Assert.IsNotNull(Brawler.BrawlerData);
-            Assert.IsNotNull(Brawler.BrawlerData.ComboData);
 
             _jumpBehaviorComponent.JumpBehaviorComponentData = Brawler.BrawlerData.JumpBehaviorComponentData;
             _dashBehaviorComponent.DashBehaviorComponentData = Brawler.BrawlerData.DashBehaviorComponentData;
-
-            Brawler.BrawlerData.ComboData.Validate();
         }
 
 #region Actions
@@ -250,19 +247,18 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 #region Combos
         public bool AdvanceCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
         {
-            if(null == _currentComboMove) {
-                _currentComboMove = Brawler.BrawlerData.ComboData.NextMove(action);
-                Assert.IsNotNull(_currentComboMove);
+            if(null == _currentComboEntry) {
+                _currentComboEntry = Brawler.BrawlerCombo.RootComboEntry.NextEntry(action);
             } else {
-                _currentComboMove = _currentComboMove.NextMove(action);
+                _currentComboEntry = _currentComboEntry.NextEntry(action);
             }
 
-            if(null == _currentComboMove) {
+            if(null == _currentComboEntry) {
                 return false;
             }
 
             if(GameManager.Instance.DebugBrawlers) {
-                Debug.Log($"Brawler {Owner.Id} starting combo {_currentComboMove.Name}");
+                Debug.Log($"Brawler {Owner.Id} advancing combo to {_currentComboEntry.Move.Id}");
             }
 
             return true;
@@ -286,7 +282,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 Debug.Log($"Brawler {Owner.Id} combo failed / exhausted");
             }
 
-            _currentComboMove = null;
+            _currentComboEntry = null;
         }
 #endregion
 
@@ -396,12 +392,12 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 #region Spawn
         public void OnSpawn()
         {
-            _currentComboMove = null;
+            _currentComboEntry = null;
         }
 
         public void OnReSpawn()
         {
-            _currentComboMove = null;
+            _currentComboEntry = null;
         }
 #endregion
 

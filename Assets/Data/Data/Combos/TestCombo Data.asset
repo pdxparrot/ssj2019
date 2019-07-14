@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: TestCombo Data
   m_EditorClassIdentifier: 
   _name: Test NPC Combo
-  _type: 0
-  _attackData: {fileID: 0}
-  _combos:
-  - {fileID: 11400000, guid: 3297872793e348e47adcfa342b3faec2, type: 2}
-  - {fileID: 11400000, guid: 4d7dad345492d7e4a9347d65691f9b74, type: 2}
+  _moves:
+    _items:
+    - _type: 0
+      _attackData: {fileID: 11400000, guid: a252acba28613df4592992d0ea53e879, type: 2}
+    - _type: 0
+      _attackData: {fileID: 11400000, guid: 69641e5696fd2364eb5d109d538bc4d1, type: 2}

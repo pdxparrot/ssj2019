@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using pdxpartyparrot.Game.Data.Characters.BehaviorComponents;
 
@@ -96,9 +97,9 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
 
 #region Combos
         [SerializeField]
-        private ComboData _comboData;
+        private ComboData[] _combos;
 
-        public ComboData ComboData => _comboData;
+        public IReadOnlyCollection<ComboData> Combos => _combos;
 #endregion
 
         [Space(10)]

@@ -24,7 +24,8 @@ MonoBehaviour:
   _blockVolumeOffset: {x: 0.5, y: 1.286, z: 0}
   _blockVolumeSize: {x: 1, y: 1, z: 1}
   _blockBoneName: root
-  _comboData: {fileID: 11400000, guid: eccf4b5a93f4f96489bbf801a03db087, type: 2}
+  _combos:
+  - {fileID: 11400000, guid: eccf4b5a93f4f96489bbf801a03db087, type: 2}
   _jumpBehaviorComponentData: {fileID: 11400000, guid: 00c1c44626c43724188d395aba4b9726,
     type: 2}
   _dashBehaviorComponentData: {fileID: 11400000, guid: ff88e6eaa7fde694daeb3e315877bcae,

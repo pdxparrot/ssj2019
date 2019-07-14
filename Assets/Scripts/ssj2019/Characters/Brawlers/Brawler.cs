@@ -35,6 +35,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         public BrawlerData BrawlerData => _brawlerData;
 
+        public BrawlerCombo BrawlerCombo { get; } = new BrawlerCombo();
+
         [SerializeField]
         [ReadOnly]
         private BrawlerAction _currentAction;
@@ -50,6 +52,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         public void Initialize(BrawlerData brawlerData)
         {
             _brawlerData = brawlerData;
+            BrawlerCombo.Initialize(BrawlerData.Combos);
+
             _brawlerBehavior.Initialize();
         }
 

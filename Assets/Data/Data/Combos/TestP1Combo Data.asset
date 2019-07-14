@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: TestP1Combo Data
   m_EditorClassIdentifier: 
   _name: Test Player Combo
-  _type: 0
-  _attackData: {fileID: 0}
-  _combos:
-  - {fileID: 11400000, guid: fb33b06250bda1d469663d9628f30468, type: 2}
-  - {fileID: 11400000, guid: 5f299b900586fa54bbb80e9b2e2bc144, type: 2}
+  _moves:
+    _items:
+    - _type: 0
+      _attackData: {fileID: 11400000, guid: 0b2e4817866041e40bdb8c8c36fc1c84, type: 2}
+    - _type: 0
+      _attackData: {fileID: 11400000, guid: 8e3f44b103df21d46874c2d86319c1b2, type: 2}
