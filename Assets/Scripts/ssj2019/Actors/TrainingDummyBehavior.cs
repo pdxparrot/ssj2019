@@ -16,7 +16,7 @@ namespace pdxpartyparrot.ssj2019.Actors
 
         public bool OnDamage(Actor source, string type, int amount, Bounds damageVolume, Vector3 force)
         {
-            _floatingTextEffectTriggerComponent.Text = $"{amount}";
+            _floatingTextEffectTriggerComponent.Text = $"{type}: {amount}";
 
             _damageEffect.Trigger();
             return true;
