@@ -8,6 +8,7 @@ using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
+using pdxpartyparrot.Core.KungFuCircle;
 using pdxpartyparrot.Game.Characters.NPCs;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ssj2019.Characters.Brawlers;
@@ -74,6 +75,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
         [ReadOnly]
         [CanBeNull]
         private Actor _target;
+        [SerializeField]
+        [ReadOnly]
+        private Vector3 attackslotlocation;
 
         private BrawlerBehavior _brawlerBehavior;
 
@@ -254,7 +258,6 @@ namespace pdxpartyparrot.ssj2019.NPCs
             // if we have something else we can attack, attack it
             if(interactablePlayers.Count > 0) {
                 SetTarget(interactablePlayers.ElementAt(0) as Player);
-
                 SetState(State.Attack);
                 return;
             }
@@ -262,7 +265,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
             // This will change in the future where the target will become the grid position,
             // Not just the targets location, if the actor has a Grid script
             // can't attack our target, so follow it
-            NPCBrawler.UpdatePath(_target.Behavior.Movement.Position);
+            attackslotlocation = StageManager.Instance.RequestAttackSlotLocation(_target, Owner);
+            NPCBrawler.UpdatePath(attackslotlocation);
         }
 
         private void HandleAttack()

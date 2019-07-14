@@ -54,3 +54,7 @@ crashlytics-build.properties
 
 # don't commit Spine runtime
 Assets/Spine*
+Assets/Scripts/ssj2019/NPCs/NPCBehavior - Copy.cs.meta
+Assets/Scripts/ssj2019/NPCs/NPCBehavior - Copy.cs
+Assets/Data/Prefabs/Player/Player - Copy.prefab.meta
+Assets/Data/Prefabs/Player/Player - Copy.prefab
