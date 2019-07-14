@@ -19,6 +19,7 @@ namespace pdxpartyparrot.Core.Effects
         }
 
         [SerializeField]
+        [ReorderableList]
         private ReorderableList _triggerOnComplete = new ReorderableList();
 
         [SerializeField]
