@@ -15,7 +15,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         {
             ComboMove Move { get; }
 
-            IReadOnlyDictionary<string, IComboEntry> ComboEntries { get; }
+            IReadOnlyCollection<IComboEntry> ComboEntries { get; }
 
             [CanBeNull]
             IComboEntry NextEntry(CharacterBehaviorComponent.CharacterBehaviorAction action);
@@ -25,24 +25,24 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         {
             public ComboMove Move { get; set; }
 
-            public readonly Dictionary<string, IComboEntry> comboEntries = new Dictionary<string, IComboEntry>();
+            public readonly List<IComboEntry> comboEntries = new List<IComboEntry>();
 
-            public IReadOnlyDictionary<string, IComboEntry> ComboEntries => comboEntries;
+            public IReadOnlyCollection<IComboEntry> ComboEntries => comboEntries;
 
             [CanBeNull]
             public IComboEntry NextEntry(CharacterBehaviorComponent.CharacterBehaviorAction action)
             {
                 if(action is DashBehaviorComponent.DashAction) {
-                    foreach(var kvp in comboEntries) {
-                        if(ComboMove.ComboMoveType.Dash == kvp.Value.Move.Type) {
-                            return kvp.Value;
+                    foreach(IComboEntry comboEntry in comboEntries) {
+                        if(ComboMove.ComboMoveType.Dash == comboEntry.Move.Type) {
+                            return comboEntry;
                         }
                     }
                 } else if(action is AttackBehaviorComponent.AttackAction) {
-                    foreach(var kvp in comboEntries) {
+                    foreach(IComboEntry comboEntry in comboEntries) {
                         // TODO: handle the other attack parameters
-                        if(ComboMove.ComboMoveType.Attack == kvp.Value.Move.Type) {
-                            return kvp.Value;
+                        if(ComboMove.ComboMoveType.Attack == comboEntry.Move.Type) {
+                            return comboEntry;
                         }
                     }
                 }
@@ -72,14 +72,19 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
             ComboMove move = comboData.Moves.ElementAt(depth);
 
-            ComboEntry nextComboEntry;
-            if(comboEntry.comboEntries.ContainsKey(move.Id)) {
-                nextComboEntry = (ComboEntry)comboEntry.comboEntries[move.Id];
-            } else {
+            ComboEntry nextComboEntry = null;
+            foreach(IComboEntry entry in comboEntry.comboEntries) {
+                if(comboEntry.Move.Equals(entry.Move)) {
+                    nextComboEntry = (ComboEntry)entry;
+                    break;
+                }
+            }
+
+            if(null == nextComboEntry) {
                 nextComboEntry = new ComboEntry{
                     Move = move,
                 };
-                comboEntry.comboEntries.Add(move.Id, nextComboEntry);
+                comboEntry.comboEntries.Add(nextComboEntry);
             }
 
             AddComboData(nextComboEntry, comboData, depth + 1);

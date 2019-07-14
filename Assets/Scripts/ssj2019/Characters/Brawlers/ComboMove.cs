@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using JetBrains.Annotations;
 
@@ -10,7 +10,7 @@ using UnityEngine;
 namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 {
     [Serializable]
-    public sealed class ComboMove
+    public sealed class ComboMove : IEquatable<ComboMove>
     {
         [Serializable]
         public class ReorderableList : ReorderableList<ComboMove>
@@ -33,7 +33,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             get
             {
                 if(ComboMoveType.Attack == _type) {
-                    return $"{Type}_{_attackData.Id}";
+                    return $"{Type}_{_attackData.Name}";
                 }
                 return $"{Type}";
             }
@@ -45,5 +45,16 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         [CanBeNull]
         public AttackData AttackData => _attackData;
+
+        public bool Equals(ComboMove other)
+        {
+            if(null == other || Type != other.Type) {
+                return false;
+            }
+
+            return ComboMoveType.Attack == Type
+                ? null == AttackData ? false : AttackData.Equals(other.AttackData)
+                : true;
+        }
     }
 }

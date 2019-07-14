@@ -6,7 +6,7 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
 {
     [CreateAssetMenu(fileName="AttackData", menuName="pdxpartyparrot/ssj2019/Data/Brawlers/Attack Data")]
     [Serializable]
-    public sealed class AttackData : ScriptableObject
+    public sealed class AttackData : ScriptableObject, IEquatable<AttackData>
     {
         public enum Direction
         {
@@ -16,8 +16,6 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
             Left,
             Right
         }
-
-        public string Id => $"{AttackDirection}_{_airAttack}";
 
         [SerializeField]
         private string _name;
@@ -94,5 +92,10 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
 
         public string AnimationName => _animationName;
 #endregion
+
+        public bool Equals(AttackData other)
+        {
+            return null != other && AttackDirection == other.AttackDirection && AirAttack == other.AirAttack;
+        }
     }
 }
