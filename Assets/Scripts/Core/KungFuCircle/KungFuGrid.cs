@@ -65,6 +65,7 @@ namespace pdxpartyparrot.Core.KungFuCircle
             return slotstaken[i];
         }
 
+
         public int GetAvailableGridSlot()
         {
             for (int i = 0; i < maxgridslots; i++)

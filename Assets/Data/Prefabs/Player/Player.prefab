@@ -1316,7 +1316,7 @@ MonoBehaviour:
   maxgridslots: 1
   degreesbetweenslots: 90
   attackslotdistance: 0.5
-  outerslotdistance: 1
+  outerslotdistance: 2
 --- !u!1 &7835375812971009641
 GameObject:
   m_ObjectHideFlags: 0

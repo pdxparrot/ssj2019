@@ -56,7 +56,7 @@ namespace pdxpartyparrot.Core.KungFuCircle
                 actorgrid.FillGridSlot(gridslotindex);
                 return actorgrid.GetAttackSlotLocation(gridslotindex);
             }
-           
+
             return actorgrid.GetOuterSlotLocation(Attacker);
         }
     }

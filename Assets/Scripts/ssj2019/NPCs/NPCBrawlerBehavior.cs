@@ -266,6 +266,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             // Not just the targets location, if the actor has a Grid script
             // can't attack our target, so follow it
             attackslotlocation = StageManager.Instance.RequestAttackSlotLocation(_target, Owner);
+    
             NPCBrawler.UpdatePath(attackslotlocation);
         }
 
