@@ -8,11 +8,11 @@ using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
-using pdxpartyparrot.Core.KungFuCircle;
 using pdxpartyparrot.Game.Characters.NPCs;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ssj2019.Characters.Brawlers;
 using pdxpartyparrot.ssj2019.Data.NPCs;
+using pdxpartyparrot.ssj2019.KungFuCircle;
 using pdxpartyparrot.ssj2019.Players;
 
 using UnityEngine;

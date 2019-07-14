@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 
 using pdxpartyparrot.Core.Actors;
-using pdxpartyparrot.Core.KungFuCircle;
 using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.Core.KungFuCircle
+namespace pdxpartyparrot.ssj2019.KungFuCircle
 {
     public class KungFuGrid : MonoBehaviour
     {

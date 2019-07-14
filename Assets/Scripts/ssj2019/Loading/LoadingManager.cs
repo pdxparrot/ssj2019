@@ -1,4 +1,5 @@
 ﻿using pdxpartyparrot.Game.Loading;
+using pdxpartyparrot.ssj2019.KungFuCircle;
 using pdxpartyparrot.ssj2019.NPCs;
 using pdxpartyparrot.ssj2019.Players;
 
@@ -21,6 +22,9 @@ namespace pdxpartyparrot.ssj2019.Loading
 
         [SerializeField]
         private NPCManager _npcManagerPrefab;
+
+        [SerializeField]
+        private StageManager _stageManagerPrefab;
 #endregion
 
         protected override void CreateManagers()
@@ -30,6 +34,7 @@ namespace pdxpartyparrot.ssj2019.Loading
             GameManager.CreateFromPrefab(_gameManagerPrefab, ManagersContainer);
             PlayerManager.CreateFromPrefab(_playerManagerPrefab, ManagersContainer);
             NPCManager.CreateFromPrefab(_npcManagerPrefab, ManagersContainer);
+            StageManager.CreateFromPrefab(_stageManagerPrefab, ManagersContainer);
         }
     }
 }

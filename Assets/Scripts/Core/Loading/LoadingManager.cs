@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using DG.Tweening;
 
-using pdxpartyparrot.Core.KungFuCircle;
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Audio;
 using pdxpartyparrot.Core.Camera;
@@ -85,9 +84,6 @@ namespace pdxpartyparrot.Core.Loading
 
         [SerializeField]
         private ActorManager _actorManagerPrefab;
-
-        [SerializeField]
-        private StageManager _stageManagerPrefab;
 
         [SerializeField]
         private EffectsManager _effectsManagerPrefab;
@@ -190,7 +186,6 @@ namespace pdxpartyparrot.Core.Loading
             TerrainManager.Create(ManagersContainer);
             ScriptingManager.Create(ManagersContainer);
             SpawnManager.CreateFromPrefab(_spawnManagerPrefab, ManagersContainer);
-            StageManager.CreateFromPrefab(_stageManagerPrefab, ManagersContainer);
         }
 
         protected virtual IEnumerator<LoadStatus> InitializeManagersRoutine()
