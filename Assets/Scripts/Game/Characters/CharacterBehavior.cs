@@ -7,6 +7,7 @@ using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.DebugMenu;
+using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
@@ -35,6 +36,11 @@ namespace pdxpartyparrot.Game.Characters
             public bool Expired(int timeout)
             {
                 return TimeManager.Instance.CurrentUnixMs - TimestampMs > timeout;
+            }
+
+            public override string ToString()
+            {
+                return $"[{TimestampMs}]: {Action}";
             }
         }
 
@@ -77,7 +83,33 @@ namespace pdxpartyparrot.Game.Characters
         public bool IsFalling => Movement.UseGravity && (!IsGrounded && !IsSliding && Movement.Velocity.y < 0.0f);
 #endregion
 
-        public override bool CanMove => base.CanMove && !GameStateManager.Instance.GameManager.IsGameOver;
+        [Space(10)]
+
+#region Effects
+        [Header("Character Effects")]
+
+        [SerializeField]
+        [CanBeNull]
+        protected EffectTrigger _idleEffect;
+#endregion
+
+        // TODO: this has become too expensive for a property
+        // make it a method instead
+        public override bool CanMove => base.CanMove && !CharacterMovement.IsComponentControlling && !GameStateManager.Instance.GameManager.IsGameOver;
+
+        // TODO: this can be a parameter to the GetCanMove() method
+        private bool CanMoveNoComponents
+        {
+            get
+            {
+                // TODO: make this configurable
+                if(GameStateManager.Instance.GameManager.IsGameOver) {
+                    return false;
+                }
+
+                return base.CanMove;
+            }
+        }
 
 #region Action Buffer
         [CanBeNull]
@@ -202,7 +234,7 @@ namespace pdxpartyparrot.Game.Characters
 
         protected override void AnimationUpdate(float dt)
         {
-            if(!CanMove) {
+            if(!CanMoveNoComponents) {
                 return;
             }
 
@@ -211,7 +243,7 @@ namespace pdxpartyparrot.Game.Characters
 
         protected override void PhysicsUpdate(float dt)
         {
-            if(!CanMove) {
+            if(!CanMoveNoComponents) {
                 return;
             }
 
@@ -224,7 +256,7 @@ namespace pdxpartyparrot.Game.Characters
                 return;
             }
 
-            SetFacing(forward);
+            Owner.SetFacing(forward);
         }
 
 #region Debug Menu

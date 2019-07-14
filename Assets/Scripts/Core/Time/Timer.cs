@@ -7,9 +7,9 @@ namespace pdxpartyparrot.Core.Time
     public interface ITimer
     {
 #region Events
-        event EventHandler StartEvent;
-        event EventHandler StopEvent;
-        event EventHandler TimesUpEvent;
+        event EventHandler<EventArgs> StartEvent;
+        event EventHandler<EventArgs> StopEvent;
+        event EventHandler<EventArgs> TimesUpEvent;
 #endregion
 
         float TimerSeconds { get; }

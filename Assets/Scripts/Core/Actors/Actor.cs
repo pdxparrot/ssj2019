@@ -3,6 +3,7 @@
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Data;
+using pdxpartyparrot.Core.Math;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
 
@@ -43,6 +44,16 @@ namespace pdxpartyparrot.Core.Actors
         public ActorBehavior Behavior => _behavior;
 #endregion
 
+        [SerializeField]
+        [ReadOnly]
+        private Vector3 _facingDirection = new Vector3(1.0f, 0.0f, 0.0f);
+
+        public Vector3 FacingDirection
+        {
+            get => _facingDirection;
+            private  set => _facingDirection = value;
+        }
+
 #region Network
         public abstract bool IsLocalActor { get; }
 #endregion
@@ -71,6 +82,29 @@ namespace pdxpartyparrot.Core.Actors
             name = Id.ToString();
 
             Behavior.Initialize(behaviorData);
+        }
+
+        public virtual void SetFacing(Vector3 direction)
+        {
+            if(direction.sqrMagnitude < MathUtil.Epsilon) {
+                return;
+            }
+
+            FacingDirection = direction.normalized;
+
+#if USE_SPINE
+            if(null != Behavior.SpineAnimationHelper) {
+                Behavior.SpineAnimationHelper.SetFacing(FacingDirection);
+            }
+#endif
+
+            if(null != Behavior.SpriteAnimationHelper) {
+                Behavior.SpriteAnimationHelper.SetFacing(FacingDirection);
+            }
+
+            if(null != Model && Behavior.BehaviorData.AnimateModel) {
+                Model.transform.forward = FacingDirection;
+            }
         }
 
         // TODO: would be better if we id radius (x) and height (y) separately

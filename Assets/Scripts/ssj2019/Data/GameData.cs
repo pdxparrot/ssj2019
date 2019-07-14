@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Game.UI;
+using pdxpartyparrot.ssj2019.Actors;
 using pdxpartyparrot.ssj2019.Camera;
+using pdxpartyparrot.ssj2019.Data.Players;
 
 using UnityEngine;
 
@@ -43,5 +46,24 @@ namespace pdxpartyparrot.ssj2019.Data
 
         public IReadOnlyCollection<PlayerCharacterData> PlayerCharacterData => _playerCharacterData.Items;
 #endregion
+
+        [Space(10)]
+
+        [SerializeField]
+        private FloatingText _floatingTextPrefab;
+
+        public FloatingText FloatingTextPrefab => _floatingTextPrefab;
+
+        [SerializeField]
+        private int _floatingTextPoolSize = 10;
+
+        public int FloatingTextPoolSize => _floatingTextPoolSize;
+
+        [Space(10)]
+
+        [SerializeField]
+        private TrainingDummy _trainingDummyPrefab;
+
+        public TrainingDummy TrainingDummyPrefab => _trainingDummyPrefab;
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 {
-    public sealed class JumpBehaviorComponent : CharacterBehaviorComponent
+    public class JumpBehaviorComponent : CharacterBehaviorComponent
     {
 #region Actions
         public class JumpAction : CharacterBehaviorAction
@@ -18,6 +18,12 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         [SerializeField]
         private JumpBehaviorComponentData _data;
+
+        public JumpBehaviorComponentData JumpBehaviorComponentData
+        {
+            get => _data;
+            set => _data = value;
+        }
 
         [Space(10)]
 

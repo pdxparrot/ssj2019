@@ -18,9 +18,9 @@ namespace pdxpartyparrot.Core.Time
         private sealed class Timer : ITimer
         {
 #region Events
-            public event EventHandler StartEvent;
-            public event EventHandler StopEvent;
-            public event EventHandler TimesUpEvent;
+            public event EventHandler<EventArgs> StartEvent;
+            public event EventHandler<EventArgs> StopEvent;
+            public event EventHandler<EventArgs> TimesUpEvent;
 #endregion
 
             [SerializeField]
