@@ -17,12 +17,6 @@ namespace pdxpartyparrot.Game.Characters
 
         public CharacterFlightMovementData FlightMovementData => _data;
 
-        [SerializeField]
-        [ReadOnly]
-        private bool _isComponentControlling;
-
-        public bool IsComponentControlling { get; set; }
-
 #region Physics
         [SerializeField]
         [ReadOnly]
@@ -68,26 +62,18 @@ namespace pdxpartyparrot.Game.Characters
         }
 #endregion
 
-        protected override void InitRigidbody(ActorBehaviorData behaviorData)
+        protected override void InitRigidbody(Rigidbody rb, ActorBehaviorData behaviorData)
         {
-            base.InitRigidbody(behaviorData);
+            base.InitRigidbody(rb, behaviorData);
 
-            CharacterBehaviorData characterBehaviorData = behaviorData as CharacterBehaviorData;
-            Assert.IsNotNull(characterBehaviorData);
-
-            RigidBody.isKinematic = false;
-            RigidBody.useGravity = true;
-            RigidBody.freezeRotation = true;
-            RigidBody.detectCollisions = true;
-            RigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+            rb.isKinematic = false;
+            rb.useGravity = true;
+            rb.freezeRotation = true;
+            rb.detectCollisions = true;
+            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
 
             // we run the follow cam in FixedUpdate() and interpolation interferes with that
-            RigidBody.interpolation = RigidbodyInterpolation.None;
-        }
-
-        public void EnableDynamicCollisionDetection(bool enable)
-        {
-            RigidBody.collisionDetectionMode = enable ? CollisionDetectionMode.ContinuousDynamic : CollisionDetectionMode.ContinuousSpeculative;
+            rb.interpolation = RigidbodyInterpolation.None;
         }
 
         public void Jump(float height)

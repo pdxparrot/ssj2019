@@ -19,7 +19,6 @@ namespace pdxpartyparrot.Game.Characters.Players
         protected override void AnimationUpdate(float dt)
         {
             if(!CanMove || null == Owner.Model) {
-                base.AnimationUpdate(dt);
                 return;
             }
 
@@ -43,7 +42,6 @@ namespace pdxpartyparrot.Game.Characters.Players
         protected override void PhysicsUpdate(float dt)
         {
             if(!CanMove) {
-                base.PhysicsUpdate(dt);
                 return;
             }
 

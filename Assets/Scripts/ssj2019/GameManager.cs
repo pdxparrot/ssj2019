@@ -4,20 +4,15 @@ using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.Collections;
-using pdxpartyparrot.Core.DebugMenu;
-using pdxpartyparrot.Core.ObjectPool;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game;
 using pdxpartyparrot.Game.State;
-using pdxpartyparrot.Game.UI;
 using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Data;
-using pdxpartyparrot.ssj2019.Data.Players;
 using pdxpartyparrot.ssj2019.Level;
 using pdxpartyparrot.ssj2019.Players;
 
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.ssj2019
@@ -30,13 +25,6 @@ namespace pdxpartyparrot.ssj2019
 
             public int PlayerNumber { get;  set;}
         }
-
-#region Debug
-        [SerializeField]
-        private bool _debugBrawlers;
-
-        public bool DebugBrawlers => _debugBrawlers;
-#endregion
 
         [SerializeField]
         private MainGameState _mainGameStatePrefab;
@@ -58,24 +46,6 @@ namespace pdxpartyparrot.ssj2019
 
         private readonly HashSet<Player> _activePlayers = new HashSet<Player>();
 
-        private DebugMenuNode _debugMenuNode;
-
-#region Unity Lifecycle
-        protected override void Awake()
-        {
-            base.Awake();
-
-            InitDebugMenu();
-        }
-
-        protected override void OnDestroy()
-        {
-            DestroyDebugMenu();
-
-            base.OnDestroy();
-        }
-#endregion
-
         public override void Shutdown()
         {
             _characters.Clear();
@@ -83,30 +53,13 @@ namespace pdxpartyparrot.ssj2019
             base.Shutdown();
         }
 
-#region Object Pools
-        protected override void InitializeObjectPools()
-        {
-            PooledObject pooledObject = GameGameData.FloatingTextPrefab.GetComponent<PooledObject>();
-            ObjectPoolManager.Instance.InitializePoolAsync(GameUIManager.Instance.DefaultFloatingTextPoolName, pooledObject, GameGameData.FloatingTextPoolSize);
-        }
-
-        protected override void DestroyObjectPools()
-        {
-            if(ObjectPoolManager.HasInstance) {
-                ObjectPoolManager.Instance.DestroyPool(GameUIManager.Instance.DefaultFloatingTextPoolName);
-            }
-        }
-#endregion
-
         public void RegisterLevelHelper(LevelHelper levelHelper)
         {
-            Assert.IsNull(_levelHelper);
             _levelHelper = levelHelper;
         }
 
         public void UnRegisterLevelHelper(LevelHelper levelHelper)
         {
-            Assert.IsTrue(levelHelper == _levelHelper);
             _levelHelper = null;
         }
 
@@ -181,21 +134,5 @@ namespace pdxpartyparrot.ssj2019
             }
         }
 #endregion
-
-        private void InitDebugMenu()
-        {
-            _debugMenuNode = DebugMenuManager.Instance.AddNode(() => "ssj2019.GameManager");
-            _debugMenuNode.RenderContentsAction = () => {
-                _debugBrawlers = GUILayout.Toggle(_debugBrawlers, "Debug Brawlers");
-            };
-        }
-
-        private void DestroyDebugMenu()
-        {
-            if(DebugMenuManager.HasInstance) {
-                DebugMenuManager.Instance.RemoveNode(_debugMenuNode);
-            }
-            _debugMenuNode = null;
-        }
     }
 }

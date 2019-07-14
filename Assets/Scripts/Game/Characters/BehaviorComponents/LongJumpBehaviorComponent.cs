@@ -10,7 +10,7 @@ using UnityEngine;
 namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 {
     [RequireComponent(typeof(JumpBehaviorComponent))]
-    public class LongJumpBehaviorComponent : CharacterBehaviorComponent
+    public sealed class LongJumpBehaviorComponent : CharacterBehaviorComponent
     {
         [SerializeField]
         private LongJumpBehaviorComponentData _data;

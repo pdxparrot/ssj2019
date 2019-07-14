@@ -4,7 +4,6 @@ using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Data;
-using pdxpartyparrot.Core.Math;
 using pdxpartyparrot.Core.ObjectPool;
 using pdxpartyparrot.Game.Data.Characters;
 
@@ -51,17 +50,6 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             Assert.IsTrue(behaviorData is NPCBehaviorData);
 
             base.Initialize(id, behaviorData);
-        }
-
-        public override void SetFacing(Vector3 direction)
-        {
-            direction = new Vector3(direction.x, 0.0f, 0.0f);
-
-            if(direction.sqrMagnitude < MathUtil.Epsilon) {
-                return;
-            }
-
-            base.SetFacing(direction);
         }
 
 #region Pathing

@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using pdxpartyparrot.Core.Math;
 using pdxpartyparrot.Game.Menu;
 using pdxpartyparrot.Game.State;
-using pdxpartyparrot.ssj2019.Data.Players;
+using pdxpartyparrot.ssj2019.Data;
 using pdxpartyparrot.ssj2019.UI;
 
 using UnityEngine;

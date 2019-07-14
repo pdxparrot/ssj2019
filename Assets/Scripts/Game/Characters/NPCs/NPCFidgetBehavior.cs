@@ -28,14 +28,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         public Vector3 Origin
         {
             get => _origin;
-            set
-            {
-                _origin = value;
-
-                // TODO: whenever NPCManager moves to Game,
-                // we can do this when DebugBehavior is true
-                //Debug.Log($"NPC {_owner.Id} reset fidget origin to {_origin}");
-            }
+            set => _origin = value;
         }
 
         [SerializeField]
@@ -71,10 +64,6 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             if(_cooldown.IsRunning || _owner.Behavior.IsMoving) {
                 return;
             }
-
-            // TODO: whenever NPCManager moves to Game,
-            // we can do this when DebugBehavior is true
-            //Debug.Log($"NPC {_owner.Id} fidgeting");
 
             _offset = new Vector3(_fidgetRange.GetRandomValue() * PartyParrotManager.Instance.Random.NextSign(),
                                   0.0f,

@@ -7,7 +7,6 @@ using JetBrains.Annotations;
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.Data;
-using pdxpartyparrot.Core.Math;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Camera;
 using pdxpartyparrot.Game.Data.Characters;
@@ -104,17 +103,6 @@ namespace pdxpartyparrot.Game.Characters.Players
             PlayerBehavior.InitializeLocalPlayerBehavior();
 
             return true;
-        }
-
-        public override void SetFacing(Vector3 direction)
-        {
-            direction = new Vector3(direction.x, 0.0f, 0.0f);
-
-            if(direction.sqrMagnitude < MathUtil.Epsilon) {
-                return;
-            }
-
-            base.SetFacing(direction);
         }
 
 #region Spawn

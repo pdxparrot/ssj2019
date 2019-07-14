@@ -11,7 +11,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
     {
         public NPCBehaviorData NPCBehaviorData => (NPCBehaviorData)BehaviorData;
 
-        public INPC NPCOwner => (INPC)Owner;
+        public INPC NPC => (INPC)Owner;
 
         public abstract Vector3 MoveDirection { get; }
 
@@ -39,7 +39,6 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         protected override void AnimationUpdate(float dt)
         {
             if(!CanMove) {
-                base.AnimationUpdate(dt);
                 return;
             }
 
@@ -48,8 +47,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             AlignToMovement(moveDirection);
 
             if(null != Animator) {
-                Animator.SetFloat(CharacterBehaviorData.MoveXAxisParam, CanMove ? Mathf.Abs(moveDirection.x) : 0.0f);
-                Animator.SetFloat(CharacterBehaviorData.MoveZAxisParam, CanMove ? Mathf.Abs(moveDirection.y) : 0.0f);
+                Animator.SetFloat(NPCBehaviorData.MoveXAxisParam, CanMove ? Mathf.Abs(moveDirection.x) : 0.0f);
+                Animator.SetFloat(NPCBehaviorData.MoveZAxisParam, CanMove ? Mathf.Abs(moveDirection.y) : 0.0f);
             }
 
             base.AnimationUpdate(dt);
@@ -60,17 +59,16 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         /*protected override void PhysicsUpdate(float dt)
         {
             if(!CanMove) {
-                base.PhysicsUpdate(dt);
                 return;
             }
 
-            if(!CharacterBehaviorData.AllowAirControl && IsFalling) {
+            if(!NPCBehaviorData.AllowAirControl && IsFalling) {
                 return;
             }
 
             Vector3 moveDirection = MoveDirection;
 
-            Vector3 velocity = moveDirection * CharacterBehaviorData.MoveSpeed;
+            Vector3 velocity = moveDirection * NPCBehaviorData.MoveSpeed;
             velocity = Movement.Rotation * velocity;
 
             if(Movement.IsKinematic) {

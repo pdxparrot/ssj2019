@@ -27,35 +27,13 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         [SerializeField]
         private string _spineAnimationName = "default";
 
-        public string SpineAnimationName
-        {
-            get => _spineAnimationName;
-            set => _spineAnimationName = value;
-        }
-
         [SerializeField]
         private int _spineAnimationTrack;
-
-        public int SpineAnimationTrack
-        {
-            get => _spineAnimationTrack;
-            set => _spineAnimationTrack = value;
-        }
-
-        [SerializeField]
-        private bool _loop;
-
-        public bool Loop
-        {
-            get => _loop;
-            set => _loop = value;
-        }
 
         [SerializeField]
         private bool _waitForComplete = true;
 
-        // don't wait for complete if the animation should loop
-        public override bool WaitForComplete => !Loop && _waitForComplete;
+        public override bool WaitForComplete => _waitForComplete;
 
         public override bool IsDone => null == _trackEntry || _trackEntry.IsComplete;
 
@@ -68,7 +46,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
                     Debug.Log($"Triggering Spine animation {_spineAnimationName} on track {_spineAnimationTrack}");
                 }
 
-                _trackEntry = _spineAnimation.SetAnimation(_spineAnimationTrack, _spineAnimationName, Loop);
+                _trackEntry = _spineAnimation.SetAnimation(_spineAnimationTrack, _spineAnimationName, false);
                 _trackEntry.Complete += OnComplete;
 
                 StartEvent?.Invoke(this, new EventArgs{

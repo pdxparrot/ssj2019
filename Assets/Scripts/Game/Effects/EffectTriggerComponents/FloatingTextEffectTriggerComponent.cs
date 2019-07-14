@@ -13,20 +13,8 @@ namespace pdxpartyparrot.Game.Effects.EffectTriggerComponents
         [SerializeField]
         private string _text;
 
-        public string Text
-        {
-            get => _text;
-            set => _text = value;
-        }
-
         [SerializeField]
         private Color _color;
-
-        public Color Color
-        {
-            get => _color;
-            set => _color = value;
-        }
 
         [SerializeField]
         private Transform _spawnLocation;

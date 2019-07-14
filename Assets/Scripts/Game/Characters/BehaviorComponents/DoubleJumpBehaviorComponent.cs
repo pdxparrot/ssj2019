@@ -9,7 +9,7 @@ using UnityEngine;
 namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 {
     [RequireComponent(typeof(JumpBehaviorComponent))]
-    public class DoubleJumpBehaviorComponent : CharacterBehaviorComponent
+    public sealed class DoubleJumpBehaviorComponent : CharacterBehaviorComponent
     {
         [SerializeField]
         private DoubleJumpBehaviorComponentData _data;

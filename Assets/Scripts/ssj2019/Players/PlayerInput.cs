@@ -1,7 +1,7 @@
 ﻿using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Game.Players.Input;
-using pdxpartyparrot.ssj2019.Data.Players;
+using pdxpartyparrot.ssj2019.Data;
 using pdxpartyparrot.ssj2019.Input;
 
 using UnityEngine;
@@ -117,21 +117,6 @@ namespace pdxpartyparrot.ssj2019.Players
                 GamePlayer.GamePlayerBehavior.Block(LastMove);
             } else if(context.canceled) {
                 Debug.LogWarning("TODO: handle block cancel");
-            }
-        }
-
-        public void OnDash(InputAction.CallbackContext context)
-        {
-            if(!InputEnabled || !IsOurDevice(context)) {
-                return;
-            }
-
-            if(PlayerManager.Instance.DebugInput) {
-                Debug.Log($"Dash: {context.action.phase}");
-            }
-
-            if(context.performed) {
-                GamePlayer.GamePlayerBehavior.Dash();
             }
         }
 #endregion

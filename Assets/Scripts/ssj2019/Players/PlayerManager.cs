@@ -2,7 +2,7 @@
 
 using JetBrains.Annotations;
 
-using pdxpartyparrot.ssj2019.Data.Players;
+using pdxpartyparrot.ssj2019.Data;
 
 using UnityEngine;
 

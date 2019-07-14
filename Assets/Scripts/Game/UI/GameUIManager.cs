@@ -55,7 +55,7 @@ namespace pdxpartyparrot.Game.UI
         private float _floatingTextSpawnRate = 0.1f;
 
         [SerializeField]
-        private float _floatingTextSpawnOffset = 0.5f;
+        private float _floatingTextSpawnOffset = 1.0f;
 
         [SerializeField]
         [ReadOnly]

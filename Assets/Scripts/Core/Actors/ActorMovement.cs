@@ -100,7 +100,7 @@ namespace pdxpartyparrot.Core.Actors
         }
 #endregion
 
-        public virtual void Initialize(ActorBehaviorData behaviorData)
+        public virtual void Initialize(ActorBehaviorData behaviorDat)
         {
             Rotation = Quaternion.identity;
             Velocity = Vector3.zero;

@@ -1,7 +1,5 @@
-﻿using pdxpartyparrot.Core.Effects;
-using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
-using pdxpartyparrot.ssj2019.Characters.Brawlers;
-using pdxpartyparrot.ssj2019.Volumes;
+﻿using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ssj2019.Characters;
 
 using UnityEngine;
 
@@ -22,43 +20,18 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
 #endregion
 
         [SerializeField]
-        private BrawlerBehavior _brawlerBehavior;
+        [ReadOnly]
+        private Brawler _brawler;
 
-        [SerializeField]
-        private AttackVolume _attackVolume;
-
-        [SerializeField]
-        private EffectTrigger _attackEffectTrigger;
-
-        [SerializeField]
-        private SpineAnimationEffectTriggerComponent _attackAnimationEffectTriggerComponent;
+        public Brawler Brawler { get; set; }
 
         public override bool OnPerformed(CharacterBehaviorAction action)
         {
-            if(!(action is AttackAction attackAction)) {
+            if(!(action is AttackAction)) {
                 return false;
             }
 
-            if(!_brawlerBehavior.AdvanceCombo(attackAction)) {
-                _brawlerBehavior.ComboFail();
-                return true;
-            }
-
-            if(GameManager.Instance.DebugBrawlers) {
-                Debug.Log($"Brawler {Behavior.Owner.Id} starting attack {_brawlerBehavior.CurrentAttack.Name}");
-            }
-
-            // TODO: calling Initialize() here is dumb, but we can't do it in our own Initialize()
-            // because the models haven't been initialized yet (and that NEEDS to get changed cuz this is dumb)
-            _attackVolume.Initialize(_brawlerBehavior.Brawler.Model.SpineModel);
-            _attackVolume.SetAttack(_brawlerBehavior.CurrentAttack, Behavior.Owner.FacingDirection);
-
-            _attackAnimationEffectTriggerComponent.SpineAnimationName = _brawlerBehavior.CurrentAttack.AnimationName;
-
-            _brawlerBehavior.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Attack);
-            _attackEffectTrigger.Trigger(() => {
-                _brawlerBehavior.Idle();
-            });
+            Brawler.BrawlerBehavior.Attack();
 
             return true;
         }

@@ -80,11 +80,11 @@ namespace pdxpartyparrot.Game
             }
         }
 
-        protected virtual void InitializeObjectPools()
+        public virtual void InitializeObjectPools()
         {
         }
 
-        protected virtual void DestroyObjectPools()
+        public virtual void DestroyObjectPools()
         {
         }
 
