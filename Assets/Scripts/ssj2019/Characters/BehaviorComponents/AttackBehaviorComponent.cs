@@ -1,6 +1,8 @@
 ﻿using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
+using pdxpartyparrot.Core.Math;
 using pdxpartyparrot.ssj2019.Characters.Brawlers;
+using pdxpartyparrot.ssj2019.Data.Brawlers;
 using pdxpartyparrot.ssj2019.Volumes;
 
 using UnityEngine;
@@ -13,6 +15,12 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
         public class AttackAction : CharacterBehaviorAction
         {
             public Vector3 Axes { get; set; }
+
+            public bool IsGrounded { get; set; }
+
+            public AttackData.Direction Direction => Axes.sqrMagnitude < MathUtil.Epsilon
+                                                        ? AttackData.Direction.None
+                                                        : AttackData.DirectionFromAxes(Axes);
 
             public override string ToString()
             {

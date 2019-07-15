@@ -130,7 +130,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public void Attack(Vector3 lastMove)
         {
-            _brawlerBehavior.Attack(lastMove);
+            _brawlerBehavior.Attack(lastMove, IsGrounded);
         }
 
         public void Block(Vector3 lastMove)

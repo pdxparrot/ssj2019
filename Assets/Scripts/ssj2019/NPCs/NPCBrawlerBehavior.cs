@@ -395,7 +395,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public void Attack(Vector3 lastMove)
         {
-            _brawlerBehavior.Attack(lastMove);
+            _brawlerBehavior.Attack(lastMove, IsGrounded);
 
             if(!_attackCooldown.IsRunning) {
                 _attackCooldown.Start(NPCBrawler.NPCBrawlerData.AttackCooldownSeconds);

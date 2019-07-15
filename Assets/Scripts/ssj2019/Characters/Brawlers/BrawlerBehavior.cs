@@ -198,7 +198,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         }
 
         // TODO: we might want the entire move buffer
-        public void Attack(Vector3 lastMove)
+        public void Attack(Vector3 lastMove, bool isGrounded)
         {
             if(!CanAttack) {
                 return;
@@ -207,10 +207,12 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             if(Brawler.CurrentAction.CanQueue) {
                 _actionHandler.BufferAction(new AttackBehaviorComponent.AttackAction{
                     Axes = lastMove,
+                    IsGrounded = isGrounded,
                 });
             } else {
                 _actionHandler.ActionPerformed(new AttackBehaviorComponent.AttackAction{
                     Axes = lastMove,
+                    IsGrounded = isGrounded,
                 });
             }
         }
@@ -248,9 +250,9 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         public bool AdvanceCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
         {
             if(null == _currentComboEntry) {
-                _currentComboEntry = Brawler.BrawlerCombo.RootComboEntry.NextEntry(action);
+                _currentComboEntry = Brawler.BrawlerCombo.RootComboEntry.NextEntry(action, true);
             } else {
-                _currentComboEntry = _currentComboEntry.NextEntry(action);
+                _currentComboEntry = _currentComboEntry.NextEntry(action, false);
             }
 
             if(null == _currentComboEntry) {

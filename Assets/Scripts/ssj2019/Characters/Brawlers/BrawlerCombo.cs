@@ -7,6 +7,9 @@ using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.ssj2019.Data.Brawlers;
 using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
 
+using UnityEngine;
+using UnityEngine.Assertions;
+
 namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 {
     public sealed class BrawlerCombo
@@ -18,7 +21,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             IReadOnlyCollection<IComboEntry> ComboEntries { get; }
 
             [CanBeNull]
-            IComboEntry NextEntry(CharacterBehaviorComponent.CharacterBehaviorAction action);
+            IComboEntry NextEntry(CharacterBehaviorComponent.CharacterBehaviorAction action, bool isOpener);
         }
 
         private class ComboEntry : IComboEntry
@@ -30,7 +33,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             public IReadOnlyCollection<IComboEntry> ComboEntries => comboEntries;
 
             [CanBeNull]
-            public IComboEntry NextEntry(CharacterBehaviorComponent.CharacterBehaviorAction action)
+            public IComboEntry NextEntry(CharacterBehaviorComponent.CharacterBehaviorAction action, bool isOpener)
             {
                 if(action is DashBehaviorComponent.DashAction) {
                     foreach(IComboEntry comboEntry in comboEntries) {
@@ -38,11 +41,24 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                             return comboEntry;
                         }
                     }
-                } else if(action is AttackBehaviorComponent.AttackAction) {
+                } else if(action is AttackBehaviorComponent.AttackAction attackAction) {
                     foreach(IComboEntry comboEntry in comboEntries) {
-                        // TODO: handle the other attack parameters
-                        if(ComboMove.ComboMoveType.Attack == comboEntry.Move.Type) {
+                        if(comboEntry.Move.Equals(attackAction)) {
                             return comboEntry;
+                        }
+                    }
+
+                    // if we failed and this is the opener
+                    // we'll be kind and fall back on the directionless attack
+                    if(isOpener) {
+                        if(GameManager.Instance.DebugBrawlers) {
+                            Debug.Log($"Fallback on directionless attack");
+                        }
+
+                        foreach(IComboEntry comboEntry in comboEntries) {
+                            if(comboEntry.Move.IsDirectionlessAttack) {
+                                return comboEntry;
+                            }
                         }
                     }
                 }
@@ -59,15 +75,19 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         {
             _rootComboEntry.comboEntries.Clear();
 
+            bool hasDirectionlessOpener = false;
             foreach(ComboData comboData in combos) {
-                AddComboData(_rootComboEntry, comboData, 0);
+                ComboMove openerMove = AddComboData(_rootComboEntry, comboData, 0);
+                hasDirectionlessOpener = hasDirectionlessOpener || (null != openerMove && openerMove.IsDirectionlessAttack);
             }
+            Assert.IsTrue(hasDirectionlessOpener, "Brawler combo requires a directionless opener attack");
         }
 
-        private void AddComboData(ComboEntry comboEntry, ComboData comboData, int depth)
+        [CanBeNull]
+        private ComboMove AddComboData(ComboEntry comboEntry, ComboData comboData, int depth)
         {
             if(comboData.Moves.Count <= depth) {
-                return;
+                return null;
             }
 
             ComboMove move = comboData.Moves.ElementAt(depth);
@@ -88,6 +108,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             AddComboData(nextComboEntry, comboData, depth + 1);
+
+            return move;
         }
     }
 }
