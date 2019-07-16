@@ -16,8 +16,8 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
             None,
             Up,
             Down,
-            Left,
-            Right
+            Forward,
+            Backward
         }
 
         public static Direction DirectionFromAxes(Vector3 axes)
