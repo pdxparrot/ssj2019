@@ -49,6 +49,9 @@ namespace pdxpartyparrot.ssj2019.Data
 
         [Space(10)]
 
+#region Floating Text
+        [Header("Floating text")]
+
         [SerializeField]
         private FloatingText _floatingTextPrefab;
 
@@ -58,6 +61,7 @@ namespace pdxpartyparrot.ssj2019.Data
         private int _floatingTextPoolSize = 10;
 
         public int FloatingTextPoolSize => _floatingTextPoolSize;
+#endregion
 
         [Space(10)]
 
@@ -65,5 +69,12 @@ namespace pdxpartyparrot.ssj2019.Data
         private TrainingDummy _trainingDummyPrefab;
 
         public TrainingDummy TrainingDummyPrefab => _trainingDummyPrefab;
+
+        [Space(10)]
+
+        [SerializeField]
+        private bool _attacksStunSource = false;
+
+        public bool AttacksStunSource => _attacksStunSource;
     }
 }

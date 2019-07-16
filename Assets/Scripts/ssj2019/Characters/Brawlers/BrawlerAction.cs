@@ -71,6 +71,11 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 _stunned = true;
             }
 
+            // some types of actions stun
+            if(GameManager.Instance.GameGameData.AttacksStunSource && ActionType.Attack == Type) {
+                _stunned = true;
+            }
+
             // some types of actions make the brawler immune
             if(ActionType.Dash == Type) {
                 _immune = true;
