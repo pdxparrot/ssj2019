@@ -28,5 +28,24 @@ namespace pdxpartyparrot.Core.Math
         {
             return angle % (Mathf.PI * 2.0f);
         }
+
+        // Uses x / z from the Vector3
+        public static int Vector3ToQuadrant(Vector3 v)
+        {
+            return Vector3ToNtant(v, 4);
+        }
+
+        // Uses x / z from the Vector3
+        public static int Vector3ToOctant(Vector3 v)
+        {
+            return Vector3ToNtant(v, 8);
+        }
+
+        // Uses x / z from the Vector3
+        public static int Vector3ToNtant(Vector3 v, int n)
+        {
+            float angle = Mathf.Atan2(v.z, v.x);
+            return Mathf.RoundToInt(n * angle / (n * Mathf.PI) + n) % n;
+        }
     }
 }

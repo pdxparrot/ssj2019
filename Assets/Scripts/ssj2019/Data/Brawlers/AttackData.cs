@@ -1,5 +1,6 @@
 ﻿using System;
 
+using pdxpartyparrot.Core.Math;
 using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
 
 using UnityEngine;
@@ -21,9 +22,7 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
 
         public static Direction DirectionFromAxes(Vector3 axes)
         {
-            float angle = Mathf.Atan2(axes.z, axes.x);
-            int quadtant = Mathf.RoundToInt(4.0f * angle / (2.0f * Mathf.PI) + 4) % 4;
-            return (Direction)(quadtant + 1);
+            return (Direction)(MathUtil.Vector3ToQuadrant(axes) + 1);
         }
 
         [SerializeField]
