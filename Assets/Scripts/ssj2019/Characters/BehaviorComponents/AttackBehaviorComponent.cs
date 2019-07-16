@@ -19,9 +19,35 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
 
             public bool IsGrounded { get; set; }
 
-            public AttackData.Direction Direction => Axes.sqrMagnitude < MathUtil.Epsilon
-                                                        ? AttackData.Direction.None
-                                                        : AttackData.DirectionFromAxes(Axes);
+            public AttackData.Direction Direction
+            {
+                get
+                {
+                    if(Axes.sqrMagnitude < MathUtil.Epsilon) {
+                        return AttackData.Direction.None;
+                    }
+
+                    AttackData.Direction direction = AttackData.DirectionFromAxes(Axes);
+
+                    // flip the forward / backward if we're turned around
+                    switch(direction)
+                    {
+                    case AttackData.Direction.Forward when _owner.Owner.FacingDirection.x < 0.0f:
+                        return AttackData.Direction.Backward;
+                    case AttackData.Direction.Backward when _owner.Owner.FacingDirection.x < 0.0f:
+                        return AttackData.Direction.Forward;
+                    default:
+                        return direction;
+                    }
+                }
+            }
+
+            private BrawlerBehavior _owner;
+
+            public AttackAction(BrawlerBehavior owner)
+            {
+                _owner = owner;
+            }
 
             public override string ToString()
             {

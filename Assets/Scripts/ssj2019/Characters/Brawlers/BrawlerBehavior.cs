@@ -142,7 +142,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         private IBrawlerBehaviorActions _actionHandler;
 
         [CanBeNull]
-        private Actor Owner => null == _actionHandler ? null : _actionHandler.Owner;
+        public Actor Owner => null == _actionHandler ? null : _actionHandler.Owner;
 
         [CanBeNull]
         public Brawler Brawler => null == _actionHandler ? null : _actionHandler.Brawler;
@@ -208,12 +208,12 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             if(Brawler.CurrentAction.CanQueue) {
-                _actionHandler.BufferAction(new AttackBehaviorComponent.AttackAction{
+                _actionHandler.BufferAction(new AttackBehaviorComponent.AttackAction(this) {
                     Axes = lastMove,
                     IsGrounded = isGrounded,
                 });
             } else {
-                _actionHandler.ActionPerformed(new AttackBehaviorComponent.AttackAction{
+                _actionHandler.ActionPerformed(new AttackBehaviorComponent.AttackAction(this) {
                     Axes = lastMove,
                     IsGrounded = isGrounded,
                 });
