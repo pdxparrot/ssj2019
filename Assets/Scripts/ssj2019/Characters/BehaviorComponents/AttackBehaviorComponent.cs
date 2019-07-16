@@ -1,6 +1,7 @@
 ﻿using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Math;
+using pdxpartyparrot.Game.Effects.EffectTriggerComponents;
 using pdxpartyparrot.ssj2019.Characters.Brawlers;
 using pdxpartyparrot.ssj2019.Data.Brawlers;
 using pdxpartyparrot.ssj2019.Volumes;
@@ -41,6 +42,9 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
         [SerializeField]
         private SpineAnimationEffectTriggerComponent _attackAnimationEffectTriggerComponent;
 
+        [SerializeField]
+        private FloatingTextEffectTriggerComponent _attackFloatingTextEffectTriggerComponent;
+
         public override bool OnPerformed(CharacterBehaviorAction action)
         {
             if(!(action is AttackAction attackAction)) {
@@ -62,6 +66,7 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
             _attackVolume.SetAttack(_brawlerBehavior.CurrentAttack, Behavior.Owner.FacingDirection);
 
             _attackAnimationEffectTriggerComponent.SpineAnimationName = _brawlerBehavior.CurrentAttack.AnimationName;
+            _attackFloatingTextEffectTriggerComponent.Text = $"{_brawlerBehavior.CurrentAttack.Name}";
 
             _brawlerBehavior.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Attack);
             _attackEffectTrigger.Trigger(() => {

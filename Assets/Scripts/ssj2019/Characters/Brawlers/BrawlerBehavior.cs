@@ -5,6 +5,7 @@ using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
+using pdxpartyparrot.Game.Effects.EffectTriggerComponents;
 using pdxpartyparrot.ssj2019.Data.Brawlers;
 using pdxpartyparrot.ssj2019.Characters.BehaviorComponents;
 using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
@@ -60,8 +61,10 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
     {
         [Header("Animations")]
 
+#region Attack Animations
         [SerializeField]
         private SpineAnimationEffectTriggerComponent _attackAnimationEffectTriggerComponent;
+#endregion
 
 #region Block Animations
         [SerializeField]
@@ -107,7 +110,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         [Space(10)]
 
-#region Attacks
+#region Current Combo / Attack
         [SerializeField]
         [ReadOnly]
         [CanBeNull]
@@ -251,6 +254,9 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         {
             if(null == _currentComboEntry) {
                 _currentComboEntry = Brawler.BrawlerCombo.RootComboEntry.NextEntry(action, true);
+                if(null == _currentComboEntry) {
+                    Debug.LogWarning($"Unable to find combo opener for action {action}");
+                }
             } else {
                 _currentComboEntry = _currentComboEntry.NextEntry(action, false);
             }

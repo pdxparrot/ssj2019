@@ -47,6 +47,9 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         [CanBeNull]
         public AttackData AttackData => _attackData;
 
+        // TODO: we should hook the dash component data here as well
+        // so that different combo parts can have different dash values
+
         public bool IsDirectionlessAttack => ComboMoveType.Attack == Type && null != AttackData && AttackData.Direction.None == AttackData.AttackDirection;
 
         public bool Equals(ComboMove other)
