@@ -33,19 +33,24 @@ namespace pdxpartyparrot.ssj2019.Characters.BehaviorComponents
             return true;
         }
 
+        // TODO: these are temporary until we have a dash animation
 #region Event Handlers
         protected override void DashStopEventHandler(object sender, EventArgs args)
         {
             base.DashStopEventHandler(sender, args);
 
-            _brawlerBehavior.Idle();
+            if(!_brawlerBehavior.DashAnimationCompleteHandler()) {
+                _brawlerBehavior.Idle();
+            }
         }
 
         protected override void DashTimesUpEventHandler(object sender, EventArgs args)
         {
             base.DashTimesUpEventHandler(sender, args);
 
-            _brawlerBehavior.Idle();
+            if(!_brawlerBehavior.DashAnimationCompleteHandler()) {
+                _brawlerBehavior.Idle();
+            }
         }
 #endregion
     }

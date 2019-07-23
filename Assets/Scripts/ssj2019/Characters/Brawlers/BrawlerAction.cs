@@ -28,6 +28,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         [SerializeField]
         private bool _cancellable;
 
+        // cancellable allows the action to be cancelled
+        // otherwise parallel actions must either be dropped or queued
         public bool Cancellable
         {
             get => _cancellable;
@@ -37,6 +39,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         [SerializeField]
         private bool _immune;
 
+        // immune stops damage
         public bool IsImmune
         {
             get => _immune;
@@ -46,6 +49,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         [SerializeField]
         private bool _stunned;
 
+        // stun stops movment
         public bool IsStunned
         {
             get => _stunned;
@@ -65,19 +69,20 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             _immune = false;
             _stunned = false;
 
-            // some types of actions can't be cancelled out of
-            if(IsBlocking || ActionType.Dash == Type) {
+            // block specialization
+            if(IsBlocking) {
                 _cancellable = false;
                 _stunned = true;
             }
 
-            // some types of actions stun
+            // attack specialization
             if(GameManager.Instance.GameGameData.AttacksStunSource && ActionType.Attack == Type) {
                 _stunned = true;
             }
 
-            // some types of actions make the brawler immune
+            // dash specialization
             if(ActionType.Dash == Type) {
+                _stunned = true;
                 _immune = true;
             }
         }

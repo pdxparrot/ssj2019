@@ -287,10 +287,11 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         private bool FudgeFailedCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
         {
-            // if we fail a combo into a dash, just do the dash
-            if(action is DashBehaviorComponent.DashAction) {
-                _currentComboEntry = Brawler.BrawlerCombo.RootComboEntry.NextEntry(action, false);
-                return true;
+            // if we fail a combo into a dash, just do the dash as a new opener
+            // or, if we fail a combo out of a dash, try and find something out of the root instead as a new opener
+            if(action is DashBehaviorComponent.DashAction || BrawlerAction.ActionType.Dash == Brawler.CurrentAction.Type) {
+                _currentComboEntry = Brawler.BrawlerCombo.RootComboEntry.NextEntry(action, true);
+                return null != _currentComboEntry;
             }
 
             // any other fudging we might want to do?
@@ -517,6 +518,13 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             Brawler.CurrentAction = action;
+        }
+
+        // TODO: this is temporary until we have an actual dash animation
+        public bool DashAnimationCompleteHandler()
+        {
+            Combo();
+            return null != _currentComboEntry;
         }
 
         private void HitAnimationStartHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)

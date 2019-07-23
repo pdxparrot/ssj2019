@@ -8,7 +8,6 @@ using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Effects;
-using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Data.Characters;
@@ -23,24 +22,16 @@ namespace pdxpartyparrot.Game.Characters
     {
         private struct ActionBufferEntry
         {
-            public long TimestampMs { get; }
-
             public CharacterBehaviorComponent.CharacterBehaviorAction Action { get; }
 
             public ActionBufferEntry(CharacterBehaviorComponent.CharacterBehaviorAction action)
             {
-                TimestampMs = TimeManager.Instance.CurrentUnixMs;
                 Action = action;
-            }
-
-            public bool Expired(int timeout)
-            {
-                return TimeManager.Instance.CurrentUnixMs - TimestampMs > timeout;
             }
 
             public override string ToString()
             {
-                return $"[{TimestampMs}]: {Action}";
+                return $"{Action}";
             }
         }
 
@@ -138,10 +129,6 @@ namespace pdxpartyparrot.Game.Characters
         protected override void Update()
         {
             base.Update();
-
-            while(null != _actionBuffer && _actionBuffer.Count > 0 && _actionBuffer.Head.Expired(CharacterBehaviorData.ActionBufferTimeoutMs)) {
-                _actionBuffer.RemoveOldest();
-            }
 
             if(null != Animator) {
                 Animator.SetBool(CharacterBehaviorData.FallingParam, IsFalling);
