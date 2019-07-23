@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DashBehaviorComponentData
   m_EditorClassIdentifier: 
   _dashTimeSeconds: 0.25
-  _dashCooldownSeconds: 0.25
-  _dashDistance: 5
+  _dashCooldownSeconds: 1
+  _dashDistance: 3
   _disableGravity: 1

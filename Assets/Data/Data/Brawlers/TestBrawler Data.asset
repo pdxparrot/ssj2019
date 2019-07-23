@@ -27,6 +27,7 @@ MonoBehaviour:
   _combos:
   - {fileID: 11400000, guid: f5bc036627c10eb41af51638242c7466, type: 2}
   - {fileID: 11400000, guid: 996d34b73fcac6e458f18be95489e46a, type: 2}
+  - {fileID: 11400000, guid: 996d34b73fcac6e458f18be95489e46a, type: 2}
   _jumpBehaviorComponentData: {fileID: 11400000, guid: 00c1c44626c43724188d395aba4b9726,
     type: 2}
   _dashBehaviorComponentData: {fileID: 11400000, guid: ff88e6eaa7fde694daeb3e315877bcae,

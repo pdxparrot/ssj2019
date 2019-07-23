@@ -23,8 +23,8 @@ MonoBehaviour:
         _min: 5
         _max: 10
       _count:
-        _min: 2
-        _max: 5
-      _poolSize: 10
+        _min: 10
+        _max: 15
+      _poolSize: 25
       _once: 1
   _waveMusic: {fileID: 0}
