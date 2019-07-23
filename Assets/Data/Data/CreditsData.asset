@@ -21,4 +21,12 @@ MonoBehaviour:
     - _title: Programming
       _contributors:
       - Shane Lillie
+    - _title: Animation
+      _contributors:
+      - Allyson Willsey
+      - Taylor Lane
+    - _title: Concept and Character Art
+      _contributors:
+      - Egil Thompson
+      - Sarah Francian
   _postAmble: <link="pigsquad">http://www.pigsquad.com</link>
