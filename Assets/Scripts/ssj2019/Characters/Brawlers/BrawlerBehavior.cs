@@ -96,6 +96,9 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         public EffectTrigger DeathEffectTrigger => _deathEffectTrigger;
 #endregion
 
+        [SerializeField]
+        private EffectTrigger _comboFailEffectTrigger;
+
         [Space(10)]
 
 #region Action Volumes
@@ -299,6 +302,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             _currentComboEntry = null;
+
+            _comboFailEffectTrigger.Trigger();
         }
 #endregion
 

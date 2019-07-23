@@ -138,6 +138,7 @@ MonoBehaviour:
   _hitEffectTrigger: {fileID: 1079242178650208271}
   _hitAnimationEffectTriggerComponent: {fileID: 6129758529191386186}
   _deathEffectTrigger: {fileID: 6433857838732750911}
+  _comboFailEffectTrigger: {fileID: 5169714982919284938}
   _attackVolume: {fileID: 4234046138188009513}
   _blockVolume: {fileID: 2276791725628702472}
   _jumpBehaviorComponent: {fileID: 1550674950824046361}
@@ -296,6 +297,72 @@ MonoBehaviour:
   _dashEffect: {fileID: 4254428544176821508}
   _wasUseGravity: 0
   _brawlerBehavior: {fileID: 6328656578635918927}
+--- !u!1 &435160514742176093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4411125482566629139}
+  - component: {fileID: 5169714982919284938}
+  - component: {fileID: 5803313516412793750}
+  m_Layer: 12
+  m_Name: Combo Fail Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4411125482566629139
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435160514742176093}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7312426625843009650}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5169714982919284938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435160514742176093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f0acf5094b571448a3663067cfbfe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 5803313516412793750}
+  _isRunning: 0
+--- !u!114 &5803313516412793750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435160514742176093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b734418421f3b441b54982d78eb3968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolName: floating_text
+  _text: Combo Fail
+  _color: {r: 1, g: 0, b: 0, a: 1}
+  _spawnLocation: {fileID: 1027202483170108461}
 --- !u!1 &444373045944589312
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,7 +612,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8939990823969181630
 BoxCollider:
@@ -1005,7 +1072,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8186399107253478634
 BoxCollider:
@@ -1163,7 +1230,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6254564640636822816
 MonoBehaviour:
@@ -1232,6 +1299,7 @@ Transform:
   - {fileID: 1810502874660691583}
   - {fileID: 4790981211668434238}
   - {fileID: 1949689036593770953}
+  - {fileID: 4411125482566629139}
   - {fileID: 2879474997430178217}
   - {fileID: 8353411165582611084}
   - {fileID: 8338910519638184812}
@@ -1736,7 +1804,7 @@ PrefabInstance:
     - target: {fileID: 2721963720331797485, guid: 4ccb41fc5c8ebd44e826dfee305c4881,
         type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 2721963720331797485, guid: 4ccb41fc5c8ebd44e826dfee305c4881,
         type: 3}
