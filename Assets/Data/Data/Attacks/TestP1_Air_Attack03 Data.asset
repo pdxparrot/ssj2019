@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1011391a36fda02429da9d8b82d3fedc, type: 3}
   m_Name: TestP1_Air_Attack03 Data
   m_EditorClassIdentifier: 
-  _name: Test Player Attack 1
+  _name: Test Player Air Attack 3
   _attackDirection: 0
   _airAttack: 1
   _damageType: 
