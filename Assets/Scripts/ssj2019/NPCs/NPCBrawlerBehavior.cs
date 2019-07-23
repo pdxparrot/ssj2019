@@ -403,12 +403,17 @@ namespace pdxpartyparrot.ssj2019.NPCs
             }
         }
         
-        public void Block(Vector3 lastMove)
+        public void StartBlock(Vector3 lastMove)
         {
-            _brawlerBehavior.Block(lastMove);
+            _brawlerBehavior.StartBlock(lastMove);
 
             _attackCooldown.Stop();
             _dashCooldown.Stop();
+        }
+
+        public void EndBlock()
+        {
+            _brawlerBehavior.EndBlock();
         }
 
         public void Dash()

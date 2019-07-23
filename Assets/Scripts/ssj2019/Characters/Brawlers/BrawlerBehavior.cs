@@ -221,10 +221,18 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         }
 
         // TODO: does this really need the move input?
-        public void Block(Vector3 lastMove)
+        public void StartBlock(Vector3 lastMove)
         {
             _actionHandler.ActionPerformed(new BlockBehaviorComponent.BlockAction{
                 Axes = lastMove,
+                Cancel = false,
+            });
+        }
+
+        public void EndBlock()
+        {
+            _actionHandler.ActionPerformed(new BlockBehaviorComponent.BlockAction{
+                Cancel = true,
             });
         }
 

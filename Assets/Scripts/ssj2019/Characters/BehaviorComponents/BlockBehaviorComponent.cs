@@ -13,6 +13,8 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
         {
             public Vector3 Axes { get; set; }
 
+            public bool Cancel { get; set; }
+
             public override string ToString()
             {
                 return $"BlockAction(Axes: {Axes})";
@@ -34,35 +36,17 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
 
         public override bool OnPerformed(CharacterBehaviorAction action)
         {
-            if(!(action is BlockAction)) {
+            if(!(action is BlockAction blockAction)) {
                 return false;
             }
 
-            if(_brawlerBehavior.Brawler.CurrentAction.IsBlocking) {
-                ToggleBlock();
-                return true;
-            }
-
-            if(!_brawlerBehavior.CanBlock) {
-                return false;
-            }
-
-            ToggleBlock();
-
-            return true;
+            return blockAction.Cancel ? EndBlock() : StartBlock();
         }
 
-        private void ToggleBlock()
+        private bool StartBlock()
         {
-            if(_brawlerBehavior.Brawler.CurrentAction.IsBlocking) {
-                if(GameManager.Instance.DebugBrawlers) {
-                    Debug.Log($"Brawler {Behavior.Owner.Id} stopping block");
-                }
-
-                _blockEndEffectTrigger.Trigger(() => {
-                    _brawlerBehavior.Idle();
-                });
-                return;
+            if(!_brawlerBehavior.CanBlock) {
+                return false;
             }
 
             if(GameManager.Instance.DebugBrawlers) {
@@ -78,6 +62,25 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
 
             _brawlerBehavior.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Block);
             _blockBeginEffectTrigger.Trigger();
+
+            return true;
+        }
+
+        private bool EndBlock()
+        {
+            if(!_brawlerBehavior.Brawler.CurrentAction.IsBlocking) {
+                return false;
+            }
+
+            if(GameManager.Instance.DebugBrawlers) {
+                Debug.Log($"Brawler {Behavior.Owner.Id} stopping block");
+            }
+
+            _blockEndEffectTrigger.Trigger(() => {
+                _brawlerBehavior.Idle();
+            });
+
+            return true;
         }
     }
 }

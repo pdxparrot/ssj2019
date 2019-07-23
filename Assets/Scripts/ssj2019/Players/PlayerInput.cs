@@ -7,6 +7,7 @@ using pdxpartyparrot.ssj2019.Input;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 namespace pdxpartyparrot.ssj2019.Players
 {
@@ -114,9 +115,11 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             if(context.performed) {
-                GamePlayer.GamePlayerBehavior.Block(LastMove);
-            } else if(context.canceled) {
-                Debug.LogWarning("TODO: handle block cancel");
+                if((context.control as ButtonControl).wasReleasedThisFrame) {
+                    GamePlayer.GamePlayerBehavior.EndBlock();
+                } else {
+                    GamePlayer.GamePlayerBehavior.StartBlock(LastMove);
+                }
             }
         }
 

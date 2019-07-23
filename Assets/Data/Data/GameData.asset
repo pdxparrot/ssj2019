@@ -30,3 +30,4 @@ MonoBehaviour:
   _floatingTextPoolSize: 10
   _trainingDummyPrefab: {fileID: 7151154113656089591, guid: 117c66fc58261af40a60d82fc167e1a4,
     type: 3}
+  _attacksStunSource: 1

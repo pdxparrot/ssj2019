@@ -133,9 +133,14 @@ namespace pdxpartyparrot.ssj2019.Players
             _brawlerBehavior.Attack(lastMove, IsGrounded);
         }
 
-        public void Block(Vector3 lastMove)
+        public void StartBlock(Vector3 lastMove)
         {
-            _brawlerBehavior.Block(lastMove);
+            _brawlerBehavior.StartBlock(lastMove);
+        }
+
+        public void EndBlock()
+        {
+            _brawlerBehavior.EndBlock();
         }
 
         public void Dash()
