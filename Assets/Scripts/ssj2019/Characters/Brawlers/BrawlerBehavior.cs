@@ -256,6 +256,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         {
             Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
 
+            _currentComboEntry = null;
+
             _actionHandler.OnIdle();
         }
 #endregion
@@ -273,7 +275,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             if(null == _currentComboEntry) {
-                return false;
+                return FudgeFailedCombo(action);
             }
 
             if(GameManager.Instance.DebugBrawlers) {
@@ -281,6 +283,19 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             return true;
+        }
+
+        private bool FudgeFailedCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
+        {
+            // if we fail a combo into a dash, just do the dash
+            if(action is DashBehaviorComponent.DashAction) {
+                _currentComboEntry = Brawler.BrawlerCombo.RootComboEntry.NextEntry(action, false);
+                return true;
+            }
+
+            // any other fudging we might want to do?
+
+            return false;
         }
 
         private void Combo()
