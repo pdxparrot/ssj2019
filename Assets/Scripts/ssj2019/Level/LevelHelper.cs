@@ -21,6 +21,9 @@ namespace pdxpartyparrot.ssj2019.Level
 
         public WaveSpawner WaveSpawner { get; private set; }
 
+        [SerializeField]
+        private string _nextLevel;
+
         private NavMeshSurface _navMeshSurface;
 
         private DebugMenuNode _debugMenuNode;
@@ -105,9 +108,17 @@ namespace pdxpartyparrot.ssj2019.Level
 
         private void WaveCompleteEventHandler(object sender, SpawnWaveEventArgs args)
         {
-            if(args.IsFinalWave) {
-                GameManager.Instance.GameOver();
+            if(!args.IsFinalWave) {
+                return;
             }
+
+            // load the next level if we have one
+            if(!string.IsNullOrWhiteSpace(_nextLevel)) {
+                GameManager.Instance.TransitionScene(_nextLevel, null);
+                return;
+            }
+
+            GameManager.Instance.GameOver();
         }
 #endregion
 

@@ -110,5 +110,12 @@ namespace pdxpartyparrot.Game
 
             GameOverEvent?.Invoke(this, EventArgs.Empty);
         }
+
+        public virtual void TransitionScene(string nextScene, Action onComplete)
+        {
+            Debug.LogWarning($"TODO: transition to scene {nextScene}");
+
+            onComplete?.Invoke();
+        }
     }
 }

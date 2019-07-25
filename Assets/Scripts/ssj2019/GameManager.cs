@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
@@ -98,6 +99,17 @@ namespace pdxpartyparrot.ssj2019
         }
 #endregion
 
+        public override void TransitionScene(string nextScene, Action onComplete)
+        {
+            Debug.LogWarning("TODO: show transition screen");
+            base.TransitionScene(nextScene, () => {
+                Debug.LogWarning("TODO: hide transition screen");
+                onComplete?.Invoke();
+            });
+        }
+
+        // TODO: move this to the Game-level manager
+#region Level Helper
         public void RegisterLevelHelper(LevelHelper levelHelper)
         {
             Assert.IsNull(_levelHelper);
@@ -109,6 +121,7 @@ namespace pdxpartyparrot.ssj2019
             Assert.IsTrue(levelHelper == _levelHelper);
             _levelHelper = null;
         }
+#endregion
 
         //[Client]
         public void InitViewer()
