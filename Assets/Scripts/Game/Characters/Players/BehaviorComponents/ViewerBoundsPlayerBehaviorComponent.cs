@@ -40,7 +40,7 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 
         public override bool OnPhysicsUpdate(float dt)
         {
-            _lastVelocity = PlayerBehavior.MoveDirection * Behavior.CharacterBehaviorData.MoveSpeed;
+            _lastVelocity = PlayerBehavior.MoveDirection * Behavior.MoveSpeed;
             _lastPosition = Behavior.Movement.Position + _lastVelocity * dt;
 
             // x-bounds

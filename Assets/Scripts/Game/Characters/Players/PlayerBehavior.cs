@@ -104,7 +104,7 @@ namespace pdxpartyparrot.Game.Characters.Players
 
             // TODO: this interferes with forces :(
 
-            Vector3 velocity = MoveDirection * CharacterBehaviorData.MoveSpeed;
+            Vector3 velocity = MoveDirection * MoveSpeed;
             Quaternion rotation = Movement.Rotation;
             if(PlayerBehaviorData.AlignMovementWithViewer && null != Player.Viewer) {
                 // rotate with the camera instead of the movement

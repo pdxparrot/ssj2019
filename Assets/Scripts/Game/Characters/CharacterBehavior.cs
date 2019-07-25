@@ -72,6 +72,8 @@ namespace pdxpartyparrot.Game.Characters
         }
 
         public bool IsFalling => Movement.UseGravity && (!IsGrounded && !IsSliding && Movement.Velocity.y < 0.0f);
+
+        public virtual float MoveSpeed => CharacterBehaviorData.MoveSpeed;
 #endregion
 
         [Space(10)]

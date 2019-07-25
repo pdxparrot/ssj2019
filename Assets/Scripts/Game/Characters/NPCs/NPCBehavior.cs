@@ -70,7 +70,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
             Vector3 moveDirection = MoveDirection;
 
-            Vector3 velocity = moveDirection * CharacterBehaviorData.MoveSpeed;
+            Vector3 velocity = moveDirection * MoveSpeed;
             velocity = Movement.Rotation * velocity;
 
             if(Movement.IsKinematic) {
