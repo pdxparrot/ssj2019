@@ -23,8 +23,17 @@ namespace pdxpartyparrot.Core.Collections
             return PartyParrotManager.Instance.Random.RemoveRandomEntry(collection);
         }
 
+        public static T PeakFront<T>(this IList<T> list)
+        {
+            return list.Count < 1 ? default : list[0];
+        }
+
         public static T RemoveFront<T>(this IList<T> list)
         {
+            if(list.Count < 1) {
+                return default;
+            }
+
             T element = list[0];
             list.RemoveAt(0);
             return element;

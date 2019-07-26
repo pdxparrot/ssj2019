@@ -102,6 +102,7 @@ namespace pdxpartyparrot.Core.Input
 #endregion
 
 #region Gamepads
+        // acquires any available gamepad, if possible
         public int AcquireGamepad(Action<Gamepad> acquireCallback, Action<Gamepad> disconnectCallback)
         {
             GamepadListener listener = new GamepadListener
@@ -123,13 +124,34 @@ namespace pdxpartyparrot.Core.Input
                 return;
             }
 
-            Gamepad gamepad = _unacquiredGamepads.RemoveFront();
+            Gamepad gamepad = _unacquiredGamepads.PeakFront();
             AcquireGamepad(listener, gamepad);
+        }
+
+        // acquires a specific gamepad, if possible
+        public int AcquireGamepad(Action<Gamepad> acquireCallback, Action<Gamepad> disconnectCallback, Gamepad gamepad)
+        {
+            GamepadListener listener = new GamepadListener
+            {
+                id = NextListenerId,
+                acquireCallback = acquireCallback,
+                disconnectCallback = disconnectCallback
+            };
+
+            AcquireGamepad(listener, gamepad);
+
+            return listener.id;
         }
 
         private void AcquireGamepad(GamepadListener listener, Gamepad gamepad)
         {
+            if(null == gamepad || !_unacquiredGamepads.Contains(gamepad)) {
+                _gamepadListeners.Add(listener);
+                return;
+            }
+
             Debug.Log($"Gamepad listener {listener.id} acquiring gamepad {gamepad.name}");
+            _unacquiredGamepads.Remove(gamepad);
 
             listener.acquireCallback.Invoke(gamepad);
             _acquiredGamepads[gamepad] = listener;

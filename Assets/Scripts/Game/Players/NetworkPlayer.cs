@@ -3,6 +3,7 @@
 using System;
 
 using pdxpartyparrot.Core.Network;
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.Game.State;
 
@@ -17,6 +18,12 @@ namespace pdxpartyparrot.Game.Players
     {
         public IPlayer Player => (IPlayer)Actor;
 
+        [SerializeField]
+        [ReadOnly]
+        private short _controllerId;
+
+        public short ControllerId => _controllerId;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -25,6 +32,11 @@ namespace pdxpartyparrot.Game.Players
             Assert.IsTrue(Actor is IPlayer);
         }
 #endregion
+
+        public void Initialize(short controllerId)
+        {
+            _controllerId = controllerId;
+        }
 
 // TODO: we could make better use of NetworkBehaviour callbacks in here (and in other NetworkBehaviour types)
 

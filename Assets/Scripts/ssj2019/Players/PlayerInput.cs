@@ -54,9 +54,15 @@ namespace pdxpartyparrot.ssj2019.Players
             }
 
             GamepadListener = gameObject.AddComponent<GamepadListener>();
+            GamepadListener.Initialize();
 
             Actions.Player.SetCallbacks(this);
             Actions.Player.Enable();
+        }
+
+        public void SetGamepad(Gamepad device)
+        {
+            GamepadListener.Initialize(device);
         }
 
         protected override bool IsOurDevice(InputAction.CallbackContext ctx)

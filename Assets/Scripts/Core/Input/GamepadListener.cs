@@ -27,11 +27,6 @@ namespace pdxpartyparrot.Core.Input
         public Gamepad Gamepad => _gamepad;
 
 #region Unity Lifecycle
-        private void Awake()
-        {
-            _gamepadId = InputManager.Instance.AcquireGamepad(OnAcquireGamepad, OnGamepadDisconnect);
-        }
-
         private void OnDestroy()
         {
             // make sure we don't leave the gamepad rumbling
@@ -39,6 +34,26 @@ namespace pdxpartyparrot.Core.Input
                 Gamepad.SetMotorSpeeds(0.0f, 0.0f);
             }
 
+            ReleaseGamepad();
+        }
+#endregion
+
+        public void Initialize()
+        {
+            Initialize(null);
+        }
+
+        public void Initialize(Gamepad gamepad)
+        {
+            ReleaseGamepad();
+
+            _gamepadId = null == gamepad
+                ? InputManager.Instance.AcquireGamepad(OnAcquireGamepad, OnGamepadDisconnect)
+                : InputManager.Instance.AcquireGamepad(OnAcquireGamepad, OnGamepadDisconnect, gamepad);
+        }
+
+        private void ReleaseGamepad()
+        {
             if(InputManager.HasInstance) {
                 InputManager.Instance.ReleaseGamepad(_gamepadId);
             }
@@ -46,7 +61,6 @@ namespace pdxpartyparrot.Core.Input
             _gamepadId = 0;
             _gamepad = null;
         }
-#endregion
 
         public bool IsOurGamepad(InputAction.CallbackContext context)
         {

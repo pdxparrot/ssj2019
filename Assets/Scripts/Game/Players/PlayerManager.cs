@@ -113,11 +113,15 @@ namespace pdxpartyparrot.Game.Players
 
             NetworkPlayer player = Core.Network.NetworkManager.Instance.SpawnPlayer<NetworkPlayer>(controllerId, conn, _playerContainer.transform);
             if(null == player) {
+                Debug.LogError("Failed to spawn network player!");
+                return;
+            }
+            player.Initialize(controllerId);
+
+            if(!spawnPoint.SpawnPlayer((Actor)player.Player)) {
                 Debug.LogError("Failed to spawn player!");
                 return;
             }
-
-            spawnPoint.SpawnPlayer((Actor)player.Player);
 
             _players.Add(player.Player);
         }

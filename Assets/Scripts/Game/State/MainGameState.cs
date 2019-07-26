@@ -30,6 +30,8 @@ namespace pdxpartyparrot.Game.State
         private ServerSpectator _serverSpectator;
 #endif
 
+        private readonly List<short> _playerControllers = new List<short>();
+
         public override IEnumerator<LoadStatus> OnEnterRoutine()
         {
             yield return new LoadStatus(0.0f, "Initializing main game state...");
@@ -138,6 +140,8 @@ namespace pdxpartyparrot.Game.State
 
             Core.Network.NetworkManager.Instance.LocalClientReady(GameStateManager.Instance.NetworkClient?.connection);
 
+            // TODO: this probably isn't the right place to handle "gamepads are players"
+            // instead it probably should be done in whatever initializes the main game state
             if(GameStateManager.Instance.GameManager.GameData.GamepadsArePlayers) {
                 int count = Math.Min(Math.Max(InputManager.Instance.GamepadCount, 1), GameStateManager.Instance.GameManager.GameData.MaxLocalPlayers);
 
@@ -146,7 +150,10 @@ namespace pdxpartyparrot.Game.State
                     Core.Network.NetworkManager.Instance.AddLocalPlayer(i);
                 }
             } else {
-                Core.Network.NetworkManager.Instance.AddLocalPlayer(0);
+                foreach(short playerControllerId in _playerControllers) {
+                    Debug.Log($"Spawning local player with controller {playerControllerId}...");
+                    Core.Network.NetworkManager.Instance.AddLocalPlayer(playerControllerId);
+                }
             }
 
             return true;
@@ -201,8 +208,19 @@ namespace pdxpartyparrot.Game.State
             if(AudioManager.HasInstance) {
                 AudioManager.Instance.StopAllMusic();
             }
+
+            _playerControllers.Clear();
         }
 #endregion
+
+        public void AddPlayerController(short playerControllerId)
+        {
+            if(!NetworkClient.active) {
+                return;
+            }
+
+            _playerControllers.Add(playerControllerId);
+        }
 
 #region Event Handlers
         private void ServerDisconnectEventHandler(object sender, EventArgs args)

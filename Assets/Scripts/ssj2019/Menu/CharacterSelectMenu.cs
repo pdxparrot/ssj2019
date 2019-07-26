@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 
 using JetBrains.Annotations;
 
@@ -161,7 +161,7 @@ namespace pdxpartyparrot.ssj2019.Menu
 #region Events
         public void OnReady()
         {
-            for(int i=0; i < _characterSelectors.Length; ++i) {
+            for(short i=0; i < _characterSelectors.Length; ++i) {
                 CharacterSelector characterSelector = _characterSelectors[i];
                 if(null == characterSelector.PlayerCharacterData) {
                     continue;
@@ -173,10 +173,17 @@ namespace pdxpartyparrot.ssj2019.Menu
                     device = Keyboard.current;
                 }
 #endif
-                GameManager.Instance.AddCharacter(device, i, characterSelector.PlayerCharacterData);
+
+                // associate each playerControllerId to a device and character
+                GameManager.Instance.AddPlayerCharacter(i, device, characterSelector.PlayerCharacterData);
             }
 
-            GameStateManager.Instance.StartLocal(GameManager.Instance.MainGameStatePrefab);
+            GameStateManager.Instance.StartLocal(GameManager.Instance.MainGameStatePrefab, state => {
+                MainGameState mainGameState = (MainGameState)state;
+                foreach(short playerControllerId in GameManager.Instance.PlayerCharacterControllers) {
+                    mainGameState.AddPlayerController(playerControllerId);
+                }
+            });
         }
 
         public override void OnSubmit(InputAction.CallbackContext context)

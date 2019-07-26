@@ -29,7 +29,7 @@ namespace pdxpartyparrot.ssj2019
         {
             public PlayerCharacterData PlayerCharacterData { get; set; }
 
-            public int PlayerNumber { get;  set;}
+            public InputDevice Device { get; set; }
         }
 
 #region Debug
@@ -55,7 +55,9 @@ namespace pdxpartyparrot.ssj2019
 
         public LevelHelper LevelHelper => _levelHelper;
 
-        private readonly Dictionary<InputDevice, PlayerEntry> _characters = new Dictionary<InputDevice, PlayerEntry>();
+        private readonly Dictionary<short, PlayerEntry> _playerCharacters = new Dictionary<short, PlayerEntry>();
+
+        public IReadOnlyCollection<short> PlayerCharacterControllers => _playerCharacters.Keys;
 
         private readonly HashSet<Player> _activePlayers = new HashSet<Player>();
 
@@ -79,7 +81,7 @@ namespace pdxpartyparrot.ssj2019
 
         public override void Shutdown()
         {
-            _characters.Clear();
+            _playerCharacters.Clear();
 
             base.Shutdown();
         }
@@ -135,48 +137,29 @@ namespace pdxpartyparrot.ssj2019
         }
 
         //[Client]
-        public void AddCharacter(InputDevice device, int playerNumber, PlayerCharacterData playerCharacterData)
+        public void AddPlayerCharacter(short playerControllerId, InputDevice device, PlayerCharacterData playerCharacterData)
         {
-            _characters[device] = new PlayerEntry(){
+            _playerCharacters[playerControllerId] = new PlayerEntry{
                 PlayerCharacterData = playerCharacterData,
-                PlayerNumber = playerNumber,
+                Device = device,
             };
         }
 
         //[Client]
         [CanBeNull]
-        public PlayerCharacterData AcquireCharacter(InputDevice device, out int playerNumber)
+        public PlayerCharacterData AcquireCharacter(short playerControllerId, out InputDevice device)
         {
-            playerNumber = -1;
+            device = null;
 
-            if(device == null) {
-                return null;
-            }
-
-            PlayerEntry playerEntry = _characters.GetOrDefault(device);
+            PlayerEntry playerEntry = _playerCharacters.GetOrDefault(playerControllerId);
             if(null == playerEntry) {
                 return null;
             }
 
-            _characters.Remove(device);
+            _playerCharacters.Remove(playerControllerId);
 
-            playerNumber = playerEntry.PlayerNumber;
+            device = playerEntry.Device;
             return playerEntry.PlayerCharacterData;
-        }
-
-        //[Client]
-        [CanBeNull]
-        public PlayerCharacterData AcquireFreeCharacter(out int playerNumber)
-        {
-            foreach(var kvp in _characters) {
-                _characters.Remove(kvp.Key);
-
-                playerNumber = kvp.Value.PlayerNumber;
-                return kvp.Value.PlayerCharacterData;
-            }
-
-            playerNumber = -1;
-            return null;
         }
 
 #region Events
