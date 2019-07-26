@@ -37,10 +37,6 @@ namespace pdxpartyparrot.ssj2019.Players
         [SerializeField]
         private PlayerIndicator _playerIndicator;
 
-        [SerializeField]
-        [ReadOnly]
-        private int _playerNumber = -1;
-
         private GameViewer PlayerGameViewer => (GameViewer)Viewer;
 
         public bool IsDead => Brawler.Health < 1;
@@ -105,11 +101,11 @@ namespace pdxpartyparrot.ssj2019.Players
 
             Brawler.InitializeModel(Behavior, _playerCharacterData.BrawlerModelPrefab, Model, 0);
 
-            PlayerData.PlayerIndicatorState indicatorState = PlayerManager.Instance.GetPlayerIndicatorState(_playerNumber);
+            PlayerData.PlayerIndicatorState indicatorState = PlayerManager.Instance.GetPlayerIndicatorState(NetworkPlayer.ControllerId);
             if(null != indicatorState) {
                 _playerIndicator.Initialize(indicatorState);
             } else {
-                Debug.LogWarning($"Unable to get indicator state for player {_playerNumber}");
+                Debug.LogWarning($"Unable to get indicator state for player {NetworkPlayer.ControllerId}");
             }
         }
 
