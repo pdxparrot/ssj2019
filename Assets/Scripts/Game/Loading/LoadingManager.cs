@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using pdxpartyparrot.Core.Loading;
+using pdxpartyparrot.Game.Cinematics;
 using pdxpartyparrot.Game.State;
 using pdxpartyparrot.Game.UI;
 
@@ -30,6 +31,7 @@ namespace pdxpartyparrot.Game.Loading
 
             GameStateManager.CreateFromPrefab(_gameStateManagerPrefab, ManagersContainer);
             GameUIManager.CreateFromPrefab(_gameUIManagerPrefab, ManagersContainer);
+            CinematicsManager.Create(ManagersContainer);
             HighScoreManager.Create(ManagersContainer);
         }
 
