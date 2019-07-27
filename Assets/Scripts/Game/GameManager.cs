@@ -31,6 +31,7 @@ namespace pdxpartyparrot.Game
         public event EventHandler<EventArgs> GameStartClientEvent;
 
         public event EventHandler<EventArgs> GameReadyEvent;
+        public event EventHandler<EventArgs> GameUnReadyEvent;
         public event EventHandler<EventArgs> GameOverEvent;
 #endregion
 
@@ -126,6 +127,15 @@ namespace pdxpartyparrot.Game
             GameReadyEvent?.Invoke(this, EventArgs.Empty);
         }
 
+        public virtual void GameUnReady()
+        {
+            Debug.Log("Game UnReady");
+
+            IsGameReady = false;
+
+            GameUnReadyEvent?.Invoke(this, EventArgs.Empty);
+        }
+
         public virtual void GameOver()
         {
             Debug.Log("Game Over");
@@ -137,9 +147,7 @@ namespace pdxpartyparrot.Game
 
         public virtual void TransitionScene(string nextScene, Action onComplete)
         {
-            Debug.LogWarning($"TODO: transition to scene {nextScene}");
-
-            onComplete?.Invoke();
+            GameStateManager.Instance.CurrentState.ChangeSceneAsync(nextScene, onComplete);
         }
     }
 }

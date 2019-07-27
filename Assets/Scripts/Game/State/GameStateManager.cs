@@ -179,16 +179,16 @@ namespace pdxpartyparrot.Game.State
             TV gameState = Instantiate(gameStatePrefab, transform);
             initializeState?.Invoke(gameState);
 
-            PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(0.0f, $"Loading game state scene '{gameState.SceneName}'...");
+            PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(0.0f, $"Loading game state scene '{gameState.CurrentSceneName}'...");
             yield return null;
 
             IEnumerator<float> runner = gameState.LoadSceneRoutine();
             while(runner.MoveNext()) {
-                PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(runner.Current * 0.5f, $"Loading game state scene '{gameState.SceneName}'...");
+                PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(runner.Current * 0.5f, $"Loading game state scene '{gameState.CurrentSceneName}'...");
                 yield return null;
             }
 
-            PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(0.5f, $"Game state scene '{gameState.SceneName}' loaded!");
+            PartyParrotManager.Instance.LoadingManager.UpdateLoadingScreen(0.5f, $"Game state scene '{gameState.CurrentSceneName}' loaded!");
             yield return null;
 
             _currentGameState = gameState;

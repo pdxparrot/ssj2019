@@ -103,9 +103,11 @@ namespace pdxpartyparrot.ssj2019
 
         public override void TransitionScene(string nextScene, Action onComplete)
         {
-            Debug.LogWarning("TODO: show transition screen");
             base.TransitionScene(nextScene, () => {
-                Debug.LogWarning("TODO: hide transition screen");
+                // TODO: this is gross and seems wrong
+                StartGameServer();
+                StartGameClient();
+
                 onComplete?.Invoke();
             });
         }

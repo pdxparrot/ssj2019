@@ -160,7 +160,7 @@ namespace pdxpartyparrot.Game.State
 
             SetStatus($"Client connected, transitioning to game state...");
 
-            Core.Network.NetworkManager.Instance.ServerChangeScene(_gameStatePrefab.SceneName);
+            Core.Network.NetworkManager.Instance.ServerChangeScene(_gameStatePrefab.CurrentSceneName);
 
             GameStateManager.Instance.TransitionStateAsync(_gameStatePrefab, _gameStateInit);
         }

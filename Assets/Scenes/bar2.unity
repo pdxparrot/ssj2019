@@ -1413,10 +1413,5 @@ PrefabInstance:
       propertyPath: _cameraBounds
       value: 
       objectReference: {fileID: 1952190237}
-    - target: {fileID: 1821045789320530885, guid: f2d7a42f315ccda498b5880c2a609bf1,
-        type: 3}
-      propertyPath: _nextLevel
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2d7a42f315ccda498b5880c2a609bf1, type: 3}

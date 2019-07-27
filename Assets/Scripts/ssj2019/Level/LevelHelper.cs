@@ -125,6 +125,7 @@ namespace pdxpartyparrot.ssj2019.Level
         {
             // load the next level if we have one
             if(!string.IsNullOrWhiteSpace(_nextLevel)) {
+                GameManager.Instance.GameUnReady();
                 GameManager.Instance.TransitionScene(_nextLevel, null);
             } else {
                 GameManager.Instance.GameOver();

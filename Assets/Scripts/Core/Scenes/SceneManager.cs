@@ -42,6 +42,8 @@ namespace pdxpartyparrot.Core.Scenes
             }
 
             _loadedScenes.Add(sceneName);
+
+            Debug.Log($"Scene '{sceneName}' loaded...");
         }
 #endregion
 
@@ -56,6 +58,8 @@ namespace pdxpartyparrot.Core.Scenes
             }
 
             _loadedScenes.Remove(sceneName);
+
+            Debug.Log($"Scene '{sceneName}' unloaded...");
         }
 
         public IEnumerator<float> UnloadAllScenesRoutine()

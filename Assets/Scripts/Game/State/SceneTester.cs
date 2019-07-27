@@ -11,7 +11,7 @@ namespace pdxpartyparrot.Game.State
 
         public void SetScene(string sceneName)
         {
-            SceneName = sceneName;
+            CurrentSceneName = sceneName;
         }
     }
 }

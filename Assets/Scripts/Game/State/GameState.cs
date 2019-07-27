@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 using pdxpartyparrot.Core.Loading;
 using pdxpartyparrot.Core.Scenes;
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.Game.State
 {
@@ -12,20 +16,33 @@ namespace pdxpartyparrot.Game.State
         public string Name => name;
 
         [SerializeField]
-        private string _sceneName;
-
-        public string SceneName
-        {
-            get => _sceneName;
-            protected set => _sceneName = value;
-        }
-
-        public bool HasScene => !string.IsNullOrWhiteSpace(SceneName);
+        [FormerlySerializedAs("_sceneName")]
+        private string _initialSceneName;
 
         [SerializeField]
-        private bool _makeSceneActive;
+        [ReadOnly]
+        private string _currentSceneName;
 
-        public bool MakeSceneActive => _makeSceneActive;
+        public string CurrentSceneName
+        {
+            get => _currentSceneName;
+            protected set => _currentSceneName = value;
+        }
+
+        public bool HasScene => !string.IsNullOrWhiteSpace(CurrentSceneName);
+
+        [SerializeField]
+        [FormerlySerializedAs("_makeSceneActive")]
+        private bool _makeInitialSceneActive;
+
+        public bool MakeInitialSceneActive => _makeInitialSceneActive;
+
+#region Unity Lifecycle
+        protected virtual void Awake()
+        {
+            _currentSceneName = _initialSceneName;
+        }
+#endregion
 
         public IEnumerator<float> LoadSceneRoutine()
         {
@@ -33,7 +50,7 @@ namespace pdxpartyparrot.Game.State
                 yield break;
             }
 
-            IEnumerator<float> runner = SceneManager.Instance.LoadSceneRoutine(SceneName, MakeSceneActive);
+            IEnumerator<float> runner = SceneManager.Instance.LoadSceneRoutine(CurrentSceneName, MakeInitialSceneActive);
             while(runner.MoveNext()) {
                 yield return runner.Current;
             }
@@ -46,11 +63,33 @@ namespace pdxpartyparrot.Game.State
             }
 
             if(SceneManager.HasInstance) {
-                IEnumerator<float> runner = SceneManager.Instance.UnloadSceneRoutine(SceneName);
+                IEnumerator<float> runner = SceneManager.Instance.UnloadSceneRoutine(CurrentSceneName);
                 while(runner.MoveNext()) {
                     yield return runner.Current;
                 }
             }
+        }
+
+        public void ChangeSceneAsync(string sceneName, Action onComplete)
+        {
+            StartCoroutine(ChangeSceneRoutine(sceneName, onComplete));
+        }
+
+        private IEnumerator ChangeSceneRoutine(string sceneName, Action onComplete)
+        {
+            IEnumerator<float> runner = UnloadSceneRoutine();
+            while(runner.MoveNext()) {
+                yield return null;
+            }
+
+            CurrentSceneName = sceneName;
+
+            runner = LoadSceneRoutine();
+            while(runner.MoveNext()) {
+                yield return null;
+            }
+
+            onComplete?.Invoke();
         }
 
         public virtual IEnumerator<LoadStatus> OnEnterRoutine()
