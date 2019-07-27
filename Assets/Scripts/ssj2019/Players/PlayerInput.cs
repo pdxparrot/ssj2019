@@ -13,7 +13,7 @@ namespace pdxpartyparrot.ssj2019.Players
 {
     public sealed class PlayerInput : SideScollerPlayerInput<PlayerControls>, PlayerControls.IPlayerActions
     {
-        protected override bool InputEnabled => base.InputEnabled && !GameManager.Instance.IsGameOver;
+        protected override bool InputEnabled => base.InputEnabled && GameManager.Instance.IsGameReady && !GameManager.Instance.IsGameOver;
 
         private PlayerInputData GamePlayerInputData => (PlayerInputData)PlayerInputData;
 

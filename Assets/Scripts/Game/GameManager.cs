@@ -15,6 +15,8 @@ namespace pdxpartyparrot.Game
     {
         GameData GameData { get; }
 
+        bool IsGameReady { get; }
+
         bool IsGameOver { get; }
 
         void Initialize();
@@ -28,6 +30,7 @@ namespace pdxpartyparrot.Game
         public event EventHandler<EventArgs> GameStartServerEvent;
         public event EventHandler<EventArgs> GameStartClientEvent;
 
+        public event EventHandler<EventArgs> GameReadyEvent;
         public event EventHandler<EventArgs> GameOverEvent;
 #endregion
 
@@ -35,6 +38,16 @@ namespace pdxpartyparrot.Game
         private GameData _gameData;
 
         public GameData GameData => _gameData;
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _isGameReady;
+
+        public virtual bool IsGameReady
+        {
+            get => _isGameReady;
+            private set => _isGameReady = value;
+        }
 
         [SerializeField]
         [ReadOnly]
@@ -65,6 +78,7 @@ namespace pdxpartyparrot.Game
         public virtual void Initialize()
         {
             IsGameOver = false;
+            IsGameReady = false;
 
             InitializeObjectPools();
         }
@@ -72,6 +86,7 @@ namespace pdxpartyparrot.Game
         public virtual void Shutdown()
         {
             IsGameOver = false;
+            IsGameReady = false;
 
             DestroyObjectPools();
 
@@ -100,6 +115,15 @@ namespace pdxpartyparrot.Game
             Debug.Log("Start Game (Client)");
 
             GameStartClientEvent?.Invoke(this, EventArgs.Empty);
+        }
+
+        public virtual void GameReady()
+        {
+            Debug.Log("Game Ready");
+
+            IsGameReady = true;
+
+            GameReadyEvent?.Invoke(this, EventArgs.Empty);
         }
 
         public virtual void GameOver()

@@ -1,6 +1,4 @@
-﻿using pdxpartyparrot.Game.Players;
-
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace pdxpartyparrot.Game.UI
 {
