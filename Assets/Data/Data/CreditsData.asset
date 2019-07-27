@@ -15,13 +15,6 @@ MonoBehaviour:
   _preAmble: <align="center">Summer Slow Jam 2019!</align>
   _credits:
     _items:
-    - _title: Design
-      _contributors:
-      - Tien Tam
-    - _title: Programming
-      _contributors:
-      - Shane Lillie
-      - Luis Garcia
     - _title: Animation
       _contributors:
       - Allyson Willsey
@@ -30,4 +23,11 @@ MonoBehaviour:
       _contributors:
       - Egil Thompson
       - Sarah Francian
+    - _title: Design
+      _contributors:
+      - Tien Tam
+    - _title: Programming
+      _contributors:
+      - Shane Lillie
+      - Luis Garcia
   _postAmble: <link="pigsquad">http://www.pigsquad.com</link>
