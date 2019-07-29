@@ -18,4 +18,4 @@ MonoBehaviour:
     - _type: 1
       _attackData: {fileID: 0}
     - _type: 0
-      _attackData: {fileID: 11400000, guid: 0b2e4817866041e40bdb8c8c36fc1c84, type: 2}
+      _attackData: {fileID: 11400000, guid: 4e9f5f1ca37f87f4bbd5f252c83e177c, type: 2}
