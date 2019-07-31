@@ -512,8 +512,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 5c561ec631c14bc40bde647cfcc999f0, type: 3}
-        m_MethodName: 
+      - m_Target: {fileID: 5927951375578122589}
+        m_MethodName: OnSettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2335,8 +2335,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 6594192e7462e3e42a48618616760fa9, type: 3}
-        m_MethodName: 
+      - m_Target: {fileID: 5927951375578122589}
+        m_MethodName: OnBack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
