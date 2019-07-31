@@ -164,6 +164,15 @@ namespace pdxpartyparrot.ssj2019
             return playerEntry.PlayerCharacterData;
         }
 
+        public override void GameOver()
+        {
+            base.GameOver();
+
+            HighScoreManager.Instance.AddHighScore("test", 0, PlayerManager.Instance.Players.Count, new Dictionary<string, object> {
+                { "wave", LevelHelper.WaveSpawner.CurrentWaveIndex + 1}
+            });
+        }
+
 #region Events
         public void PlayerSpawned(Player player)
         {

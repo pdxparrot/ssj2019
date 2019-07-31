@@ -59,10 +59,8 @@ namespace pdxpartyparrot.ssj2019.Level
 
             GameManager.Instance.GameStartServerEvent += GameStartServerEventHandler;
             GameManager.Instance.GameStartClientEvent += GameStartClientEventHandler;
-
             GameManager.Instance.GameReadyEvent += GameReadyEventHandler;
-
-            
+            GameManager.Instance.GameOverEvent += GameOverEventHandler;
 
             if(null != _enterFadeEffectTrigger) {
                 _enterFadeEffectTrigger.Image = _fullScreenImage;
@@ -82,8 +80,8 @@ namespace pdxpartyparrot.ssj2019.Level
             ShutdownWaveSpawner();
 
             if(GameManager.HasInstance) {
+                GameManager.Instance.GameOverEvent -= GameOverEventHandler;
                 GameManager.Instance.GameReadyEvent -= GameReadyEventHandler;
-
                 GameManager.Instance.GameStartClientEvent -= GameStartClientEventHandler;
                 GameManager.Instance.GameStartServerEvent -= GameStartServerEventHandler;
 
@@ -161,6 +159,13 @@ namespace pdxpartyparrot.ssj2019.Level
             // TODO: this should wait until after all of the players are ready
             if(null != WaveSpawner) {
                 WaveSpawner.StartSpawner();
+            }
+        }
+
+        private void GameOverEventHandler(object sender, EventArgs args)
+        {
+            if(null != WaveSpawner) {
+                WaveSpawner.StopSpawner();
             }
         }
 
