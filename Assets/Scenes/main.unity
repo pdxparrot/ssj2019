@@ -280,13 +280,15 @@ MonoBehaviour:
     type: 3}
   _gameUIManagerPrefab: {fileID: 6141025429896587798, guid: e04cb7c1d3cc6424dae127a8da540f87,
     type: 3}
+  _dialogManagerPrefab: {fileID: 3423672891971432254, guid: c345e5f1d0d30a345a807a576fb5e868,
+    type: 3}
+  _cinematicsManagerPrefab: {fileID: 6643921667076601226, guid: 3a2e0835e204734409eb56dc42c9b23b,
+    type: 3}
   _gameManagerPrefab: {fileID: 3961162130779980102, guid: 5ea398d4d5436a24a8051aef0425f9c0,
     type: 3}
   _playerManagerPrefab: {fileID: 4161473966796991426, guid: 1224400b947db7d43a9208be5709be6f,
     type: 3}
   _npcManagerPrefab: {fileID: 3038298033495707247, guid: 5f3e26e45fb1ef54497d2f9e6aa57f21,
-    type: 3}
-  _stageManagerPrefab: {fileID: 7519116467450807172, guid: 62b5f8974ab583c449c2a78a99505597,
     type: 3}
 --- !u!1 &695438960
 GameObject:

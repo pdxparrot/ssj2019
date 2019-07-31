@@ -23,6 +23,12 @@ namespace pdxpartyparrot.Game.Loading
         [SerializeField]
         [FormerlySerializedAs("_uiManagerPrefab")]
         private GameUIManager _gameUIManagerPrefab;
+
+        [SerializeField]
+        private DialogueManager _dialogManagerPrefab;
+
+        [SerializeField]
+        private CinematicsManager _cinematicsManagerPrefab;
 #endregion
 
         protected override void CreateManagers()
@@ -31,7 +37,8 @@ namespace pdxpartyparrot.Game.Loading
 
             GameStateManager.CreateFromPrefab(_gameStateManagerPrefab, ManagersContainer);
             GameUIManager.CreateFromPrefab(_gameUIManagerPrefab, ManagersContainer);
-            CinematicsManager.Create(ManagersContainer);
+            CinematicsManager.CreateFromPrefab(_cinematicsManagerPrefab, ManagersContainer);
+            DialogueManager.CreateFromPrefab(_dialogManagerPrefab, ManagersContainer);
             HighScoreManager.Create(ManagersContainer);
         }
 
