@@ -33,6 +33,7 @@ namespace pdxpartyparrot.ssj2019.UI
 
             characterPanel.ShowCharacterDisplay();
             characterPanel.SetCharacterData(characterData, controllerId);
+            characterPanel.SetCharacterPortrait(Instantiate(characterData.CharacterPortraitPrefab));
             characterPanel.gameObject.SetActive(true);
         }
     }
