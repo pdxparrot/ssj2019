@@ -725,6 +725,11 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 33.65
       objectReference: {fileID: 0}
+    - target: {fileID: 8395706054123991067, guid: c070ed3a34f4ec34aa9155b85b1eda77,
+        type: 3}
+      propertyPath: _playerNumber
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c070ed3a34f4ec34aa9155b85b1eda77, type: 3}
 --- !u!224 &2336670546929007678 stripped
@@ -914,6 +919,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontSize
       value: 33.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395706054123991067, guid: c070ed3a34f4ec34aa9155b85b1eda77,
+        type: 3}
+      propertyPath: _playerNumber
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c070ed3a34f4ec34aa9155b85b1eda77, type: 3}
@@ -1294,6 +1304,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontSize
       value: 33.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395706054123991067, guid: c070ed3a34f4ec34aa9155b85b1eda77,
+        type: 3}
+      propertyPath: _playerNumber
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c070ed3a34f4ec34aa9155b85b1eda77, type: 3}

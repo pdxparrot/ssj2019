@@ -4,10 +4,12 @@ using pdxpartyparrot.Core.UI;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ssj2019.Data.Players;
 using pdxpartyparrot.ssj2019.Menu;
+using pdxpartyparrot.ssj2019.Players;
 
 using TMPro;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -15,6 +17,9 @@ namespace pdxpartyparrot.ssj2019.UI
 {
     public sealed class CharacterSelector : MonoBehaviour
     {
+        [SerializeField]
+        private int _playerNumber;
+
         [SerializeField]
         private GameObject _joinGamePrompt;
 
@@ -48,6 +53,13 @@ namespace pdxpartyparrot.ssj2019.UI
 
         [CanBeNull]
         public Gamepad Gamepad { get; private set; }
+
+#region Unity Lifecycle
+        private void Awake()
+        {
+            Assert.IsTrue(_playerNumber >= 0 && _playerNumber < GameManager.Instance.GameGameData.MaxLocalPlayers);
+        }
+#endregion
 
         public void Initialize(CharacterSelectMenu owner)
         {
@@ -110,8 +122,8 @@ namespace pdxpartyparrot.ssj2019.UI
             _characterPortrait.transform.SetParent(_characterPortraitContainer.transform);
             _characterPortrait.SetActive(true);
 
-            // TODO: set this to the PlayerData color
-            _playerIndicator.color = Color.white;
+            PlayerData.PlayerIndicatorState indicatorState = PlayerManager.Instance.GetPlayerIndicatorState(_playerNumber);
+            _playerIndicator.color = indicatorState.PlayerColor;
 
             _healthGauge.Percent = 1.0f;
             _rageGauge.Percent = 1.0f;
