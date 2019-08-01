@@ -108,6 +108,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public void OnHit(bool blocked)
         {
+            PlayerManager.Instance.GamePlayerUI.HUD.SetPlayerHealthPercent(GamePlayerOwner.NetworkPlayer.ControllerId, Brawler.HealthPercent);
         }
 
         public void OnDead()

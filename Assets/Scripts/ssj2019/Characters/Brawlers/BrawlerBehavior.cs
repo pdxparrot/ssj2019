@@ -358,7 +358,11 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
             Brawler.Health -= amount;
             if(_actionHandler.IsDead) {
+                Brawler.Health = 0;
+
                 _deathEffectTrigger.Trigger(() => _actionHandler.OnDeathComplete());
+
+                _actionHandler.OnHit(false);
                 _actionHandler.OnDead();
             } else {
                 Owner.Behavior.Movement.AddImpulse(force * amount);

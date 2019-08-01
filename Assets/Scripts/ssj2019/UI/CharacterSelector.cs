@@ -17,6 +17,7 @@ namespace pdxpartyparrot.ssj2019.UI
 {
     public sealed class CharacterSelector : MonoBehaviour
     {
+        // [Menu]
         [SerializeField]
         private int _playerNumber;
 
@@ -41,6 +42,7 @@ namespace pdxpartyparrot.ssj2019.UI
         [SerializeField]
         private ProgressBar _rageGauge;
 
+        // [Menu]
         [SerializeField]
         [ReadOnly]
         private int _characterIndex = -1;
@@ -53,9 +55,11 @@ namespace pdxpartyparrot.ssj2019.UI
 
         private CharacterPortrait _characterPortrait;
 
+        // [Menu]
         [CanBeNull]
         private CharacterSelectMenu _owner;
 
+        // [Menu]
         [CanBeNull]
         public Gamepad Gamepad { get; private set; }
 
@@ -66,11 +70,13 @@ namespace pdxpartyparrot.ssj2019.UI
         }
 #endregion
 
+        // [Menu]
         public void Initialize(CharacterSelectMenu owner)
         {
             _owner = owner;
         }
 
+        // [Menu]
         public void SetGamepad(Gamepad gamepad)
         {
             Gamepad = gamepad;
@@ -78,11 +84,11 @@ namespace pdxpartyparrot.ssj2019.UI
             // TODO: we should listen for the device disconnecting so we can release it
         }
 
+        // [Menu]
         public void ResetSelector()
         {
-            if(null != _owner) {
-                _owner.ReleaseCharacter(_characterIndex);
-            }
+            Assert.IsNotNull(_owner);
+            _owner.ReleaseCharacter(_characterIndex);
 
             _characterIndex = -1;
             _playerCharacterData = null;
@@ -106,6 +112,11 @@ namespace pdxpartyparrot.ssj2019.UI
             _characterPortrait = characterPortrait;
             _characterPortrait.transform.SetParent(_characterPortraitContainer.transform);
             _characterPortrait.gameObject.SetActive(true);
+        }
+
+        public void SetHealthPercent(float healthPercent)
+        {
+            _healthGauge.Percent = healthPercent;
         }
 
         private void GetNextCharacter()
@@ -162,6 +173,12 @@ namespace pdxpartyparrot.ssj2019.UI
         {
             _joinGamePrompt.SetActive(false);
             _characterDisplay.SetActive(true);
+        }
+
+        public void HideDisplay()
+        {
+            _joinGamePrompt.SetActive(false);
+            _characterDisplay.SetActive(false);
         }
 
         private bool IsOurDevice(InputDevice device)

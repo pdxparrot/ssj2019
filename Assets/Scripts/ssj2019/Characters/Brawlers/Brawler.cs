@@ -20,6 +20,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             get => _health;
             set => _health = value;
         }
+
+        public float HealthPercent => Health / (float)BrawlerData.MaxHealth;
 #endregion
 
         [Space(10)]

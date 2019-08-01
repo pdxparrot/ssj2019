@@ -18,23 +18,32 @@ namespace pdxpartyparrot.ssj2019.UI
             Assert.IsTrue(_characterPanels.Length == GameManager.Instance.GameGameData.MaxLocalPlayers);
 
             foreach(CharacterSelector characterPanel in _characterPanels) {
-                characterPanel.gameObject.SetActive(false);
+                characterPanel.HideDisplay();
             }
         }
 #endregion
 
-        public void EnableCharacterPanel(short controllerId, PlayerCharacterData characterData)
+        public void EnableCharacterPanel(int playerNumber, PlayerCharacterData characterData)
         {
-            if(controllerId < 0 || controllerId >= _characterPanels.Length) {
+            if(playerNumber < 0 || playerNumber >= _characterPanels.Length) {
                 return;
             }
 
-            CharacterSelector characterPanel = _characterPanels[controllerId];
+            CharacterSelector characterPanel = _characterPanels[playerNumber];
 
             characterPanel.ShowCharacterDisplay();
-            characterPanel.SetCharacterData(characterData, controllerId);
+            characterPanel.SetCharacterData(characterData, playerNumber);
             characterPanel.SetCharacterPortrait(Instantiate(characterData.CharacterPortraitPrefab));
-            characterPanel.gameObject.SetActive(true);
+        }
+
+        public void SetPlayerHealthPercent(int playerNumber, float healthPercent)
+        {
+            if(playerNumber < 0 || playerNumber >= _characterPanels.Length) {
+                return;
+            }
+
+            CharacterSelector characterPanel = _characterPanels[playerNumber];
+            characterPanel.SetHealthPercent(healthPercent);
         }
     }
 }
