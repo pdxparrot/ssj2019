@@ -15,6 +15,8 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.UI
 {
+    // TODO: this needs to be abstract the same as the GameManager, etc
+    // so that games can override things like the PlayerUI
     public sealed class GameUIManager : SingletonBehavior<GameUIManager>
     {
         private struct FloatingTextEntry

@@ -9,6 +9,7 @@ using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.Game.Interactables;
+using pdxpartyparrot.Game.UI;
 using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Characters.Brawlers;
 using pdxpartyparrot.ssj2019.Data.Players;
@@ -57,11 +58,6 @@ namespace pdxpartyparrot.ssj2019.Players
         }
 #endregion
 
-        public override void Initialize(Guid id, ActorBehaviorData behaviorData)
-        {
-            base.Initialize(id, behaviorData);
-        }
-
         protected override bool InitializeLocalPlayer(Guid id)
         {
             if(!base.InitializeLocalPlayer(id)) {
@@ -82,7 +78,7 @@ namespace pdxpartyparrot.ssj2019.Players
                 GamePlayerInput.SetGamepad((Gamepad)device);
             }
 
-            Debug.Log($"Player {Id} got character {_playerCharacterData.Name}");
+            PlayerManager.Instance.GamePlayerUI.HUD.EnableCharacterPanel(NetworkPlayer.ControllerId, _playerCharacterData);
 
             Brawler.Initialize(_playerCharacterData.BrawlerData);
 

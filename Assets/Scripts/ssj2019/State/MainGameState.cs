@@ -27,12 +27,13 @@ namespace pdxpartyparrot.ssj2019.State
             ViewerManager.Instance.AllocateViewers(1, GameManager.Instance.GameGameData.ViewerPrefab);
             GameManager.Instance.InitViewer();
 
+            // need this before players spawn
+            GameUIManager.Instance.InitializePlayerUI(GameManager.Instance.Viewer.UICamera);
+
             if(!base.InitializeClient()) {
                 Debug.LogWarning("Failed to initialize client!");
                 return false;
             }
-
-            GameUIManager.Instance.InitializePlayerUI(GameManager.Instance.Viewer.UICamera);
 
             GameManager.Instance.StartGameClient();
 

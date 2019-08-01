@@ -19,7 +19,7 @@ namespace pdxpartyparrot.ssj2019.Menu
         {
             public PlayerCharacterData PlayerCharacterData { get; set; }
 
-            public GameObject PlayerCharacterPortrait { get; set; }
+            public CharacterPortrait PlayerCharacterPortrait { get; set; }
 
             public bool InUse { get; set; }
         }
@@ -65,7 +65,7 @@ namespace pdxpartyparrot.ssj2019.Menu
                 };
 
                 character.PlayerCharacterPortrait = Instantiate(character.PlayerCharacterData.CharacterPortraitPrefab, _characterPortraitContainer.transform);
-                character.PlayerCharacterPortrait.SetActive(false);
+                character.PlayerCharacterPortrait.gameObject.SetActive(false);
 
                 _characters[i] = character;
             }
@@ -128,7 +128,7 @@ namespace pdxpartyparrot.ssj2019.Menu
         }
 
         [CanBeNull]
-        public GameObject GetCharacterPortrait(int index)
+        public CharacterPortrait GetCharacterPortrait(int index)
         {
             if(index < 0 || index >= _characters.Length) {
                 return null;
@@ -145,7 +145,7 @@ namespace pdxpartyparrot.ssj2019.Menu
             Character character = _characters[index];
             character.InUse = false;
 
-            character.PlayerCharacterPortrait.SetActive(false);
+            character.PlayerCharacterPortrait.gameObject.SetActive(false);
             character.PlayerCharacterPortrait.transform.SetParent(_characterPortraitContainer.transform);
         }
 

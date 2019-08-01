@@ -45,10 +45,15 @@ namespace pdxpartyparrot.ssj2019.UI
         [ReadOnly]
         private int _characterIndex = -1;
 
-        public PlayerCharacterData PlayerCharacterData { get; private set; }
+        [SerializeField]
+        [ReadOnly]
+        private PlayerCharacterData _playerCharacterData;
 
-        private GameObject _characterPortrait;
+        public PlayerCharacterData PlayerCharacterData => _playerCharacterData;
 
+        private CharacterPortrait _characterPortrait;
+
+        [CanBeNull]
         private CharacterSelectMenu _owner;
 
         [CanBeNull]
@@ -75,10 +80,12 @@ namespace pdxpartyparrot.ssj2019.UI
 
         public void ResetSelector()
         {
-            _owner.ReleaseCharacter(_characterIndex);
+            if(null != _owner) {
+                _owner.ReleaseCharacter(_characterIndex);
+            }
 
             _characterIndex = -1;
-            PlayerCharacterData = null;
+            _playerCharacterData = null;
 
             _characterName.text = "";
 
@@ -87,29 +94,43 @@ namespace pdxpartyparrot.ssj2019.UI
             ShowJoinGame();
         }
 
+        public void SetCharacterData(PlayerCharacterData characterData, int playerNumber)
+        {
+            _playerCharacterData = characterData;
+
+            ResetFromCharacterData(playerNumber);
+        }
+
+        public void SetCharacterPortrait(CharacterPortrait characterPortrait)
+        {
+            _characterPortrait = characterPortrait;
+            _characterPortrait.transform.SetParent(_characterPortraitContainer.transform);
+            _characterPortrait.gameObject.SetActive(true);
+        }
+
         private void GetNextCharacter()
         {
-            PlayerCharacterData = _owner.GetNextCharacter(ref _characterIndex);
+            Assert.IsNotNull(_owner);
+
+            SetCharacterData(_owner.GetNextCharacter(ref _characterIndex), _playerNumber);
             if(null == PlayerCharacterData) {
                 Debug.LogWarning("No available next character!");
                 return;
             }
-
-            ResetFromCharacterData();
         }
 
         private void GetPreviousCharacter()
         {
-            PlayerCharacterData = _owner.GetPreviousCharacter(ref _characterIndex);
+            Assert.IsNotNull(_owner);
+
+            SetCharacterData(_owner.GetPreviousCharacter(ref _characterIndex), _playerNumber);
             if(null == PlayerCharacterData) {
                 Debug.LogWarning("No available previous character!");
                 return;
             }
-
-            ResetFromCharacterData();
         }
 
-        private void ResetFromCharacterData()
+        private void ResetFromCharacterData(int playerNumber)
         {
             if(null == PlayerCharacterData) {
                 ResetSelector();
@@ -118,11 +139,11 @@ namespace pdxpartyparrot.ssj2019.UI
 
             _characterName.text = PlayerCharacterData.Name;
 
-            _characterPortrait = _owner.GetCharacterPortrait(_characterIndex);
-            _characterPortrait.transform.SetParent(_characterPortraitContainer.transform);
-            _characterPortrait.SetActive(true);
+            if(null != _owner) {
+                SetCharacterPortrait(_owner.GetCharacterPortrait(_characterIndex));
+            }
 
-            PlayerData.PlayerIndicatorState indicatorState = PlayerManager.Instance.GetPlayerIndicatorState(_playerNumber);
+            PlayerData.PlayerIndicatorState indicatorState = PlayerManager.Instance.GetPlayerIndicatorState(playerNumber);
             _playerIndicator.color = indicatorState.PlayerColor;
 
             _healthGauge.Percent = 1.0f;
@@ -131,11 +152,13 @@ namespace pdxpartyparrot.ssj2019.UI
 
         private void ShowJoinGame()
         {
+            Assert.IsNotNull(_owner);
+
             _joinGamePrompt.SetActive(true);
             _characterDisplay.SetActive(false);
         }
 
-        private void ShowCharacterDisplay()
+        public void ShowCharacterDisplay()
         {
             _joinGamePrompt.SetActive(false);
             _characterDisplay.SetActive(true);
@@ -154,6 +177,8 @@ namespace pdxpartyparrot.ssj2019.UI
 #region Events
         public bool OnSubmit(InputAction.CallbackContext context)
         {
+            Assert.IsNotNull(_owner);
+
             if(!IsOurDevice(context.control.device)) {
                 return false;
             }
@@ -181,6 +206,8 @@ namespace pdxpartyparrot.ssj2019.UI
 
         public bool OnCancel(InputAction.CallbackContext context)
         {
+            Assert.IsNotNull(_owner);
+
             if(!IsOurDevice(context.control.device)) {
                 return false;
             }
@@ -196,6 +223,8 @@ namespace pdxpartyparrot.ssj2019.UI
 
         public bool OnMove(InputAction.CallbackContext context)
         {
+            Assert.IsNotNull(_owner);
+
             if(!IsOurDevice(context.control.device)) {
                 return false;
             }
