@@ -1,11 +1,10 @@
 ﻿using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Game.State;
 using pdxpartyparrot.Game.UI;
-using pdxpartyparrot.ssj2019;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ggj2019.State
+namespace pdxpartyparrot.ssj2019.State
 {
     public sealed class MainGameState : Game.State.MainGameState
     {

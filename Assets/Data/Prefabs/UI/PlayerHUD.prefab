@@ -542,6 +542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4753317627f810d4ca6b529df657b54d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characterPanelContainer: {fileID: 2943493790291042483}
 --- !u!1001 &1512616296239356318
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -552,7 +553,7 @@ PrefabInstance:
     - target: {fileID: 4005884748602744992, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
       propertyPath: m_Name
-      value: Character Select Panel (2)
+      value: Character Select Panel P3
       objectReference: {fileID: 0}
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
@@ -742,7 +743,7 @@ PrefabInstance:
     - target: {fileID: 4005884748602744992, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
       propertyPath: m_Name
-      value: Character Select Panel (3)
+      value: Character Select Panel P4
       objectReference: {fileID: 0}
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
@@ -932,7 +933,7 @@ PrefabInstance:
     - target: {fileID: 4005884748602744992, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
       propertyPath: m_Name
-      value: Character Select Panel
+      value: Character Select Panel P1
       objectReference: {fileID: 0}
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
@@ -1122,7 +1123,7 @@ PrefabInstance:
     - target: {fileID: 4005884748602744992, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
       propertyPath: m_Name
-      value: Character Select Panel (1)
+      value: Character Select Panel P2
       objectReference: {fileID: 0}
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}

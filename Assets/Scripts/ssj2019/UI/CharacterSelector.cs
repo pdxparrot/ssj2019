@@ -1,5 +1,6 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 
+using pdxpartyparrot.Core.UI;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ssj2019.Data.Players;
 using pdxpartyparrot.ssj2019.Menu;
@@ -8,6 +9,7 @@ using TMPro;
 
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace pdxpartyparrot.ssj2019.UI
 {
@@ -24,6 +26,15 @@ namespace pdxpartyparrot.ssj2019.UI
 
         [SerializeField]
         private GameObject _characterPortraitContainer;
+
+        [SerializeField]
+        private Image _playerIndicator;
+
+        [SerializeField]
+        private ProgressBar _healthGauge;
+
+        [SerializeField]
+        private ProgressBar _rageGauge;
 
         [SerializeField]
         [ReadOnly]
@@ -98,6 +109,12 @@ namespace pdxpartyparrot.ssj2019.UI
             _characterPortrait = _owner.GetCharacterPortrait(_characterIndex);
             _characterPortrait.transform.SetParent(_characterPortraitContainer.transform);
             _characterPortrait.SetActive(true);
+
+            // TODO: set this to the PlayerData color
+            _playerIndicator.color = Color.white;
+
+            _healthGauge.Percent = 1.0f;
+            _rageGauge.Percent = 1.0f;
         }
 
         private void ShowJoinGame()
