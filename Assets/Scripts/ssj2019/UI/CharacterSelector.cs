@@ -69,6 +69,7 @@ namespace pdxpartyparrot.ssj2019.UI
         public void SetGamepad(Gamepad gamepad)
         {
             Gamepad = gamepad;
+Debug.Log($"character selector {name} has gamepad {gamepad}");
 
             // TODO: we should listen for the device disconnecting so we can release it
         }
@@ -154,6 +155,7 @@ namespace pdxpartyparrot.ssj2019.UI
 #region Events
         public bool OnSubmit(InputAction.CallbackContext context)
         {
+Debug.LogWarning($"character selector {name} submit from device {context.control.device}");
             if(!IsOurDevice(context.control.device)) {
                 return false;
             }
