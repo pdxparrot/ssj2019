@@ -59,6 +59,10 @@ namespace pdxpartyparrot.Game.Menu
         }
 #endregion
 
+        public virtual void Initialize()
+        {
+        }
+
         public virtual void ResetMenu()
         {
             if(null == _initialSelection) {

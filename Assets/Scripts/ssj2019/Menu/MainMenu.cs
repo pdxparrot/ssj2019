@@ -16,6 +16,15 @@ namespace pdxpartyparrot.ssj2019.Menu
         }
 #endregion
 
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            if(GameManager.Instance.HasGameStarted) {
+                ShowHighScores();
+            }
+        }
+
 #region Event Handlers
         public override void OnStart()
         {

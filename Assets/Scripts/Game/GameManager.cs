@@ -60,6 +60,19 @@ namespace pdxpartyparrot.Game
             private set => _isGameOver = value;
         }
 
+        // this state is not reset between games
+        // so the main menu can make decisions
+        // based on whether a game has been played or not
+        [SerializeField]
+        [ReadOnly]
+        private bool _hasGameStarted;
+
+        public bool HasGameStarted
+        {
+            get => _hasGameStarted;
+            private set => _hasGameStarted = value;
+        }
+
 #region Unity Lifecycle
         protected virtual void Awake()
         {
@@ -123,6 +136,7 @@ namespace pdxpartyparrot.Game
             Debug.Log("Game Ready");
 
             IsGameReady = true;
+            HasGameStarted = true;
 
             GameReadyEvent?.Invoke(this, EventArgs.Empty);
         }

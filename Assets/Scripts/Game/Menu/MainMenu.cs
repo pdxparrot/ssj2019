@@ -44,6 +44,11 @@ namespace pdxpartyparrot.Game.Menu
         }
 #endregion
 
+        public void ShowHighScores()
+        {
+            OnHighScores();
+        }
+
 #region Event Handlers
         public virtual void OnStart()
         {

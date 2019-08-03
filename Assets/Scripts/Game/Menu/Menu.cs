@@ -29,6 +29,11 @@ namespace pdxpartyparrot.Game.Menu
         }
 #endregion
 
+        public void Initialize()
+        {
+            _mainPanel.Initialize();
+        }
+
         public void ResetMenu()
         {
             _currentPanel.ResetMenu();

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 using pdxpartyparrot.Core.Audio;
 using pdxpartyparrot.Core.Input;
@@ -36,6 +36,7 @@ namespace pdxpartyparrot.Game.State
             AudioManager.Instance.PlayMusic(_music);
 
             _menu = GameUIManager.Instance.InstantiateUIPrefab(_menuPrefab);
+            _menu.Initialize();
 
             yield return new LoadStatus(1.0f, "Main menu initialized!");
         }
