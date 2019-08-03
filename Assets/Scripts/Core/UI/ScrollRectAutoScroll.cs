@@ -1,4 +1,4 @@
-﻿using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,12 +8,14 @@ namespace pdxpartyparrot.Core.UI
 /*
 Tips on making this work:
 
+TODO: these two things seem to be the source of the initial scrolling issues
 Add a LayoutGroup to Content
     Set Child Controls Size Width / Height
     Set Child Force Expand Width / Height
 Add a ContentSizeFitter to Content
     Set Horizontal Fit to Unconstrained
     Set Vertical Fit to Preferred Size
+
 Delete the ScrollBars completely to get them to not show up
 */
 
@@ -54,12 +56,14 @@ Delete the ScrollBars completely to get them to not show up
         {
             _scrollRect = GetComponent<ScrollRect>();
             _scrollRect.verticalNormalizedPosition = 1.0f;
+            _lastVerticalPosition = _scrollRect.verticalNormalizedPosition;
         }
 
         private void OnEnable()
         {
             // make sure we have the right content size before we begin
             // TODO: none of these seem to do the trick :(
+            // this not working seems like it might be related to the content size fitter
 /*Debug.Log($"height a: {_scrollRect.content.rect.height}");
             Canvas.ForceUpdateCanvases();
 
