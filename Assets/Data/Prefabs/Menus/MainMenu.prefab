@@ -6523,6 +6523,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _owner: {fileID: 8352289956213582818}
   _initialSelection: {fileID: 38330345054162321}
+  _scrollRect: {fileID: 9148156155638250858}
+  _scrollRate: 100
   _rankColumnText: {fileID: 0}
   _nameColumnText: {fileID: 1986220051910572732}
   _scoreColumnText: {fileID: 6126465560708607121}
