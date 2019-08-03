@@ -1,6 +1,8 @@
 ﻿using pdxpartyparrot.Core.UI;
 using pdxpartyparrot.ssj2019.Data.Players;
 
+using TMPro;
+
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -11,6 +13,12 @@ namespace pdxpartyparrot.ssj2019.UI
     {
         [SerializeField]
         private CharacterSelector[] _characterPanels;
+
+        [SerializeField]
+        private TextMeshProUGUI _waveText;
+
+        [SerializeField]
+        private TextMeshProUGUI _scoreText;
 
 #region Unity Lifecycle
         private void Awake()
@@ -44,6 +52,16 @@ namespace pdxpartyparrot.ssj2019.UI
 
             CharacterSelector characterPanel = _characterPanels[playerNumber];
             characterPanel.SetHealthPercent(healthPercent);
+        }
+
+        public void SetWave(int wave)
+        {
+            _waveText.text = $"{wave}";
+        }
+
+        public void SetScore(int score)
+        {
+            _scoreText.text = $"{score}";
         }
     }
 }

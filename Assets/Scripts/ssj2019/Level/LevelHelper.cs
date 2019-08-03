@@ -6,6 +6,7 @@ using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.UI;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.NPCs;
+using pdxpartyparrot.ssj2019.Players;
 
 using UnityEngine;
 using UnityEngine.AI;
@@ -99,6 +100,7 @@ namespace pdxpartyparrot.ssj2019.Level
             WaveSpawner = Instantiate(_waveSpawnerPrefab);
             WaveSpawner.Initialize();
 
+            WaveSpawner.WaveStartEvent += WaveStartEventHandler;
             WaveSpawner.WaveCompleteEvent += WaveCompleteEventHandler;
         }
 
@@ -152,6 +154,9 @@ namespace pdxpartyparrot.ssj2019.Level
             } else {
                 GameManager.Instance.GameReady();
             }
+
+            PlayerManager.Instance.GamePlayerUI.HUD.SetWave(1);
+            PlayerManager.Instance.GamePlayerUI.HUD.SetScore(0);
         }
 
         private void GameReadyEventHandler(object sender, EventArgs args)
@@ -167,6 +172,11 @@ namespace pdxpartyparrot.ssj2019.Level
             if(null != WaveSpawner) {
                 WaveSpawner.StopSpawner();
             }
+        }
+
+        private void WaveStartEventHandler(object sender, SpawnWaveEventArgs args)
+        {
+            PlayerManager.Instance.GamePlayerUI.HUD.SetWave(args.WaveIndex + 1);
         }
 
         private void WaveCompleteEventHandler(object sender, SpawnWaveEventArgs args)

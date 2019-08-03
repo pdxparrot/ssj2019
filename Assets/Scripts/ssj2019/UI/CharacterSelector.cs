@@ -28,6 +28,9 @@ namespace pdxpartyparrot.ssj2019.UI
         private GameObject _characterDisplay;
 
         [SerializeField]
+        private GameObject _emptyCharacterPanel;
+
+        [SerializeField]
         private TextMeshProUGUI _characterName;
 
         [SerializeField]

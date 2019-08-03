@@ -653,6 +653,7 @@ MonoBehaviour:
   _playerNumber: 0
   _joinGamePrompt: {fileID: 2398970086892332624}
   _characterDisplay: {fileID: 771303357187782697}
+  _emptyCharacterPanel: {fileID: 7097530887745924136}
   _characterName: {fileID: 7289753030537383308}
   _characterPortraitContainer: {fileID: 6083377623384875477}
   _playerIndicator: {fileID: 7408260803884193263}
@@ -1295,7 +1296,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 185.15
+  m_fontSize: 173.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

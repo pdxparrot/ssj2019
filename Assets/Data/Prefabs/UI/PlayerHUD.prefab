@@ -548,6 +548,8 @@ MonoBehaviour:
   - {fileID: 3639813507901143783}
   - {fileID: 6953116565499308421}
   - {fileID: 7170071947710394742}
+  _waveText: {fileID: 4506614862045517181}
+  _scoreText: {fileID: 1432496331557089005}
 --- !u!1001 &1512616296239356318
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -555,15 +557,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2962901465007179690}
     m_Modifications:
-    - target: {fileID: 8395706054123991067, guid: c070ed3a34f4ec34aa9155b85b1eda77,
-        type: 3}
-      propertyPath: _playerNumber
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4005884748602744992, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
       propertyPath: m_Name
       value: Character Select Panel P3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395706054123991067, guid: c070ed3a34f4ec34aa9155b85b1eda77,
+        type: 3}
+      propertyPath: _playerNumber
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
@@ -583,7 +585,7 @@ PrefabInstance:
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
@@ -737,6 +739,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c070ed3a34f4ec34aa9155b85b1eda77, type: 3}
+--- !u!224 &2336670546929007678 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3787635015807034784, guid: c070ed3a34f4ec34aa9155b85b1eda77,
+    type: 3}
+  m_PrefabInstance: {fileID: 1512616296239356318}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6953116565499308421 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8395706054123991067, guid: c070ed3a34f4ec34aa9155b85b1eda77,
@@ -749,12 +757,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0399b98632b4f1d409d79215e764d97b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &2336670546929007678 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3787635015807034784, guid: c070ed3a34f4ec34aa9155b85b1eda77,
-    type: 3}
-  m_PrefabInstance: {fileID: 1512616296239356318}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1658094725341462893
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -762,15 +764,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2962901465007179690}
     m_Modifications:
-    - target: {fileID: 8395706054123991067, guid: c070ed3a34f4ec34aa9155b85b1eda77,
-        type: 3}
-      propertyPath: _playerNumber
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4005884748602744992, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
       propertyPath: m_Name
       value: Character Select Panel P4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395706054123991067, guid: c070ed3a34f4ec34aa9155b85b1eda77,
+        type: 3}
+      propertyPath: _playerNumber
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
@@ -790,7 +792,7 @@ PrefabInstance:
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
@@ -992,7 +994,7 @@ PrefabInstance:
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
@@ -1171,15 +1173,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2962901465007179690}
     m_Modifications:
-    - target: {fileID: 8395706054123991067, guid: c070ed3a34f4ec34aa9155b85b1eda77,
-        type: 3}
-      propertyPath: _playerNumber
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4005884748602744992, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
       propertyPath: m_Name
       value: Character Select Panel P2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395706054123991067, guid: c070ed3a34f4ec34aa9155b85b1eda77,
+        type: 3}
+      propertyPath: _playerNumber
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
@@ -1199,7 +1201,7 @@ PrefabInstance:
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
@@ -1538,16 +1540,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5765437614844847554, guid: 57a3671ce350e024d8c1148b715f2832,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 80.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5765437614844847554, guid: 57a3671ce350e024d8c1148b715f2832,
-        type: 3}
-      propertyPath: m_firstOverflowCharacterIndex
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 3926916136195175672, guid: 57a3671ce350e024d8c1148b715f2832,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1581,15 +1573,54 @@ PrefabInstance:
     - target: {fileID: 9036889861696134738, guid: 57a3671ce350e024d8c1148b715f2832,
         type: 3}
       propertyPath: m_fontSize
-      value: 35.15
+      value: 15.35
       objectReference: {fileID: 0}
     - target: {fileID: 9036889861696134738, guid: 57a3671ce350e024d8c1148b715f2832,
         type: 3}
       propertyPath: m_firstOverflowCharacterIndex
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 5765437614844847554, guid: 57a3671ce350e024d8c1148b715f2832,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5765437614844847554, guid: 57a3671ce350e024d8c1148b715f2832,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5765437614844847554, guid: 57a3671ce350e024d8c1148b715f2832,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57a3671ce350e024d8c1148b715f2832, type: 3}
+--- !u!114 &1432496331557089005 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9036889861696134738, guid: 57a3671ce350e024d8c1148b715f2832,
+    type: 3}
+  m_PrefabInstance: {fileID: 7964691402644304063}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4506614862045517181 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5765437614844847554, guid: 57a3671ce350e024d8c1148b715f2832,
+    type: 3}
+  m_PrefabInstance: {fileID: 7964691402644304063}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6491979937241290015 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3787635015807034784, guid: 57a3671ce350e024d8c1148b715f2832,
