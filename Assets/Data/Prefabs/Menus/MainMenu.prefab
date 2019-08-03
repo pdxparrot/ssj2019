@@ -1141,7 +1141,6 @@ GameObject:
   - component: {fileID: 9148156155638250858}
   - component: {fileID: 391681276142752787}
   - component: {fileID: 2969890463731597416}
-  - component: {fileID: 4656492239965162538}
   - component: {fileID: 3170835148774184525}
   - component: {fileID: 5599161501382730973}
   m_Layer: 5
@@ -1231,25 +1230,6 @@ MonoBehaviour:
   m_FlexibleWidth: 1
   m_FlexibleHeight: 1
   m_LayoutPriority: 1
---- !u!114 &4656492239965162538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1597984305498138606}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 654df7deb5cb2b34daa07a17a845d88f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _delay: 3
-  _scrollRate: 75
-  _resetOnEnable: 1
-  _step: 0
-  _delayRemaining: 0
-  _lastScrollAmount: 0
-  _lastVerticalPosition: 0
 --- !u!114 &3170835148774184525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7690,15 +7670,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3631862081530907723}
     m_Modifications:
-    - target: {fileID: 4005884748602744992, guid: c070ed3a34f4ec34aa9155b85b1eda77,
-        type: 3}
-      propertyPath: m_Name
-      value: Character Select Panel P2
-      objectReference: {fileID: 0}
     - target: {fileID: 8395706054123991067, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
       propertyPath: _playerNumber
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005884748602744992, guid: c070ed3a34f4ec34aa9155b85b1eda77,
+        type: 3}
+      propertyPath: m_Name
+      value: Character Select Panel P2
       objectReference: {fileID: 0}
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
@@ -7902,15 +7882,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3631862081530907723}
     m_Modifications:
-    - target: {fileID: 4005884748602744992, guid: c070ed3a34f4ec34aa9155b85b1eda77,
-        type: 3}
-      propertyPath: m_Name
-      value: Character Select Panel P3
-      objectReference: {fileID: 0}
     - target: {fileID: 8395706054123991067, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
       propertyPath: _playerNumber
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005884748602744992, guid: c070ed3a34f4ec34aa9155b85b1eda77,
+        type: 3}
+      propertyPath: m_Name
+      value: Character Select Panel P3
       objectReference: {fileID: 0}
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
@@ -8114,15 +8094,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3631862081530907723}
     m_Modifications:
-    - target: {fileID: 4005884748602744992, guid: c070ed3a34f4ec34aa9155b85b1eda77,
-        type: 3}
-      propertyPath: m_Name
-      value: Character Select Panel P4
-      objectReference: {fileID: 0}
     - target: {fileID: 8395706054123991067, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
       propertyPath: _playerNumber
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005884748602744992, guid: c070ed3a34f4ec34aa9155b85b1eda77,
+        type: 3}
+      propertyPath: m_Name
+      value: Character Select Panel P4
       objectReference: {fileID: 0}
     - target: {fileID: 7289753030537383308, guid: c070ed3a34f4ec34aa9155b85b1eda77,
         type: 3}
