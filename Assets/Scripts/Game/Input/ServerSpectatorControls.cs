@@ -1,9 +1,7 @@
 // GENERATED AUTOMATICALLY FROM 'Assets/Data/Input/ServerSpectator.inputactions'
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
@@ -23,80 +21,59 @@ namespace pdxpartyparrot.Game.Input
             ""actions"": [
                 {
                     ""name"": ""move forward"",
+                    ""type"": ""Button"",
                     ""id"": ""5f680737-f97a-44bb-a4a9-42297a5656c6"",
-                    ""expectedControlLayout"": ""Button"",
-                    ""continuous"": false,
-                    ""passThrough"": false,
-                    ""initialStateCheck"": false,
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""bindings"": []
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""move backward"",
+                    ""type"": ""Button"",
                     ""id"": ""298a78da-e8b2-425d-b32e-99704d97cf30"",
-                    ""expectedControlLayout"": ""Button"",
-                    ""continuous"": false,
-                    ""passThrough"": false,
-                    ""initialStateCheck"": false,
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""bindings"": []
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""move left"",
+                    ""type"": ""Button"",
                     ""id"": ""ba3ee732-32c5-4934-9178-f3000ee7738f"",
-                    ""expectedControlLayout"": ""Button"",
-                    ""continuous"": false,
-                    ""passThrough"": false,
-                    ""initialStateCheck"": false,
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""bindings"": []
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""move right"",
+                    ""type"": ""Button"",
                     ""id"": ""abe9a4c8-45f9-463d-aad9-c020d80d2707"",
-                    ""expectedControlLayout"": ""Button"",
-                    ""continuous"": false,
-                    ""passThrough"": false,
-                    ""initialStateCheck"": false,
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""bindings"": []
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""move up"",
+                    ""type"": ""Button"",
                     ""id"": ""e7eae091-7558-45cf-8634-c087fae63693"",
-                    ""expectedControlLayout"": ""Button"",
-                    ""continuous"": false,
-                    ""passThrough"": false,
-                    ""initialStateCheck"": false,
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""bindings"": []
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""move down"",
+                    ""type"": ""Button"",
                     ""id"": ""93ec50f1-df3c-44cd-a1a8-12a64595be61"",
-                    ""expectedControlLayout"": ""Button"",
-                    ""continuous"": false,
-                    ""passThrough"": false,
-                    ""initialStateCheck"": false,
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""bindings"": []
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""look"",
+                    ""type"": ""Value"",
                     ""id"": ""751f7475-d7c4-4878-81e8-c2c8156be6c1"",
-                    ""expectedControlLayout"": """",
-                    ""continuous"": false,
-                    ""passThrough"": false,
-                    ""initialStateCheck"": false,
+                    ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""bindings"": []
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -109,8 +86,7 @@ namespace pdxpartyparrot.Game.Input
                     ""groups"": """",
                     ""action"": ""move forward"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -121,8 +97,7 @@ namespace pdxpartyparrot.Game.Input
                     ""groups"": """",
                     ""action"": ""move backward"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -133,8 +108,7 @@ namespace pdxpartyparrot.Game.Input
                     ""groups"": """",
                     ""action"": ""move left"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -145,8 +119,7 @@ namespace pdxpartyparrot.Game.Input
                     ""groups"": """",
                     ""action"": ""move right"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -157,8 +130,7 @@ namespace pdxpartyparrot.Game.Input
                     ""groups"": """",
                     ""action"": ""move up"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -169,8 +141,7 @@ namespace pdxpartyparrot.Game.Input
                     ""groups"": """",
                     ""action"": ""move down"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -181,8 +152,7 @@ namespace pdxpartyparrot.Game.Input
                     ""groups"": """",
                     ""action"": ""look"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -217,10 +187,7 @@ namespace pdxpartyparrot.Game.Input
             set => asset.devices = value;
         }
 
-        public ReadOnlyArray<InputControlScheme> controlSchemes
-        {
-            get => asset.controlSchemes;
-        }
+        public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
 
         public bool Contains(InputAction action)
         {
@@ -248,31 +215,30 @@ namespace pdxpartyparrot.Game.Input
         }
 
         // ServerSpectator
-        private InputActionMap m_ServerSpectator;
+        private readonly InputActionMap m_ServerSpectator;
         private IServerSpectatorActions m_ServerSpectatorActionsCallbackInterface;
-        private InputAction m_ServerSpectator_moveforward;
-        private InputAction m_ServerSpectator_movebackward;
-        private InputAction m_ServerSpectator_moveleft;
-        private InputAction m_ServerSpectator_moveright;
-        private InputAction m_ServerSpectator_moveup;
-        private InputAction m_ServerSpectator_movedown;
-        private InputAction m_ServerSpectator_look;
+        private readonly InputAction m_ServerSpectator_moveforward;
+        private readonly InputAction m_ServerSpectator_movebackward;
+        private readonly InputAction m_ServerSpectator_moveleft;
+        private readonly InputAction m_ServerSpectator_moveright;
+        private readonly InputAction m_ServerSpectator_moveup;
+        private readonly InputAction m_ServerSpectator_movedown;
+        private readonly InputAction m_ServerSpectator_look;
         public struct ServerSpectatorActions
         {
             private ServerSpectatorControls m_Wrapper;
             public ServerSpectatorActions(ServerSpectatorControls wrapper) { m_Wrapper = wrapper; }
-            public InputAction @moveforward { get { return m_Wrapper.m_ServerSpectator_moveforward; } }
-            public InputAction @movebackward { get { return m_Wrapper.m_ServerSpectator_movebackward; } }
-            public InputAction @moveleft { get { return m_Wrapper.m_ServerSpectator_moveleft; } }
-            public InputAction @moveright { get { return m_Wrapper.m_ServerSpectator_moveright; } }
-            public InputAction @moveup { get { return m_Wrapper.m_ServerSpectator_moveup; } }
-            public InputAction @movedown { get { return m_Wrapper.m_ServerSpectator_movedown; } }
-            public InputAction @look { get { return m_Wrapper.m_ServerSpectator_look; } }
+            public InputAction @moveforward => m_Wrapper.m_ServerSpectator_moveforward;
+            public InputAction @movebackward => m_Wrapper.m_ServerSpectator_movebackward;
+            public InputAction @moveleft => m_Wrapper.m_ServerSpectator_moveleft;
+            public InputAction @moveright => m_Wrapper.m_ServerSpectator_moveright;
+            public InputAction @moveup => m_Wrapper.m_ServerSpectator_moveup;
+            public InputAction @movedown => m_Wrapper.m_ServerSpectator_movedown;
+            public InputAction @look => m_Wrapper.m_ServerSpectator_look;
             public InputActionMap Get() { return m_Wrapper.m_ServerSpectator; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
-            public bool enabled { get { return Get().enabled; } }
-            public InputActionMap Clone() { return Get().Clone(); }
+            public bool enabled => Get().enabled;
             public static implicit operator InputActionMap(ServerSpectatorActions set) { return set.Get(); }
             public void SetCallbacks(IServerSpectatorActions instance)
             {
@@ -327,13 +293,7 @@ namespace pdxpartyparrot.Game.Input
                 }
             }
         }
-        public ServerSpectatorActions @ServerSpectator
-        {
-            get
-            {
-                return new ServerSpectatorActions(this);
-            }
-        }
+        public ServerSpectatorActions @ServerSpectator => new ServerSpectatorActions(this);
         public interface IServerSpectatorActions
         {
             void OnMoveforward(InputAction.CallbackContext context);

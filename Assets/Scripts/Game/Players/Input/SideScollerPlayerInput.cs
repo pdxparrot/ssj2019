@@ -5,14 +5,13 @@ namespace pdxpartyparrot.Game.Players.Input
 {
     public abstract class SideScollerPlayerInput<T> : PlayerInputSystem<T> where T: class, IInputActionCollection, new()
     {
-        public override void OnMove(InputAction.CallbackContext context)
+        protected override void DoPollMove()
         {
-            if(!IsOurDevice(context)) {
+            if(null == MoveAction) {
                 return;
             }
 
-            // relying in input system binding set to continuous for this
-            Vector2 axes = context.ReadValue<Vector2>();
+            Vector2 axes = MoveAction.ReadValue<Vector2>();
 
             // translate movement from x / y to x / z
             OnMove(new Vector3(axes.x, 0.0f, axes.y));

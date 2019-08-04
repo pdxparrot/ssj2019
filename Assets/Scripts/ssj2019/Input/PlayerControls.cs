@@ -1,9 +1,7 @@
 // GENERATED AUTOMATICALLY FROM 'Assets/Data/Input/PlayerControls.inputactions'
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
@@ -23,69 +21,51 @@ namespace pdxpartyparrot.ssj2019.Input
             ""actions"": [
                 {
                     ""name"": ""pause"",
+                    ""type"": ""Button"",
                     ""id"": ""44b6e5fa-3d7b-440f-9060-13fa7d641325"",
-                    ""expectedControlLayout"": ""Button"",
-                    ""continuous"": false,
-                    ""passThrough"": false,
-                    ""initialStateCheck"": false,
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""bindings"": []
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""move"",
+                    ""type"": ""Value"",
                     ""id"": ""1caee292-fa5f-4e0c-b724-6e1c7da09e51"",
-                    ""expectedControlLayout"": ""Vector2"",
-                    ""continuous"": true,
-                    ""passThrough"": false,
-                    ""initialStateCheck"": false,
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""bindings"": []
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""jump"",
+                    ""type"": ""Button"",
                     ""id"": ""efb3b829-c18a-4071-a255-a6697a3b990e"",
-                    ""expectedControlLayout"": ""Button"",
-                    ""continuous"": false,
-                    ""passThrough"": false,
-                    ""initialStateCheck"": false,
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""bindings"": []
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""attack"",
+                    ""type"": ""Button"",
                     ""id"": ""de643a9a-fc39-42b6-9600-eaabc22ef9ab"",
-                    ""expectedControlLayout"": ""Button"",
-                    ""continuous"": false,
-                    ""passThrough"": false,
-                    ""initialStateCheck"": false,
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""bindings"": []
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""block"",
+                    ""type"": ""Button"",
                     ""id"": ""b910815f-1b25-4825-971f-37f5863bd38f"",
-                    ""expectedControlLayout"": ""Button"",
-                    ""continuous"": false,
-                    ""passThrough"": false,
-                    ""initialStateCheck"": false,
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""bindings"": []
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""dash"",
+                    ""type"": ""Button"",
                     ""id"": ""496bddd6-7d31-418c-8359-ef595963fa7c"",
-                    ""expectedControlLayout"": ""Button"",
-                    ""continuous"": false,
-                    ""passThrough"": false,
-                    ""initialStateCheck"": false,
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""bindings"": []
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -98,11 +78,10 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""move"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""wasd"",
+                    ""name"": ""WASD"",
                     ""id"": ""2c16dd73-c32d-4492-ab3f-2601a47fab91"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -110,8 +89,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""move"",
                     ""isComposite"": true,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": ""up"",
@@ -122,8 +100,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""move"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""down"",
@@ -134,8 +111,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""move"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""left"",
@@ -146,8 +122,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""move"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""right"",
@@ -158,11 +133,10 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""move"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""arrow keys"",
+                    ""name"": ""Arrows"",
                     ""id"": ""df464eee-4a68-4cd7-a924-64f2c2eb5337"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -170,8 +144,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""move"",
                     ""isComposite"": true,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": ""up"",
@@ -182,8 +155,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""move"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""down"",
@@ -194,8 +166,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""move"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""left"",
@@ -206,8 +177,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""move"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""right"",
@@ -218,8 +188,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""move"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -230,8 +199,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""jump"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -242,8 +210,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""jump"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -254,8 +221,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""pause"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -266,8 +232,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""pause"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -278,8 +243,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""attack"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -290,8 +254,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""attack"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -302,8 +265,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""block"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -314,8 +276,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""block"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -326,8 +287,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""dash"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -338,8 +298,7 @@ namespace pdxpartyparrot.ssj2019.Input
                     ""groups"": """",
                     ""action"": ""dash"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false,
-                    ""modifiers"": """"
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -373,10 +332,7 @@ namespace pdxpartyparrot.ssj2019.Input
             set => asset.devices = value;
         }
 
-        public ReadOnlyArray<InputControlScheme> controlSchemes
-        {
-            get => asset.controlSchemes;
-        }
+        public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
 
         public bool Contains(InputAction action)
         {
@@ -404,29 +360,28 @@ namespace pdxpartyparrot.ssj2019.Input
         }
 
         // Player
-        private InputActionMap m_Player;
+        private readonly InputActionMap m_Player;
         private IPlayerActions m_PlayerActionsCallbackInterface;
-        private InputAction m_Player_pause;
-        private InputAction m_Player_move;
-        private InputAction m_Player_jump;
-        private InputAction m_Player_attack;
-        private InputAction m_Player_block;
-        private InputAction m_Player_dash;
+        private readonly InputAction m_Player_pause;
+        private readonly InputAction m_Player_move;
+        private readonly InputAction m_Player_jump;
+        private readonly InputAction m_Player_attack;
+        private readonly InputAction m_Player_block;
+        private readonly InputAction m_Player_dash;
         public struct PlayerActions
         {
             private PlayerControls m_Wrapper;
             public PlayerActions(PlayerControls wrapper) { m_Wrapper = wrapper; }
-            public InputAction @pause { get { return m_Wrapper.m_Player_pause; } }
-            public InputAction @move { get { return m_Wrapper.m_Player_move; } }
-            public InputAction @jump { get { return m_Wrapper.m_Player_jump; } }
-            public InputAction @attack { get { return m_Wrapper.m_Player_attack; } }
-            public InputAction @block { get { return m_Wrapper.m_Player_block; } }
-            public InputAction @dash { get { return m_Wrapper.m_Player_dash; } }
+            public InputAction @pause => m_Wrapper.m_Player_pause;
+            public InputAction @move => m_Wrapper.m_Player_move;
+            public InputAction @jump => m_Wrapper.m_Player_jump;
+            public InputAction @attack => m_Wrapper.m_Player_attack;
+            public InputAction @block => m_Wrapper.m_Player_block;
+            public InputAction @dash => m_Wrapper.m_Player_dash;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
-            public bool enabled { get { return Get().enabled; } }
-            public InputActionMap Clone() { return Get().Clone(); }
+            public bool enabled => Get().enabled;
             public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
             public void SetCallbacks(IPlayerActions instance)
             {
@@ -475,13 +430,7 @@ namespace pdxpartyparrot.ssj2019.Input
                 }
             }
         }
-        public PlayerActions @Player
-        {
-            get
-            {
-                return new PlayerActions(this);
-            }
-        }
+        public PlayerActions @Player => new PlayerActions(this);
         public interface IPlayerActions
         {
             void OnPause(InputAction.CallbackContext context);

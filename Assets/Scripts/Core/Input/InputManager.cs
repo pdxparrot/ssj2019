@@ -261,8 +261,6 @@ namespace pdxpartyparrot.Core.Input
                 // removed seems to cover this
                 //Debug.LogWarning("Unhandled gamepad disconnected");
                 break;
-            case InputDeviceChange.StateChanged:
-                break;
             default:
                 Debug.LogWarning($"Unhandled gamepad change: {change}");
                 break;

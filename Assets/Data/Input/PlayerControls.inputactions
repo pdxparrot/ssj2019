@@ -7,69 +7,51 @@
             "actions": [
                 {
                     "name": "pause",
+                    "type": "Button",
                     "id": "44b6e5fa-3d7b-440f-9060-13fa7d641325",
-                    "expectedControlLayout": "Button",
-                    "continuous": false,
-                    "passThrough": false,
-                    "initialStateCheck": false,
+                    "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
-                    "bindings": []
+                    "interactions": ""
                 },
                 {
                     "name": "move",
+                    "type": "Value",
                     "id": "1caee292-fa5f-4e0c-b724-6e1c7da09e51",
-                    "expectedControlLayout": "Vector2",
-                    "continuous": true,
-                    "passThrough": false,
-                    "initialStateCheck": false,
+                    "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": "",
-                    "bindings": []
+                    "interactions": ""
                 },
                 {
                     "name": "jump",
+                    "type": "Button",
                     "id": "efb3b829-c18a-4071-a255-a6697a3b990e",
-                    "expectedControlLayout": "Button",
-                    "continuous": false,
-                    "passThrough": false,
-                    "initialStateCheck": false,
+                    "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
-                    "bindings": []
+                    "interactions": ""
                 },
                 {
                     "name": "attack",
+                    "type": "Button",
                     "id": "de643a9a-fc39-42b6-9600-eaabc22ef9ab",
-                    "expectedControlLayout": "Button",
-                    "continuous": false,
-                    "passThrough": false,
-                    "initialStateCheck": false,
+                    "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
-                    "bindings": []
+                    "interactions": ""
                 },
                 {
                     "name": "block",
+                    "type": "Button",
                     "id": "b910815f-1b25-4825-971f-37f5863bd38f",
-                    "expectedControlLayout": "Button",
-                    "continuous": false,
-                    "passThrough": false,
-                    "initialStateCheck": false,
+                    "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
-                    "bindings": []
+                    "interactions": ""
                 },
                 {
                     "name": "dash",
+                    "type": "Button",
                     "id": "496bddd6-7d31-418c-8359-ef595963fa7c",
-                    "expectedControlLayout": "Button",
-                    "continuous": false,
-                    "passThrough": false,
-                    "initialStateCheck": false,
+                    "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
-                    "bindings": []
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -82,11 +64,10 @@
                     "groups": "",
                     "action": "move",
                     "isComposite": false,
-                    "isPartOfComposite": false,
-                    "modifiers": ""
+                    "isPartOfComposite": false
                 },
                 {
-                    "name": "wasd",
+                    "name": "WASD",
                     "id": "2c16dd73-c32d-4492-ab3f-2601a47fab91",
                     "path": "2DVector",
                     "interactions": "",
@@ -94,8 +75,7 @@
                     "groups": "",
                     "action": "move",
                     "isComposite": true,
-                    "isPartOfComposite": false,
-                    "modifiers": ""
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "up",
@@ -106,8 +86,7 @@
                     "groups": "",
                     "action": "move",
                     "isComposite": false,
-                    "isPartOfComposite": true,
-                    "modifiers": ""
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "down",
@@ -118,8 +97,7 @@
                     "groups": "",
                     "action": "move",
                     "isComposite": false,
-                    "isPartOfComposite": true,
-                    "modifiers": ""
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "left",
@@ -130,8 +108,7 @@
                     "groups": "",
                     "action": "move",
                     "isComposite": false,
-                    "isPartOfComposite": true,
-                    "modifiers": ""
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "right",
@@ -142,11 +119,10 @@
                     "groups": "",
                     "action": "move",
                     "isComposite": false,
-                    "isPartOfComposite": true,
-                    "modifiers": ""
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "arrow keys",
+                    "name": "Arrows",
                     "id": "df464eee-4a68-4cd7-a924-64f2c2eb5337",
                     "path": "2DVector",
                     "interactions": "",
@@ -154,8 +130,7 @@
                     "groups": "",
                     "action": "move",
                     "isComposite": true,
-                    "isPartOfComposite": false,
-                    "modifiers": ""
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "up",
@@ -166,8 +141,7 @@
                     "groups": "",
                     "action": "move",
                     "isComposite": false,
-                    "isPartOfComposite": true,
-                    "modifiers": ""
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "down",
@@ -178,8 +152,7 @@
                     "groups": "",
                     "action": "move",
                     "isComposite": false,
-                    "isPartOfComposite": true,
-                    "modifiers": ""
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "left",
@@ -190,8 +163,7 @@
                     "groups": "",
                     "action": "move",
                     "isComposite": false,
-                    "isPartOfComposite": true,
-                    "modifiers": ""
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "right",
@@ -202,8 +174,7 @@
                     "groups": "",
                     "action": "move",
                     "isComposite": false,
-                    "isPartOfComposite": true,
-                    "modifiers": ""
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -214,8 +185,7 @@
                     "groups": "",
                     "action": "jump",
                     "isComposite": false,
-                    "isPartOfComposite": false,
-                    "modifiers": ""
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -226,8 +196,7 @@
                     "groups": "",
                     "action": "jump",
                     "isComposite": false,
-                    "isPartOfComposite": false,
-                    "modifiers": ""
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -238,8 +207,7 @@
                     "groups": "",
                     "action": "pause",
                     "isComposite": false,
-                    "isPartOfComposite": false,
-                    "modifiers": ""
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -250,8 +218,7 @@
                     "groups": "",
                     "action": "pause",
                     "isComposite": false,
-                    "isPartOfComposite": false,
-                    "modifiers": ""
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -262,8 +229,7 @@
                     "groups": "",
                     "action": "attack",
                     "isComposite": false,
-                    "isPartOfComposite": false,
-                    "modifiers": ""
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -274,8 +240,7 @@
                     "groups": "",
                     "action": "attack",
                     "isComposite": false,
-                    "isPartOfComposite": false,
-                    "modifiers": ""
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -286,8 +251,7 @@
                     "groups": "",
                     "action": "block",
                     "isComposite": false,
-                    "isPartOfComposite": false,
-                    "modifiers": ""
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -298,8 +262,7 @@
                     "groups": "",
                     "action": "block",
                     "isComposite": false,
-                    "isPartOfComposite": false,
-                    "modifiers": ""
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -310,8 +273,7 @@
                     "groups": "",
                     "action": "dash",
                     "isComposite": false,
-                    "isPartOfComposite": false,
-                    "modifiers": ""
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -322,8 +284,7 @@
                     "groups": "",
                     "action": "dash",
                     "isComposite": false,
-                    "isPartOfComposite": false,
-                    "modifiers": ""
+                    "isPartOfComposite": false
                 }
             ]
         }

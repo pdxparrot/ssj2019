@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.Plugins.UI;
+using UnityEngine.InputSystem.UI;
 
 namespace pdxpartyparrot.Core.Input
 {

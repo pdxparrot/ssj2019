@@ -15,6 +15,10 @@ namespace pdxpartyparrot.ssj2019.Players
     {
         protected override bool InputEnabled => base.InputEnabled && GameManager.Instance.IsGameReady && !GameManager.Instance.IsGameOver;
 
+        protected override InputAction MoveAction => Actions.Player.move;
+
+        protected override InputAction LookAction => null;
+
         private PlayerInputData GamePlayerInputData => (PlayerInputData)PlayerInputData;
 
         private Player GamePlayer => (Player)Player;
@@ -126,6 +130,8 @@ namespace pdxpartyparrot.ssj2019.Players
                 } else {
                     GamePlayer.GamePlayerBehavior.StartBlock(LastMove);
                 }
+            } else if(context.canceled) {
+                Debug.LogWarning("block cancel");
             }
         }
 
