@@ -21,7 +21,7 @@ namespace pdxpartyparrot.Game.Menu
         private Button _initialSelection;
 
 #region Unity Lifecycle
-        private void Awake()
+        protected virtual void Awake()
         {
             if(null != _initialSelection) {
                 _initialSelection.Select();
@@ -29,14 +29,14 @@ namespace pdxpartyparrot.Game.Menu
             }
         }
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             InputManager.Instance.EventSystem.UIModule.submit.action.performed += OnSubmit;
             InputManager.Instance.EventSystem.UIModule.cancel.action.performed += OnCancel;
             InputManager.Instance.EventSystem.UIModule.move.action.performed += OnMove;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             if(InputManager.HasInstance) {
                 InputManager.Instance.EventSystem.UIModule.move.action.performed -= OnMove;
@@ -45,7 +45,7 @@ namespace pdxpartyparrot.Game.Menu
             }
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if(null == _initialSelection) {	
                 return;	

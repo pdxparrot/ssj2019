@@ -32,8 +32,10 @@ namespace pdxpartyparrot.ssj2019.Menu
         private GameObject _characterPortraitContainer;
 
 #region Unity Lifecycle
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             _characterPortraitContainer = new GameObject("Character Portraits");
 
             InitializeCharacters();

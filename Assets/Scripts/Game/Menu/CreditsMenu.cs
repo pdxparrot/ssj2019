@@ -15,8 +15,10 @@ namespace pdxpartyparrot.Game.Menu
         private TextMeshProUGUI _creditsText;
 
 #region Unity Lifecycle
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             _creditsText.richText = true;
             _creditsText.text = _creditsData.ToString();
         }

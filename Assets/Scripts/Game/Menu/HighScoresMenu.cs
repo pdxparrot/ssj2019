@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -50,8 +50,10 @@ namespace pdxpartyparrot.Game.Menu
         private ExtraColumnEntry[] _extraColumns;
 
 #region Unity Lifecycle
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             if(null != _rankColumnText) {
                 _rankColumnText.text = string.Empty;
             }
@@ -71,8 +73,10 @@ namespace pdxpartyparrot.Game.Menu
             }
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
+
             Dictionary<string, StringBuilder> columns = new Dictionary<string, StringBuilder>();
             HighScoreManager.Instance.HighScoresText(columns);
 

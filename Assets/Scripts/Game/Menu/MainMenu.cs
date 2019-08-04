@@ -25,8 +25,10 @@ namespace pdxpartyparrot.Game.Menu
         private DebugMenuNode _debugMenuNode;
 
 #region Unity Lifecycle
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             if(null != _highScoresPanel) {
                 _highScoresPanel.gameObject.SetActive(false);
             }

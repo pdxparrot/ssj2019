@@ -14,8 +14,10 @@ namespace pdxpartyparrot.Game.Menu
 #endregion
 
 #region Unity Lifecycle
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             _settingsMenu.gameObject.SetActive(false);
         }
 #endregion
