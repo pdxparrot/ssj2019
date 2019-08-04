@@ -1,7 +1,9 @@
 using System;
 
 using pdxpartyparrot.Core.Audio;
+using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.Time;
+using pdxpartyparrot.Game.UI;
 
 using UnityEngine;
 
@@ -9,6 +11,11 @@ namespace pdxpartyparrot.Game.State
 {
     public abstract class GameOverState : SubGameState
     {
+        [SerializeField]
+        private Menu.Menu _menuPrefab;
+
+        private Menu.Menu _menu;
+
         [SerializeField]
         private float _completeWaitTimeSeconds = 5.0f;
 
@@ -36,13 +43,29 @@ namespace pdxpartyparrot.Game.State
             AudioManager.Instance.StopAllMusic();
             AudioManager.Instance.PlayMusic(_endGameMusic);
 
-            _completeTimer = TimeManager.Instance.AddTimer();
-            _completeTimer.TimesUpEvent += CompleteTimerTimesUpEventHandler;
-            _completeTimer.Start(_completeWaitTimeSeconds);
+            if(null == _menuPrefab) {
+                _completeTimer = TimeManager.Instance.AddTimer();
+                _completeTimer.TimesUpEvent += CompleteTimerTimesUpEventHandler;
+                _completeTimer.Start(_completeWaitTimeSeconds);
+            } else {
+                InputManager.Instance.EventSystem.UIModule.EnableAllActions();
+
+                _menu = GameUIManager.Instance.InstantiateUIPrefab(_menuPrefab);
+                _menu.Initialize();
+            }
         }
 
         public override void OnExit()
         {
+            if(InputManager.HasInstance) {
+                InputManager.Instance.EventSystem.UIModule.DisableAllActions();
+            }
+
+            if(null != _menu) {
+                Destroy(_menu.gameObject);
+                _menu = null;
+            }
+
             AudioManager.Instance.StopAllMusic();
 
             base.OnExit();

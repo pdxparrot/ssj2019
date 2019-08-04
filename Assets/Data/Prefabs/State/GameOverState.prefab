@@ -43,5 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3ce71ad92a9fa241965381c2c968e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _menuPrefab: {fileID: 1177161943002870570, guid: 5912acb1d3cdea646a40a58fdcd02bde,
+    type: 3}
   _completeWaitTimeSeconds: 2.5
   _endGameMusic: {fileID: 0}
