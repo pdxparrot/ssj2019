@@ -1,6 +1,5 @@
 ﻿using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Util;
-using pdxpartyparrot.Game.Interactables;
 
 using Spine.Unity;
 
@@ -8,10 +7,9 @@ using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Volumes
 {
-    [RequireComponent(typeof(Interactables))]
     [RequireComponent(typeof(BoxCollider))]
     [RequireComponent(typeof(BoneFollower))]
-    public abstract class ActionVolume : MonoBehaviour, IInteractable
+    public abstract class ActionVolume : MonoBehaviour
     {
         [SerializeField]
         private Actor _owner;
@@ -30,8 +28,6 @@ namespace pdxpartyparrot.ssj2019.Volumes
             private set => _enabled = value;
         }
 
-        public bool CanInteract => IsEnabled;
-
         public Vector3 Offset
         {
             get => _collider.center;
@@ -44,8 +40,6 @@ namespace pdxpartyparrot.ssj2019.Volumes
             protected set => _collider.size = value;
         }
 
-        protected Interactables Interactables { get; private set; }
-
         protected BoneFollower BoneFollower { get; private set; }
 
 #region Unity Lifecycle
@@ -53,8 +47,6 @@ namespace pdxpartyparrot.ssj2019.Volumes
         {
             _collider = GetComponent<BoxCollider>();
             _collider.isTrigger = true;
-
-            Interactables = GetComponent<Interactables>();
 
             BoneFollower = GetComponent<BoneFollower>();
             BoneFollower.followLocalScale = false;

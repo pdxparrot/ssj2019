@@ -25,9 +25,9 @@ namespace pdxpartyparrot.ssj2019.Actors
         }
 #endregion
 
-        public bool Damage(Actor source, string type, int amount, Bounds damageVolume, Vector3 force)
+        public bool Damage(DamageData damageData)
         {
-            return TrainingDummyBehavior.OnDamage(source, type, amount, damageVolume, force);
+            return TrainingDummyBehavior.OnDamage(damageData);
         }
     }
 }

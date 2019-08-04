@@ -8,6 +8,7 @@ using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
+using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Characters.NPCs;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ssj2019.Characters.Brawlers;
@@ -430,9 +431,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
 #endregion
 
 #region Events
-        public bool OnDamage(Actor source, string type, int amount, Bounds attackBounds, Vector3 force)
+        public bool OnDamage(DamageData damageData)
         {
-            return _brawlerBehavior.Damage(source, type, amount, attackBounds, force);
+            return _brawlerBehavior.Damage(damageData);
         }
 #endregion
     }

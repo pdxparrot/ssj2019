@@ -4,6 +4,7 @@ using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Effects.EffectTriggerComponents;
 using pdxpartyparrot.ssj2019.Data.Brawlers;
@@ -329,23 +330,24 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         }
 #endregion
 
-        public bool Damage(Actor source, string type, int amount, Bounds attackBounds, Vector3 force)
+        public bool Damage(DamageData damageData)
         {
             if(_actionHandler.IsDead || _actionHandler.IsImmune) {
                 return false;
             }
 
             // did we block the damage?
-            if(Brawler.CurrentAction.IsBlocking && _blockVolume.Intersects(attackBounds)) {
+            if(damageData.blockable && Brawler.CurrentAction.IsBlocking && _blockVolume.Intersects(damageData.bounds)) {
                 if(BrawlerAction.ActionType.Parry == Brawler.CurrentAction.Type) {
                     Debug.Log($"TODO: Brawler {Owner.Id} can parry");
                 }
 
-                // TODO: somehow we need to handle chip damage
-                // but for now we'll just dump all of it
-
                 if(GameManager.Instance.DebugBrawlers) {
-                    Debug.Log($"Brawler {Owner.Id} blocked damaged by {source.Id} for {amount}");
+                    Debug.Log($"Brawler {Owner.Id} blocked damaged by {damageData.source.Id} for {damageData.amount} (took {damageData.chipAmount}");
+                }
+
+                if(DoDamage(damageData.amount, damageData.force, true)) {
+                    return true;
                 }
 
                 _blockEffectTrigger.Trigger();
@@ -357,11 +359,18 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             if(GameManager.Instance.DebugBrawlers) {
-                Debug.Log($"Brawler {Owner.Id} damaged by {source.Id} for {amount}");
+                Debug.Log($"Brawler {Owner.Id} damaged by {damageData.source.Id} for {damageData.amount}");
             }
 
             CancelActions(false);
 
+            DoDamage(damageData.amount, damageData.force, true);
+
+            return true;
+        }
+
+        private bool DoDamage(int amount, Vector3 force, bool blocked)
+        {
             Brawler.Health -= amount;
             if(_actionHandler.IsDead) {
                 Brawler.Health = 0;
@@ -370,18 +379,24 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
                 _actionHandler.OnHit(false);
                 _actionHandler.OnDead();
-            } else {
-                Owner.Behavior.Movement.AddImpulse(force * amount);
 
-                _hitEffectTrigger.Trigger(() => {
-                    Idle();
-                });
-
-                _actionHandler.ClearActionBuffer();
-                _actionHandler.OnHit(false);
+                return true;
             }
 
-            return true;
+            if(blocked) {
+                return false;
+            }
+
+            Owner.Behavior.Movement.AddImpulse(force * amount);
+
+            _hitEffectTrigger.Trigger(() => {
+                Idle();
+            });
+
+            _actionHandler.ClearActionBuffer();
+            _actionHandler.OnHit(false);
+
+            return false;
         }
 
         public void CancelActions(bool force)

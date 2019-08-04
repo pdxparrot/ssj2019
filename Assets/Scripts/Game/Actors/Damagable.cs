@@ -4,9 +4,23 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Actors
 {
+    public struct DamageData
+    {
+        public Actor source;
+        public string type;
+
+        public bool blockable;
+
+        public int amount;
+        public int chipAmount;
+
+        public Bounds bounds;
+        public Vector3 force;
+    }
+
     public interface IDamagable
     {
         // returns true if the actor took any damage
-        bool Damage(Actor source, string type, int amount, Bounds damageVolume, Vector3 force);
+        bool Damage(DamageData damageData);
     }
 }

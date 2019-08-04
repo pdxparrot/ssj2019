@@ -11,6 +11,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Volumes
 {
+    [RequireComponent(typeof(Interactables))]
     public sealed class AttackVolume : ActionVolume
     {
 #region Events
@@ -26,11 +27,14 @@ namespace pdxpartyparrot.ssj2019.Volumes
         [ReadOnly]
         private Vector3 _direction;
 
+        private Interactables Interactables { get; set; }
+
 #region Unity Lifecycle
         protected override void Awake()
         {
             base.Awake();
 
+            Interactables = GetComponent<Interactables>();
             Interactables.InteractableAddedEvent += InteractableAddedEventHandler;
         }
 
@@ -86,7 +90,19 @@ namespace pdxpartyparrot.ssj2019.Volumes
                 return;
             }
 
-            if(damagable.Damage(Owner, _attackData.DamageType, _attackData.DamageAmount, _collider.bounds, _direction * _attackData.PushBackScale)) {
+            Vector3 force = _direction * _attackData.PushBackScale + _attackData.KnockDownForce * Vector3.down + _attackData.KnockUpForce * Vector3.up;
+
+            DamageData damageData = new DamageData{
+                source = Owner,
+                type = _attackData.DamageType,
+                blockable = !_attackData.Unblockable,
+                amount = _attackData.DamageAmount,
+                chipAmount = _attackData.BlockDamageAmount,
+                bounds = _collider.bounds,
+                force = force,
+            };
+
+            if(damagable.Damage(damageData)) {
                 AttackHitEvent?.Invoke(this, new AttackVolumeEventArgs{
                     HitTarget = damagable,
                 });
