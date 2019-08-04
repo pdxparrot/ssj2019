@@ -177,7 +177,7 @@ namespace pdxpartyparrot.ssj2019
 
         public override void GameOver()
         {
-            HighScoreManager.Instance.AddHighScore("test", 0, PlayerManager.Instance.Players.Count, new Dictionary<string, object> {
+            HighScoreManager.Instance.AddHighScore("test", _score, PlayerManager.Instance.Players.Count, new Dictionary<string, object> {
                 { "wave", LevelHelper.WaveSpawner.CurrentWaveIndex + 1}
             });
 
