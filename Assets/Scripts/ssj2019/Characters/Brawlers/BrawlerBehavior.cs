@@ -265,17 +265,23 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 #region Combos
         public bool AdvanceCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
         {
-            if(null == _currentComboEntry) {
-                _currentComboEntry = Brawler.BrawlerCombo.RootComboEntry.NextEntry(action, true);
+            bool isOpener = null == _currentComboEntry;
+
+            if(isOpener) {
+                _currentComboEntry = Brawler.BrawlerCombo.RootComboEntry.NextEntry(action, null, false);
                 if(null == _currentComboEntry) {
                     Debug.LogWarning($"Unable to find combo opener for action {action}");
                 }
             } else {
-                _currentComboEntry = _currentComboEntry.NextEntry(action, false);
+                _currentComboEntry = _currentComboEntry.NextEntry(action, _currentComboEntry, Brawler.CurrentAction.DidHit);
             }
 
             if(null == _currentComboEntry) {
                 return FudgeFailedCombo(action);
+            }
+
+            if(!isOpener) {
+                GameManager.Instance.PlayerCombo(_currentComboEntry.Move.ComboPoints);
             }
 
             if(GameManager.Instance.DebugBrawlers) {
@@ -290,7 +296,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             // if we fail a combo into a dash, just do the dash as a new opener
             // or, if we fail a combo out of a dash, try and find something out of the root instead as a new opener
             if(action is DashBehaviorComponent.DashAction || BrawlerAction.ActionType.Dash == Brawler.CurrentAction.Type) {
-                _currentComboEntry = Brawler.BrawlerCombo.RootComboEntry.NextEntry(action, true);
+                _currentComboEntry = Brawler.BrawlerCombo.RootComboEntry.NextEntry(action, null, Brawler.CurrentAction.DidHit);
                 return null != _currentComboEntry;
             }
 
@@ -445,6 +451,9 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 #region Event Handlers
         private void AttackVolumeHitEventHandler(object sender, AttackVolumeEventArgs args)
         {
+            BrawlerAction currentAction = Brawler.CurrentAction;
+            currentAction.DidHit = true;
+            Brawler.CurrentAction = currentAction;
         }
 
         private void AttackAnimationStartHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)

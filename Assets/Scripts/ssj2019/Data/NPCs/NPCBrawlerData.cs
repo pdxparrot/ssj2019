@@ -54,6 +54,11 @@ namespace pdxpartyparrot.ssj2019.Data.NPCs
 
         public float DashCooldownSeconds => _dashCooldownMs * TimeManager.MilliSecondsToSeconds;
 
+        [SerializeField]
+        private int _points = 100;
+
+        public int Points => _points;
+
         public bool CanTrackDistance(float distance)
         {
             if(MaxTrackDistance <= 0.0f) {

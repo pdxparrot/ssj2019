@@ -21,7 +21,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             IReadOnlyCollection<IComboEntry> ComboEntries { get; }
 
             [CanBeNull]
-            IComboEntry NextEntry(CharacterBehaviorComponent.CharacterBehaviorAction action, bool isOpener);
+            IComboEntry NextEntry(CharacterBehaviorComponent.CharacterBehaviorAction action, IComboEntry previousMove, bool previousActionHit);
         }
 
         private class ComboEntry : IComboEntry
@@ -33,7 +33,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             public IReadOnlyCollection<IComboEntry> ComboEntries => comboEntries;
 
             [CanBeNull]
-            public IComboEntry NextEntry(CharacterBehaviorComponent.CharacterBehaviorAction action, bool isOpener)
+            public IComboEntry NextEntry(CharacterBehaviorComponent.CharacterBehaviorAction action, IComboEntry previousMove, bool previousActionHit)
             {
                 if(action is DashBehaviorComponent.DashAction) {
                     foreach(IComboEntry comboEntry in comboEntries) {
@@ -43,14 +43,14 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                     }
                 } else if(action is AttackBehaviorComponent.AttackAction attackAction) {
                     foreach(IComboEntry comboEntry in comboEntries) {
-                        if(comboEntry.Move.Equals(attackAction)) {
+                        if(comboEntry.Move.Equals(attackAction) && (null == previousMove || !Move.RequireHit || !previousMove.Move.IsAttack || previousActionHit)) {
                             return comboEntry;
                         }
                     }
 
                     // if we failed and this is the opener
                     // we'll be kind and fall back on the directionless attack
-                    if(isOpener) {
+                    if(null == previousMove) {
                         if(GameManager.Instance.DebugBrawlers) {
                             Debug.Log($"Fallback on directionless attack");
                         }

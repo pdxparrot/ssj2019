@@ -376,6 +376,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
         {
             StageManager.Instance.ReleaseKungFuGridSlot(_target, Owner);
             ClearActionBuffer();
+
+            GameManager.Instance.NPCBrawlerKilled(NPCBrawler.NPCBrawlerData.Points);
         }
 
         public void OnDeathComplete()

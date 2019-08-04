@@ -55,6 +55,10 @@ namespace pdxpartyparrot.ssj2019
 
         public LevelHelper LevelHelper => _levelHelper;
 
+        [SerializeField]
+        [ReadOnly]
+        private int _score;
+
         private readonly Dictionary<short, PlayerEntry> _playerCharacters = new Dictionary<short, PlayerEntry>();
 
         public IReadOnlyCollection<short> PlayerCharacterControllers => _playerCharacters.Keys;
@@ -78,6 +82,13 @@ namespace pdxpartyparrot.ssj2019
             base.OnDestroy();
         }
 #endregion
+
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            _score = 0;
+        }
 
         public override void Shutdown()
         {
@@ -186,6 +197,26 @@ namespace pdxpartyparrot.ssj2019
             if(_activePlayers.Count < 1) {
                 GameOver();
             }
+        }
+#endregion
+
+#region Score
+        public void NPCBrawlerKilled(int points)
+        {
+            _score += points;
+            PlayerManager.Instance.GamePlayerUI.HUD.SetScore(_score);
+        }
+
+        public void PlayerCombo(int points)
+        {
+            _score += points;
+            PlayerManager.Instance.GamePlayerUI.HUD.SetScore(_score);
+        }
+
+        public void PlayerHit(int points)
+        {
+            _score -= points;
+            PlayerManager.Instance.GamePlayerUI.HUD.SetScore(_score);
         }
 #endregion
 

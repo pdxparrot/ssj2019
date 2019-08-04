@@ -34,5 +34,11 @@ namespace pdxpartyparrot.ssj2019.Data.Players
         private PlayerIndicatorState[] _playerIndicators;
 
         public IReadOnlyCollection<PlayerIndicatorState> PlayerIndicators => _playerIndicators;
+
+        [SerializeField]
+        [Tooltip("The number of score points lost when the player takes a hit")]
+        private int _hitPoints = 15;
+
+        public int HitPoints => _hitPoints;
     }
 }

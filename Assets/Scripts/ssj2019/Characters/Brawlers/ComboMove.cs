@@ -47,10 +47,24 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         [CanBeNull]
         public AttackData AttackData => _attackData;
 
+        [SerializeField]
+        [Tooltip("Does this move require the previous move to have hit in order to combo. Does nothing if the previous move was not an attack.")]
+        private bool _requireHit;
+
+        public bool RequireHit => _requireHit;
+
+        [SerializeField]
+        [Tooltip("The number of score points to award when this combo move occurs.")]
+        private int _comboPoints = 5;
+
+        public int ComboPoints => _comboPoints;
+
         // TODO: we should hook the dash component data here as well
         // so that different combo parts can have different dash values
 
-        public bool IsDirectionlessAttack => ComboMoveType.Attack == Type && null != AttackData && AttackData.Direction.None == AttackData.AttackDirection;
+        public bool IsAttack => ComboMoveType.Attack == Type && null != AttackData;
+
+        public bool IsDirectionlessAttack => IsAttack && AttackData.Direction.None == AttackData.AttackDirection;
 
         public bool Equals(ComboMove other)
         {

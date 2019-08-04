@@ -1,5 +1,7 @@
 ﻿using System;
 
+using pdxpartyparrot.Core.Util;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Characters.Brawlers
@@ -56,6 +58,16 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             set => _stunned = value;
         }
 
+        [SerializeField]
+        [ReadOnly]
+        private bool _didHit;
+
+        public bool DidHit
+        {
+            get => _didHit;
+            set => _didHit = value;
+        }
+
         // true if other actions can queue while this one is in progress
         public bool CanQueue => ActionType.Attack == Type || ActionType.Dash == Type;
 
@@ -68,6 +80,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             _cancellable = true;
             _immune = false;
             _stunned = false;
+            _didHit = false;
 
             // block specialization
             if(IsBlocking) {

@@ -56,7 +56,7 @@ namespace pdxpartyparrot.ssj2019.UI
 
         public void SetWave(int wave)
         {
-            _waveText.text = $"{wave}";
+            _waveText.text = $"Wave {wave}";
         }
 
         public void SetScore(int score)
