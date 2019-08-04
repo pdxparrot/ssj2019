@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 namespace pdxpartyparrot.Game.Menu
 {
+    // TODO: should this be abstract?
     public class MenuPanel : MonoBehaviour
     {
         [SerializeField]

@@ -215,7 +215,7 @@ namespace pdxpartyparrot.ssj2019
 
         public void PlayerHit(int points)
         {
-            _score -= points;
+            _score = Mathf.Max(_score - points, 0);
             PlayerManager.Instance.GamePlayerUI.HUD.SetScore(_score);
         }
 #endregion

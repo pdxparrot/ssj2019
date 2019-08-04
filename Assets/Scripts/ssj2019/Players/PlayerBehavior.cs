@@ -110,6 +110,14 @@ namespace pdxpartyparrot.ssj2019.Players
         public void OnHit(bool blocked)
         {
             PlayerManager.Instance.GamePlayerUI.HUD.SetPlayerHealthPercent(GamePlayerOwner.NetworkPlayer.ControllerId, Brawler.HealthPercent);
+            GameManager.Instance.PlayerHit(PlayerManager.Instance.PlayerData.HitPoints);
+        }
+
+        public void OnComboMove(bool isOpener, ComboMove move)
+        {
+            if(!isOpener) {
+                GameManager.Instance.PlayerCombo(move.ComboPoints);
+            }
         }
 
         public void OnDead()

@@ -199,7 +199,7 @@ namespace pdxpartyparrot.ssj2019.UI
         {
             Assert.IsNotNull(_owner);
 
-            if(!IsOurDevice(context.control.device)) {
+            if(!context.performed || !IsOurDevice(context.control.device)) {
                 return false;
             }
 
@@ -228,7 +228,7 @@ namespace pdxpartyparrot.ssj2019.UI
         {
             Assert.IsNotNull(_owner);
 
-            if(!IsOurDevice(context.control.device)) {
+            if(!context.performed || !IsOurDevice(context.control.device)) {
                 return false;
             }
 
@@ -245,7 +245,7 @@ namespace pdxpartyparrot.ssj2019.UI
         {
             Assert.IsNotNull(_owner);
 
-            if(!IsOurDevice(context.control.device)) {
+            if(!context.performed || !IsOurDevice(context.control.device)) {
                 return false;
             }
 

@@ -51,6 +51,9 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         // triggers when the brawler is hit
         void OnHit(bool blocked);
 
+        // triggers when the brawler performs a successful combo move
+        void OnComboMove(bool isOpener, ComboMove move);
+
         // triggers when the brawler is dead
         void OnDead();
 
@@ -278,12 +281,13 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             if(null == _currentComboEntry) {
-                return FudgeFailedCombo(action);
+                _currentComboEntry = FudgeFailedCombo(action);
+                if(null == _currentComboEntry) {
+                    return false;
+                }
             }
 
-            if(!isOpener) {
-                GameManager.Instance.PlayerCombo(_currentComboEntry.Move.ComboPoints);
-            }
+            _actionHandler.OnComboMove(isOpener, _currentComboEntry.Move);
 
             if(GameManager.Instance.DebugBrawlers) {
                 Debug.Log($"Brawler {Owner.Id} advancing combo to {_currentComboEntry.Move.Id}");
@@ -292,18 +296,17 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             return true;
         }
 
-        private bool FudgeFailedCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
+        private BrawlerCombo.IComboEntry FudgeFailedCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
         {
             // if we fail a combo into a dash, just do the dash as a new opener
             // or, if we fail a combo out of a dash, try and find something out of the root instead as a new opener
             if(action is DashBehaviorComponent.DashAction || BrawlerAction.ActionType.Dash == Brawler.CurrentAction.Type) {
-                _currentComboEntry = Brawler.BrawlerCombo.RootComboEntry.NextEntry(action, null, Brawler.CurrentAction.DidHit);
-                return null != _currentComboEntry;
+                return Brawler.BrawlerCombo.RootComboEntry.NextEntry(action, null, Brawler.CurrentAction.DidHit);
             }
 
             // any other fudging we might want to do?
 
-            return false;
+            return null;
         }
 
         private void Combo()
@@ -364,7 +367,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
             CancelActions(false);
 
-            DoDamage(damageData.amount, damageData.force, true);
+            DoDamage(damageData.amount, damageData.force, false);
 
             return true;
         }

@@ -373,6 +373,10 @@ namespace pdxpartyparrot.ssj2019.NPCs
             _dashCooldown.Stop();
         }
 
+        public void OnComboMove(bool isOpener, ComboMove move)
+        {
+        }
+
         public void OnDead()
         {
             StageManager.Instance.ReleaseKungFuGridSlot(_target, Owner);

@@ -243,6 +243,9 @@ namespace pdxpartyparrot.ssj2019.Menu
                     return;
                 }
             }
+
+            // nothing wanted it
+            base.OnMove(context);
         }
 #endregion
     }
