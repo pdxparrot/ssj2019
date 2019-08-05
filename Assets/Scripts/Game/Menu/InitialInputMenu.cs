@@ -2,6 +2,7 @@
 
 using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.Time;
+using pdxpartyparrot.Core.UI;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.UI;
 
@@ -33,10 +34,17 @@ namespace pdxpartyparrot.Game.Menu
 
         private ITimer _pollCooldownTimer;
 
+        [SerializeField]
+        [ReadOnly]
+        private bool _enableButton;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
             Assert.IsTrue(_initials.Length > 0);
+
+            // don't auto-select anything, we'll control it programatically
+            InitialSelection = null;
 
             base.Awake();
 
@@ -63,6 +71,17 @@ namespace pdxpartyparrot.Game.Menu
 
             if(_pollAdvanceLetter) {
                 AdvanceLetter();
+            }
+        }
+
+        private void LateUpdate()
+        {
+            // have to do this in LateUpdate()
+            // so we don't end up triggering the button
+            // as soon as it's selected
+            if(_enableButton) {
+                EnableDoneButton(true);
+                _enableButton = false;
             }
         }
 #endregion
@@ -94,7 +113,7 @@ namespace pdxpartyparrot.Game.Menu
             if(_currentInitialIdx >= _initials.Length) {
                 _currentInitialIdx = -1;
 
-                EnableDoneButton(true);
+                _enableButton = true;
             } else {
                 _initials[_currentInitialIdx].Select(true);
             }
@@ -117,11 +136,10 @@ namespace pdxpartyparrot.Game.Menu
 
         private void EnableDoneButton(bool enable)
         {
-            // TODO: this is immediately clicking the button :(
-            /*if(enable) {
+           if(enable) {
                 _doneButton.Select();
                 _doneButton.Highlight();
-            }*/
+            }
             _doneButton.interactable = enable;
         }
 

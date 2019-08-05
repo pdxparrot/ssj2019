@@ -21,6 +21,12 @@ namespace pdxpartyparrot.Game.Menu
         [CanBeNull]
         private Button _initialSelection;
 
+        protected Button InitialSelection
+        {
+            get => _initialSelection;
+            set => _initialSelection = value;
+        }
+
 #region Unity Lifecycle
         protected virtual void Awake()
         {
@@ -61,10 +67,6 @@ namespace pdxpartyparrot.Game.Menu
                 _initialSelection.Select();
                 _initialSelection.Highlight();
             }
-        }
-
-        protected virtual void FixedUpdate()
-        {
         }
 #endregion
 
