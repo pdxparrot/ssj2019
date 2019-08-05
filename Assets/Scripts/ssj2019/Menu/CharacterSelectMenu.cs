@@ -45,7 +45,7 @@ namespace pdxpartyparrot.ssj2019.Menu
             }
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             foreach(Character character in _characters) {
                 Destroy(character.PlayerCharacterPortrait);
@@ -53,6 +53,8 @@ namespace pdxpartyparrot.ssj2019.Menu
 
             Destroy(_characterPortraitContainer);
             _characterPortraitContainer = null;
+
+            base.OnDestroy();
         }
 #endregion
 

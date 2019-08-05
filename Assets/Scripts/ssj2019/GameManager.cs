@@ -59,6 +59,8 @@ namespace pdxpartyparrot.ssj2019
         [ReadOnly]
         private int _score;
 
+        public int Score => _score;
+
         private readonly Dictionary<short, PlayerEntry> _playerCharacters = new Dictionary<short, PlayerEntry>();
 
         public IReadOnlyCollection<short> PlayerCharacterControllers => _playerCharacters.Keys;
@@ -173,15 +175,6 @@ namespace pdxpartyparrot.ssj2019
 
             device = playerEntry.Device;
             return playerEntry.PlayerCharacterData;
-        }
-
-        public override void GameOver()
-        {
-            HighScoreManager.Instance.AddHighScore("test", _score, PlayerManager.Instance.Players.Count, new Dictionary<string, object> {
-                { "wave", LevelHelper.WaveSpawner.CurrentWaveIndex + 1}
-            });
-
-            base.GameOver();
         }
 
 #region Events

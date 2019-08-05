@@ -1,4 +1,8 @@
-﻿using pdxpartyparrot.Game.Menu;
+﻿using System.Collections.Generic;
+
+using pdxpartyparrot.Game;
+using pdxpartyparrot.Game.Menu;
+using pdxpartyparrot.ssj2019.Players;
 
 using UnityEngine;
 
@@ -23,6 +27,18 @@ namespace pdxpartyparrot.ssj2019.Menu
             base.Initialize();
 
             Owner.PushPanel(_initialInputPanel);
+            _initialInputPanel.Initialize();
         }
+
+#region Event Handlers
+        public override void OnDone()
+        {
+            HighScoreManager.Instance.AddHighScore(_initialInputPanel.GetInitials(), GameManager.Instance.Score, PlayerManager.Instance.Players.Count, new Dictionary<string, object> {
+                { "wave", GameManager.Instance.LevelHelper.WaveSpawner.CurrentWaveIndex + 1}
+            });
+
+            base.OnDone();
+        }
+#endregion
     }
 }

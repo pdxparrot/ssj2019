@@ -4,6 +4,7 @@ using System.Text;
 
 using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.DebugMenu;
+using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -20,6 +21,8 @@ namespace pdxpartyparrot.Game
 
         public class HighScoreEntry : IComparable<HighScoreEntry>
         {
+            public long timestamp;
+
             public string playerName = "default";
 
             public int playerCount = 1;
@@ -28,8 +31,18 @@ namespace pdxpartyparrot.Game
 
             public readonly Dictionary<string, object> extra = new Dictionary<string, object>();
 
+            public HighScoreEntry()
+            {
+                timestamp = TimeManager.Instance.CurrentUnixMs;
+            }
+
             public int CompareTo(HighScoreEntry other)
             {
+                if(other.score == score) {
+                    // sort equal scores ascending by default
+                    return score.CompareTo(other.score);
+                }
+
                 // sort descending by default
                 return other.score.CompareTo(score);
             }

@@ -30,6 +30,10 @@ namespace pdxpartyparrot.Game.Menu
             }
         }
 
+        protected virtual void OnDestroy()
+        {
+        }
+
         protected virtual void OnEnable()
         {
             InputManager.Instance.EventSystem.UIModule.submit.action.performed += OnSubmit;
@@ -57,6 +61,10 @@ namespace pdxpartyparrot.Game.Menu
                 _initialSelection.Select();
                 _initialSelection.Highlight();
             }
+        }
+
+        protected virtual void FixedUpdate()
+        {
         }
 #endregion
 
