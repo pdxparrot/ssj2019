@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-using pdxpartyparrot.Core.Math;
+﻿using pdxpartyparrot.Core.Math;
 using pdxpartyparrot.Core.UI;
 using pdxpartyparrot.Core.Util;
 
@@ -22,33 +19,18 @@ namespace pdxpartyparrot.Game.UI
         private TextBlink _blink;
 
         [SerializeField]
-        private bool _allowLowerCase;
-
-        [SerializeField]
-        private bool _allowNumbers;
-
-        [SerializeField]
         [ReadOnly]
         private int _currentCharacterIdx;
 
-        private readonly List<char> _characters = new List<char>();
+        private char[] _characters;
+
+        public char[] Characters
+        {
+            get => _characters;
+            set => _characters = value;
+        }
 
         public char CurrentCharacter => _characters[_currentCharacterIdx];
-
-#region Awake
-        private void Awake()
-        {
-            _characters.AddRange(Enumerable.Range('A', 26).Select(x => (char)x));
-
-            if(_allowLowerCase) {
-                _characters.AddRange(Enumerable.Range('a', 26).Select(x => (char)x));
-            }
-
-            if(_allowNumbers) {
-                _characters.AddRange(Enumerable.Range('0', 10).Select(x => (char)x));
-            }
-        }
-#endregion
 
         public void Select(bool selected)
         {
@@ -61,7 +43,7 @@ namespace pdxpartyparrot.Game.UI
 
         public void NextLetter()
         {
-            _currentCharacterIdx = MathUtil.WrapMod(_currentCharacterIdx + 1, _characters.Count);
+            _currentCharacterIdx = MathUtil.WrapMod(_currentCharacterIdx + 1, _characters.Length);
             _text.text = $"{CurrentCharacter}";
 
             _blink.StartBlink();
@@ -69,7 +51,7 @@ namespace pdxpartyparrot.Game.UI
 
         public void PreviousLetter()
         {
-            _currentCharacterIdx = MathUtil.WrapMod(_currentCharacterIdx - 1, _characters.Count);
+            _currentCharacterIdx = MathUtil.WrapMod(_currentCharacterIdx - 1, _characters.Length);
             _text.text = $"{CurrentCharacter}";
 
             _blink.StartBlink();

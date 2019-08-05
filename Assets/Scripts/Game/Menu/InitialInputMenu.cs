@@ -16,6 +16,9 @@ namespace pdxpartyparrot.Game.Menu
     public sealed class InitialInputMenu : MenuPanel
     {
         [SerializeField]
+        private string _characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxyz0123456789";
+
+        [SerializeField]
         private InitialInput[] _initials;
 
         [SerializeField]
@@ -47,6 +50,11 @@ namespace pdxpartyparrot.Game.Menu
             InitialSelection = null;
 
             base.Awake();
+
+            char[] characters = _characterSet.ToCharArray();
+            foreach(InitialInput initial in _initials) {
+                initial.Characters = characters;
+            }
 
             _currentInitialIdx = 0;
 
