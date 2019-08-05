@@ -23,11 +23,18 @@ MonoBehaviour:
       _contributors:
       - Egil Thompson
       - Sarah Francian
-    - _title: Design
-      _contributors:
-      - Tien Tam
     - _title: Programming
       _contributors:
       - Shane Lillie
       - Luis Garcia
+    - _title: Music & SFX
+      _contributors:
+      - Jesse Clark
+      - Jessica Clark
+    - _title: Unity Generalist & Designer
+      _contributors:
+      - Tien Tam
+    - _title: Special Thanks
+      _contributors:
+      - TBD
   _postAmble: <link="pigsquad">http://www.pigsquad.com</link>
