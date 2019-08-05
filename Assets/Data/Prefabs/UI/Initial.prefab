@@ -49,10 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd27f58b8992d1348ac0133de52ac210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _letter: {fileID: 665674419031192434}
+  _text: {fileID: 665674419031192434}
   _blink: {fileID: 4652842575023632676}
-  _allowLowerCase: 0
-  _allowNumbers: 0
   _currentCharacterIdx: 0
 --- !u!1 &5601367702571253223
 GameObject:
@@ -224,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbcbc2881bb141418294629da77ca55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blinkRate: 1
+  _blinkRate: 0.5
   _delay: 0.5
   _startOnAwake: 0
   _fadeOut: 1
