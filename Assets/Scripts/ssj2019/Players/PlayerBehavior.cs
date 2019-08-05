@@ -115,9 +115,14 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public void OnComboMove(bool isOpener, ComboMove move)
         {
-            if(!isOpener) {
-                GameManager.Instance.PlayerCombo(move.ComboPoints);
+            // openers don't score
+            if(isOpener) {
+                return;
             }
+
+            // TODO: only score on non-opener attack hits
+
+            GameManager.Instance.PlayerCombo(move.ComboPoints);
         }
 
         public void OnDead()
