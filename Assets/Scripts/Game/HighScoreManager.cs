@@ -40,7 +40,7 @@ namespace pdxpartyparrot.Game
             {
                 if(other.score == score) {
                     // sort equal scores ascending by default
-                    return score.CompareTo(other.score);
+                    return timestamp.CompareTo(other.timestamp);
                 }
 
                 // sort descending by default
@@ -78,7 +78,7 @@ namespace pdxpartyparrot.Game
 
         public void AddHighScore(string playerName, int score)
         {
-            _highScores.Add(new HighScoreEntry
+            AddHighScore(new HighScoreEntry
             {
                 playerName = playerName,
                 playerCount = 1,
@@ -88,7 +88,7 @@ namespace pdxpartyparrot.Game
 
         public void AddHighScore(string playerName, int score, int playerCount)
         {
-            _highScores.Add(new HighScoreEntry
+            AddHighScore(new HighScoreEntry
             {
                 playerName = playerName,
                 playerCount = playerCount,
@@ -110,7 +110,7 @@ namespace pdxpartyparrot.Game
                 _extras.Add(kvp.Key);
             }
 
-            _highScores.Add(entry);
+            AddHighScore(entry);
         }
 
         public void AddHighScore(string playerName, int score, int playerCount, Dictionary<string, object> extra)
@@ -127,12 +127,12 @@ namespace pdxpartyparrot.Game
                 _extras.Add(kvp.Key);
             }
 
-            _highScores.Add(entry);
+            AddHighScore(entry);
         }
 
         public void AddHighScore(int playerCount, int score)
         {
-            _highScores.Add(new HighScoreEntry
+            AddHighScore(new HighScoreEntry
             {
                 playerName = string.Empty,
                 playerCount = playerCount,
@@ -154,7 +154,14 @@ namespace pdxpartyparrot.Game
                 _extras.Add(kvp.Key);
             }
 
-            _highScores.Add(entry);
+            AddHighScore(entry);
+        }
+
+        private void AddHighScore(HighScoreEntry entry)
+        {
+            if(!_highScores.Add(entry)) {
+                Debug.LogWarning("Unable to add high score entry!");
+            }
         }
 
         public void HighScoresText(Dictionary<string, StringBuilder> columns)
