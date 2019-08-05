@@ -192,6 +192,17 @@ namespace pdxpartyparrot.ssj2019.Input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""dea68c97-b88e-43e5-81b0-25005a2ef916"",
+                    ""path"": ""<Gamepad>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""b7abc3d1-76d3-4571-9dbe-2dc681aceac4"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": ""Press"",
