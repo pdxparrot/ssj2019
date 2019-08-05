@@ -61,6 +61,10 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
         }
 
         public void ReleaseKungFuGridSlot(Actor target, Actor Attacker) {
+            if(null == target) {
+                Debug.LogError("Could not release null actor!");
+            }
+
             KungFuGrid actorgrid = _KungFuGrids[target];
             // check to see if we have already provided a slot for this NPC
             if (filledgridslots.ContainsKey(Attacker))
