@@ -19,31 +19,37 @@ namespace pdxpartyparrot.Game.UI
         private TextBlink _blink;
 
         [SerializeField]
+        private GameObject _underscore;
+
+        [SerializeField]
         [ReadOnly]
         private int _currentCharacterIdx;
 
-        private char[] _characters;
+        public char[] Characters { get; set; }
 
-        public char[] Characters
+        public char CurrentCharacter => Characters[_currentCharacterIdx];
+
+#region Unity Lifecycle
+        private void Awake()
         {
-            get => _characters;
-            set => _characters = value;
+            _underscore.SetActive(false);
         }
-
-        public char CurrentCharacter => _characters[_currentCharacterIdx];
+#endregion
 
         public void Select(bool selected)
         {
             if(selected) {
                 _blink.StartBlink();
+                _underscore.SetActive(true);
             } else {
+                _underscore.SetActive(false);
                 _blink.StopBlink();
             }
         }
 
         public void NextLetter()
         {
-            _currentCharacterIdx = MathUtil.WrapMod(_currentCharacterIdx + 1, _characters.Length);
+            _currentCharacterIdx = MathUtil.WrapMod(_currentCharacterIdx + 1, Characters.Length);
             _text.text = $"{CurrentCharacter}";
 
             _blink.StartBlink();
@@ -51,7 +57,7 @@ namespace pdxpartyparrot.Game.UI
 
         public void PreviousLetter()
         {
-            _currentCharacterIdx = MathUtil.WrapMod(_currentCharacterIdx - 1, _characters.Length);
+            _currentCharacterIdx = MathUtil.WrapMod(_currentCharacterIdx - 1, Characters.Length);
             _text.text = $"{CurrentCharacter}";
 
             _blink.StartBlink();
