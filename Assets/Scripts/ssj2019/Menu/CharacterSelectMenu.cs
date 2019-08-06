@@ -3,9 +3,11 @@ using System.Linq;
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Math;
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Menu;
 using pdxpartyparrot.Game.State;
 using pdxpartyparrot.ssj2019.Data.Players;
+using pdxpartyparrot.ssj2019.State;
 using pdxpartyparrot.ssj2019.UI;
 
 using UnityEngine;
@@ -26,6 +28,16 @@ namespace pdxpartyparrot.ssj2019.Menu
 
         [SerializeField]
         private CharacterSelector[] _characterSelectors;
+
+        [SerializeField]
+        [ReadOnly]
+        private GameMode _gameMode = GameMode.Arcade;
+
+        public GameMode GameMode
+        {
+            get => _gameMode;
+            set => _gameMode = value;
+        }
 
         private Character[] _characters;
 
@@ -182,12 +194,25 @@ namespace pdxpartyparrot.ssj2019.Menu
                 GameManager.Instance.AddPlayerCharacter(i, device, characterSelector.PlayerCharacterData);
             }
 
-            GameStateManager.Instance.StartLocal(GameManager.Instance.MainGameStatePrefab, state => {
-                MainGameState mainGameState = (MainGameState)state;
-                foreach(short playerControllerId in GameManager.Instance.PlayerCharacterControllers) {
-                    mainGameState.AddPlayerController(playerControllerId);
-                }
-            });
+            switch(GameMode)
+            {
+            case GameMode.Arcade:
+                GameStateManager.Instance.StartLocal(GameManager.Instance.GameGameData.MainGameStatePrefab, state => {
+                    State.MainGameState mainGameState = (State.MainGameState)state;
+                    foreach(short playerControllerId in GameManager.Instance.PlayerCharacterControllers) {
+                        mainGameState.AddPlayerController(playerControllerId);
+                    }
+                });
+                break;
+            case GameMode.Training:
+                GameStateManager.Instance.StartLocal(GameManager.Instance.GameGameData.TrainingGameStatePrefab, state => {
+                    TrainingGameState trainingGameState = (TrainingGameState)state;
+                    foreach(short playerControllerId in GameManager.Instance.PlayerCharacterControllers) {
+                        trainingGameState.AddPlayerController(playerControllerId);
+                    }
+                });
+                break;
+            }
         }
 
         public override void OnSubmit(InputAction.CallbackContext context)

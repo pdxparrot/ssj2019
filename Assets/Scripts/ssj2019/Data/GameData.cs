@@ -6,6 +6,7 @@ using pdxpartyparrot.Game.UI;
 using pdxpartyparrot.ssj2019.Actors;
 using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Data.Players;
+using pdxpartyparrot.ssj2019.State;
 
 using UnityEngine;
 
@@ -20,6 +21,22 @@ namespace pdxpartyparrot.ssj2019.Data
             Mode2D,
             Mode3D
         }
+
+#region Game States
+        [Header("Game States")]
+
+        [SerializeField]
+        private MainGameState _mainGameStatePrefab;
+
+        public MainGameState MainGameStatePrefab => _mainGameStatePrefab;
+
+        [SerializeField]
+        private TrainingGameState _trainingGameStatePrefab;
+
+        public TrainingGameState TrainingGameStatePrefab => _trainingGameStatePrefab;
+#endregion
+
+        [Space(10)]
 
 #region Viewers
         [Header("Viewer")]

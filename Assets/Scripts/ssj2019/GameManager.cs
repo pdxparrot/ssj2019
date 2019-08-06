@@ -9,7 +9,6 @@ using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.ObjectPool;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game;
-using pdxpartyparrot.Game.State;
 using pdxpartyparrot.Game.UI;
 using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Data;
@@ -38,11 +37,6 @@ namespace pdxpartyparrot.ssj2019
 
         public bool DebugBrawlers => _debugBrawlers;
 #endregion
-
-        [SerializeField]
-        private MainGameState _mainGameStatePrefab;
-
-        public MainGameState MainGameStatePrefab => _mainGameStatePrefab;
 
         public GameData GameGameData => (GameData)GameData;
 

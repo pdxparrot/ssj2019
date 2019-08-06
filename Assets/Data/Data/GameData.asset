@@ -15,6 +15,10 @@ MonoBehaviour:
   _viewportSize: 5
   _maxLocalPlayers: 4
   _gamepadsArePlayers: 0
+  _mainGameStatePrefab: {fileID: 7060106894633683273, guid: 501ec244996cc3c4f998b98b72fd6d92,
+    type: 3}
+  _trainingGameStatePrefab: {fileID: 5014283374367774606, guid: 8203476eb0207e74094f6a0558525e7b,
+    type: 3}
   _viewerMode: 0
   _viewerPrefab: {fileID: 4157288067498843810, guid: b219ac5942062ad45acacbaed851f184,
     type: 3}

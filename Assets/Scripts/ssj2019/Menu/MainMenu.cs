@@ -1,4 +1,5 @@
 ﻿using pdxpartyparrot.Game.Menu;
+using pdxpartyparrot.ssj2019.State;
 
 using UnityEngine;
 
@@ -30,6 +31,13 @@ namespace pdxpartyparrot.ssj2019.Menu
 #region Event Handlers
         public override void OnStart()
         {
+            _characterSelectPanel.GameMode = GameMode.Arcade;
+            Owner.PushPanel(_characterSelectPanel);
+        }
+
+        public void OnTraining()
+        {
+            _characterSelectPanel.GameMode = GameMode.Training;
             Owner.PushPanel(_characterSelectPanel);
         }
 #endregion
