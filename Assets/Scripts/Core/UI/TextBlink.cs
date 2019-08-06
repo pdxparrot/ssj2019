@@ -17,14 +17,19 @@ namespace pdxpartyparrot.Core.UI
         private float _blinkRate = 1.0f;
 
         [SerializeField]
+        [Tooltip("Delay between blink states")]
         private float _delay = 1.0f;
+
+        [SerializeField]
+        [Tooltip("Fade in and out")]
+        private bool _fade;
 
         [SerializeField]
         private bool _startOnAwake;
 
         [SerializeField]
         [ReadOnly]
-        private bool _fadeOut = true;
+        private bool _blinkOut = true;
 
         private ITimer _blinkTimer;
 
@@ -72,24 +77,33 @@ namespace pdxpartyparrot.Core.UI
             _delayTimer.Stop();
             _blinkTimer.Stop();
 
-            _text.CrossFadeAlpha(1.0f, 0.0f, true);
+            if(_fade) {
+                _text.CrossFadeAlpha(1.0f, 0.0f, true);
+            } else {
+                _text.alpha = 1.0f;
+            }
         }
 
-        private void DoFade(bool fadeOut)
+        private void DoBlink(bool blinkOut)
         {
-            _fadeOut = fadeOut;
+            _blinkOut = blinkOut;
 
             float duration = _blinkRate * 0.5f;
 
-            _text.CrossFadeAlpha(_fadeOut ? 0.0f : 1.0f, duration, true);
+            float target = _blinkOut ? 0.0f : 1.0f;
+            if(_fade) {
+                _text.CrossFadeAlpha(target, duration, true);
+            } else {
+                _text.alpha = target;
+            }
             _blinkTimer.Start(duration);
         }
 
 #region Event Handlers
         private void BlinkTimesUpEventHandler(object sender, EventArgs args)
         {
-            if(_fadeOut) {
-                DoFade(false);
+            if(_blinkOut) {
+                DoBlink(false);
             } else {
                 _delayTimer.Start(_delay);
             }
@@ -97,7 +111,7 @@ namespace pdxpartyparrot.Core.UI
 
         private void DelayTimesUpEventHandler(object sender, EventArgs args)
         {
-            DoFade(true);
+            DoBlink(true);
         }
 #endregion
     }
