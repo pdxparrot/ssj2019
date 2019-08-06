@@ -31,7 +31,7 @@ namespace pdxpartyparrot.ssj2019.UI
         }
 #endregion
 
-        public void EnableCharacterPanel(int playerNumber, PlayerCharacterData characterData)
+        public void ShowCharacterPanel(int playerNumber, PlayerCharacterData characterData)
         {
             if(playerNumber < 0 || playerNumber >= _characterPanels.Length) {
                 return;
@@ -42,6 +42,13 @@ namespace pdxpartyparrot.ssj2019.UI
             characterPanel.ShowCharacterDisplay();
             characterPanel.SetCharacterData(characterData, playerNumber);
             characterPanel.SetCharacterPortrait(Instantiate(characterData.CharacterPortraitPrefab));
+        }
+
+        public void HideAllCharacterPanels()
+        {
+            foreach(CharacterSelector characterPanel in _characterPanels) {
+                characterPanel.HideDisplay();
+            }
         }
 
         public void SetPlayerHealthPercent(int playerNumber, float healthPercent)

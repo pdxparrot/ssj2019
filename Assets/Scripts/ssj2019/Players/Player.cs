@@ -78,7 +78,7 @@ namespace pdxpartyparrot.ssj2019.Players
                 GamePlayerInput.SetGamepad((Gamepad)device);
             }
 
-            PlayerManager.Instance.GamePlayerUI.HUD.EnableCharacterPanel(NetworkPlayer.ControllerId, _playerCharacterData);
+            PlayerManager.Instance.GamePlayerUI.HUD.ShowCharacterPanel(NetworkPlayer.ControllerId, _playerCharacterData);
 
             Brawler.Initialize(_playerCharacterData.BrawlerData);
 
