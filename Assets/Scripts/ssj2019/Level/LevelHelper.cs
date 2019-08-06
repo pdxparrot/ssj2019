@@ -125,11 +125,20 @@ namespace pdxpartyparrot.ssj2019.Level
         {
             // load the next level if we have one
             if(!string.IsNullOrWhiteSpace(_nextLevel)) {
-                GameManager.Instance.GameUnReady();
-                GameManager.Instance.TransitionScene(_nextLevel, null);
+                if(null != _levelExitEffect) {
+                    _levelExitEffect.Trigger(DoLevelTransition);
+                } else {
+                    DoLevelTransition();
+                }
             } else {
                 GameManager.Instance.GameOver();
             }
+        }
+
+        private void DoLevelTransition()
+        {
+            GameManager.Instance.GameUnReady();
+            GameManager.Instance.TransitionScene(_nextLevel, null);
         }
 
 #region Event Handlers
@@ -185,11 +194,7 @@ namespace pdxpartyparrot.ssj2019.Level
                 return;
             }
 
-            if(null != _levelExitEffect) {
-                _levelExitEffect.Trigger(TransitionLevel);
-            } else {
-                TransitionLevel();
-            }
+            TransitionLevel();
         }
 #endregion
 
