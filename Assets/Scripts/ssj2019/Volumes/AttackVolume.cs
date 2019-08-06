@@ -90,16 +90,11 @@ namespace pdxpartyparrot.ssj2019.Volumes
                 return;
             }
 
-            Vector3 force = _direction * _attackData.PushBackScale + _attackData.KnockDownForce * Vector3.down + _attackData.KnockUpForce * Vector3.up;
-
-            DamageData damageData = new DamageData{
-                source = Owner,
-                type = _attackData.DamageType,
-                blockable = !_attackData.Unblockable,
-                amount = _attackData.DamageAmount,
-                chipAmount = _attackData.BlockDamageAmount,
-                bounds = _collider.bounds,
-                force = force,
+            Actors.DamageData damageData = new Actors.DamageData{
+                Source = Owner,
+                AttackData = _attackData,
+                Bounds = _collider.bounds,
+                Direction = _direction,
             };
 
             if(damagable.Damage(damageData)) {

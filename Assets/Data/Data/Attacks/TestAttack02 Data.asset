@@ -15,10 +15,14 @@ MonoBehaviour:
   _name: Test Attack 2
   _attackDirection: 0
   _airAttack: 0
+  _unblockable: 0
   _damageType: 
   _damageAmount: 5
   _blockDamageAmount: 0
-  _pushBackScale: 3
+  _moveForward: 0
+  _pushBackAmount: 0
+  _knockUpForce: 0
+  _knockDownForce: 0
   _attackVolumeOffset: {x: 0, y: 0, z: 0}
   _attackVolumeSize: {x: 0.75, y: 0.75, z: 0.75}
   _boneName: Hand_IK_L

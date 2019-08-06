@@ -3,7 +3,6 @@
 using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Interactables;
 
-using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ssj2019.Actors
@@ -25,7 +24,7 @@ namespace pdxpartyparrot.ssj2019.Actors
         }
 #endregion
 
-        public bool Damage(DamageData damageData)
+        public bool Damage(Game.Actors.DamageData damageData)
         {
             return TrainingDummyBehavior.OnDamage(damageData);
         }

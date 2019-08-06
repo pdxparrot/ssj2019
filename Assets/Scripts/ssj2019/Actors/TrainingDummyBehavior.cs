@@ -15,9 +15,11 @@ namespace pdxpartyparrot.ssj2019.Actors
         [SerializeField]
         private FloatingTextEffectTriggerComponent _floatingTextEffectTriggerComponent;
 
-        public bool OnDamage(DamageData damageData)
+        public bool OnDamage(Game.Actors.DamageData damageData)
         {
-            _floatingTextEffectTriggerComponent.Text = $"{damageData.type}: {damageData.amount}";
+            DamageData dd = (DamageData)damageData;
+
+            _floatingTextEffectTriggerComponent.Text = $"{dd.AttackData.DamageAmount}";
 
             _damageEffect.Trigger();
             return true;

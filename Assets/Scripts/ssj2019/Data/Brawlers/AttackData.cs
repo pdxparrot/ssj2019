@@ -73,9 +73,15 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
 #region Attack Forces
         [SerializeField]
         [Min(0)]
-        private int _pushBackScale;
+        private float _moveForward;
 
-        public int PushBackScale => _pushBackScale;
+        public float MoveFoward => _moveForward;
+
+        [SerializeField]
+        [Min(0)]
+        private float _pushBackAmount;
+
+        public float PushBackAmount => _pushBackAmount;
 
         [SerializeField]
         [Min(0)]
@@ -88,6 +94,17 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
         private float _knockDownForce;
 
         public float KnockDownForce => _knockDownForce;
+#endregion
+
+        [Space(10)]
+
+#region Special
+        [Header("Special")]
+
+        [SerializeField]
+        private bool _knockDown;
+
+        public bool KnockDown => _knockDown;
 #endregion
 
         [Space(10)]

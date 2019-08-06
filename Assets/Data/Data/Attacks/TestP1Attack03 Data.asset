@@ -15,10 +15,15 @@ MonoBehaviour:
   _name: Test Player Attack 3
   _attackDirection: 0
   _airAttack: 0
+  _unblockable: 0
   _damageType: 
   _damageAmount: 10
   _blockDamageAmount: 0
-  _pushBackScale: 3
+  _moveForward: 10
+  _pushBackAmount: 15
+  _knockUpForce: 5
+  _knockDownForce: 0
+  _knockDown: 1
   _attackVolumeOffset: {x: 0, y: 0, z: 0}
   _attackVolumeSize: {x: 0.75, y: 0.75, z: 0.75}
   _boneName: Hand_IK_R

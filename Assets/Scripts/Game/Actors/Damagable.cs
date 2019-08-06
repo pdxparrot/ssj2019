@@ -1,21 +1,10 @@
 ﻿using pdxpartyparrot.Core.Actors;
 
-using UnityEngine;
-
 namespace pdxpartyparrot.Game.Actors
 {
-    public struct DamageData
+    public abstract class DamageData
     {
-        public Actor source;
-        public string type;
-
-        public bool blockable;
-
-        public int amount;
-        public int chipAmount;
-
-        public Bounds bounds;
-        public Vector3 force;
+        public Actor Source { get; set; }
     }
 
     public interface IDamagable
