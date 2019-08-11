@@ -43,6 +43,8 @@ namespace pdxpartyparrot.Core.Tween
         [CanBeNull]
         private Sequence _sequence;
 
+        public bool IsRunning => _sequence.IsActive() && _sequence.IsPlaying();
+
 #region Unity Lifecycle
         private void Awake()
         {

@@ -40,8 +40,7 @@ namespace pdxpartyparrot.Core.Tween
 
         protected override Tweener CreateTweener()
         {
-            // TODO: untested, may not work, but the idea is there
-            return _text.materialForRendering.DOFade(_to, Duration);
+            return _text.DOFade(_to, Duration);
         }
     }
 }

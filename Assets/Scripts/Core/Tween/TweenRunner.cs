@@ -115,6 +115,8 @@ namespace pdxpartyparrot.Core.Tween
         [CanBeNull]
         private Tweener _tweener;
 
+        public bool IsRunning => _tweener.IsPlaying();
+
 #region Unity Lifecycle
         protected virtual void Awake()
         {
