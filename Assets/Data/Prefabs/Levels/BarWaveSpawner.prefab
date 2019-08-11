@@ -44,4 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _waveSpawnData: {fileID: 11400000, guid: c139d809b3e631f47b61d86ee74e984c, type: 2}
+  _waveStartEffectTrigger: {fileID: 0}
+  _waveEndEffectTrigger: {fileID: 0}
   _currentWaveIndex: 0

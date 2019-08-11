@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
+using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data.NPCs;
 
@@ -22,6 +23,16 @@ namespace pdxpartyparrot.Game.NPCs
         private WaveSpawnData _waveSpawnData;
 
         public WaveSpawnData WaveSpawnData => _waveSpawnData;
+
+#region Effects
+        [SerializeField]
+        [CanBeNull]
+        private EffectTrigger _waveStartEffectTrigger;
+
+        [SerializeField]
+        [CanBeNull]
+        private EffectTrigger _waveEndEffectTrigger;
+#endregion
 
         [SerializeField]
         [ReadOnly]
@@ -93,7 +104,11 @@ namespace pdxpartyparrot.Game.NPCs
             // stop the current wave timers
             if(_currentWaveIndex >= 0) {
                 CurrentWave.Stop();
+
                 WaveCompleteEvent?.Invoke(this, new SpawnWaveEventArgs(_currentWaveIndex, _currentWaveIndex >= _spawnWaves.Count - 1));
+                if(null != _waveEndEffectTrigger) {
+                    _waveEndEffectTrigger.Trigger();
+                }
             }
 
             // advance the wave
@@ -106,6 +121,9 @@ namespace pdxpartyparrot.Game.NPCs
             CurrentWave.Start();
 
             WaveStartEvent?.Invoke(this, new SpawnWaveEventArgs(_currentWaveIndex, _currentWaveIndex >= _spawnWaves.Count - 1));
+            if(null != _waveStartEffectTrigger) {
+                _waveStartEffectTrigger.Trigger();
+            }
         }
     }
 }
