@@ -1,5 +1,4 @@
 ﻿using pdxpartyparrot.Core.Time;
-using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
@@ -10,18 +9,34 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         [SerializeField]
         private float _seconds;
 
-        [SerializeField]
-        [ReadOnly]
-        private bool _isWaiting;
-
         public override bool WaitForComplete => true;
 
-        public override bool IsDone => !_isWaiting;
+        public override bool IsDone => !_timer.IsRunning;
+
+        private ITimer _timer;
+
+#region Unity Lifecycle
+        private void Awake()
+        {
+            _timer = TimeManager.Instance.AddTimer();
+        }
+
+        private void OnDestroy()
+        {
+            if(TimeManager.HasInstance) {
+                TimeManager.Instance.RemoveTimer(_timer);
+            }
+        }
+#endregion
 
         public override void OnStart()
         {
-            _isWaiting = true;
-            TimeManager.Instance.RunAfterDelay(_seconds, () => _isWaiting = false);
+            _timer.Start(_seconds);
+        }
+
+        public override void OnStop()
+        {
+            _timer.Stop();
         }
     }
 }

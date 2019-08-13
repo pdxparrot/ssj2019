@@ -5,9 +5,9 @@ namespace pdxpartyparrot.ssj2019.State
 {
     public sealed class GameOverState : Game.State.GameOverState
     {
-        public override void OnEnter()
+        protected override void DoEnter()
         {
-            base.OnEnter();
+            base.DoEnter();
 
             PlayerManager.Instance.GamePlayerUI.HUD.HideAllCharacterPanels();
         }

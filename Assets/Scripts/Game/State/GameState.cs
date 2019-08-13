@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Loading;
 using pdxpartyparrot.Core.Scenes;
 using pdxpartyparrot.Core.Util;
@@ -36,6 +39,14 @@ namespace pdxpartyparrot.Game.State
         private bool _makeInitialSceneActive;
 
         public bool MakeInitialSceneActive => _makeInitialSceneActive;
+
+        [SerializeField]
+        [CanBeNull]
+        private EffectTrigger _enterEffect;
+
+        [SerializeField]
+        [CanBeNull]
+        private EffectTrigger _exitEffect;
 
 #region Unity Lifecycle
         protected virtual void Awake()
@@ -99,11 +110,39 @@ namespace pdxpartyparrot.Game.State
             yield break;
         }
 
+        public virtual void OnEnter()
+        {
+            if(null != _enterEffect) {
+                _enterEffect.Trigger(DoEnter);
+            } else {
+                DoEnter();
+            }
+        }
+
+        // called after enter effects
+        protected virtual void DoEnter()
+        {
+        }
+
         public virtual IEnumerator<LoadStatus> OnExitRoutine()
         {
             Debug.Log($"Exit State: {Name}");
 
             yield break;
+        }
+
+        public virtual void OnExit()
+        {
+            if(null != _exitEffect) {
+                _exitEffect.Trigger(DoExit);
+            } else {
+                DoExit();
+            }
+        }
+
+        // called after exit effects
+        protected virtual void DoExit()
+        {
         }
 
         public virtual void OnResume()

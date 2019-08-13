@@ -72,6 +72,11 @@ namespace pdxpartyparrot.Game.State
             if(null != _networkConnectUI) {
                 _networkConnectUI.Initialize(this);
             }
+        }
+
+        protected override void DoEnter()
+        {
+            base.DoEnter();
 
             switch(_connectType)
             {
@@ -87,7 +92,7 @@ namespace pdxpartyparrot.Game.State
             }
         }
 
-        public override void OnExit()
+        protected override void DoExit()
         {
             if(null != _networkConnectUI) {
                 Destroy(_networkConnectUI.gameObject);
@@ -103,7 +108,7 @@ namespace pdxpartyparrot.Game.State
                 Core.Network.NetworkManager.Instance.ClientSceneChangedEvent -= ClientSceneChangedEventHandler;
             }
 
-            base.OnExit();
+            base.DoExit();
         }
 
         private void StartSinglePlayer()

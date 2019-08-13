@@ -206,6 +206,8 @@ namespace pdxpartyparrot.Game.State
 
             PartyParrotManager.Instance.LoadingManager.ShowLoadingScreen(false);
 
+            _currentGameState.OnEnter();
+
             onStateLoaded?.Invoke();
         }
 
@@ -218,6 +220,8 @@ namespace pdxpartyparrot.Game.State
             if(null == _currentGameState) {
                 yield break;
             }
+
+            _currentGameState.OnExit();
 
             GameState gameState = _currentGameState;
             _currentGameState = null;

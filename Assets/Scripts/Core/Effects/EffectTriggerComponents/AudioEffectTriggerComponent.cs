@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Audio;
+using pdxpartyparrot.Core.Time;
 
 using UnityEngine;
 
@@ -20,7 +21,23 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         public override bool WaitForComplete => _waitForComplete;
 
-        public override bool IsDone => null == _audioSource || !_audioSource.isPlaying;
+        public override bool IsDone => (null == _audioSource || !_audioSource.isPlaying) && !_audioTimer.IsRunning;
+
+        private ITimer _audioTimer;
+
+#region Unity Lifecycle
+        private void Awake()
+        {
+            _audioTimer = TimeManager.Instance.AddTimer();
+        }
+
+        private void OnDestroy()
+        {
+            if(TimeManager.HasInstance) {
+                TimeManager.Instance.RemoveTimer(_audioTimer);
+            }
+        }
+#endregion
 
         public override void Initialize(EffectTrigger owner)
         {
@@ -35,14 +52,14 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         {
             if(EffectsManager.Instance.EnableAudio) {
                 if(null == _audioSource) {
-                    // TODO: set a timer or something to timeout when we'll be done
                     AudioManager.Instance.PlayOneShot(_audioClip);
+                    _audioTimer.Start(_audioClip.length);
                 } else {
                     _audioSource.clip = _audioClip;
                     _audioSource.Play();
                 }
             } else {
-                // TODO: set a timer or something to timeout when we'd normally be done
+                _audioTimer.Start(_audioClip.length);
             }
         }
 
@@ -51,6 +68,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
             if(null != _audioSource) {
                 _audioSource.Stop();
             }
+            _audioTimer.Stop();
         }
     }
 }
