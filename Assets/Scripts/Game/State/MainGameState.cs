@@ -23,9 +23,6 @@ namespace pdxpartyparrot.Game.State
         [SerializeField]
         private GameOverState _gameOverState;
 
-        [SerializeField]
-        private AudioClip _music;
-
 #if ENABLE_SERVER_SPECTATOR
         private ServerSpectator _serverSpectator;
 #endif
@@ -133,8 +130,6 @@ namespace pdxpartyparrot.Game.State
             if(!NetworkClient.active) {
                 return false;
             }
-
-            AudioManager.Instance.PlayMusic(_music);
 
             GameUIManager.Instance.Initialize();
 

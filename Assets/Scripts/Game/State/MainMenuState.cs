@@ -1,9 +1,5 @@
-using System.Collections.Generic;
-
 using pdxpartyparrot.Core.Audio;
 using pdxpartyparrot.Core.Input;
-using pdxpartyparrot.Core.Loading;
-using pdxpartyparrot.Game.Menu;
 using pdxpartyparrot.Game.UI;
 
 using UnityEngine;
@@ -17,34 +13,18 @@ namespace pdxpartyparrot.Game.State
 
         private Menu.Menu _menu;
 
-        [SerializeField]
-        private AudioClip _music;
-
-        public override IEnumerator<LoadStatus> OnEnterRoutine()
+        public override void OnEnter()
         {
-            yield return new LoadStatus(0.0f, "Initializing main menu...");
-
-            IEnumerator<LoadStatus> runner = base.OnEnterRoutine();
-            while(runner.MoveNext()) {
-                yield return runner.Current;
-            }
-
-            yield return new LoadStatus(0.5f, "Initializing main menu...");
+            base.OnEnter();
 
             InputManager.Instance.EventSystem.UIModule.EnableAllActions();
 
-            AudioManager.Instance.PlayMusic(_music);
-
             _menu = GameUIManager.Instance.InstantiateUIPrefab(_menuPrefab);
             _menu.Initialize();
-
-            yield return new LoadStatus(1.0f, "Main menu initialized!");
         }
 
-        public override IEnumerator<LoadStatus> OnExitRoutine()
+        protected override void DoExit()
         {
-            yield return new LoadStatus(0.0f, "Shutting down main menu...");
-
             if(AudioManager.HasInstance) {
                 AudioManager.Instance.StopAllMusic();
             }
@@ -55,15 +35,6 @@ namespace pdxpartyparrot.Game.State
 
             Destroy(_menu.gameObject);
             _menu = null;
-
-            yield return new LoadStatus(0.5f, "Shutting down main menu...");
-
-            IEnumerator<LoadStatus> runner = base.OnExitRoutine();
-            while(runner.MoveNext()) {
-                yield return runner.Current;
-            }
-
-            yield return new LoadStatus(1.0f, "Main menu shut down!");
         }
 
         public override void OnResume()
