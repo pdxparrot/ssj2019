@@ -46,4 +46,4 @@ MonoBehaviour:
   _menuPrefab: {fileID: 1177161943002870570, guid: 5912acb1d3cdea646a40a58fdcd02bde,
     type: 3}
   _completeWaitTimeSeconds: 2.5
-  _endGameMusic: {fileID: 0}
+  _endGameMusic: {fileID: 8300000, guid: c72bb2d07d7579846b0c6433bce8c8d4, type: 3}
