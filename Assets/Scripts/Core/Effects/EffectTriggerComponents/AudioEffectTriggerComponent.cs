@@ -10,11 +10,24 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
     public class AudioEffectTriggerComponent : EffectTriggerComponent
     {
         [SerializeField]
+        [CanBeNull]
         private AudioClip _audioClip;
+
+        public AudioClip AudioClip
+        {
+            get => _audioClip;
+            set => _audioClip = value;
+        }
 
         [SerializeField]
         [CanBeNull]
         private AudioSource _audioSource;
+
+        public AudioSource AudioSource
+        {
+            get => _audioSource;
+            set => _audioSource = value;
+        }
 
         [SerializeField]
         private bool _waitForComplete;
@@ -50,6 +63,10 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         public override void OnStart()
         {
+            if(null == _audioClip) {
+                return;
+            }
+
             if(EffectsManager.Instance.EnableAudio) {
                 if(null == _audioSource) {
                     AudioManager.Instance.PlayOneShot(_audioClip);

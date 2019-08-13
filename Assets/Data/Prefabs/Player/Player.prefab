@@ -137,6 +137,7 @@ MonoBehaviour:
   _blockEffectTrigger: {fileID: 6478466866726388021}
   _hitEffectTrigger: {fileID: 1079242178650208271}
   _hitAnimationEffectTriggerComponent: {fileID: 6129758529191386186}
+  _hitAudioEffectTriggerComponent: {fileID: 5874353902780632619}
   _deathEffectTrigger: {fileID: 6433857838732750911}
   _comboFailEffectTrigger: {fileID: 5169714982919284938}
   _attackVolume: {fileID: 4234046138188009513}
@@ -264,6 +265,7 @@ MonoBehaviour:
   _attackVolume: {fileID: 4234046138188009513}
   _attackEffectTrigger: {fileID: 1146156531379595911}
   _attackAnimationEffectTriggerComponent: {fileID: 148933806714679601}
+  _attackAudioEffectTriggerComponent: {fileID: 7662537881713715}
   _attackFloatingTextEffectTriggerComponent: {fileID: 1572642226244480072}
 --- !u!114 &1883176091393127105
 MonoBehaviour:
@@ -424,6 +426,7 @@ GameObject:
   - component: {fileID: 8326711592244486354}
   - component: {fileID: 6129758529191386186}
   - component: {fileID: 490342692407967944}
+  - component: {fileID: 5874353902780632619}
   m_Layer: 12
   m_Name: Hit Effect
   m_TagString: Untagged
@@ -463,6 +466,7 @@ MonoBehaviour:
     _items:
     - {fileID: 6129758529191386186}
     - {fileID: 490342692407967944}
+    - {fileID: 5874353902780632619}
   _isRunning: 0
 --- !u!114 &8326711592244486354
 MonoBehaviour:
@@ -513,6 +517,21 @@ MonoBehaviour:
   _gamepadListener: {fileID: 0}
   _waitForComplete: 0
   _isPlaying: 0
+--- !u!114 &5874353902780632619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2485863649417268582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0962fc66f3b8d41a60ac79646521f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 0}
+  _audioSource: {fileID: 0}
+  _waitForComplete: 0
 --- !u!1 &3346130889317126004
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,6 +705,7 @@ GameObject:
   - component: {fileID: 6478466866726388021}
   - component: {fileID: 521827892685099031}
   - component: {fileID: 2539221798010161628}
+  - component: {fileID: 453035800899343187}
   m_Layer: 12
   m_Name: Block Effect
   m_TagString: Untagged
@@ -724,6 +744,7 @@ MonoBehaviour:
   _components:
     _items:
     - {fileID: 2539221798010161628}
+    - {fileID: 453035800899343187}
   _isRunning: 0
 --- !u!114 &521827892685099031
 MonoBehaviour:
@@ -757,6 +778,21 @@ MonoBehaviour:
   _gamepadListener: {fileID: 0}
   _waitForComplete: 0
   _isPlaying: 0
+--- !u!114 &453035800899343187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4152845487771813311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0962fc66f3b8d41a60ac79646521f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: e787b3a607164514aa89bfd96d2ac6a9, type: 3}
+  _audioSource: {fileID: 0}
+  _waitForComplete: 0
 --- !u!1 &4953237466135058469
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,6 +878,7 @@ GameObject:
   - component: {fileID: 1146156531379595911}
   - component: {fileID: 2353743976938898440}
   - component: {fileID: 148933806714679601}
+  - component: {fileID: 7662537881713715}
   - component: {fileID: 1572642226244480072}
   m_Layer: 12
   m_Name: Attack Effect
@@ -881,6 +918,7 @@ MonoBehaviour:
   _components:
     _items:
     - {fileID: 148933806714679601}
+    - {fileID: 7662537881713715}
     - {fileID: 1572642226244480072}
   _isRunning: 0
 --- !u!114 &2353743976938898440
@@ -913,6 +951,21 @@ MonoBehaviour:
   _spineAnimationTrack: 0
   _loop: 0
   _waitForComplete: 1
+--- !u!114 &7662537881713715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5208298961527488989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0962fc66f3b8d41a60ac79646521f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 0}
+  _audioSource: {fileID: 0}
+  _waitForComplete: 0
 --- !u!114 &1572642226244480072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1600,6 +1653,8 @@ MonoBehaviour:
   _mouseSensitivity: 0.5
   _lastMoveBufferTimestampMs: 0
   _lastLookBufferTimestampMs: 0
+  _pollMove: 0
+  _pollLook: 0
 --- !u!1 &8777259801603241557
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,9 +4,7 @@ using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
-using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
-using pdxpartyparrot.ssj2019.Actors;
 using pdxpartyparrot.ssj2019.Data.Brawlers;
 using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
 using pdxpartyparrot.ssj2019.Volumes;
@@ -64,12 +62,12 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
     {
         [Header("Animations")]
 
-#region Attack Animations
+#region Attack Effects
         [SerializeField]
         private SpineAnimationEffectTriggerComponent _attackAnimationEffectTriggerComponent;
 #endregion
 
-#region Block Animations
+#region Block Effects
         [SerializeField]
         private SpineAnimationEffectTriggerComponent _blockBeginAnimationEffectTriggerComponent;
 
@@ -82,7 +80,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         public EffectTrigger BlockEffectTrigger => _blockEffectTrigger;
 #endregion
 
-#region Hit Animations
+#region Hit Effects
         [SerializeField]
         private EffectTrigger _hitEffectTrigger;
 
@@ -90,6 +88,9 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         [SerializeField]
         private SpineAnimationEffectTriggerComponent _hitAnimationEffectTriggerComponent;
+
+        [SerializeField]
+        private AudioEffectTriggerComponent _hitAudioEffectTriggerComponent;
 #endregion
 
 #region Death Animations
@@ -354,6 +355,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                     return true;
                 }
 
+                //_blockAudioEffectTriggerComponent.AudioClip = dd.AttackData.BlockAudioCip;
                 _blockEffectTrigger.Trigger();
 
                 _actionHandler.ClearActionBuffer();
@@ -400,6 +402,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 Debug.LogWarning("TODO: knockdown");
             }
 
+            _hitAudioEffectTriggerComponent.AudioClip = damageData.AttackData.ImpactAudioCip;
             _hitEffectTrigger.Trigger(() => {
                 Idle();
             });

@@ -28,3 +28,5 @@ MonoBehaviour:
   _attackVolumeSize: {x: 0.75, y: 0.75, z: 0.75}
   _boneName: Hand_IK_L
   _animationName: Punch02
+  _attackAudioClip: {fileID: 8300000, guid: eb0da95111f53cc4f857cae707144e25, type: 3}
+  _impactAudioClip: {fileID: 8300000, guid: bf7cc2648c9c4f74eaa026a00c121c0b, type: 3}

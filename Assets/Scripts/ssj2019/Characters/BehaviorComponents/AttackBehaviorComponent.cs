@@ -69,6 +69,9 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
         private SpineAnimationEffectTriggerComponent _attackAnimationEffectTriggerComponent;
 
         [SerializeField]
+        private AudioEffectTriggerComponent _attackAudioEffectTriggerComponent;
+
+        [SerializeField]
         private FloatingTextEffectTriggerComponent _attackFloatingTextEffectTriggerComponent;
 
         public override bool OnPerformed(CharacterBehaviorAction action)
@@ -92,6 +95,7 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
             _attackVolume.SetAttack(_brawlerBehavior.CurrentAttack, Behavior.Owner.FacingDirection);
 
             _attackAnimationEffectTriggerComponent.SpineAnimationName = _brawlerBehavior.CurrentAttack.AnimationName;
+            _attackAudioEffectTriggerComponent.AudioClip = _brawlerBehavior.CurrentAttack.AttackAudioClip;
             _attackFloatingTextEffectTriggerComponent.Text = $"{_brawlerBehavior.CurrentAttack.Name}";
 
             _brawlerBehavior.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Attack);

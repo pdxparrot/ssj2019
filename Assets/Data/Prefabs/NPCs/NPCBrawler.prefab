@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 6631989109035438992}
   - component: {fileID: 8518554696486808840}
   - component: {fileID: 7726666953507074508}
+  - component: {fileID: 4787067950933513504}
   m_Layer: 13
   m_Name: Hit Effect
   m_TagString: Untagged
@@ -220,6 +221,7 @@ MonoBehaviour:
   _components:
     _items:
     - {fileID: 7726666953507074508}
+    - {fileID: 4787067950933513504}
   _isRunning: 0
 --- !u!114 &8518554696486808840
 MonoBehaviour:
@@ -251,6 +253,21 @@ MonoBehaviour:
   _spineAnimationTrack: 0
   _loop: 0
   _waitForComplete: 1
+--- !u!114 &4787067950933513504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006412280590400529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0962fc66f3b8d41a60ac79646521f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 0}
+  _audioSource: {fileID: 0}
+  _waitForComplete: 0
 --- !u!1 &2781327699882505460
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,6 +876,7 @@ GameObject:
   - component: {fileID: 6970363255316021077}
   - component: {fileID: 5641737771736793805}
   - component: {fileID: 388331679547234100}
+  - component: {fileID: 389664334633880357}
   m_Layer: 13
   m_Name: Block Effect
   m_TagString: Untagged
@@ -896,7 +914,7 @@ MonoBehaviour:
     _items: []
   _components:
     _items:
-    - {fileID: 388331679547234100}
+    - {fileID: 389664334633880357}
   _isRunning: 0
 --- !u!114 &388331679547234100
 MonoBehaviour:
@@ -911,6 +929,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _logMessage: npc blocked
+--- !u!114 &389664334633880357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6752568096242502146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0962fc66f3b8d41a60ac79646521f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: e787b3a607164514aa89bfd96d2ac6a9, type: 3}
+  _audioSource: {fileID: 0}
+  _waitForComplete: 0
 --- !u!1 &6916013039419557787
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,6 +1196,7 @@ GameObject:
   - component: {fileID: 6994903446394223841}
   - component: {fileID: 3311323456874845919}
   - component: {fileID: 2119600318961684256}
+  - component: {fileID: 5426313696954695828}
   - component: {fileID: 624592468706561409}
   m_Layer: 13
   m_Name: Attack Effect
@@ -1202,6 +1236,7 @@ MonoBehaviour:
   _components:
     _items:
     - {fileID: 2119600318961684256}
+    - {fileID: 5426313696954695828}
     - {fileID: 624592468706561409}
   _isRunning: 0
 --- !u!114 &3311323456874845919
@@ -1234,6 +1269,21 @@ MonoBehaviour:
   _spineAnimationTrack: 0
   _loop: 0
   _waitForComplete: 1
+--- !u!114 &5426313696954695828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8100230599278707358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0962fc66f3b8d41a60ac79646521f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 0}
+  _audioSource: {fileID: 0}
+  _waitForComplete: 0
 --- !u!114 &624592468706561409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1337,6 +1387,7 @@ MonoBehaviour:
   _blockEffectTrigger: {fileID: 5641737771736793805}
   _hitEffectTrigger: {fileID: 6631989109035438992}
   _hitAnimationEffectTriggerComponent: {fileID: 7726666953507074508}
+  _hitAudioEffectTriggerComponent: {fileID: 4787067950933513504}
   _deathEffectTrigger: {fileID: 6237249302560061764}
   _comboFailEffectTrigger: {fileID: 2814460364538452983}
   _attackVolume: {fileID: 4356007661132845643}
@@ -1472,6 +1523,7 @@ MonoBehaviour:
   _attackVolume: {fileID: 4356007661132845643}
   _attackEffectTrigger: {fileID: 6994903446394223841}
   _attackAnimationEffectTriggerComponent: {fileID: 2119600318961684256}
+  _attackAudioEffectTriggerComponent: {fileID: 5426313696954695828}
   _attackFloatingTextEffectTriggerComponent: {fileID: 624592468706561409}
 --- !u!114 &171347820613495406
 MonoBehaviour:

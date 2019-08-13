@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4334880353452933390}
   - component: {fileID: 1290185276663502093}
+  - component: {fileID: 5130215418150896922}
   - component: {fileID: 7864814154356024561}
   m_Layer: 0
   m_Name: Enter Effect
@@ -48,8 +49,21 @@ MonoBehaviour:
     _items: []
   _components:
     _items:
+    - {fileID: 5130215418150896922}
     - {fileID: 7864814154356024561}
   _isRunning: 0
+--- !u!114 &5130215418150896922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143234643832001532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1ab3124891287a44a3cd0ec1e3d26d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7864814154356024561
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -166,7 +166,6 @@ MonoBehaviour:
   _components:
     _items:
     - {fileID: 8743620734796121633}
-    - {fileID: 3172663091886776059}
   _isRunning: 0
 --- !u!114 &8743620734796121633
 MonoBehaviour:

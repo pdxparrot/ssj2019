@@ -128,11 +128,21 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
 
         [Space(10)]
 
-#region Animation
+#region Effects
         [SerializeField]
         private string _animationName = "default";
 
         public string AnimationName => _animationName;
+
+        [SerializeField]
+        private AudioClip _attackAudioClip;
+
+        public AudioClip AttackAudioClip => _attackAudioClip;
+
+        [SerializeField]
+        private AudioClip _impactAudioClip;
+
+        public AudioClip ImpactAudioCip => _impactAudioClip;
 #endregion
 
         public bool Equals(AttackData other)
