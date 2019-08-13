@@ -52,6 +52,8 @@ MonoBehaviour:
   _exitEffect: {fileID: 0}
   _menuPrefab: {fileID: 8352289956213582818, guid: d56c823a564112b4a8243ecc30e15f59,
     type: 3}
+  _titleScreenPrefab: {fileID: 3899643362823552393, guid: 65637ea73062343439e9a8087a27f980,
+    type: 3}
 --- !u!1 &2351365217291904214
 GameObject:
   m_ObjectHideFlags: 0

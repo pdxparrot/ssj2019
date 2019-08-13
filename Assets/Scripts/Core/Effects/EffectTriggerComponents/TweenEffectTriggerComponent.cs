@@ -14,7 +14,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         public override bool WaitForComplete => _waitForComplete;
 
-        public override bool IsDone => _tweenSequence.IsRunning;
+        public override bool IsDone => !_tweenSequence.IsRunning;
 
         public override void OnStart()
         {

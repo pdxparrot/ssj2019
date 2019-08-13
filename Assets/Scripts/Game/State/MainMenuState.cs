@@ -13,6 +13,11 @@ namespace pdxpartyparrot.Game.State
 
         private Menu.Menu _menu;
 
+        [SerializeField]
+        private TitleScreen _titleScreenPrefab;
+
+        private TitleScreen _titleScreen;
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -21,6 +26,8 @@ namespace pdxpartyparrot.Game.State
 
             _menu = GameUIManager.Instance.InstantiateUIPrefab(_menuPrefab);
             _menu.Initialize();
+
+            _titleScreen = GameUIManager.Instance.InstantiateUIPrefab(_titleScreenPrefab);
         }
 
         protected override void DoExit()
@@ -32,6 +39,9 @@ namespace pdxpartyparrot.Game.State
             if(InputManager.HasInstance) {
                 InputManager.Instance.EventSystem.UIModule.DisableAllActions();
             }
+
+            Destroy(_titleScreen.gameObject);
+            _titleScreen = null;
 
             Destroy(_menu.gameObject);
             _menu = null;

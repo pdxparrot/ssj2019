@@ -4,7 +4,7 @@ using TMPro;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ssj2019.UI
+namespace pdxpartyparrot.Game.UI
 {
     public sealed class TitleScreen : MonoBehaviour
     {

@@ -159,6 +159,7 @@ namespace pdxpartyparrot.Core.Loading
 
             // core managers
             DebugMenuManager.CreateFromPrefab(_debugMenuManagerPrefab, ManagersContainer);
+            TimeManager.CreateFromPrefab(_timeManagerPrefab, ManagersContainer);
             PartyParrotManager.CreateFromPrefab(_engineManagerPrefab, ManagersContainer);
             SaveGameManager.CreateFromPrefab(_saveGameManagerPrefab, ManagersContainer);
             UIManager.CreateFromPrefab(_uiManagerPrefab, ManagersContainer);
@@ -175,7 +176,6 @@ namespace pdxpartyparrot.Core.Loading
 
         protected virtual void CreateManagers()
         {
-            TimeManager.CreateFromPrefab(_timeManagerPrefab, ManagersContainer);
             AudioManager.CreateFromPrefab(_audioManagerPrefab, ManagersContainer);
             EffectsManager.CreateFromPrefab(_effectsManagerPrefab, ManagersContainer);
             ObjectPoolManager.CreateFromPrefab(_objectPoolManagerPrefab, ManagersContainer);
