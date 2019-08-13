@@ -1,7 +1,5 @@
 ﻿using DG.Tweening;
 
-using pdxpartyparrot.Core.Util;
-
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,20 +11,10 @@ namespace pdxpartyparrot.Core.Tween
         private Image _image;
 
         [SerializeField]
-        [ReadOnly]
         private float _from;
 
         [SerializeField]
         private float _to = 1.0f;
-
-#region Unity Lifecycle
-        protected override void Awake()
-        {
-            _from = _image.color.a;
-
-            base.Awake();
-        }
-#endregion
 
         public override void Reset()
         {
