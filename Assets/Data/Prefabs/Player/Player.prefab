@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4254428544176821508}
   - component: {fileID: 8379026244741991667}
   - component: {fileID: 7167662138795055160}
+  - component: {fileID: 2166185025869763349}
   m_Layer: 12
   m_Name: Dash Effect
   m_TagString: Untagged
@@ -50,6 +51,7 @@ MonoBehaviour:
   _components:
     _items:
     - {fileID: 7167662138795055160}
+    - {fileID: 2166185025869763349}
   _isRunning: 0
 --- !u!114 &8379026244741991667
 MonoBehaviour:
@@ -80,6 +82,21 @@ MonoBehaviour:
   _text: dash
   _color: {r: 0, g: 0.6666667, b: 0.6666667, a: 1}
   _spawnLocation: {fileID: 1027202483170108461}
+--- !u!114 &2166185025869763349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94780056344037258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0962fc66f3b8d41a60ac79646521f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: 6a4e2c956933eca47b9f04cc777fdb1c, type: 3}
+  _audioSource: {fileID: 0}
+  _waitForComplete: 0
 --- !u!1 &243353592151571374
 GameObject:
   m_ObjectHideFlags: 0
