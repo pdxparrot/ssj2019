@@ -73,11 +73,16 @@ namespace pdxpartyparrot.Game.Players.Input
             _moveBuffer = new CircularBuffer<Vector3>(PlayerInputData.InputBufferSize);
             _lookBuffer = new CircularBuffer<Vector3>(PlayerInputData.InputBufferSize);
 
+            GameStateManager.Instance.GameManager.GameOverEvent += GameOverEventHandler;
             PartyParrotManager.Instance.PauseEvent += PauseEventHandler;
         }
 
         protected virtual void OnDestroy()
         {
+            if(GameStateManager.HasInstance && null != GameStateManager.Instance.GameManager) {
+                GameStateManager.Instance.GameManager.GameOverEvent -= GameOverEventHandler;
+            }
+
             if(PartyParrotManager.HasInstance) {
                 PartyParrotManager.Instance.PauseEvent -= PauseEventHandler;
             }
@@ -162,6 +167,11 @@ namespace pdxpartyparrot.Game.Players.Input
                 }
                 EnableControls(true);
             }
+        }
+
+        private void GameOverEventHandler(object sender, EventArgs args)
+        {
+            EnableControls(false);
         }
 #endregion
 

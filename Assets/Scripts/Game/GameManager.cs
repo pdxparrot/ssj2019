@@ -13,6 +13,15 @@ namespace pdxpartyparrot.Game
 {
     public interface IGameManager
     {
+#region Events
+        event EventHandler<EventArgs> GameStartServerEvent;
+        event EventHandler<EventArgs> GameStartClientEvent;
+
+        event EventHandler<EventArgs> GameReadyEvent;
+        event EventHandler<EventArgs> GameUnReadyEvent;
+        event EventHandler<EventArgs> GameOverEvent;
+#endregion
+
         GameData GameData { get; }
 
         bool IsGameReady { get; }
