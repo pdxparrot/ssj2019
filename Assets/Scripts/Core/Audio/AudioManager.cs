@@ -40,6 +40,15 @@ namespace pdxpartyparrot.Core.Audio
 
         [Space(10)]
 
+#region Stingers
+        [Header("Stingers")]
+
+        [SerializeField]
+        private AudioSource _stingerAudioSource;
+#endregion
+
+        [Space(10)]
+
 #region Music
         [Header("Music")]
 
@@ -185,6 +194,9 @@ namespace pdxpartyparrot.Core.Audio
             // init our audio sources
             InitSFXAudioMixerGroup(_oneShotAudioSource);
 
+            InitAudioMixerGroup(_stingerAudioSource, _audioData.MusicMixerGroupName);
+            _stingerAudioSource.loop = false;
+
             InitAudioMixerGroup(_music1AudioSource, _audioData.MusicMixerGroupName);
             _music1AudioSource.loop = true;
 
@@ -243,6 +255,21 @@ namespace pdxpartyparrot.Core.Audio
         public void PlayOneShot(AudioClip audioClip)
         {
             _oneShotAudioSource.PlayOneShot(audioClip);
+        }
+#endregion
+
+#region Stingers
+        public void PlayStinger(AudioClip stingerAudioClip)
+        {
+            StopAllMusic();
+
+            _stingerAudioSource.clip = stingerAudioClip;
+            _stingerAudioSource.Play();
+        }
+
+        public void StopStinger()
+        {
+            _stingerAudioSource.Stop();
         }
 #endregion
 
@@ -335,6 +362,8 @@ namespace pdxpartyparrot.Core.Audio
 
             StopMusic();
             StopMusic2();
+
+            StopStinger();
         }
 
         private IEnumerator UpdateMusicCrossfadeRoutine()
