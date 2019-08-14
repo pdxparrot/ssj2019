@@ -45,6 +45,8 @@ namespace pdxpartyparrot.Core.Audio
 
         [SerializeField]
         private AudioSource _stingerAudioSource;
+
+        public bool IsStingerPlaying => _stingerAudioSource.isPlaying;
 #endregion
 
         [Space(10)]
@@ -55,8 +57,14 @@ namespace pdxpartyparrot.Core.Audio
         [SerializeField]
         private AudioSource _music1AudioSource;
 
+        public bool IsMusic1Playing => _music1AudioSource.isPlaying;
+
         [SerializeField]
         private AudioSource _music2AudioSource;
+
+        public bool IsMusic2Playing => _music2AudioSource.isPlaying;
+
+        public bool IsMusicPlaying => IsMusic1Playing || IsMusic2Playing;
 
         [SerializeField]
         [Range(0.0f, 1.0f)]
@@ -77,6 +85,8 @@ namespace pdxpartyparrot.Core.Audio
 
         [SerializeField]
         private AudioSource _ambientAudioSource;
+
+        public bool IsAmbientPlaying => _ambientAudioSource.isPlaying;
 #endregion
 
         [Space(10)]
