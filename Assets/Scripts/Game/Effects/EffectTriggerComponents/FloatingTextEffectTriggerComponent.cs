@@ -37,5 +37,10 @@ namespace pdxpartyparrot.Game.Effects.EffectTriggerComponents
         {
             GameUIManager.Instance.QueueFloatingText(_poolName, _text, _color, () => null == _spawnLocation ? transform.position : _spawnLocation.position);
         }
+
+        public override void OnStop()
+        {
+            // TODO: handle this
+        }
     }
 }

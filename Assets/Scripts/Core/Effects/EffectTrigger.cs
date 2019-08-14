@@ -108,6 +108,24 @@ namespace pdxpartyparrot.Core.Effects
             _complete = true;
         }
 
+        // forcefully kills the trigger early
+        // and doesn't trigger subsequent triggers
+        public void KillTrigger()
+        {
+            if(null != _effectWaiter) {
+                StopCoroutine(_effectWaiter);
+                _effectWaiter = null;
+            }
+
+            RunOnComponents(c => {
+                if(!c.IsDone) {
+                    c.OnStop();
+                }
+            });
+
+            _isRunning = false;
+        }
+
         public void ResetTrigger()
         {
             RunOnComponents(c => c.OnReset());

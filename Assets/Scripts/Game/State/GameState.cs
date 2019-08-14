@@ -133,6 +133,11 @@ namespace pdxpartyparrot.Game.State
 
         public virtual void OnExit()
         {
+            // make sure the enter effect is stopped
+            if(null != _enterEffect) {
+                _enterEffect.KillTrigger();
+            }
+
             if(null != _exitEffect) {
                 _exitEffect.Trigger(DoExit);
             } else {

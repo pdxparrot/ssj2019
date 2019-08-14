@@ -38,6 +38,11 @@ namespace pdxpartyparrot.Game.State
         {
             Debug.Log($"Exit SubState: {Name}");
 
+            // make sure the enter effect is stopped
+            if(null != _enterEffect) {
+                _enterEffect.KillTrigger();
+            }
+
             if(null != _exitEffect) {
                 _exitEffect.Trigger(DoExit);
             } else {

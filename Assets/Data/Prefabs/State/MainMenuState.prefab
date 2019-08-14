@@ -104,6 +104,7 @@ MonoBehaviour:
     _items:
     - {fileID: 9209403164732728471}
   _isRunning: 0
+  _complete: 0
 --- !u!114 &9209403164732728471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,7 +129,7 @@ GameObject:
   - component: {fileID: 7336245543731339730}
   - component: {fileID: 5216643289978274433}
   - component: {fileID: 8743620734796121633}
-  - component: {fileID: 3172663091886776059}
+  - component: {fileID: 3291503694313033685}
   m_Layer: 0
   m_Name: Enter Effect A
   m_TagString: Untagged
@@ -168,7 +169,9 @@ MonoBehaviour:
   _components:
     _items:
     - {fileID: 8743620734796121633}
+    - {fileID: 3291503694313033685}
   _isRunning: 0
+  _complete: 0
 --- !u!114 &8743620734796121633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1ab3124891287a44a3cd0ec1e3d26d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3172663091886776059
+--- !u!114 &3291503694313033685
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,9 +193,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6597397194145019865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc0962fc66f3b8d41a60ac79646521f9, type: 3}
+  m_Script: {fileID: 11500000, guid: e4b5bdef3ca9e2142a35bd1e86f5a566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioClip: {fileID: 8300000, guid: 8ff358b14d9768949acb26febdea6cec, type: 3}
-  _audioSource: {fileID: 0}
+  _stinger: {fileID: 8300000, guid: 8ff358b14d9768949acb26febdea6cec, type: 3}
   _waitForComplete: 1
