@@ -1,8 +1,10 @@
 ﻿using pdxpartyparrot.Core.Effects;
+using pdxpartyparrot.Core.Input;
 
 using TMPro;
 
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.Game.UI
 {
@@ -32,6 +34,39 @@ namespace pdxpartyparrot.Game.UI
         private void Start()
         {
             _loadEffectTrigger.Trigger();
+        }
+
+        private void OnEnable()
+        {
+            InputManager.Instance.EventSystem.UIModule.submit.action.performed += OnSubmit;
+            InputManager.Instance.EventSystem.UIModule.cancel.action.performed += OnCancel;
+        }
+
+        private void OnDisable()
+        {
+            if(InputManager.HasInstance) {
+                InputManager.Instance.EventSystem.UIModule.cancel.action.performed -= OnCancel;
+                InputManager.Instance.EventSystem.UIModule.submit.action.performed -= OnSubmit;
+            }
+        }
+#endregion
+
+        private void FinishLoading()
+        {
+            if(_loadEffectTrigger.IsRunning) {
+                _loadEffectTrigger.StopTrigger();
+            }
+        }
+
+#region Event Handlers
+        private void OnSubmit(InputAction.CallbackContext context)
+        {
+            FinishLoading();
+        }
+
+        private void OnCancel(InputAction.CallbackContext context)
+        {
+            FinishLoading();
         }
 #endregion
     }

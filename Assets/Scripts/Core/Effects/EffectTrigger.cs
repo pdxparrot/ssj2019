@@ -32,6 +32,10 @@ namespace pdxpartyparrot.Core.Effects
 
         public bool IsRunning => _isRunning;
 
+        [SerializeField]
+        [ReadOnly]
+        private bool _complete;
+
         private Coroutine _effectWaiter;
 
 #region Unity Lifecycle
@@ -86,6 +90,7 @@ namespace pdxpartyparrot.Core.Effects
 
         public void Trigger(Action callback=null)
         {
+            _complete = false;
             _isRunning = true;
 
             RunOnComponents(c => {
@@ -100,18 +105,7 @@ namespace pdxpartyparrot.Core.Effects
         // forcefully stops the trigger early
         public void StopTrigger()
         {
-            if(null != _effectWaiter) {
-                StopCoroutine(_effectWaiter);
-                _effectWaiter = null;
-            }
-
-            RunOnComponents(c => {
-                if(!c.IsDone) {
-                    c.OnStop();
-                }
-            });
-
-            _isRunning = false;
+            _complete = true;
         }
 
         public void ResetTrigger()
@@ -125,6 +119,16 @@ namespace pdxpartyparrot.Core.Effects
 
             // wait for components (if we should)
             while(true) {
+                if(_complete) {
+                    RunOnComponents(c => {
+                        if(!c.IsDone) {
+                            c.OnStop();
+                        }
+                    });
+                        
+                    break;
+                }
+
                 bool done = true;
                 foreach(EffectTriggerComponent component in _components.Items) {
                     if(!component.WaitForComplete || component.IsDone) {
@@ -154,6 +158,7 @@ namespace pdxpartyparrot.Core.Effects
             // trigger further effects
             foreach(var onCompleteEffect in _triggerOnComplete.Items) {
                 onCompleteEffect.Trigger();
+                onCompleteEffect.StopTrigger();
             }
 
             // wait for those effects before we call ourself not running
