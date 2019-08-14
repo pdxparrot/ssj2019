@@ -21,5 +21,10 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
             // TODO: is there any way to know how long the triggered animation will take?
         }
+
+        public override void OnStop()
+        {
+            // TODO: handle this
+        }
     }
 }

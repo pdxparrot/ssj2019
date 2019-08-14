@@ -88,7 +88,11 @@ namespace pdxpartyparrot.Core.Effects
         {
             _isRunning = true;
 
-            RunOnComponents(c => c.OnStart());
+            RunOnComponents(c => {
+                if(c.IsDone) {
+                    c.OnStart();
+                }
+            });
 
             _effectWaiter = StartCoroutine(EffectWaiter(callback));
         }
@@ -101,7 +105,11 @@ namespace pdxpartyparrot.Core.Effects
                 _effectWaiter = null;
             }
 
-            RunOnComponents(c => c.OnStop());
+            RunOnComponents(c => {
+                if(!c.IsDone) {
+                    c.OnStop();
+                }
+            });
 
             _isRunning = false;
         }

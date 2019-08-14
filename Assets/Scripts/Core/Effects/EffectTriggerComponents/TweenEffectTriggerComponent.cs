@@ -23,7 +23,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         public override void OnStop()
         {
-            _tweenSequence.Kill();
+            _tweenSequence.Complete(true);
         }
     }
 }

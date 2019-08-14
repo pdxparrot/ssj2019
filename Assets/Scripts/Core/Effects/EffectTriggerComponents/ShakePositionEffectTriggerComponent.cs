@@ -35,5 +35,10 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
             _isPlaying = true;
             TimeManager.Instance.RunAfterDelay(_shakeConfig.Duration, () => _isPlaying = false);
         }
+
+        public override void OnStop()
+        {
+            // TODO: handle this
+        }
     }
 }

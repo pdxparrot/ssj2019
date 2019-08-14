@@ -100,7 +100,23 @@ namespace pdxpartyparrot.Core.Tween
 
         public void Pause()
         {
-            _sequence?.Pause();
+            if(IsRunning) {
+                _sequence?.Pause();
+            }
+        }
+
+        public void Complete()
+        {
+            if(IsRunning) {
+                _sequence?.Complete();
+            }
+        }
+
+        public void Complete(bool withCallbacks)
+        {
+            if(IsRunning) {
+                _sequence?.Complete(withCallbacks);
+            }
         }
 
         public void Kill()

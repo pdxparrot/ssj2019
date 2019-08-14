@@ -92,6 +92,7 @@ namespace pdxpartyparrot.Game.Menu
         }
 
         // these are for input
+        // TODO: do these actually need to be public??
         public virtual void OnSubmit(InputAction.CallbackContext context)
         {
         }
