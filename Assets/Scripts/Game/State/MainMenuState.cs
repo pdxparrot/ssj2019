@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+
 using pdxpartyparrot.Core.Audio;
 using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Game.UI;
@@ -6,17 +8,19 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.State
 {
-    public sealed class MainMenuState : GameState
+    public abstract class MainMenuState : GameState
     {
         [SerializeField]
         private Menu.Menu _menuPrefab;
 
-        private Menu.Menu _menu;
+        [CanBeNull]
+        protected Menu.Menu Menu { get; private set; }
 
         [SerializeField]
         private TitleScreen _titleScreenPrefab;
 
-        private TitleScreen _titleScreen;
+        [CanBeNull]
+        protected TitleScreen TitleScreen { get; private set; }
 
         public override void OnEnter()
         {
@@ -24,10 +28,10 @@ namespace pdxpartyparrot.Game.State
 
             InputManager.Instance.EventSystem.UIModule.EnableAllActions();
 
-            _menu = GameUIManager.Instance.InstantiateUIPrefab(_menuPrefab);
-            _menu.Initialize();
+            Menu = GameUIManager.Instance.InstantiateUIPrefab(_menuPrefab);
+            Menu.Initialize();
 
-            _titleScreen = GameUIManager.Instance.InstantiateUIPrefab(_titleScreenPrefab);
+            TitleScreen = GameUIManager.Instance.InstantiateUIPrefab(_titleScreenPrefab);
         }
 
         protected override void DoExit()
@@ -40,23 +44,27 @@ namespace pdxpartyparrot.Game.State
                 InputManager.Instance.EventSystem.UIModule.DisableAllActions();
             }
 
-            Destroy(_titleScreen.gameObject);
-            _titleScreen = null;
+            if(null != TitleScreen) {
+                Destroy(TitleScreen.gameObject);
+            }
+            TitleScreen = null;
 
-            Destroy(_menu.gameObject);
-            _menu = null;
+            if(null != Menu) {
+                Destroy(Menu.gameObject);
+            }
+            Menu = null;
         }
 
         public override void OnResume()
         {
             base.OnResume();
 
-            _menu.gameObject.SetActive(true);
+            Menu.gameObject.SetActive(true);
         }
 
         public override void OnPause()
         {
-            _menu.gameObject.SetActive(false);
+            Menu.gameObject.SetActive(false);
 
             base.OnPause();
         }

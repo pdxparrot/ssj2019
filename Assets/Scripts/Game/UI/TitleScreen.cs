@@ -19,6 +19,11 @@ namespace pdxpartyparrot.Game.UI
         [SerializeField]
         private TextMeshProUGUI _subTitleText;
 
+        // flag to tell us if we've already started the load effect
+        // but also to tell us that the load effect should stop immediately
+        // if it's started after this point
+        private bool _started;
+
 #region Unity Lifecycle
         private void Awake()
         {
@@ -34,6 +39,10 @@ namespace pdxpartyparrot.Game.UI
         private void Start()
         {
             _loadEffectTrigger.Trigger();
+            if(_started) {
+                _loadEffectTrigger.StopTrigger();
+            }
+            _started = true;
         }
 
         private void OnEnable()
@@ -51,10 +60,12 @@ namespace pdxpartyparrot.Game.UI
         }
 #endregion
 
-        private void FinishLoading()
+        public void FinishLoading()
         {
             if(_loadEffectTrigger.IsRunning) {
                 _loadEffectTrigger.StopTrigger();
+            } else if(!_started) {
+                _started = true;
             }
         }
 

@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84f9d5281bfeb444d8f74ecdce7530af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainMenuStatePrefab: {fileID: 5331054582004945315, guid: 440cf77507c9e9248ba69ce5f193c0d4,
+  _mainMenuStatePrefab: {fileID: 4676558907785894071, guid: 440cf77507c9e9248ba69ce5f193c0d4,
     type: 3}
   _networkConnectStatePrefab: {fileID: 8338411220921497177, guid: 81daff4f4090c8643bf36d99be049d5a,
     type: 3}

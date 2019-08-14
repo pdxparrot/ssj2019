@@ -14,9 +14,13 @@ namespace pdxpartyparrot.Game.Menu
         [SerializeField]
         private MenuPanel _mainPanel;
 
+        public MenuPanel MainPanel => _mainPanel;
+
         [SerializeField]
         [ReadOnly]
         private MenuPanel _currentPanel;
+
+        public MenuPanel CurrentPanel => _currentPanel;
 
         private readonly Stack<MenuPanel> _panelStack = new Stack<MenuPanel>();
 
