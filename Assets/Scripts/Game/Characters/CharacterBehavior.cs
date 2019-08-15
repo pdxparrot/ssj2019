@@ -269,6 +269,13 @@ namespace pdxpartyparrot.Game.Characters
             }
         }
 
+        protected override void OnReSpawnComplete()
+        {
+            if(null != _idleEffect) {
+                _idleEffect.Trigger();
+            }
+        }
+
         protected override void OnMoveStateChanged()
         {
             if(IsMoving && null != _movingEffectTrigger) {
