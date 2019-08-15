@@ -24,16 +24,6 @@ namespace pdxpartyparrot.Game.NPCs
 
         public WaveSpawnData WaveSpawnData => _waveSpawnData;
 
-#region Effects
-        [SerializeField]
-        [CanBeNull]
-        private EffectTrigger _waveStartEffectTrigger;
-
-        [SerializeField]
-        [CanBeNull]
-        private EffectTrigger _waveEndEffectTrigger;
-#endregion
-
         [SerializeField]
         [ReadOnly]
         private int _currentWaveIndex;
@@ -93,6 +83,16 @@ namespace pdxpartyparrot.Game.NPCs
             }
         }
 
+        public EffectTrigger AddWaveEffectTrigger(EffectTrigger effectTriggerPrefab)
+        {
+            return Instantiate(effectTriggerPrefab, transform);
+        } 
+
+        public void RemoveWaveEffectTrigger(EffectTrigger effectTrigger)
+        {
+            Destroy(effectTrigger.gameObject);
+        } 
+
         public void Advance()
         {
             if(_currentWaveIndex >= _spawnWaves.Count) {
@@ -106,9 +106,6 @@ namespace pdxpartyparrot.Game.NPCs
                 CurrentWave.Stop();
 
                 WaveCompleteEvent?.Invoke(this, new SpawnWaveEventArgs(_currentWaveIndex, _currentWaveIndex >= _spawnWaves.Count - 1));
-                if(null != _waveEndEffectTrigger) {
-                    _waveEndEffectTrigger.Trigger();
-                }
             }
 
             // advance the wave
@@ -121,9 +118,6 @@ namespace pdxpartyparrot.Game.NPCs
             CurrentWave.Start();
 
             WaveStartEvent?.Invoke(this, new SpawnWaveEventArgs(_currentWaveIndex, _currentWaveIndex >= _spawnWaves.Count - 1));
-            if(null != _waveStartEffectTrigger) {
-                _waveStartEffectTrigger.Trigger();
-            }
         }
     }
 }

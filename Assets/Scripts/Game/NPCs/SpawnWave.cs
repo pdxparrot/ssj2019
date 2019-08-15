@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using pdxpartyparrot.Core.Audio;
+using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data.NPCs;
@@ -27,6 +29,14 @@ namespace pdxpartyparrot.Game.NPCs
         [ReadOnly]
         private int _spawnedCount;
 
+        [SerializeField]
+        [CanBeNull]
+        private EffectTrigger _waveStartEffectTrigger;
+
+        [SerializeField]
+        [CanBeNull]
+        private EffectTrigger _waveEndEffectTrigger;
+
         private ITimer _waveTimer;
 
         public SpawnWave(SpawnWaveData spawnWaveData, WaveSpawner owner)
@@ -41,6 +51,14 @@ namespace pdxpartyparrot.Game.NPCs
 
         public void Initialize()
         {
+            if(null != _spawnWaveData.WaveStartEffectTriggerPrefab) {
+                _waveStartEffectTrigger = _owner.AddWaveEffectTrigger(_spawnWaveData.WaveStartEffectTriggerPrefab);
+            }
+
+            if(null != _spawnWaveData.WaveEndEffectTriggerPrefab) {
+                _waveStartEffectTrigger = _owner.AddWaveEffectTrigger(_spawnWaveData.WaveEndEffectTriggerPrefab);
+            }
+
             if(_spawnWaveData is TimedSpawnWaveData) {
                 _waveTimer = TimeManager.Instance.AddTimer();
                 _waveTimer.TimesUpEvent += WaveTimerTimesUpEventHandler;
@@ -53,6 +71,16 @@ namespace pdxpartyparrot.Game.NPCs
 
         public void Shutdown()
         {
+            if(null != _waveEndEffectTrigger) {
+                _owner.RemoveWaveEffectTrigger(_waveEndEffectTrigger);
+                _waveEndEffectTrigger = null;
+            }
+
+            if(null != _waveStartEffectTrigger) {
+                _owner.RemoveWaveEffectTrigger(_waveStartEffectTrigger);
+                _waveStartEffectTrigger = null;
+            }
+
             foreach(SpawnGroup spawnGroup in _spawnGroups) {
                 spawnGroup.Shutdown();
             }
@@ -65,6 +93,10 @@ namespace pdxpartyparrot.Game.NPCs
 
         public void Start()
         {
+            if(null != _waveStartEffectTrigger) {
+                _waveStartEffectTrigger.Trigger();
+            }
+
             if(null != _waveTimer) {
                 _waveTimer.Start(TimedSpawnWaveData.Duration);
             }
@@ -78,6 +110,10 @@ namespace pdxpartyparrot.Game.NPCs
 
         public void Stop()
         {
+            if(null != _waveEndEffectTrigger) {
+                _waveEndEffectTrigger.Trigger();
+            }
+
             foreach(SpawnGroup spawnGroup in _spawnGroups) {
                 spawnGroup.Stop();
             }

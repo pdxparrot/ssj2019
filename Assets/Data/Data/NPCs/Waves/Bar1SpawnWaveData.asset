@@ -27,4 +27,6 @@ MonoBehaviour:
         _max: 10
       _poolSize: 10
       _once: 1
-  _waveMusic: {fileID: 0}
+  _waveStartEffectTriggerPrefab: {fileID: 4914603125408191633, guid: e3a664962e48b9a48875776609edfb8f,
+    type: 3}
+  _waveEndEffectTriggerPrefab: {fileID: 0}
