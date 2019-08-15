@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waves:
     _items:
-    - {fileID: 11400000, guid: ea592d8a289520b42a675ce20124d091, type: 2}
+    - {fileID: 11400000, guid: 64ca70024e020ca469855d7a8e20d6ba, type: 2}
   _musicTransitionSeconds: 1

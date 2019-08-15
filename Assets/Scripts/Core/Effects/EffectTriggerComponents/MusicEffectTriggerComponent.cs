@@ -9,6 +9,10 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         [SerializeField]
         private AudioClip _music;
 
+        [SerializeField]
+        [Tooltip("Immediately plays the music track if <= 0")]
+        private float _transitionSeconds;
+
         public override bool WaitForComplete => false;
 
         public override bool IsDone => true;
@@ -16,7 +20,11 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         public override void OnStart()
         {
             if(EffectsManager.Instance.EnableAudio) {
-                AudioManager.Instance.PlayMusic(_music);
+                if(_transitionSeconds > 0.0f) {
+                    AudioManager.Instance.TransitionMusicAsync(_music, _transitionSeconds);
+                } else {
+                    AudioManager.Instance.PlayMusic(_music);
+                }
             }
         }
 

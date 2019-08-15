@@ -74,7 +74,6 @@ namespace pdxpartyparrot.Game.NPCs
             foreach(SpawnGroup spawnGroup in _spawnGroups) {
                 spawnGroup.Start();
             }
-            AudioManager.Instance.TransitionMusicAsync(_spawnWaveData.WaveMusic, _owner.WaveSpawnData.MusicTransitionSeconds);
         }
 
         public void Stop()

@@ -20,10 +20,5 @@ namespace pdxpartyparrot.Game.Data.NPCs
         private SpawnGroupData.ReorderableList _spawnGroups = new SpawnGroupData.ReorderableList();
 
         public IReadOnlyCollection<SpawnGroupData> SpawnGroups => _spawnGroups.Items;
-
-        [SerializeField]
-        private AudioClip _waveMusic;
-
-        public AudioClip WaveMusic => _waveMusic;
     }
 }

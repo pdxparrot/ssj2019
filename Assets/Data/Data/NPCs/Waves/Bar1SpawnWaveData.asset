@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ac6c4d9d95609348a7b53eac3f03dc4, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ebfbb0c6c9e01846bab6a2c49f5c0fa, type: 3}
   m_Name: Bar1SpawnWaveData
   m_EditorClassIdentifier: 
   _spawnGroups:
@@ -25,6 +25,6 @@ MonoBehaviour:
       _count:
         _min: 5
         _max: 10
-      _poolSize: 20
+      _poolSize: 10
       _once: 1
   _waveMusic: {fileID: 0}

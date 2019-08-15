@@ -16,10 +16,5 @@ namespace pdxpartyparrot.Game.Data.NPCs
         private SpawnWaveData.ReorderableList _waves = new SpawnWaveData.ReorderableList();
 
         public IReadOnlyCollection<SpawnWaveData> Waves => _waves.Items;
-
-        [SerializeField]
-        private float _musicTransitionSeconds = 1.0f;
-
-        public float MusicTransitionSeconds => _musicTransitionSeconds;
     }
 }
