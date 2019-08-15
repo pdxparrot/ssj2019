@@ -201,6 +201,7 @@ MonoBehaviour:
   _isGrounded: 0
   _isSliding: 0
   _idleEffect: {fileID: 8260880877772567660}
+  _movingEffectTrigger: {fileID: 2998925792977376928}
   _moveDirection: {x: 0, y: 0, z: 0}
   _immune: 0
 --- !u!114 &515719160455454119
@@ -267,7 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 0}
-  _jumpEffect: {fileID: 8635509093160306210}
+  _jumpEffect: {fileID: 6268327122031432007}
 --- !u!114 &2342830165173679034
 MonoBehaviour:
   m_ObjectHideFlags: 0
