@@ -109,7 +109,6 @@ namespace pdxpartyparrot.Core.Effects
         }
 
         // forcefully kills the trigger early
-        // and doesn't trigger subsequent triggers
         public void KillTrigger()
         {
             if(null != _effectWaiter) {
@@ -122,6 +121,11 @@ namespace pdxpartyparrot.Core.Effects
                     c.OnStop();
                 }
             });
+
+            foreach(var onCompleteEffect in _triggerOnComplete.Items) {
+                onCompleteEffect.Trigger();
+                onCompleteEffect.StopTrigger();
+            }
 
             _isRunning = false;
         }
@@ -176,7 +180,10 @@ namespace pdxpartyparrot.Core.Effects
             // trigger further effects
             foreach(var onCompleteEffect in _triggerOnComplete.Items) {
                 onCompleteEffect.Trigger();
-                onCompleteEffect.StopTrigger();
+
+                if(_complete) {
+                    onCompleteEffect.StopTrigger();
+                }
             }
 
             // wait for those effects before we call ourself not running

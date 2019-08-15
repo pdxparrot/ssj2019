@@ -8,24 +8,20 @@ namespace pdxpartyparrot.ssj2019.Effects.EffectTriggerComponents
     public sealed class ShowWaveTextEffectTriggerComponent : EffectTriggerComponent
     {
         [SerializeField]
-        private string _text;
+        private bool _show = true;
 
         [SerializeField]
-        private bool _waitForComplete;
+        private string _text;
 
-        public override bool WaitForComplete => _waitForComplete;
-
-        // TODO: handle wait for complete
-        public override bool IsDone => true;
+        public override bool WaitForComplete => false;
 
         public override void OnStart()
         {
-            PlayerManager.Instance.GamePlayerUI.ShowWaveText(_text);
-        }
-
-        public override void OnStop()
-        {
-            // TODO: handle this
+            if(_show) {
+                PlayerManager.Instance.GamePlayerUI.ShowWaveText(_text);
+            } else {
+                PlayerManager.Instance.GamePlayerUI.HideWaveText();
+            }
         }
     }
 }

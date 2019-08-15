@@ -14,9 +14,22 @@ namespace pdxpartyparrot.ssj2019.UI
         [SerializeField]
         private TextMeshProUGUI _waveText;
 
+#region Unity Lifecycle
+        private void Awake()
+        {
+            _waveText.gameObject.SetActive(false);
+        }
+#endregion
+
         public void ShowWaveText(string waveText)
         {
             _waveText.text = waveText;
+            _waveText.gameObject.SetActive(true);
+        }
+
+        public void HideWaveText()
+        {
+            _waveText.gameObject.SetActive(false);
         }
     }
 }

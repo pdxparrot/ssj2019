@@ -90,6 +90,8 @@ namespace pdxpartyparrot.Game.NPCs
 
         public void RemoveWaveEffectTrigger(EffectTrigger effectTrigger)
         {
+            effectTrigger.KillTrigger();
+
             Destroy(effectTrigger.gameObject);
         } 
 
