@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4914603125408191634}
   - component: {fileID: 4914603125408191633}
-  - component: {fileID: 4914603125408191632}
+  - component: {fileID: 7812042963360571549}
   m_Layer: 0
   m_Name: Bar1SpawnWaveStartEffectTrigger
   m_TagString: Untagged
@@ -48,10 +48,10 @@ MonoBehaviour:
     _items: []
   _components:
     _items:
-    - {fileID: 4914603125408191632}
+    - {fileID: 7812042963360571549}
   _isRunning: 0
   _complete: 0
---- !u!114 &4914603125408191632
+--- !u!114 &7812042963360571549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -60,8 +60,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4914603125408191855}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
+  m_Script: {fileID: 11500000, guid: fb18526bd850fe74d9244ef4f99b1297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _logMessage: start wave 1
-  _level: 2
+  _text: Begin Wave 1
+  _waitForComplete: 0

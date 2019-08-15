@@ -2,6 +2,8 @@
 
 namespace pdxpartyparrot.Game.UI
 {
+    // TODO: this should probably be called "Game UI"
+    // since it's not player-specific
     public abstract class PlayerUI : MonoBehaviour
     {
         [SerializeField]

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using TMPro;
+
+using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.UI
 {
@@ -8,5 +10,13 @@ namespace pdxpartyparrot.ssj2019.UI
         private PlayerHUD _hud;
 
         public PlayerHUD HUD => _hud;
+
+        [SerializeField]
+        private TextMeshProUGUI _waveText;
+
+        public void ShowWaveText(string waveText)
+        {
+            _waveText.text = waveText;
+        }
     }
 }

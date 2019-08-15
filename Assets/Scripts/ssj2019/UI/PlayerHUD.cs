@@ -8,6 +8,8 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ssj2019.UI
 {
+    // TODO: a lot of this probably should go up a level
+    // (the HUD, in split screen would be per-screen, but a lot of this is fullscreen)
     [RequireComponent(typeof(UIObject))]
     public sealed class PlayerHUD : MonoBehaviour
     {
