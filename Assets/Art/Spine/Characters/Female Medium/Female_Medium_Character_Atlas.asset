@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
+  m_Name: Female_Medium_Character_Atlas
+  m_EditorClassIdentifier: 
+  atlasFile: {fileID: 4900000, guid: 4eedf24021722454e8e95b9cb5d3afa8, type: 3}
+  materials:
+  - {fileID: 2100000, guid: bf665a7a8b9046b4aab3bb2791aaf848, type: 2}
+  - {fileID: 2100000, guid: ec07e01617e666b40bcab174fedcc7d0, type: 2}
+  - {fileID: 2100000, guid: 5796706b88ada2648bc06b08dfb8f4e2, type: 2}
+  - {fileID: 2100000, guid: 2aa8f14196c740448a4b8e6d79079951, type: 2}
+  - {fileID: 2100000, guid: 398f02c7b2cf22d4b96a740939e483b3, type: 2}
