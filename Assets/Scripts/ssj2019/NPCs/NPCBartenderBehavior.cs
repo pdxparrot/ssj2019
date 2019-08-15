@@ -73,8 +73,6 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
                 // have to use the transform here since physics lags behind
                 _fidgetBehavior.Origin = Owner.transform.position;
-
-                _idleEffect.Trigger();
                 break;
             }
         }

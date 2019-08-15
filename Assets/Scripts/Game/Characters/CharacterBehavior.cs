@@ -83,7 +83,7 @@ namespace pdxpartyparrot.Game.Characters
 
         [SerializeField]
         [CanBeNull]
-        protected EffectTrigger _idleEffect;
+        private EffectTrigger _idleEffect;
 
         [SerializeField]
         [CanBeNull]
@@ -253,6 +253,22 @@ namespace pdxpartyparrot.Game.Characters
         }
 
 #region Events
+        public virtual void OnIdle()
+        {
+            if(IsMoving && null != _movingEffectTrigger) {
+                _movingEffectTrigger.Trigger();
+            } else if(!IsMoving && null != _idleEffect) {
+                _idleEffect.Trigger();
+            }
+        }
+
+        protected override void OnSpawnComplete()
+        {
+            if(null != _idleEffect) {
+                _idleEffect.Trigger();
+            }
+        }
+
         protected override void OnMoveStateChanged()
         {
             if(IsMoving && null != _movingEffectTrigger) {

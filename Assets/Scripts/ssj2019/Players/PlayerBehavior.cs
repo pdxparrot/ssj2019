@@ -102,11 +102,6 @@ namespace pdxpartyparrot.ssj2019.Players
 #endregion
 
 #region Brawler Actions
-        public void OnIdle()
-        {
-            _idleEffect.Trigger();
-        }
-
         public void OnHit(bool blocked)
         {
             PlayerManager.Instance.GamePlayerUI.HUD.SetPlayerHealthPercent(GamePlayerOwner.NetworkPlayer.ControllerId, Brawler.HealthPercent);

@@ -180,8 +180,6 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
                 // have to use the transform here since physics lags behind
                 _fidgetBehavior.Origin = Owner.transform.position;
-
-                _idleEffect.Trigger();
                 break;
             case State.Track:
                 break;
@@ -362,8 +360,10 @@ namespace pdxpartyparrot.ssj2019.NPCs
 #endregion
 
 #region Brawler Actions
-        public void OnIdle()
+        public override void OnIdle()
         {
+            base.OnIdle();
+
             SetState(State.Idle);
         }
 
