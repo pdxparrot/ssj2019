@@ -84,6 +84,10 @@ namespace pdxpartyparrot.Game.Characters
         [SerializeField]
         [CanBeNull]
         protected EffectTrigger _idleEffect;
+
+        [SerializeField]
+        [CanBeNull]
+        private EffectTrigger _movingEffectTrigger;
 #endregion
 
         // TODO: this has become too expensive for a property
@@ -247,6 +251,17 @@ namespace pdxpartyparrot.Game.Characters
 
             Owner.SetFacing(forward);
         }
+
+#region Events
+        protected override void OnMoveStateChanged()
+        {
+            if(IsMoving && null != _movingEffectTrigger) {
+                _movingEffectTrigger.Trigger();
+            } else if(!IsMoving && null != _idleEffect) {
+                _idleEffect.Trigger();
+            }
+        }
+#endregion
 
 #region Debug Menu
         private void InitDebugMenu()
