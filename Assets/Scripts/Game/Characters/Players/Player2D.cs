@@ -120,18 +120,15 @@ namespace pdxpartyparrot.Game.Characters.Players
 #region Spawn
         public override bool OnSpawn(SpawnPoint spawnpoint)
         {
-            if(!base.OnSpawn(spawnpoint)) {
-                return false;
-            }
-
             Debug.Log($"Spawning player (controller={NetworkPlayer.playerControllerId}, isLocalPlayer={IsLocalActor})");
 
+            // spawnpoint doesn't initialize players, so we have to do it before calling the base OnSpawn
             Initialize(Guid.NewGuid(), GameStateManager.Instance.PlayerManager.PlayerBehaviorData);
             if(!NetworkClient.active) {
                 NetworkPlayer.RpcSpawn(Id.ToString());
             }
 
-            return true;
+            return base.OnSpawn(spawnpoint);
         }
 
         public override bool OnReSpawn(SpawnPoint spawnpoint)
