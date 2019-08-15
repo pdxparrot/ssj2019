@@ -17,7 +17,17 @@ MonoBehaviour:
     _items:
     - _type: 0
       _attackData: {fileID: 11400000, guid: 0b2e4817866041e40bdb8c8c36fc1c84, type: 2}
+      _requireHit: 0
+      _comboPoints: 5
     - _type: 0
       _attackData: {fileID: 11400000, guid: 8e3f44b103df21d46874c2d86319c1b2, type: 2}
+      _requireHit: 0
+      _comboPoints: 5
     - _type: 0
       _attackData: {fileID: 11400000, guid: 1eefd21fdccda614581a6dac79901daf, type: 2}
+      _requireHit: 0
+      _comboPoints: 5
+    - _type: 0
+      _attackData: {fileID: 11400000, guid: c6896d899e91b3145a828d91b55e235b, type: 2}
+      _requireHit: 0
+      _comboPoints: 5
