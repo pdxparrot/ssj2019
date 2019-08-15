@@ -14,7 +14,7 @@ namespace pdxpartyparrot.ssj2019.State
         {
             base.OnEnter();
 
-            if(GameManager.Instance.HasGameStarted && null != MainMenu) {
+            if(GameManager.Instance.TransitionToHighScores && null != MainMenu) {
                 TitleScreen.FinishLoading();
                 MainMenu.ShowHighScores();
             }

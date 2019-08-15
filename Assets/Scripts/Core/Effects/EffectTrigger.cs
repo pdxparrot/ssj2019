@@ -123,8 +123,7 @@ namespace pdxpartyparrot.Core.Effects
             });
 
             foreach(var onCompleteEffect in _triggerOnComplete.Items) {
-                onCompleteEffect.Trigger();
-                onCompleteEffect.StopTrigger();
+                onCompleteEffect.KillTrigger();
             }
 
             _isRunning = false;

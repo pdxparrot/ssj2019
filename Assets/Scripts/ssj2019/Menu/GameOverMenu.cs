@@ -37,6 +37,8 @@ namespace pdxpartyparrot.ssj2019.Menu
                 { "wave", GameManager.Instance.LevelHelper.WaveSpawner.CurrentWaveIndex + 1}
             });
 
+            GameManager.Instance.TransitionToHighScores = true;
+
             base.OnDone();
         }
 #endregion

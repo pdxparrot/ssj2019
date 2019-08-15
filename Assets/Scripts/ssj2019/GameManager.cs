@@ -55,6 +55,16 @@ namespace pdxpartyparrot.ssj2019
 
         public int Score => _score;
 
+        [SerializeField]
+        [ReadOnly]
+        private bool _transitionToHighScores;
+
+        public bool TransitionToHighScores
+        {
+            get => _transitionToHighScores;
+            set => _transitionToHighScores = value;
+        }
+
         private readonly Dictionary<short, PlayerEntry> _playerCharacters = new Dictionary<short, PlayerEntry>();
 
         public IReadOnlyCollection<short> PlayerCharacterControllers => _playerCharacters.Keys;
@@ -84,10 +94,12 @@ namespace pdxpartyparrot.ssj2019
             base.Initialize();
 
             _score = 0;
+            _transitionToHighScores = false;
         }
 
         public override void Shutdown()
         {
+            _activePlayers.Clear();
             _playerCharacters.Clear();
 
             base.Shutdown();
