@@ -93,6 +93,10 @@ namespace pdxpartyparrot.Core.Effects
             _complete = false;
             _isRunning = true;
 
+            if(EffectsManager.Instance.EnableDebug) {
+                Debug.Log($"Trigger {_components.Items.Count} more effects on {name}");
+            }
+
             RunOnComponents(c => {
                 if(c.IsDone) {
                     c.OnStart();

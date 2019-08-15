@@ -86,12 +86,5 @@ namespace pdxpartyparrot.ssj2019.Data
         private TrainingDummy _trainingDummyPrefab;
 
         public TrainingDummy TrainingDummyPrefab => _trainingDummyPrefab;
-
-        [Space(10)]
-
-        [SerializeField]
-        private bool _attacksStunSource = false;
-
-        public bool AttacksStunSource => _attacksStunSource;
     }
 }

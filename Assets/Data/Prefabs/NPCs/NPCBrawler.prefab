@@ -872,7 +872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 1655421340564284999}
   _spineAnimationName: Unblock
-  _spineAnimationTrack: 0
+  _spineAnimationTrack: 1
   _loop: 0
   _waitForComplete: 1
 --- !u!1 &6708938913309655336
@@ -1085,7 +1085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 1655421340564284999}
   _spineAnimationName: Block
-  _spineAnimationTrack: 0
+  _spineAnimationTrack: 1
   _loop: 0
   _waitForComplete: 1
 --- !u!1 &7603056072392001625
@@ -1350,7 +1350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 1655421340564284999}
   _spineAnimationName: 
-  _spineAnimationTrack: 0
+  _spineAnimationTrack: 1
   _loop: 0
   _waitForComplete: 1
 --- !u!114 &5426313696954695828
@@ -1523,6 +1523,7 @@ MonoBehaviour:
   _spawnEffect: {fileID: 0}
   _respawnEffect: {fileID: 0}
   _despawnEffect: {fileID: 0}
+  _isAlive: 0
   _components:
     _items:
     - {fileID: 4012403951289823003}

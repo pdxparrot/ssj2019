@@ -190,6 +190,7 @@ MonoBehaviour:
   _spawnEffect: {fileID: 4165677921822100092}
   _respawnEffect: {fileID: 4165677921822100092}
   _despawnEffect: {fileID: 0}
+  _isAlive: 0
   _components:
     _items:
     - {fileID: 8628578926028440972}
@@ -452,7 +453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 1402089305333961099}
-  _spineAnimationName: jump_up
+  _spineAnimationName: jump_apex
   _spineAnimationTrack: 0
   _loop: 0
   _waitForComplete: 1
@@ -1080,7 +1081,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 1402089305333961099}
   _spineAnimationName: 
-  _spineAnimationTrack: 0
+  _spineAnimationTrack: 1
   _loop: 0
   _waitForComplete: 1
 --- !u!114 &7662537881713715
@@ -1224,7 +1225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 1402089305333961099}
   _spineAnimationName: unblock
-  _spineAnimationTrack: 0
+  _spineAnimationTrack: 1
   _loop: 0
   _waitForComplete: 1
 --- !u!1 &5834506326356446408
@@ -1441,7 +1442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 1402089305333961099}
-  _spineAnimationName: jump_apex
+  _spineAnimationName: jump_up
   _spineAnimationTrack: 0
   _loop: 0
   _waitForComplete: 1
@@ -1978,7 +1979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 1402089305333961099}
   _spineAnimationName: block
-  _spineAnimationTrack: 0
+  _spineAnimationTrack: 1
   _loop: 0
   _waitForComplete: 1
 --- !u!1 &8128243285711847515

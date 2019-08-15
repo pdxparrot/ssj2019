@@ -59,7 +59,8 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         // don't wait for complete if the animation should loop
         public override bool WaitForComplete => !Loop && _waitForComplete;
 
-        public override bool IsDone => null == _trackEntry || _trackEntry.IsComplete;
+        // looping animations never "complete", so consider them always done
+        public override bool IsDone => null == _trackEntry || _trackEntry.Loop || _trackEntry.IsComplete;
 
         [CanBeNull]
         private TrackEntry _trackEntry;

@@ -124,6 +124,14 @@ namespace pdxpartyparrot.Core.Actors
         protected EffectTrigger _despawnEffect;
 #endregion
 
+        [Space(10)]
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _isAlive;
+
+        public bool IsAlive => _isAlive;
+
 #region Unity Lifecycle
         protected virtual void Awake()
         {
@@ -194,6 +202,7 @@ namespace pdxpartyparrot.Core.Actors
 
         protected virtual void OnSpawnComplete()
         {
+            _isAlive = true;
         }
 
         public virtual void OnReSpawn(SpawnPoint spawnpoint)
@@ -207,10 +216,13 @@ namespace pdxpartyparrot.Core.Actors
 
         protected virtual void OnReSpawnComplete()
         {
+            _isAlive = true;
         }
 
         public virtual void OnDeSpawn()
         {
+            _isAlive = false;
+
             if(null != _despawnEffect) {
                 _despawnEffect.Trigger(OnDeSpawnComplete);
             } else {

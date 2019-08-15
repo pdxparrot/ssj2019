@@ -89,7 +89,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             // attack specialization
-            if(GameManager.Instance.GameGameData.AttacksStunSource && ActionType.Attack == Type) {
+            if(ActionType.Attack == Type) {
                 _stunned = true;
             }
 

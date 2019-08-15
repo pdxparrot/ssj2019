@@ -149,7 +149,9 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
                 // if we're on a slope, we're sliding down it
                 Behavior.IsSliding = _groundSlope >= _data.SlopeLimit;
 
-                if(!wasGrounded && Behavior.IsGrounded) {
+                if(!wasGrounded && Behavior.IsGrounded && Behavior.IsAlive) {
+                    Behavior.OnIdle();
+
                     if(null != _groundedEffect) {
                         _groundedEffect.Trigger();
                     }

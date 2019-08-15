@@ -4167,7 +4167,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 30, y: 5}
+  m_Size: {x: 30, y: 30}
   m_EdgeRadius: 0
 --- !u!66 &1952190237
 CompositeCollider2D:
@@ -4190,19 +4190,19 @@ CompositeCollider2D:
   - m_Collider: {fileID: 1952190236}
     m_ColliderPaths:
     - - X: 149999971
-        Y: -25000000
+        Y: -150000000
       - X: 149999971
-        Y: 25000000
+        Y: 150000000
       - X: -150000000
-        Y: 24999971
+        Y: 149999971
       - X: -149999971
-        Y: -25000000
+        Y: -150000000
   m_CompositePaths:
     m_Paths:
-    - - {x: 14.999997, y: 2.5}
-      - {x: -15, y: 2.4999971}
-      - {x: -14.999997, y: -2.5}
-      - {x: 14.999997, y: -2.5}
+    - - {x: 14.999993, y: -15}
+      - {x: 14.999993, y: 15}
+      - {x: -15, y: 14.999993}
+      - {x: -14.999993, y: -15}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.000005
 --- !u!50 &1952190238

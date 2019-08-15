@@ -252,8 +252,7 @@ namespace pdxpartyparrot.Game.Characters
             Owner.SetFacing(forward);
         }
 
-#region Events
-        public virtual void OnIdle()
+        protected virtual void TriggerMoveEffect()
         {
             if(IsMoving && null != _movingEffectTrigger) {
                 _movingEffectTrigger.Trigger();
@@ -262,8 +261,16 @@ namespace pdxpartyparrot.Game.Characters
             }
         }
 
+#region Events
+        public virtual void OnIdle()
+        {
+            TriggerMoveEffect();
+        }
+
         protected override void OnSpawnComplete()
         {
+            base.OnSpawnComplete();
+
             if(null != _idleEffect) {
                 _idleEffect.Trigger();
             }
@@ -271,6 +278,8 @@ namespace pdxpartyparrot.Game.Characters
 
         protected override void OnReSpawnComplete()
         {
+            base.OnReSpawnComplete();
+
             if(null != _idleEffect) {
                 _idleEffect.Trigger();
             }
@@ -278,11 +287,9 @@ namespace pdxpartyparrot.Game.Characters
 
         protected override void OnMoveStateChanged()
         {
-            if(IsMoving && null != _movingEffectTrigger) {
-                _movingEffectTrigger.Trigger();
-            } else if(!IsMoving && null != _idleEffect) {
-                _idleEffect.Trigger();
-            }
+            base.OnMoveStateChanged();
+
+            TriggerMoveEffect();
         }
 #endregion
 
