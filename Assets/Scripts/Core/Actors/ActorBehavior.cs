@@ -45,7 +45,14 @@ namespace pdxpartyparrot.Core.Actors
         public bool IsMoving
         {
             get => _isMoving;
-            protected set => _isMoving = value;
+            protected set
+            {
+                bool wasMoving = _isMoving;
+                _isMoving = value;
+                if(wasMoving != _isMoving) {
+                    OnMoveStateChanged();
+                }
+            }
         }
 
         public virtual bool CanMove => !PartyParrotManager.Instance.IsPaused && (null == _actorAnimator || !_actorAnimator.IsAnimating);
@@ -212,6 +219,10 @@ namespace pdxpartyparrot.Core.Actors
         }
 
         protected virtual void OnDeSpawnComplete()
+        {
+        }
+
+        protected virtual void OnMoveStateChanged()
         {
         }
 
