@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1798660877216430718
+--- !u!1 &698766596083567375
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2931646367440239310}
-  - component: {fileID: 1949344393642773552}
-  - component: {fileID: 1000118959336597789}
-  - component: {fileID: 8694982115306950787}
+  - component: {fileID: 8889960286771794921}
+  - component: {fileID: 4420271775743598932}
+  - component: {fileID: 3125558257748638642}
+  - component: {fileID: 8043000304462061007}
   m_Layer: 0
-  m_Name: Spine GameObject (Female_Medium_Character)
+  m_Name: Spine GameObject (Female02)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2931646367440239310
+--- !u!4 &8889960286771794921
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1798660877216430718}
+  m_GameObject: {fileID: 698766596083567375}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.107, y: -0.825, z: 0}
   m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
@@ -33,21 +33,21 @@ Transform:
   m_Father: {fileID: 244475500154830886}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1949344393642773552
+--- !u!33 &4420271775743598932
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1798660877216430718}
+  m_GameObject: {fileID: 698766596083567375}
   m_Mesh: {fileID: 0}
---- !u!23 &1000118959336597789
+--- !u!23 &3125558257748638642
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1798660877216430718}
+  m_GameObject: {fileID: 698766596083567375}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -58,24 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 398f02c7b2cf22d4b96a740939e483b3, type: 2}
-  - {fileID: 2100000, guid: 5796706b88ada2648bc06b08dfb8f4e2, type: 2}
-  - {fileID: 2100000, guid: 398f02c7b2cf22d4b96a740939e483b3, type: 2}
-  - {fileID: 2100000, guid: 5796706b88ada2648bc06b08dfb8f4e2, type: 2}
-  - {fileID: 2100000, guid: ec07e01617e666b40bcab174fedcc7d0, type: 2}
-  - {fileID: 2100000, guid: 2aa8f14196c740448a4b8e6d79079951, type: 2}
-  - {fileID: 2100000, guid: 398f02c7b2cf22d4b96a740939e483b3, type: 2}
-  - {fileID: 2100000, guid: bf665a7a8b9046b4aab3bb2791aaf848, type: 2}
-  - {fileID: 2100000, guid: ec07e01617e666b40bcab174fedcc7d0, type: 2}
-  - {fileID: 2100000, guid: 5796706b88ada2648bc06b08dfb8f4e2, type: 2}
-  - {fileID: 2100000, guid: ec07e01617e666b40bcab174fedcc7d0, type: 2}
-  - {fileID: 2100000, guid: 5796706b88ada2648bc06b08dfb8f4e2, type: 2}
-  - {fileID: 2100000, guid: 398f02c7b2cf22d4b96a740939e483b3, type: 2}
-  - {fileID: 2100000, guid: 5796706b88ada2648bc06b08dfb8f4e2, type: 2}
-  - {fileID: 2100000, guid: 2aa8f14196c740448a4b8e6d79079951, type: 2}
-  - {fileID: 2100000, guid: ec07e01617e666b40bcab174fedcc7d0, type: 2}
-  - {fileID: 2100000, guid: 2aa8f14196c740448a4b8e6d79079951, type: 2}
-  - {fileID: 2100000, guid: 398f02c7b2cf22d4b96a740939e483b3, type: 2}
+  - {fileID: 2100000, guid: 7739ddb77f127ca4e8b371d10c3758bf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,26 +79,23 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &8694982115306950787
+--- !u!114 &8043000304462061007
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1798660877216430718}
+  m_GameObject: {fileID: 698766596083567375}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: fb2f552dc8f440e4298a1d3d3a46d251, type: 2}
-  initialSkinName: nude1
+  skeletonDataAsset: {fileID: 11400000, guid: bc1b42cdc2b664648a0027c2a5ae4523, type: 2}
+  initialSkinName: nude3
   initialFlipX: 0
   initialFlipY: 0
-  separatorSlotNames:
-  - 
-  - ponytail
-  - 
+  separatorSlotNames: []
   zSpacing: 0
   useClipping: 1
   immutableTriangles: 0
@@ -243,7 +223,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5997307592369118826}
-  - {fileID: 2931646367440239310}
+  - {fileID: 8889960286771794921}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -260,5 +240,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _modelSprite: {fileID: 0}
-  _spineModel: {fileID: 8694982115306950787}
+  _spineModel: {fileID: 8043000304462061007}
   _shadowSprite: {fileID: 1876394260759047840}
