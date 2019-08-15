@@ -1,6 +1,8 @@
 ﻿#if USE_SPINE
 using System;
 
+using JetBrains.Annotations;
+
 using pdxpartyparrot.Core.Animation;
 
 using Spine;
@@ -59,6 +61,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         public override bool IsDone => null == _trackEntry || _trackEntry.IsComplete;
 
+        [CanBeNull]
         private TrackEntry _trackEntry;
 
         public override void OnStart()
@@ -69,11 +72,13 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
                 }
 
                 _trackEntry = _spineAnimation.SetAnimation(_spineAnimationTrack, _spineAnimationName, Loop);
-                _trackEntry.Complete += OnComplete;
+                if(null != _trackEntry) {
+                    _trackEntry.Complete += OnComplete;
 
-                StartEvent?.Invoke(this, new EventArgs{
-                    TrackEntry = _trackEntry,
-                });
+                    StartEvent?.Invoke(this, new EventArgs{
+                        TrackEntry = _trackEntry,
+                    });
+                }
             } else {
                 // TODO: set a timer or something to timeout when we'd normally be done
             }
@@ -105,7 +110,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
             _trackEntry = null;
         }
 
-        #region Event Handlers
+#region Event Handlers
         private void OnComplete(TrackEntry entry)
         {
             if(entry != _trackEntry) {

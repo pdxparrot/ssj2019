@@ -1,4 +1,8 @@
 ﻿#if USE_SPINE
+using System;
+
+using JetBrains.Annotations;
+
 using pdxpartyparrot.Core.Math;
 
 using Spine;
@@ -33,14 +37,21 @@ namespace pdxpartyparrot.Core.Animation
             SkeletonAnimation.ClearState();
         }
 
+        [CanBeNull]
         public TrackEntry SetAnimation(string animationName, bool loop)
         {
             return SetAnimation(0, animationName, loop);
         }
 
+        [CanBeNull]
         public TrackEntry SetAnimation(int track, string animationName, bool loop)
         {
-            return SkeletonAnimation.AnimationState.SetAnimation(track, animationName, loop);
+            try {
+                return SkeletonAnimation.AnimationState.SetAnimation(track, animationName, loop);
+            } catch(Exception e) {
+                Debug.LogError($"Exception setting spine animation: {e}");
+                return null;
+            }
         }
 
         public void SetFacing(Vector3 direction)
