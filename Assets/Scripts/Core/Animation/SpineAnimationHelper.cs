@@ -15,8 +15,10 @@ namespace pdxpartyparrot.Core.Animation
     public class SpineAnimationHelper : MonoBehaviour
     {
         [SerializeField]
+        [CanBeNull]
         private SkeletonAnimation _skeletonAnimation;
 
+        [CanBeNull]
         public SkeletonAnimation SkeletonAnimation
         {
             get => _skeletonAnimation;
@@ -34,7 +36,9 @@ namespace pdxpartyparrot.Core.Animation
 
         public void ResetAnimation()
         {
-            SkeletonAnimation.ClearState();
+            if(null != SkeletonAnimation) {
+                SkeletonAnimation.ClearState();
+            }
         }
 
         [CanBeNull]
@@ -46,6 +50,10 @@ namespace pdxpartyparrot.Core.Animation
         [CanBeNull]
         public TrackEntry SetAnimation(int track, string animationName, bool loop)
         {
+            if(null == SkeletonAnimation) {
+                return null;
+            }
+
             try {
                 return SkeletonAnimation.AnimationState.SetAnimation(track, animationName, loop);
             } catch(Exception e) {
@@ -62,7 +70,9 @@ namespace pdxpartyparrot.Core.Animation
 
             // TODO: if the skeleton is scaled, does this unscale it?
             // if so, we might have to take the Abs() first
-            SkeletonAnimation.Skeleton.ScaleX = Mathf.Sign(direction.x);
+            if(null != SkeletonAnimation) {
+                SkeletonAnimation.Skeleton.ScaleX = Mathf.Sign(direction.x);
+            }
         }
     }
 }
