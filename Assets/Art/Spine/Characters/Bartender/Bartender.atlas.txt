@@ -1,0 +1,118 @@
+
+Bartender.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bicepL
+  rotate: false
+  xy: 510, 279
+  size: 198, 228
+  orig: 198, 228
+  offset: 0, 0
+  index: -1
+bicepR
+  rotate: false
+  xy: 261, 277
+  size: 123, 301
+  orig: 123, 301
+  offset: 0, 0
+  index: -1
+forearmL
+  rotate: false
+  xy: 261, 159
+  size: 151, 116
+  orig: 151, 116
+  offset: 0, 0
+  index: -1
+forearmR
+  rotate: false
+  xy: 386, 376
+  size: 122, 213
+  orig: 122, 213
+  offset: 0, 0
+  index: -1
+glass
+  rotate: false
+  xy: 804, 768
+  size: 210, 245
+  orig: 210, 245
+  offset: 0, 0
+  index: -1
+handL
+  rotate: false
+  xy: 692, 516
+  size: 58, 78
+  orig: 58, 78
+  offset: 0, 0
+  index: -1
+handR
+  rotate: true
+  xy: 322, 6
+  size: 151, 118
+  orig: 151, 118
+  offset: 0, 0
+  index: -1
+head
+  rotate: true
+  xy: 2, 22
+  size: 134, 318
+  orig: 134, 318
+  offset: 0, 0
+  index: -1
+pelvis
+  rotate: false
+  xy: 804, 584
+  size: 211, 182
+  orig: 211, 182
+  offset: 0, 0
+  index: -1
+shinL
+  rotate: false
+  xy: 692, 596
+  size: 110, 417
+  orig: 110, 417
+  offset: 0, 0
+  index: -1
+shinR
+  rotate: false
+  xy: 268, 591
+  size: 270, 422
+  orig: 270, 422
+  offset: 0, 0
+  index: -1
+shoeL
+  rotate: true
+  xy: 414, 181
+  size: 96, 145
+  orig: 96, 145
+  offset: 0, 0
+  index: -1
+shoeR
+  rotate: true
+  xy: 561, 158
+  size: 119, 192
+  orig: 119, 192
+  offset: 0, 0
+  index: -1
+thighL
+  rotate: false
+  xy: 540, 509
+  size: 150, 504
+  orig: 150, 504
+  offset: 0, 0
+  index: -1
+thighR
+  rotate: false
+  xy: 2, 580
+  size: 264, 433
+  orig: 264, 433
+  offset: 0, 0
+  index: -1
+torso
+  rotate: false
+  xy: 2, 158
+  size: 257, 420
+  orig: 257, 420
+  offset: 0, 0
+  index: -1
