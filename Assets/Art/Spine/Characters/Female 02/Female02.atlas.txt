@@ -1301,203 +1301,203 @@ filter: Linear,Linear
 repeat: none
 outfit_7/boots_shinL
   rotate: true
-  xy: 1136, 1444
+  xy: 1578, 1609
   size: 145, 234
   orig: 145, 234
   offset: 0, 0
   index: -1
 outfit_7/boots_shinR
-  rotate: false
-  xy: 997, 1520
+  rotate: true
+  xy: 292, 2
   size: 137, 320
   orig: 137, 320
   offset: 0, 0
   index: -1
 outfit_7/gloveL
   rotate: true
-  xy: 1372, 1449
+  xy: 1248, 1205
   size: 122, 207
   orig: 122, 207
   offset: 0, 0
   index: -1
 outfit_7/gloveR
   rotate: false
-  xy: 1581, 1421
+  xy: 1431, 1648
   size: 145, 129
   orig: 145, 129
   offset: 0, 0
   index: -1
 outfit_7/hair
-  rotate: true
-  xy: 1828, 1533
+  rotate: false
+  xy: 1814, 1553
   size: 222, 201
   orig: 222, 201
   offset: 0, 0
   index: -1
 outfit_7/hair_back
   rotate: true
-  xy: 1596, 1552
+  xy: 1019, 985
   size: 203, 230
   orig: 203, 230
   offset: 0, 0
   index: -1
 outfit_7/hair_side
-  rotate: true
-  xy: 1134, 1281
+  rotate: false
+  xy: 1251, 1001
   size: 161, 202
   orig: 161, 202
   offset: 0, 0
   index: -1
 outfit_7/jacketL
   rotate: false
-  xy: 234, 547
+  xy: 233, 548
   size: 327, 422
   orig: 327, 422
   offset: 0, 0
   index: -1
 outfit_7/jacketR
   rotate: true
-  xy: 1139, 1780
+  xy: 1137, 1779
   size: 263, 468
   orig: 263, 468
   offset: 0, 0
   index: -1
 outfit_7/jacket_back
   rotate: false
-  xy: 2, 971
+  xy: 2, 972
   size: 378, 480
   orig: 378, 480
   offset: 0, 0
   index: -1
 outfit_7/lips
   rotate: false
-  xy: 487, 1515
+  xy: 233, 515
   size: 48, 31
   orig: 48, 31
   offset: 0, 0
   index: -1
 outfit_7/lips_side
   rotate: false
-  xy: 382, 1016
+  xy: 485, 1517
   size: 35, 28
   orig: 35, 28
   offset: 0, 0
   index: -1
 outfit_7/mohawk
   rotate: false
-  xy: 234, 383
+  xy: 714, 1026
   size: 303, 162
   orig: 303, 162
   offset: 0, 0
   index: -1
 outfit_7/mohawk_back
-  rotate: false
-  xy: 662, 888
+  rotate: true
+  xy: 714, 1190
   size: 355, 295
   orig: 355, 295
   offset: 0, 0
   index: -1
 outfit_7/mohawk_side
   rotate: true
-  xy: 2, 2
+  xy: 2, 6
   size: 374, 288
   orig: 374, 288
   offset: 0, 0
   index: -1
 outfit_7/pants
   rotate: false
-  xy: 563, 623
+  xy: 1305, 1329
   size: 277, 263
   orig: 277, 263
   offset: 0, 0
   index: -1
 outfit_7/pants_back
-  rotate: true
-  xy: 292, 89
+  rotate: false
+  xy: 1011, 1340
   size: 292, 252
   orig: 292, 252
   offset: 0, 0
   index: -1
 outfit_7/pants_shinL
   rotate: true
-  xy: 487, 1548
+  xy: 485, 1547
   size: 292, 508
   orig: 292, 508
   offset: 0, 0
   index: -1
 outfit_7/pants_shinR
   rotate: true
-  xy: 487, 1842
+  xy: 485, 1841
   size: 201, 650
   orig: 201, 650
   offset: 0, 0
   index: -1
 outfit_7/pants_thighL
   rotate: false
-  xy: 2, 1453
-  size: 483, 590
-  orig: 483, 590
+  xy: 2, 1454
+  size: 481, 588
+  orig: 481, 588
   offset: 0, 0
   index: -1
 outfit_7/pants_thighR
   rotate: false
-  xy: 2, 378
-  size: 230, 591
-  orig: 230, 591
+  xy: 2, 382
+  size: 229, 588
+  orig: 229, 588
   offset: 0, 0
   index: -1
 outfit_7/shirt
   rotate: false
-  xy: 382, 1046
+  xy: 292, 141
   size: 278, 405
   orig: 278, 405
   offset: 0, 0
   index: -1
 outfit_7/shirt_back
   rotate: true
-  xy: 1609, 1757
+  xy: 1607, 1756
   size: 286, 430
   orig: 286, 430
   offset: 0, 0
   index: -1
 outfit_7/shoeL
-  rotate: true
-  xy: 842, 592
+  rotate: false
+  xy: 1135, 1594
   size: 294, 183
   orig: 294, 183
   offset: 0, 0
   index: -1
 outfit_7/shoeR
   rotate: false
-  xy: 1407, 1573
+  xy: 1773, 1346
   size: 187, 205
   orig: 187, 205
   offset: 0, 0
   index: -1
 outfit_7/sleeveL
-  rotate: true
-  xy: 1136, 1591
+  rotate: false
+  xy: 1584, 1338
   size: 187, 269
   orig: 187, 269
   offset: 0, 0
   index: -1
 outfit_7/sleeveR
   rotate: true
-  xy: 662, 1185
+  xy: 382, 1091
   size: 361, 330
   orig: 361, 330
   offset: 0, 0
   index: -1
 outfit_7/sleeve_forearmL
   rotate: false
-  xy: 563, 473
+  xy: 1011, 1190
   size: 235, 148
   orig: 235, 148
   offset: 0, 0
   index: -1
 outfit_7/sleeve_forearmR
   rotate: true
-  xy: 994, 1278
+  xy: 995, 1599
   size: 240, 138
   orig: 240, 138
   offset: 0, 0
