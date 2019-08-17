@@ -57,7 +57,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
             base.Initialize(behaviorData);
 
-            _brawlerBehavior.Initialize(this);
+            _brawlerBehavior.ActionHandler = this;
         }
 
         public override void InitializeLocalPlayerBehavior()

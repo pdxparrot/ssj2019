@@ -8,6 +8,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 {
     public sealed class Brawler : MonoBehaviour
     {
+        public Actor Actor { get; private set; }
+
 #region Stats
         [Header("Stats")]
 
@@ -48,15 +50,23 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         public BrawlerAction CurrentAction
         {
             get => _currentAction;
-            set => _currentAction = value;
+            set
+            {
+                if(GameManager.Instance.DebugBrawlers) {
+                    Debug.Log($"Brawler {Actor.Id} setting action {value}");
+                }
+                _currentAction = value;
+            }
         }
 
-        public void Initialize(BrawlerData brawlerData)
+        public void Initialize(Actor actor, BrawlerData brawlerData)
         {
+            Actor = actor;
+
             _brawlerData = brawlerData;
             BrawlerCombo.Initialize(BrawlerData.Combos);
 
-            _brawlerBehavior.Initialize();
+            _brawlerBehavior.Initialize(this);
         }
 
         public void InitializeModel(ActorBehavior behavior, BrawlerModel modelPrefab, GameObject parent, int skinIndex)

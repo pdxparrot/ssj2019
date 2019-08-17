@@ -80,7 +80,7 @@ namespace pdxpartyparrot.ssj2019.Players
 
             PlayerManager.Instance.GamePlayerUI.HUD.ShowCharacterPanel(NetworkPlayer.ControllerId, _playerCharacterData);
 
-            Brawler.Initialize(_playerCharacterData.BrawlerData);
+            Brawler.Initialize(this, _playerCharacterData.BrawlerData);
 
             PlayerViewer = GameManager.Instance.Viewer;
 

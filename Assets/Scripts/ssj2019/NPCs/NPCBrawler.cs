@@ -57,7 +57,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             _npcBrawlerData = NPCBrawlerBehavior.NPCBrawlerBehaviorData.BrawlerCharacterOptions.GetRandomEntry();
 
-            Brawler.Initialize(NPCBrawlerData.BrawlerData);
+            Brawler.Initialize(this, NPCBrawlerData.BrawlerData);
 
             InitializeModel();
         }

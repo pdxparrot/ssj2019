@@ -21,7 +21,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             IReadOnlyCollection<IComboEntry> ComboEntries { get; }
 
             [CanBeNull]
-            IComboEntry NextEntry(CharacterBehaviorComponent.CharacterBehaviorAction action, IComboEntry previousMove, bool previousActionHit);
+            IComboEntry NextEntry(CharacterBehaviorComponent.CharacterBehaviorAction action, IComboEntry previousMove, BrawlerAction currentAction);
         }
 
         private class ComboEntry : IComboEntry
@@ -33,7 +33,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             public IReadOnlyCollection<IComboEntry> ComboEntries => comboEntries;
 
             [CanBeNull]
-            public IComboEntry NextEntry(CharacterBehaviorComponent.CharacterBehaviorAction action, IComboEntry previousMove, bool previousActionHit)
+            public IComboEntry NextEntry(CharacterBehaviorComponent.CharacterBehaviorAction action, IComboEntry previousMove, BrawlerAction currentAction)
             {
                 if(action is DashBehaviorComponent.DashAction) {
                     foreach(IComboEntry comboEntry in comboEntries) {
@@ -43,7 +43,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                     }
                 } else if(action is AttackBehaviorComponent.AttackAction attackAction) {
                     foreach(IComboEntry comboEntry in comboEntries) {
-                        if(comboEntry.Move.Equals(attackAction) && (null == previousMove || !Move.RequireHit || !previousMove.Move.IsAttack || previousActionHit)) {
+                        if(comboEntry.Move.Equals(attackAction) && (null == previousMove || !Move.RequireHit || !previousMove.Move.IsAttack || currentAction.DidHit)) {
                             return comboEntry;
                         }
                     }

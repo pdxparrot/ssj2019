@@ -143,7 +143,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             base.Initialize(behaviorData);
 
-            _brawlerBehavior.Initialize(this);
+            _brawlerBehavior.ActionHandler = this;
         }
 
         public override void Think(float dt)
