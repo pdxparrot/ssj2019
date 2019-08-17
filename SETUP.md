@@ -18,12 +18,12 @@
 * Create Data/Physics/frictionless.physicMaterial
   * Static Friction: 0
   * Dynamic Friction: 0
-  * Bounciness: 0
+  * Bounciness: 0.1
   * Friction Combine: Multiply
   * Bounce Combine: Multiply
 * Create Data/Physics/frictionless 2D.physicsMaterial2D
   * Friction: 0
-  * Bounciness: 0
+  * Bounciness: 0.1
   * Friction Combine: Multiply
   * Bounce Combine: Multiply
 * Copy Art/Core/pdxparrot.png
