@@ -4,9 +4,11 @@ using System;
 
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data;
+using pdxpartyparrot.Game.Level;
 using pdxpartyparrot.Game.State;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Networking;
 
 namespace pdxpartyparrot.Game
@@ -31,6 +33,18 @@ namespace pdxpartyparrot.Game
         void Initialize();
 
         void Shutdown();
+
+        void RegisterLevelHelper(LevelHelper levelHelper);
+
+        void UnRegisterLevelHelper(LevelHelper levelHelper);
+
+        void GameReady();
+
+        void GameUnReady();
+
+        void GameOver();
+
+        void TransitionScene(string nextScene, Action onComplete);
     }
 
     public abstract class GameManager<T> : SingletonBehavior<T>, IGameManager where T: GameManager<T>
@@ -48,6 +62,12 @@ namespace pdxpartyparrot.Game
         private GameData _gameData;
 
         public GameData GameData => _gameData;
+
+        [SerializeField]
+        [ReadOnly]
+        private LevelHelper _levelHelper;
+
+        public LevelHelper LevelHelper => _levelHelper;
 
         [SerializeField]
         [ReadOnly]
@@ -104,6 +124,20 @@ namespace pdxpartyparrot.Game
                 GameStateManager.Instance.PlayerManager.DespawnPlayers();
             }
         }
+
+#region Level Helper
+        public void RegisterLevelHelper(LevelHelper levelHelper)
+        {
+            Assert.IsNull(_levelHelper);
+            _levelHelper = levelHelper;
+        }
+
+        public void UnRegisterLevelHelper(LevelHelper levelHelper)
+        {
+            Assert.IsTrue(levelHelper == _levelHelper);
+            _levelHelper = null;
+        }
+#endregion
 
         protected virtual void InitializeObjectPools()
         {

@@ -9,7 +9,6 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ssj2019.NPCs
 {
-    [RequireComponent(typeof(NPCFidgetBehavior))]
     public sealed class NPCBartenderBehavior : NPCBehavior
     {
         private enum State
@@ -27,17 +26,12 @@ namespace pdxpartyparrot.ssj2019.NPCs
         [ReadOnly]
         private State _state = State.Idle;
 
-        private NPCFidgetBehavior _fidgetBehavior;
-
 #region Unity Lifecycle
         protected override void Awake()
         {
             base.Awake();
 
             Assert.IsTrue(Owner is NPCBartender);
-
-            _fidgetBehavior = GetComponent<NPCFidgetBehavior>();
-            _fidgetBehavior.Initialize(NPCOwner);
         }
 #endregion
 
@@ -70,16 +64,12 @@ namespace pdxpartyparrot.ssj2019.NPCs
             {
             case State.Idle:
                 NPCOwner.ResetPath();
-
-                // have to use the transform here since physics lags behind
-                _fidgetBehavior.Origin = Owner.transform.position;
                 break;
             }
         }
 
         private void HandleIdle()
         {
-            _fidgetBehavior.Fidget();
         }
 #endregion
 

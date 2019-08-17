@@ -13,11 +13,9 @@ using pdxpartyparrot.Game.UI;
 using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Data;
 using pdxpartyparrot.ssj2019.Data.Players;
-using pdxpartyparrot.ssj2019.Level;
 using pdxpartyparrot.ssj2019.Players;
 
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.ssj2019
@@ -42,12 +40,6 @@ namespace pdxpartyparrot.ssj2019
 
         // only valid on the client
         public GameViewer Viewer { get; private set; }
-
-        [SerializeField]
-        [ReadOnly]
-        private LevelHelper _levelHelper;
-
-        public LevelHelper LevelHelper => _levelHelper;
 
         [SerializeField]
         [ReadOnly]
@@ -130,21 +122,6 @@ namespace pdxpartyparrot.ssj2019
                 onComplete?.Invoke();
             });
         }
-
-        // TODO: move this to the Game-level manager
-#region Level Helper
-        public void RegisterLevelHelper(LevelHelper levelHelper)
-        {
-            Assert.IsNull(_levelHelper);
-            _levelHelper = levelHelper;
-        }
-
-        public void UnRegisterLevelHelper(LevelHelper levelHelper)
-        {
-            Assert.IsTrue(levelHelper == _levelHelper);
-            _levelHelper = null;
-        }
-#endregion
 
         //[Client]
         public void InitViewer()

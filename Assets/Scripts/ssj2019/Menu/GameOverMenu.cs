@@ -2,6 +2,7 @@
 
 using pdxpartyparrot.Game;
 using pdxpartyparrot.Game.Menu;
+using pdxpartyparrot.ssj2019.Level;
 using pdxpartyparrot.ssj2019.Players;
 
 using UnityEngine;
@@ -34,7 +35,8 @@ namespace pdxpartyparrot.ssj2019.Menu
         public override void OnDone()
         {
             HighScoreManager.Instance.AddHighScore(_initialInputPanel.GetInitials(), GameManager.Instance.Score, PlayerManager.Instance.Players.Count, new Dictionary<string, object> {
-                { "wave", GameManager.Instance.LevelHelper.WaveSpawner.CurrentWaveIndex + 1}
+                // TODO: this cast could become unsafe real quick
+                { "wave", ((BarLevel)GameManager.Instance.LevelHelper).WaveSpawner.CurrentWaveIndex + 1}
             });
 
             GameManager.Instance.TransitionToHighScores = true;

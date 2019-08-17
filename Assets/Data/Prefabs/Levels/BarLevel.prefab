@@ -50,6 +50,7 @@ MonoBehaviour:
     _items:
     - {fileID: 5760796314708218083}
   _isRunning: 0
+  _complete: 0
 --- !u!114 &5760796314708218083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,7 +137,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1558866952138182121}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
@@ -158,7 +159,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1558866952138182121}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
@@ -220,7 +221,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1588929140511558643}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -240,6 +241,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1821045789320530907
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1821045789320530884}
   - component: {fileID: 1829598986059437573}
-  - component: {fileID: 1821045789320530885}
+  - component: {fileID: 4565529026297498824}
   m_Layer: 0
   m_Name: BarLevel
   m_TagString: Untagged
@@ -304,7 +306,7 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &1821045789320530885
+--- !u!114 &4565529026297498824
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -313,7 +315,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1821045789320530907}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaba72cd162840728f18acc2bdf210d2, type: 3}
+  m_Script: {fileID: 11500000, guid: b880e35f35d98174c81fbfdc8a073fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _fullScreenImage: {fileID: 5566327204678475865}
@@ -325,6 +327,7 @@ MonoBehaviour:
   _levelExitEffect: {fileID: 9122425265760700603}
   _enterFadeEffectTrigger: {fileID: 5030871794234647196}
   _exitFadeEffectTrigger: {fileID: 5760796314708218083}
+  _bartender: {fileID: 0}
 --- !u!1 &4366079293959925122
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,6 +378,7 @@ MonoBehaviour:
     _items:
     - {fileID: 5030871794234647196}
   _isRunning: 0
+  _complete: 0
 --- !u!114 &5030871794234647196
 MonoBehaviour:
   m_ObjectHideFlags: 0

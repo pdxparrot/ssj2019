@@ -14,6 +14,7 @@ using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ssj2019.Characters.Brawlers;
 using pdxpartyparrot.ssj2019.Data.NPCs;
 using pdxpartyparrot.ssj2019.KungFuCircle;
+using pdxpartyparrot.ssj2019.Level;
 using pdxpartyparrot.ssj2019.Players;
 
 using UnityEngine;
@@ -353,7 +354,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public override void OnDeSpawn()
         {
-            GameManager.Instance.LevelHelper.WaveSpawner.CurrentWave.OnWaveSpawnMemberDone();
+            // TODO: this cast could become unsafe real quick
+            ((BarLevel)GameManager.Instance.LevelHelper).WaveSpawner.CurrentWave.OnWaveSpawnMemberDone();
 
             base.OnDeSpawn();
         }
