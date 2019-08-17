@@ -30,9 +30,9 @@ namespace pdxpartyparrot.Core.Data
         }
 
         [SerializeField]
-        private string _playerSpawnPointTag = "player";
+        private string[] _playerSpawnPointTags;
 
-        public string PlayerSpawnPointTag => _playerSpawnPointTag;
+        public IReadOnlyCollection<string> PlayerSpawnPointTags => _playerSpawnPointTags;
 
         [SerializeField]
         private SpawnPointType[] _types;

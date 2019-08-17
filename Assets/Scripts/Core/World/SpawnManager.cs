@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 using JetBrains.Annotations;
 
@@ -7,6 +8,7 @@ using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Core.World
 {
@@ -64,6 +66,8 @@ namespace pdxpartyparrot.Core.World
 #region Unity Lifecycle
         private void Awake()
         {
+            Assert.IsTrue(_spawnData.PlayerSpawnPointTags.Count > 0);
+
             foreach(var spawnPointType in _spawnData.Types) {
                 if(_spawnTypes.ContainsKey(spawnPointType.Tag)) {
                     Debug.LogError($"Duplicate spawn point tag '{spawnPointType.Tag}', ignoring");
@@ -115,8 +119,8 @@ namespace pdxpartyparrot.Core.World
         [CanBeNull]
         public SpawnPoint GetPlayerSpawnPoint(int controllerId)
         {
-            // TODO: can the controllerId factor into this?
-            return GetSpawnPoint(_spawnData.PlayerSpawnPointTag);
+            int spawnPointIdx = Mathf.Clamp(controllerId, 0, _spawnData.PlayerSpawnPointTags.Count-1);
+            return GetSpawnPoint(_spawnData.PlayerSpawnPointTags.ElementAt(spawnPointIdx));
         }
     }
 }
