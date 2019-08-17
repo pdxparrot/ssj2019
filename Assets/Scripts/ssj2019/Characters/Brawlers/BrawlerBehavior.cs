@@ -291,6 +291,10 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         private void Combo()
         {
+            if(GameManager.Instance.DebugBrawlers) {
+                Debug.Log($"Brawler {Owner.Id} attempting to combo from {_currentComboEntry.Move.Id}");
+            }
+
             CharacterBehaviorComponent.CharacterBehaviorAction action = ActionHandler.NextAction;
             if(!(action is AttackBehaviorComponent.AttackAction) && !(action is Game.Characters.BehaviorComponents.DashBehaviorComponent.DashAction)) {
                 ComboFail();
@@ -485,7 +489,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                _attackVolume.EnableVolume(true);
             } else if(Brawler.BrawlerData.AttackVolumeDeSpawnEvent == evt.Data.Name) {
                 _attackVolume.EnableVolume(false);
-
+            //} else if(Brawler.BrawlerData.ComboWindowEvent == evt.Data.Name) {
                 Combo();
             } else {
                 Debug.LogWarning($"Unhandled attack event: {evt.Data.Name}");
