@@ -113,10 +113,6 @@ namespace pdxpartyparrot.Core.DebugMenu
 
         private void Update()
         {
-            if(Keyboard.current[_enableKey].wasPressedThisFrame) {
-                _enabled = !_enabled;
-            }
-
             Profiler.BeginSample("DebugMenuManager.Update");
             try {
                 if(_enabled) {
@@ -133,6 +129,15 @@ namespace pdxpartyparrot.Core.DebugMenu
                 Debug.Break();
             }
 #endif
+        }
+
+        private void FixedUpdate()
+        {
+            // TODO: this is dependent on the inputsystem being set to run
+            // in fixed update. would be better if we could detect that somehow
+            if(Keyboard.current[_enableKey].wasPressedThisFrame) {
+                _enabled = !_enabled;
+            }
         }
 
         private void OnGUI()
