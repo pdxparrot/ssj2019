@@ -16,11 +16,11 @@ MonoBehaviour:
   _moves:
     _items:
     - _type: 0
-      _attackData: {fileID: 11400000, guid: 977065da5ef66e042a530473a51dcf1e, type: 2}
+      _attackData: {fileID: 11400000, guid: a53f268446d8f1943a4d7210e37e0b49, type: 2}
       _requireHit: 0
       _comboPoints: 5
     - _type: 0
-      _attackData: {fileID: 11400000, guid: 7648523631493a742a6166b4d7ed41cf, type: 2}
+      _attackData: {fileID: 11400000, guid: 977065da5ef66e042a530473a51dcf1e, type: 2}
       _requireHit: 0
       _comboPoints: 5
     - _type: 0
