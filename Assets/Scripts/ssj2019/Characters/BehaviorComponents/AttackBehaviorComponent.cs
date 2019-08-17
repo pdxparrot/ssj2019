@@ -99,6 +99,8 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
             _attackFloatingTextEffectTriggerComponent.Text = $"{_brawlerBehavior.CurrentAttack.Name}";
 
             _brawlerBehavior.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Attack);
+
+            _attackEffectTrigger.KillTrigger();
             _attackEffectTrigger.Trigger(() => {
                 _brawlerBehavior.Idle();
             });
