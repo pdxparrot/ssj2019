@@ -31,11 +31,3 @@ MonoBehaviour:
   _actionBufferSize: 5
   _actionBufferTimeoutMs: 500
   _alignMovementWithViewer: 0
-  _idleAnimationName: Idle
-  _attackVolumeSpawnEvent: attack_spawnvolume
-  _attackVolumeDeSpawnEvent: attack_despawnvolume
-  _blockVolumeSpawnEvent: block_spawnvolume
-  _blockVolumeDeSpawnEvent: block_release_despawnvolume
-  _parryWindowOpenEvent: parry_windowopen
-  _parryWindowCloseEvent: parry_windowclose
-  _hitImpactEvent: hit_impact

@@ -82,6 +82,7 @@ namespace pdxpartyparrot.ssj2019.Data
 
         [Space(10)]
 
+        // TODO: this should move to the TrainingLevel prefab
         [SerializeField]
         private TrainingDummy _trainingDummyPrefab;
 
