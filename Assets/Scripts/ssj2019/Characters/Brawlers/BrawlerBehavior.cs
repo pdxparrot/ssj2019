@@ -44,7 +44,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         void OnHit(bool blocked);
 
         // triggers when the brawler performs a successful combo move
-        void OnComboMove(bool isOpener, ComboMove move);
+        void OnComboMove(bool isOpener, ComboMove move, BrawlerAction currentAction);
 
         // triggers when the brawler is dead
         void OnDead();
@@ -267,7 +267,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 }
             }
 
-            ActionHandler.OnComboMove(isOpener, _currentComboEntry.Move);
+            ActionHandler.OnComboMove(isOpener, _currentComboEntry.Move, Brawler.CurrentAction);
 
             if(GameManager.Instance.DebugBrawlers) {
                 Debug.Log($"Brawler {Owner.Id} advancing combo to {_currentComboEntry.Move.Id}");

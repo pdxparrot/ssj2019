@@ -108,14 +108,17 @@ namespace pdxpartyparrot.ssj2019.Players
             GameManager.Instance.PlayerHit(PlayerManager.Instance.PlayerData.HitPoints);
         }
 
-        public void OnComboMove(bool isOpener, ComboMove move)
+        public void OnComboMove(bool isOpener, ComboMove move, BrawlerAction currentAction)
         {
             // openers don't score
             if(isOpener) {
                 return;
             }
 
-            // TODO: only score on non-opener attack hits
+            // attacks that didn't hit don't score
+            if(ComboMove.ComboMoveType.Attack == move.Type && !currentAction.DidHit) {
+                return;
+            }
 
             GameManager.Instance.PlayerCombo(move.ComboPoints);
         }
