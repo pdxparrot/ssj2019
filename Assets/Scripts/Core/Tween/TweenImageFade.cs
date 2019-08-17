@@ -16,9 +16,9 @@ namespace pdxpartyparrot.Core.Tween
         [SerializeField]
         private float _to = 1.0f;
 
-        public override void Reset()
+        public override void DoReset()
         {
-            base.Reset();
+            base.DoReset();
 
             Color color = _image.color;
             color.a = _from;

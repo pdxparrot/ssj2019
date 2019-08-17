@@ -68,18 +68,18 @@ namespace pdxpartyparrot.Core.Tween
         protected virtual void OnEnable()
         {
             if(_resetOnEnable) {
-                Reset();
+                DoReset();
                 Play();
             }
         }
 #endregion
 
-        private void Reset()
+        private void DoReset()
         {
             Kill();
 
             foreach(TweenRunner runner in _tweens.Items) {
-                runner.Reset();
+                runner.DoReset();
             }
         }
 

@@ -30,9 +30,9 @@ namespace pdxpartyparrot.Core.Tween
         }
 #endregion
 
-        public override void Reset()
+        public override void DoReset()
         {
-            base.Reset();
+            base.DoReset();
 
             if(_useLocalPosition) {
                 transform.localPosition = _from;

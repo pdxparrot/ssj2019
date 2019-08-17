@@ -90,7 +90,8 @@ namespace pdxpartyparrot.Core.Effects
 
         public void Trigger(Action callback=null)
         {
-            _complete = false;
+            KillTrigger();
+
             _isRunning = true;
 
             if(EffectsManager.Instance.EnableDebug) {
@@ -131,6 +132,7 @@ namespace pdxpartyparrot.Core.Effects
             }
 
             _isRunning = false;
+            _complete = false;
         }
 
         public void ResetTrigger()

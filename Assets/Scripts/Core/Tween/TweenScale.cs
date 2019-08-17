@@ -24,9 +24,9 @@ namespace pdxpartyparrot.Core.Tween
         }
 #endregion
 
-        public override void Reset()
+        public override void DoReset()
         {
-            base.Reset();
+            base.DoReset();
 
             transform.localScale = _from;
         }

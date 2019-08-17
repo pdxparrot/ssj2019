@@ -131,7 +131,7 @@ namespace pdxpartyparrot.Core.Tween
         protected virtual void OnEnable()
         {
             if(_resetOnEnable) {
-                Reset();
+                DoReset();
                 Play();
             }
         }
@@ -153,7 +153,7 @@ namespace pdxpartyparrot.Core.Tween
             _timeScale = PartyParrotManager.Instance.Random.NextSingle(_randomTimeScaleMin, _randomTimeScaleMax);
         }
 
-        public virtual void Reset()
+        public virtual void DoReset()
         {
             Kill();
 
@@ -163,6 +163,8 @@ namespace pdxpartyparrot.Core.Tween
 
         public Tweener Play()
         {
+            DoReset();
+
             _tweener = CreateTweener();
             if(null == _tweener) {
                 return null;

@@ -55,6 +55,15 @@ namespace pdxpartyparrot.ssj2019.Data.Brawlers
 
         [Space(10)]
 
+#region Combo Window Events
+        [SerializeField]
+        private string _comboWindowEvent = "combo_transition";
+
+        public string ComboWindowEvent => _comboWindowEvent;
+#endregion
+
+        [Space(10)]
+
 #region Reaction Events
         [Header("Reaction Events")]
 
