@@ -67,7 +67,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             set => _immune = value;
         }
 
-        public override bool CanMove => base.CanMove && !IsDead && !Brawler.CurrentAction.IsStunned;
+        public override bool CanMove => base.CanMove && !Brawler.BrawlerBehavior.IsKnockedDown && !IsDead && !Brawler.CurrentAction.IsStunned;
 
         [SerializeField]
         [ReadOnly]

@@ -157,6 +157,7 @@ MonoBehaviour:
   _hitEffectTrigger: {fileID: 1079242178650208271}
   _hitAnimationEffectTriggerComponent: {fileID: 6129758529191386186}
   _hitAudioEffectTriggerComponent: {fileID: 5874353902780632619}
+  _knockDownEffectTrigger: {fileID: 9163237243729841478}
   _deathEffectTrigger: {fileID: 6433857838732750911}
   _comboFailEffectTrigger: {fileID: 5169714982919284938}
   _attackVolume: {fileID: 4234046138188009513}
@@ -822,6 +823,73 @@ MonoBehaviour:
   _enabled: 0
   _attackData: {fileID: 0}
   _direction: {x: 0, y: 0, z: 0}
+--- !u!1 &3837256140448164912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3537234643010495901}
+  - component: {fileID: 9163237243729841478}
+  - component: {fileID: 6602922218062600653}
+  m_Layer: 12
+  m_Name: KnockDown Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3537234643010495901
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3837256140448164912}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7312426625843009650}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9163237243729841478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3837256140448164912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f0acf5094b571448a3663067cfbfe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 6602922218062600653}
+  _isRunning: 0
+  _complete: 0
+--- !u!114 &6602922218062600653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3837256140448164912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b734418421f3b441b54982d78eb3968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolName: floating_text
+  _text: knocked down
+  _color: {r: 0, g: 1, b: 0, a: 0}
+  _spawnLocation: {fileID: 1027202483170108461}
 --- !u!1 &4152845487771813311
 GameObject:
   m_ObjectHideFlags: 0
@@ -1337,7 +1405,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4165677921822100092
 MonoBehaviour:
@@ -1622,7 +1690,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7312426625843009650}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2998925792977376928
 MonoBehaviour:
@@ -1717,6 +1785,7 @@ Transform:
   - {fileID: 1810502874660691583}
   - {fileID: 4761377939630512076}
   - {fileID: 3432349245759820060}
+  - {fileID: 3537234643010495901}
   - {fileID: 224953301678875248}
   - {fileID: 724827107406324167}
   m_Father: {fileID: 0}
@@ -1880,6 +1949,7 @@ MonoBehaviour:
     _immune: 0
     _stunned: 0
     _didHit: 0
+    _wasBlocked: 0
 --- !u!114 &463285651185603561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2250,6 +2320,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ccb41fc5c8ebd44e826dfee305c4881, type: 3}
+--- !u!4 &8338910519638184812 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2721963720331797485, guid: 4ccb41fc5c8ebd44e826dfee305c4881,
+    type: 3}
+  m_PrefabInstance: {fileID: 6232869161407475841}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7662034392016381256 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4335447833497540041, guid: 4ccb41fc5c8ebd44e826dfee305c4881,
@@ -2262,9 +2338,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aaaa25cbeb9b994f9a1759e50d0878a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &8338910519638184812 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2721963720331797485, guid: 4ccb41fc5c8ebd44e826dfee305c4881,
-    type: 3}
-  m_PrefabInstance: {fileID: 6232869161407475841}
-  m_PrefabAsset: {fileID: 0}

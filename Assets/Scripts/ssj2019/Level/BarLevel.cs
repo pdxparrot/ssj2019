@@ -76,15 +76,16 @@ namespace pdxpartyparrot.ssj2019.Level
 
             PlayerManager.Instance.GamePlayerUI.HUD.SetWave(1);
             PlayerManager.Instance.GamePlayerUI.HUD.SetScore(0);
+
+            // TODO: server needs to do this as well, but local server/client shouldn't do it twice :(
+            // probably would be easier all around if we just spawned the damn thing normally
+            _bartender.gameObject.SetActive(true);
+            _bartender.Initialize(Guid.NewGuid(), _bartenderBehaviorData);
         }
 
         protected override void GameReadyEventHandler(object sender, EventArgs args)
         {
             base.GameReadyEventHandler(sender, args);
-
-            // initialize the bartender now that it's safe
-            _bartender.gameObject.SetActive(true);
-            _bartender.Initialize(Guid.NewGuid(), _bartenderBehaviorData);
 
             // TODO: this should wait until after all of the players are ready
             if(null != WaveSpawner) {

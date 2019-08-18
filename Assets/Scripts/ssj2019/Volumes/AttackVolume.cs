@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Interactables;
+using pdxpartyparrot.ssj2019.Characters.Brawlers;
 using pdxpartyparrot.ssj2019.Data.Brawlers;
 
 using UnityEngine;
@@ -29,6 +30,8 @@ namespace pdxpartyparrot.ssj2019.Volumes
 
         private Interactables Interactables { get; set; }
 
+        private Brawler _brawler;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -45,8 +48,9 @@ namespace pdxpartyparrot.ssj2019.Volumes
         }
 #endregion
 
-        public void SetAttack([NotNull] AttackData attackData, Vector3 direction)
+        public void SetAttack(Brawler brawler, [NotNull] AttackData attackData, Vector3 direction)
         {
+            _brawler = brawler;
             _attackData = attackData;
             _direction = direction;
 
@@ -85,6 +89,14 @@ namespace pdxpartyparrot.ssj2019.Volumes
 
         private void AttackInteractable(IInteractable interactable)
         {
+            // if the attack was blocked, it can't hit anymore
+            // TODO: we probably should do this on a per-source basis
+            // and probably should track per-source if it hit / was blocked
+            // so we never re-hit and re-block or whatever
+            if(_brawler.CurrentAction.WasBlocked) {
+                return;
+            }
+
             IDamagable damagable = interactable.gameObject.GetComponent<IDamagable>();
             if(null == damagable) {
                 return;
@@ -92,6 +104,8 @@ namespace pdxpartyparrot.ssj2019.Volumes
 
             Actors.DamageData damageData = new Actors.DamageData{
                 Source = Owner,
+                BrawlerActionHandler = Owner.Behavior as IBrawlerBehaviorActions,
+
                 AttackData = _attackData,
                 Bounds = _collider.bounds,
                 Direction = _direction,

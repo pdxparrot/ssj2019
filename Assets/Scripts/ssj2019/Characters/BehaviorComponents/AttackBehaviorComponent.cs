@@ -92,7 +92,7 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
             // TODO: calling Initialize() here is dumb, but we can't do it in our own Initialize()
             // because the models haven't been initialized yet (and that NEEDS to get changed cuz this is dumb)
             _attackVolume.Initialize(_brawlerBehavior.Brawler.Model.SpineModel);
-            _attackVolume.SetAttack(_brawlerBehavior.CurrentAttack, Behavior.Owner.FacingDirection);
+            _attackVolume.SetAttack(_brawlerBehavior.Brawler, _brawlerBehavior.CurrentAttack, Behavior.Owner.FacingDirection);
 
             _attackAnimationEffectTriggerComponent.SpineAnimationName = _brawlerBehavior.CurrentAttack.AnimationName;
             _attackAudioEffectTriggerComponent.AudioClip = _brawlerBehavior.CurrentAttack.AttackAudioClip;

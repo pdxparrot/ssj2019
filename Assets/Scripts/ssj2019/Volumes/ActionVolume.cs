@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Volumes
 {
+    // TODO: move to Game
     [RequireComponent(typeof(BoxCollider))]
     [RequireComponent(typeof(BoneFollower))]
     public abstract class ActionVolume : MonoBehaviour

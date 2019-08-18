@@ -1,8 +1,11 @@
+using System;
+
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
+using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.ssj2019.Data.Brawlers;
@@ -90,6 +93,15 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         private AudioEffectTriggerComponent _hitAudioEffectTriggerComponent;
 #endregion
 
+#region Knock Down
+        [SerializeField]
+        private EffectTrigger _knockDownEffectTrigger;
+
+        private ITimer _knockDownTimer;
+
+        public bool IsKnockedDown => _knockDownTimer.IsRunning;
+#endregion
+
 #region Death Animations
         [SerializeField]
         private EffectTrigger _deathEffectTrigger;
@@ -142,17 +154,20 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         public Actor Owner => Brawler.Actor;
 
-        private bool CanJump => !ActionHandler.IsDead && Brawler.CurrentAction.Cancellable;
+        private bool CanJump => !IsKnockedDown && !ActionHandler.IsDead && Brawler.CurrentAction.Cancellable;
 
-        private bool CanAttack => !ActionHandler.IsDead && Brawler.CurrentAction.Cancellable;
+        private bool CanAttack => !IsKnockedDown && !ActionHandler.IsDead && Brawler.CurrentAction.Cancellable;
 
-        public bool CanBlock => !ActionHandler.IsDead && ActionHandler.IsGrounded && Brawler.CurrentAction.Cancellable;
+        public bool CanBlock => !IsKnockedDown && !ActionHandler.IsDead && ActionHandler.IsGrounded && Brawler.CurrentAction.Cancellable;
 
-        private bool CanDash => !ActionHandler.IsDead && Brawler.CurrentAction.Cancellable;
+        private bool CanDash => !IsKnockedDown && !ActionHandler.IsDead && Brawler.CurrentAction.Cancellable;
 
 #region Unity Lifecycle
         private void Awake()
         {
+            _knockDownTimer = TimeManager.Instance.AddTimer();
+            _knockDownTimer.TimesUpEvent += KnockDownTimerTimesUpEventHandler;
+
             _attackVolume.EnableVolume(false);
             _attackVolume.AttackHitEvent += AttackVolumeHitEventHandler;
 
@@ -164,6 +179,11 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         private void OnDestroy()
         {
             ShutdownEffects();
+
+            if(TimeManager.HasInstance) {
+                TimeManager.Instance.RemoveTimer(_knockDownTimer);
+            }
+            _knockDownTimer = null;
         }
 #endregion
 
@@ -327,14 +347,18 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
             // did we block the damage?
             if(!dd.AttackData.Unblockable && Brawler.CurrentAction.IsBlocking && _blockVolume.Intersects(dd.Bounds)) {
-                // TODO: we need to mark the attackers action as having been blocked
-
                 if(BrawlerAction.ActionType.Parry == Brawler.CurrentAction.Type) {
                     Debug.Log($"TODO: Brawler {Owner.Id} can parry");
                 }
 
                 if(GameManager.Instance.DebugBrawlers) {
                     Debug.Log($"Brawler {Owner.Id} blocked damaged by {dd.Source.Id} for {dd.AttackData.DamageAmount} (took {dd.AttackData.BlockDamageAmount}");
+                }
+
+                if(null != dd.BrawlerActionHandler) {
+                    BrawlerAction currentAction = Brawler.CurrentAction;
+                    currentAction.WasBlocked = true;
+                    Brawler.CurrentAction = currentAction;
                 }
 
                 if(DoDamage(dd, true)) {
@@ -384,14 +408,16 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             Vector3 force = damageData.Direction * damageData.AttackData.PushBackAmount + damageData.AttackData.KnockDownForce * Vector3.down + damageData.AttackData.KnockUpForce * Vector3.up;
             Owner.Behavior.Movement.AddImpulse(force);
 
-            if(damageData.AttackData.KnockDown) {
-                Debug.LogWarning("TODO: knockdown");
-            }
-
             _hitAudioEffectTriggerComponent.AudioClip = damageData.AttackData.ImpactAudioCip;
-            _hitEffectTrigger.Trigger(() => {
-                Idle();
-            });
+            if(damageData.AttackData.KnockDown) {
+                // TODO: make the time configurable
+                _knockDownEffectTrigger.Trigger();
+                _knockDownTimer.Start(1.0f);
+            } else {
+                _hitEffectTrigger.Trigger(() => {
+                    Idle();
+                });
+            }
 
             ActionHandler.ClearActionBuffer();
             ActionHandler.OnHit(false);
@@ -464,6 +490,11 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 #endregion
 
 #region Event Handlers
+        private void KnockDownTimerTimesUpEventHandler(object sender, EventArgs args)
+        {
+            Idle();
+        }
+
         private void AttackVolumeHitEventHandler(object sender, AttackVolumeEventArgs args)
         {
             BrawlerAction currentAction = Brawler.CurrentAction;

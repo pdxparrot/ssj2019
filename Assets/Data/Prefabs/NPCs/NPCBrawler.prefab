@@ -51,6 +51,7 @@ Transform:
   - {fileID: 8367300055314557411}
   - {fileID: 5322075833772066362}
   - {fileID: 83785461833827475}
+  - {fileID: 72540964976889972}
   - {fileID: 7477267580390866706}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -141,6 +142,7 @@ MonoBehaviour:
     _immune: 0
     _stunned: 0
     _didHit: 0
+    _wasBlocked: 0
 --- !u!114 &7185525476932000284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,6 +321,73 @@ MonoBehaviour:
   attackslotdistance: 0.5
   outerslotdistance: 1
   owner: {fileID: 7185525476932000284}
+--- !u!1 &2829092881001045515
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 72540964976889972}
+  - component: {fileID: 2434604341702964875}
+  - component: {fileID: 7486628691633470105}
+  m_Layer: 12
+  m_Name: KnockDown Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &72540964976889972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2829092881001045515}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 809502310432792466}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2434604341702964875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2829092881001045515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f0acf5094b571448a3663067cfbfe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 7486628691633470105}
+  _isRunning: 0
+  _complete: 0
+--- !u!114 &7486628691633470105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2829092881001045515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b734418421f3b441b54982d78eb3968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolName: floating_text
+  _text: knocked down
+  _color: {r: 0, g: 1, b: 0, a: 0}
+  _spawnLocation: {fileID: 0}
 --- !u!1 &2861679878649671080
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,7 +774,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 809502310432792466}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1243914044177279315
 MonoBehaviour:
@@ -1472,6 +1541,7 @@ MonoBehaviour:
   _hitEffectTrigger: {fileID: 6631989109035438992}
   _hitAnimationEffectTriggerComponent: {fileID: 7726666953507074508}
   _hitAudioEffectTriggerComponent: {fileID: 4787067950933513504}
+  _knockDownEffectTrigger: {fileID: 2434604341702964875}
   _deathEffectTrigger: {fileID: 6237249302560061764}
   _comboFailEffectTrigger: {fileID: 2814460364538452983}
   _attackVolume: {fileID: 4356007661132845643}
