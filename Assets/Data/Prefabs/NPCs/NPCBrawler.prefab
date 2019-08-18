@@ -402,11 +402,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745ddbe86c3017845bce908d5c336f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spineAnimation: {fileID: 0}
+  _spineAnimation: {fileID: 1655421340564284999}
   _spineAnimationName: fall_face_up
   _spineAnimationTrack: 0
-  _loop: 0
-  _waitForComplete: 1
+  _loop: 1
+  _waitForComplete: 0
 --- !u!1 &2861679878649671080
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,11 +827,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745ddbe86c3017845bce908d5c336f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spineAnimation: {fileID: 0}
+  _spineAnimation: {fileID: 1655421340564284999}
   _spineAnimationName: walk
   _spineAnimationTrack: 0
-  _loop: 0
-  _waitForComplete: 1
+  _loop: 1
+  _waitForComplete: 0
 --- !u!1 &6180652105833528001
 GameObject:
   m_ObjectHideFlags: 0

@@ -540,7 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _logMessage: player unblock
+  _logMessage: player hit
   _level: 0
 --- !u!114 &6129758529191386186
 MonoBehaviour:
@@ -1526,7 +1526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _logMessage: Mid JUmp
+  _logMessage: Mid Jump
   _level: 0
 --- !u!1 &6949157458772260453
 GameObject:
@@ -2312,6 +2312,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424032537796453222, guid: 4ccb41fc5c8ebd44e826dfee305c4881,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ccb41fc5c8ebd44e826dfee305c4881, type: 3}
