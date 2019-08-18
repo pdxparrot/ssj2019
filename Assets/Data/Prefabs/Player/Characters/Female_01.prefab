@@ -80,6 +80,129 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4006108845746156864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2839737729948037454}
+  - component: {fileID: 814859302681352171}
+  - component: {fileID: 1118106404850816678}
+  - component: {fileID: 1638037685083842155}
+  m_Layer: 0
+  m_Name: Spine GameObject (Female02)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2839737729948037454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4006108845746156864}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.107, y: -0.825, z: 0}
+  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
+  m_Children: []
+  m_Father: {fileID: 244475500154830886}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &814859302681352171
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4006108845746156864}
+  m_Mesh: {fileID: 0}
+--- !u!23 &1118106404850816678
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4006108845746156864}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 0b988ce22fa57a043b490197f77633e9, type: 2}
+  - {fileID: 2100000, guid: 7739ddb77f127ca4e8b371d10c3758bf, type: 2}
+  - {fileID: 2100000, guid: 0b988ce22fa57a043b490197f77633e9, type: 2}
+  - {fileID: 2100000, guid: 7739ddb77f127ca4e8b371d10c3758bf, type: 2}
+  - {fileID: 2100000, guid: 0b988ce22fa57a043b490197f77633e9, type: 2}
+  - {fileID: 2100000, guid: 7739ddb77f127ca4e8b371d10c3758bf, type: 2}
+  - {fileID: 2100000, guid: 0b988ce22fa57a043b490197f77633e9, type: 2}
+  - {fileID: 2100000, guid: 7739ddb77f127ca4e8b371d10c3758bf, type: 2}
+  - {fileID: 2100000, guid: 0b988ce22fa57a043b490197f77633e9, type: 2}
+  - {fileID: 2100000, guid: 7739ddb77f127ca4e8b371d10c3758bf, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &1638037685083842155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4006108845746156864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonDataAsset: {fileID: 11400000, guid: bc1b42cdc2b664648a0027c2a5ae4523, type: 2}
+  initialSkinName: female_enemyA1
+  initialFlipX: 0
+  initialFlipY: 0
+  separatorSlotNames: []
+  zSpacing: 0
+  useClipping: 1
+  immutableTriangles: 0
+  pmaVertexColors: 1
+  clearStateOnDisable: 0
+  tintBlack: 0
+  singleSubmesh: 0
+  addNormals: 0
+  calculateTangents: 0
+  maskInteraction: 0
+  maskMaterials:
+    materialsMaskDisabled: []
+    materialsInsideMask: []
+    materialsOutsideMask: []
+  disableRenderingOnOverride: 1
+  _animationName: 
+  loop: 1
+  timeScale: 1
 --- !u!1 &4341808420106155286
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +232,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5997307592369118826}
-  - {fileID: 8105753176125870235}
+  - {fileID: 2839737729948037454}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -126,134 +249,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _modelSprite: {fileID: 0}
-  _spineModel: {fileID: 7077123336834996101}
+  _spineModel: {fileID: 1638037685083842155}
   _shadowSprite: {fileID: 1876394260759047840}
---- !u!1 &5283434706753816828
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8105753176125870235}
-  - component: {fileID: 1606388982151561113}
-  - component: {fileID: 3964408385811630303}
-  - component: {fileID: 7077123336834996101}
-  m_Layer: 0
-  m_Name: Spine GameObject (Female02)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8105753176125870235
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5283434706753816828}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.107, y: -0.825, z: 0}
-  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
-  m_Children: []
-  m_Father: {fileID: 244475500154830886}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1606388982151561113
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5283434706753816828}
-  m_Mesh: {fileID: 0}
---- !u!23 &3964408385811630303
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5283434706753816828}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 7739ddb77f127ca4e8b371d10c3758bf, type: 2}
-  - {fileID: 2100000, guid: 517b5c93449433247bf08b138602e794, type: 2}
-  - {fileID: 2100000, guid: 7739ddb77f127ca4e8b371d10c3758bf, type: 2}
-  - {fileID: 2100000, guid: 517b5c93449433247bf08b138602e794, type: 2}
-  - {fileID: 2100000, guid: 7739ddb77f127ca4e8b371d10c3758bf, type: 2}
-  - {fileID: 2100000, guid: 517b5c93449433247bf08b138602e794, type: 2}
-  - {fileID: 2100000, guid: 7739ddb77f127ca4e8b371d10c3758bf, type: 2}
-  - {fileID: 2100000, guid: 517b5c93449433247bf08b138602e794, type: 2}
-  - {fileID: 2100000, guid: 7739ddb77f127ca4e8b371d10c3758bf, type: 2}
-  - {fileID: 2100000, guid: 517b5c93449433247bf08b138602e794, type: 2}
-  - {fileID: 2100000, guid: 7739ddb77f127ca4e8b371d10c3758bf, type: 2}
-  - {fileID: 2100000, guid: 517b5c93449433247bf08b138602e794, type: 2}
-  - {fileID: 2100000, guid: 7739ddb77f127ca4e8b371d10c3758bf, type: 2}
-  - {fileID: 2100000, guid: 517b5c93449433247bf08b138602e794, type: 2}
-  - {fileID: 2100000, guid: 7739ddb77f127ca4e8b371d10c3758bf, type: 2}
-  - {fileID: 2100000, guid: 517b5c93449433247bf08b138602e794, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!114 &7077123336834996101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5283434706753816828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: bc1b42cdc2b664648a0027c2a5ae4523, type: 2}
-  initialSkinName: female_hero2
-  initialFlipX: 0
-  initialFlipY: 0
-  separatorSlotNames: []
-  zSpacing: 0
-  useClipping: 1
-  immutableTriangles: 0
-  pmaVertexColors: 1
-  clearStateOnDisable: 0
-  tintBlack: 0
-  singleSubmesh: 0
-  addNormals: 0
-  calculateTangents: 0
-  maskInteraction: 0
-  maskMaterials:
-    materialsMaskDisabled: []
-    materialsInsideMask: []
-    materialsOutsideMask: []
-  disableRenderingOnOverride: 1
-  _animationName: idle
-  loop: 1
-  timeScale: 1

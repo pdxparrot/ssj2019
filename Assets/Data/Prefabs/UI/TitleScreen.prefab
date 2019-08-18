@@ -53,6 +53,7 @@ MonoBehaviour:
     - {fileID: 4945059544874124820}
     - {fileID: 7889957215383821177}
   _isRunning: 0
+  _complete: 0
 --- !u!114 &4945059544874124820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -705,7 +706,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Bar Brawl
+  m_text: Brawl Crawl
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 625c04b927f5362499363b90db3434cd, type: 2}
   m_sharedMaterial: {fileID: 4814625398549979513, guid: 625c04b927f5362499363b90db3434cd,
@@ -775,7 +776,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 7399139714697976169}
-    characterCount: 9
+    characterCount: 11
     spriteCount: 0
     spaceCount: 1
     wordCount: 2
@@ -929,6 +930,7 @@ MonoBehaviour:
     _items:
     - {fileID: 1745496591216515529}
   _isRunning: 0
+  _complete: 0
 --- !u!114 &1745496591216515529
 MonoBehaviour:
   m_ObjectHideFlags: 0

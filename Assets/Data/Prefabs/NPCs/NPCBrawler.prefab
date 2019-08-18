@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 1655421340564284999}
-  _spineAnimationName: Hit
+  _spineAnimationName: hit_light
   _spineAnimationTrack: 0
   _loop: 0
   _waitForComplete: 1
@@ -332,6 +332,7 @@ GameObject:
   - component: {fileID: 72540964976889972}
   - component: {fileID: 2434604341702964875}
   - component: {fileID: 7486628691633470105}
+  - component: {fileID: 4868491676262836054}
   m_Layer: 12
   m_Name: KnockDown Effect
   m_TagString: Untagged
@@ -370,6 +371,7 @@ MonoBehaviour:
   _components:
     _items:
     - {fileID: 7486628691633470105}
+    - {fileID: 4868491676262836054}
   _isRunning: 0
   _complete: 0
 --- !u!114 &7486628691633470105
@@ -388,6 +390,23 @@ MonoBehaviour:
   _text: knocked down
   _color: {r: 0, g: 1, b: 0, a: 0}
   _spawnLocation: {fileID: 0}
+--- !u!114 &4868491676262836054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2829092881001045515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 745ddbe86c3017845bce908d5c336f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spineAnimation: {fileID: 0}
+  _spineAnimationName: fall_face_up
+  _spineAnimationTrack: 0
+  _loop: 0
+  _waitForComplete: 1
 --- !u!1 &2861679878649671080
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,7 +638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 1655421340564284999}
-  _spineAnimationName: Idle
+  _spineAnimationName: idle
   _spineAnimationTrack: 0
   _loop: 1
   _waitForComplete: 0
@@ -755,6 +774,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7477267580390866706}
   - component: {fileID: 1243914044177279315}
+  - component: {fileID: 2948744574847076204}
   m_Layer: 13
   m_Name: Walk Effect
   m_TagString: Untagged
@@ -791,9 +811,27 @@ MonoBehaviour:
   _triggerOnComplete:
     _items: []
   _components:
-    _items: []
+    _items:
+    - {fileID: 2948744574847076204}
   _isRunning: 0
   _complete: 0
+--- !u!114 &2948744574847076204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285772644854758653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 745ddbe86c3017845bce908d5c336f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spineAnimation: {fileID: 0}
+  _spineAnimationName: walk
+  _spineAnimationTrack: 0
+  _loop: 0
+  _waitForComplete: 1
 --- !u!1 &6180652105833528001
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,7 +1191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 1655421340564284999}
-  _spineAnimationName: Block
+  _spineAnimationName: block
   _spineAnimationTrack: 1
   _loop: 0
   _waitForComplete: 1

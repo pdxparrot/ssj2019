@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1011391a36fda02429da9d8b82d3fedc, type: 3}
-  m_Name: Female 01 Hero Attack03 Data
+  m_Name: Female Enemy Attack - kick Data
   m_EditorClassIdentifier: 
-  _name: Female Kick Attack
+  _name: Fem En Kick
   _attackDirection: 0
   _airAttack: 0
   _unblockable: 0
   _damageType: 
   _damageAmount: 3
   _blockDamageAmount: 0
-  _moveForward: 0
-  _pushBackAmount: 15
+  _moveForward: 5
+  _pushBackAmount: 0
   _knockUpForce: 0
   _knockDownForce: 0
   _knockDown: 0
-  _attackVolumeOffset: {x: 0, y: 0, z: 0}
+  _attackVolumeOffset: {x: 0.15, y: 0, z: 0}
   _attackVolumeSize: {x: 0.75, y: 0.75, z: 0.75}
   _boneName: footR
   _animationName: kick

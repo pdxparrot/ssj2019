@@ -34,5 +34,5 @@ MonoBehaviour:
   _moveAcceleration: 5
   _stoppingDistance: 0.5
   _brawlerCharacterOptions:
-  - {fileID: 11400000, guid: a002d9ede1e1dce4a8671c63250bf5d8, type: 2}
   - {fileID: 11400000, guid: 4f184546214ec53478d553916d7af932, type: 2}
+  - {fileID: 11400000, guid: a002d9ede1e1dce4a8671c63250bf5d8, type: 2}
