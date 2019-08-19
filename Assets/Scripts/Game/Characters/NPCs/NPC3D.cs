@@ -199,9 +199,9 @@ namespace pdxpartyparrot.Game.Characters.NPCs
                     continue;
                 }
 
-                // see if we've moved at least our stopping distance
+                // see if we've moved at least 1/10th of our stopping distance
                 Vector3 position = Behavior.Movement.Position;
-                if((position - _lastStuckCheckPosition).sqrMagnitude < _agent.stoppingDistance) {
+                if((position - _lastStuckCheckPosition).sqrMagnitude < (_agent.stoppingDistance * .1f)) {
                     _stuckCheckCount += 1;
                 } else {
                     _stuckCheckCount = 0;
