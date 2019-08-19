@@ -26,6 +26,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 #endregion
 
 #region Pathing
+        public bool HasPath => false;
+
         public Vector3 NextPosition => Vector3.zero;
 #endregion
 
@@ -65,14 +67,18 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         }
 
 #region Pathing
-        public void UpdatePath(Vector3 target)
+        public bool UpdatePath(Vector3 target)
         {
             Debug.LogWarning("TODO: NPC2D.UpdatePath()");
+
+            return false;
         }
 
         public void ResetPath()
         {
             Debug.LogWarning("TODO: NPC2D.ResetPath()");
+
+            NPCBehavior.OnIdle();
         }
 #endregion
 
@@ -82,6 +88,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
             if(resetPath) {
                 ResetPath();
+            } else {
+                NPCBehavior.OnIdle();
             }
         }
 

@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.ObjectPool;
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data.Characters;
 
 using UnityEngine;
@@ -28,6 +30,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 #endregion
 
 #region Pathing
+        public bool HasPath => _agent.hasPath;
+
         public Vector3 NextPosition => _agent.nextPosition;
 #endregion
 
@@ -35,6 +39,18 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         private PooledObject _pooledObject;
 
         private NavMeshAgent _agent;
+
+        private Coroutine _agentStuckCheck;
+
+        [Space(10)]
+
+        [SerializeField]
+        [ReadOnly]
+        private Vector3 _lastStuckCheckPosition;
+
+        [SerializeField]
+        [ReadOnly]
+        private int _stuckCheckCount;
 
 #if UNITY_EDITOR
         private LineRenderer _debugPathRenderer;
@@ -99,23 +115,34 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         }
 
 #region Pathing
-        public void UpdatePath(Vector3 target)
+        public bool UpdatePath(Vector3 target)
         {
             if(!_agent.SetDestination(target)) {
                 Debug.LogWarning($"Failed to set NPC destination: {target}");
-                return;
+                return false;
+            }
+            
+            // TODO: whenever NPCManager moves to Game,
+            // we can do this when DebugBehavior is true
+            //Debug.Log($"NPC {Id} updating path from {Behavior.Movement.Position} to {target}");
+
+            if(null == _agentStuckCheck) {
+                _agentStuckCheck = StartCoroutine(AgentStuckCheck());
             }
 
-            if(_agent.pathPending) {
-                // TODO: whenever NPCManager moves to Game,
-                // we can do this when DebugBehavior is true
-                //Debug.Log($"NPC {Id} updating path from {Behavior.Movement.Position} to {target}");
-            }
+            return true;
         }
 
         public void ResetPath()
         {
+            if(null != _agentStuckCheck) {
+                StopCoroutine(_agentStuckCheck);
+                _agentStuckCheck = null;
+            }
+
             _agent.ResetPath();
+
+            NPCBehavior.OnIdle();
         }
 
 #if UNITY_EDITOR
@@ -140,6 +167,11 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
             if(resetPath) {
                 ResetPath();
+            } else if(null != _agentStuckCheck) {
+                StopCoroutine(_agentStuckCheck);
+                _agentStuckCheck = null;
+
+                NPCBehavior.OnIdle();
             }
         }
 
@@ -149,6 +181,48 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             if(null != _pooledObject) {
                 _pooledObject.Recycle();
             }
+        }
+
+        private IEnumerator AgentStuckCheck()
+        {
+            _lastStuckCheckPosition = Behavior.Movement.Position;
+            _stuckCheckCount = 0;
+
+            // TODO: make this configurable
+            WaitForSeconds wait = new WaitForSeconds(0.1f);
+            while(_agent.pathPending || _agent.hasPath) {
+                // wait until we have a path
+                if(_agent.pathPending) {
+                    _stuckCheckCount = 0;
+
+                    yield return wait;
+                    continue;
+                }
+
+                // see if we've moved at least our stopping distance
+                Vector3 position = Behavior.Movement.Position;
+                if((position - _lastStuckCheckPosition).sqrMagnitude < _agent.stoppingDistance) {
+                    _stuckCheckCount += 1;
+                } else {
+                    _stuckCheckCount = 0;
+                }
+                _lastStuckCheckPosition = position;
+
+                // are we stuck?
+                // TODO: make this configurable
+                if(_stuckCheckCount >= 2) {
+                    // TODO: whenever NPCManager moves to Game,
+                    // we can do this when DebugBehavior is true
+                    //Debug.Log($"NPC {Id} is stuck");
+
+                    Stop(true);
+                    yield break;
+                }
+
+                yield return wait;
+            }
+
+            _agentStuckCheck = null;
         }
 
 #region Event Handlers

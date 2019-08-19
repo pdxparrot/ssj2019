@@ -50,6 +50,10 @@ namespace pdxpartyparrot.ssj2019.NPCs
         {
             get
             {
+                if(!NPCBrawler.HasPath) {
+                    return Vector3.zero;
+                }
+
                 Vector3 nextPosition = NPCBrawler.NextPosition;
                 return nextPosition - Movement.Position;
             }
@@ -177,7 +181,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
             switch(_state)
             {
             case State.Idle:
-                NPCOwner.ResetPath();
+                if(NPCOwner.HasPath) {
+                    NPCOwner.ResetPath();
+                }
 
                 // have to use the transform here since physics lags behind
                 _fidgetBehavior.Origin = Owner.transform.position;
@@ -237,7 +243,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
         private void HandleTrack()
         {
             if(NPCManager.Instance.DumbBrawlers) {
-                SetState(State.Idle);
+                OnIdle();
                 return;
             }
 
@@ -267,13 +273,16 @@ namespace pdxpartyparrot.ssj2019.NPCs
             // can't attack our target, so follow it
             attackslotlocation = StageManager.Instance.RequestAttackSlotLocation(_target, Owner);
     
-            NPCBrawler.UpdatePath(attackslotlocation);
+            if(!NPCBrawler.UpdatePath(attackslotlocation)) {
+                SetState(State.Attack);
+                return;
+            }
         }
 
         private void HandleAttack()
         {
             if(NPCManager.Instance.DumbBrawlers) {
-                SetState(State.Idle);
+                OnIdle();
                 return;
             }
 
@@ -314,7 +323,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                     Debug.Log($"NPC {Owner.Id} lost target while attacking");
                 }
 
-                SetState(State.Idle);
+                OnIdle();
                 return false;
             }
 
@@ -324,7 +333,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                     Debug.Log($"NPC {Owner.Id} attack target died");
                 }
 
-                SetState(State.Idle);
+                OnIdle();
                 return false;
             }
 
@@ -338,8 +347,6 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             // TODO: add a small window of immunity on spawn
             _immune = false;
-
-            SetState(State.Idle);
         }
 
         public override void OnReSpawn(SpawnPoint spawnpoint)
@@ -348,8 +355,6 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             // TODO: add a small window of immunity on respawn
             _immune = false;
-
-            SetState(State.Idle);
         }
 
         public override void OnDeSpawn()
@@ -364,9 +369,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
 #region Brawler Actions
         public override void OnIdle()
         {
-            base.OnIdle();
-
             SetState(State.Idle);
+
+            base.OnIdle();
         }
 
         public void OnHit(bool blocked)

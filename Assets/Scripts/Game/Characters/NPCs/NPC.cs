@@ -19,9 +19,11 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         NPCBehavior NPCBehavior { get; }
 
 #region Pathing
+        bool HasPath { get; }
+
         Vector3 NextPosition { get; }
 
-        void UpdatePath(Vector3 target);
+        bool UpdatePath(Vector3 target);
 
         void ResetPath();
 #endregion
