@@ -189,7 +189,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             _stuckCheckCount = 0;
 
             // TODO: make this configurable
-            WaitForSeconds wait = new WaitForSeconds(0.1f);
+            WaitForSeconds wait = new WaitForSeconds(0.5f);
             while(_agent.pathPending || _agent.hasPath) {
                 // wait until we have a path
                 if(_agent.pathPending) {
@@ -216,6 +216,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
                     //Debug.Log($"NPC {Id} is stuck");
 
                     Stop(true);
+
+                    _agentStuckCheck = null;
                     yield break;
                 }
 
