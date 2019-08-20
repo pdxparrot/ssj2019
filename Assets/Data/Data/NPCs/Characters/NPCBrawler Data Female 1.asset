@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3af18c5c8030414799cefcc5cede99b, type: 3}
+  m_Name: NPCBrawler Data Female 1
+  m_EditorClassIdentifier: 
+  _brawlerModelPrefab: {fileID: 3982071459547463407, guid: ef332d4758be42c4280f4c0d6c559d77,
+    type: 3}
+  _skinIndex: 0
+  _brawlerData: {fileID: 11400000, guid: 21a5e19c47152ef48bf0091784cbd26d, type: 2}
+  _maxTrackDistance: 5
+  _stateCooldownMs: 250
+  _attackCooldownMs: 250
+  _dashCooldownMs: 0
+  _points: 100
