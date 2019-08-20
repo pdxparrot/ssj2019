@@ -29,7 +29,25 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         public NPCBehavior NPCBehavior => (NPCBehavior)Behavior;
 #endregion
 
+        [Space(10)]
+
 #region Pathing
+        [SerializeField]
+        [ReadOnly]
+        private bool _pathPending;
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _hasPath;
+
+        [SerializeField]
+        [ReadOnly]
+        private NavMeshPathStatus _pathStatus;
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _isPathStale;
+
         public bool HasPath => _agent.hasPath;
 
         public Vector3 NextPosition => _agent.nextPosition;
@@ -85,6 +103,11 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 #if UNITY_EDITOR
             DebugRenderPath();
 #endif
+
+            _pathStatus = _agent.pathStatus;
+            _pathPending = _agent.pathPending;
+            _hasPath = _agent.hasPath;
+            _isPathStale = _agent.isPathStale;
         }
 
         private void LateUpdate()
@@ -112,6 +135,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
             _agent.radius = Radius;
             _agent.height = Height;
+
+            _agentStuckCheck = StartCoroutine(AgentStuckCheck());
         }
 
 #region Pathing
@@ -126,20 +151,11 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             // we can do this when DebugBehavior is true
             //Debug.Log($"NPC {Id} updating path from {Behavior.Movement.Position} to {target}");
 
-            if(null == _agentStuckCheck) {
-                _agentStuckCheck = StartCoroutine(AgentStuckCheck());
-            }
-
             return true;
         }
 
         public void ResetPath(bool idle)
         {
-            if(null != _agentStuckCheck) {
-                StopCoroutine(_agentStuckCheck);
-                _agentStuckCheck = null;
-            }
-
             _agent.ResetPath();
 
             if(idle) {
@@ -169,13 +185,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
             if(resetPath) {
                 ResetPath(idle);
-            } else if(null != _agentStuckCheck) {
-                StopCoroutine(_agentStuckCheck);
-                _agentStuckCheck = null;
-
-                if(idle) {
-                    NPCBehavior.OnIdle();
-                }
+            } else if(idle) {
+                NPCBehavior.OnIdle();
             }
         }
 
@@ -194,23 +205,24 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
             // TODO: make this configurable
             WaitForSeconds wait = new WaitForSeconds(0.5f);
-            while(_agent.pathPending || _agent.hasPath) {
-                // wait until we have a path
-                if(_agent.pathPending) {
+            while(true) {
+                if(!_agent.hasPath || _agent.pathPending) {
+                    _lastStuckCheckPosition = Behavior.Movement.Position;
                     _stuckCheckCount = 0;
 
                     yield return wait;
                     continue;
                 }
 
-                // see if we've moved at least 1/10th of our stopping distance
+                // see if we've moved at least our stopping distance
+                // TODO: figure out how far we *should* have moved and go a little less than that
                 Vector3 position = Behavior.Movement.Position;
-                if((position - _lastStuckCheckPosition).sqrMagnitude < (_agent.stoppingDistance * .1f)) {
+                if((position - _lastStuckCheckPosition).sqrMagnitude < (_agent.stoppingDistance * _agent.stoppingDistance)) {
                     _stuckCheckCount += 1;
                 } else {
+                    _lastStuckCheckPosition = position;
                     _stuckCheckCount = 0;
                 }
-                _lastStuckCheckPosition = position;
 
                 // are we stuck?
                 // TODO: make this configurable
@@ -220,20 +232,18 @@ namespace pdxpartyparrot.Game.Characters.NPCs
                     //Debug.Log($"NPC {Id} is stuck");
 
                     Stop(true, true);
-
-                    _agentStuckCheck = null;
-                    yield break;
                 }
 
                 yield return wait;
             }
-
-            _agentStuckCheck = null;
         }
 
 #region Event Handlers
         private void RecycleEventHandler(object sender, EventArgs args)
         {
+            StopCoroutine(_agentStuckCheck);
+            _agentStuckCheck = null;
+
             OnDeSpawn();
         }
 #endregion
