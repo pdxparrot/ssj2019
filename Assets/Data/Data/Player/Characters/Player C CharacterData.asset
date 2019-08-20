@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a3e15959c80bc458141f086bd0d809, type: 3}
   m_Name: Player C CharacterData
   m_EditorClassIdentifier: 
-  _name: Guy
+  _name: Female Hero 2
   _characterPortraitPrefab: {fileID: -4306714259496808722, guid: 5142a366702c3ad4f8716b78c4c80bfd,
     type: 3}
-  _brawlerModelPrefab: {fileID: 3982071459547463407, guid: 8fef7378fc77b0e42a67ea760f4dc331,
+  _brawlerModelPrefab: {fileID: 3204080472430291362, guid: 714f2da0a0e1c964e80a271d467d0dab,
     type: 3}
-  _brawlerData: {fileID: 11400000, guid: 2a5ded57fa761fc41bb969b8ef96f07d, type: 2}
+  _skinIndex: 1
+  _brawlerData: {fileID: 11400000, guid: 21a5e19c47152ef48bf0091784cbd26d, type: 2}

@@ -158,6 +158,12 @@ MonoBehaviour:
   _model: {fileID: 3101530218937401475}
   _behavior: {fileID: 7670571906903510832}
   _facingDirection: {x: 1, y: 0, z: 0}
+  _pathPending: 0
+  _hasPath: 0
+  _pathStatus: 0
+  _isPathStale: 0
+  _lastStuckCheckPosition: {x: 0, y: 0, z: 0}
+  _stuckCheckCount: 0
   _npcBrawlerData: {fileID: 0}
 --- !u!114 &2803644518033097450
 MonoBehaviour:
@@ -560,7 +566,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _skeletonAnimation: {fileID: 0}
-  _skinNames: []
+  _skinNames:
+  - female_enemyA1
+  - female_enemyB1
+  - female_enemyD1
 --- !u!114 &1655421340564284999
 MonoBehaviour:
   m_ObjectHideFlags: 0

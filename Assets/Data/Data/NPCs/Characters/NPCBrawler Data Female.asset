@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _brawlerModelPrefab: {fileID: 3982071459547463407, guid: b613a646a4d53ca47a45cc6ea627ec3c,
     type: 3}
-  _skinIndex: 0
+  _skinIndex: 1
   _brawlerData: {fileID: 11400000, guid: 21a5e19c47152ef48bf0091784cbd26d, type: 2}
   _maxTrackDistance: 5
   _stateCooldownMs: 250

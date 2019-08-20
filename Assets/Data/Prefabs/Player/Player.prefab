@@ -1051,7 +1051,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _skeletonAnimation: {fileID: 0}
-  _skinNames: []
+  _skinNames:
+  - female_hero1
+  - female_hero2
 --- !u!114 &1402089305333961099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2312,11 +2314,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4424032537796453222, guid: 4ccb41fc5c8ebd44e826dfee305c4881,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ccb41fc5c8ebd44e826dfee305c4881, type: 3}
