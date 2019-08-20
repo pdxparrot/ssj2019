@@ -130,9 +130,10 @@
   * DOTween (not Pro)
     * Make sure to run the setup
     * Make sure to create ASMDEF
-* If using Spine, download the latest Spine-Unity package and import it
+* If using Spine, download the latest Spine-Unity package (currently 3.8+) and import it
   * Assets/Spine* must be added to the .gitignore to prevent committing this
-  * It may be necessary to create an ASMDEF in Spine/Runtime for this package
+  * The ASMDEF will need to be added to be force added to source control
+    * If the ASMDEF does not exist, your version is too old!
 
 # Engine Source
 
