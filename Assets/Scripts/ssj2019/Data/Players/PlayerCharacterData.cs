@@ -36,6 +36,12 @@ namespace pdxpartyparrot.ssj2019.Data.Players
         public BrawlerModel BrawlerModelPrefab => _brawlerModelPrefab;
 
         [SerializeField]
+        [Tooltip("Set to -1 for a random skin")]
+        private int _skinIndex;
+
+        public int SkinIndex => _skinIndex;
+
+        [SerializeField]
         private BrawlerData _brawlerData;
 
         public BrawlerData BrawlerData => _brawlerData;

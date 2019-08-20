@@ -95,7 +95,7 @@ namespace pdxpartyparrot.ssj2019.Players
                 return;
             }
 
-            Brawler.InitializeModel(Behavior, _playerCharacterData.BrawlerModelPrefab, Model, 0);
+            Brawler.InitializeModel(Behavior, _playerCharacterData.BrawlerModelPrefab, Model, _playerCharacterData.SkinIndex);
 
             PlayerData.PlayerIndicatorState indicatorState = PlayerManager.Instance.GetPlayerIndicatorState(NetworkPlayer.ControllerId);
             if(null != indicatorState) {
