@@ -181,9 +181,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             switch(_state)
             {
             case State.Idle:
-                if(NPCOwner.HasPath) {
-                    NPCOwner.ResetPath();
-                }
+                NPCOwner.Stop(true, false);
 
                 // have to use the transform here since physics lags behind
                 _fidgetBehavior.Origin = Owner.transform.position;
@@ -191,7 +189,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             case State.Track:
                 break;
             case State.Attack:
-                NPCBrawler.Stop(true);
+                NPCBrawler.Stop(true, false);
                 break;
             }
 

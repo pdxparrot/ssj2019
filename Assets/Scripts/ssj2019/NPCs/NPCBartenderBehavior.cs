@@ -63,7 +63,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             switch(_state)
             {
             case State.Idle:
-                NPCOwner.ResetPath();
+                NPCOwner.Stop(true, false);
                 break;
             }
         }
@@ -73,20 +73,11 @@ namespace pdxpartyparrot.ssj2019.NPCs
         }
 #endregion
 
-#region Spawn
-        public override void OnSpawn(SpawnPoint spawnpoint)
+        public override void OnIdle()
         {
-            base.OnSpawn(spawnpoint);
-
             SetState(State.Idle);
-        }
 
-        public override void OnReSpawn(SpawnPoint spawnpoint)
-        {
-            base.OnReSpawn(spawnpoint);
-
-            SetState(State.Idle);
+            base.OnIdle();
         }
-#endregion
     }
 }

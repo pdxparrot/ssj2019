@@ -93,7 +93,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             // the player can abuse the NPC re-accelerating
             // by pausing and unpausing the game
             if(!NPCBehavior.CanMove) {
-                Stop(false);
+                Stop(false, false);
             }
         }
 #endregion
@@ -133,7 +133,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             return true;
         }
 
-        public void ResetPath()
+        public void ResetPath(bool idle)
         {
             if(null != _agentStuckCheck) {
                 StopCoroutine(_agentStuckCheck);
@@ -142,7 +142,9 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
             _agent.ResetPath();
 
-            NPCBehavior.OnIdle();
+            if(idle) {
+                NPCBehavior.OnIdle();
+            }
         }
 
 #if UNITY_EDITOR
@@ -161,17 +163,19 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 #endif
 #endregion
 
-        public void Stop(bool resetPath)
+        public void Stop(bool resetPath, bool idle)
         {
             _agent.velocity = Vector3.zero;
 
             if(resetPath) {
-                ResetPath();
+                ResetPath(idle);
             } else if(null != _agentStuckCheck) {
                 StopCoroutine(_agentStuckCheck);
                 _agentStuckCheck = null;
 
-                NPCBehavior.OnIdle();
+                if(idle) {
+                    NPCBehavior.OnIdle();
+                }
             }
         }
 
@@ -215,7 +219,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
                     // we can do this when DebugBehavior is true
                     //Debug.Log($"NPC {Id} is stuck");
 
-                    Stop(true);
+                    Stop(true, true);
 
                     _agentStuckCheck = null;
                     yield break;

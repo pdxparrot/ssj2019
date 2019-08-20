@@ -25,10 +25,10 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
         bool UpdatePath(Vector3 target);
 
-        void ResetPath();
+        void ResetPath(bool idle);
 #endregion
 
-        void Stop(bool resetPath);
+        void Stop(bool resetPath, bool idle);
 
         void Recycle();
     }

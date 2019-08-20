@@ -74,21 +74,23 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             return false;
         }
 
-        public void ResetPath()
+        public void ResetPath(bool idle)
         {
             Debug.LogWarning("TODO: NPC2D.ResetPath()");
 
-            NPCBehavior.OnIdle();
+            if(idle) {
+                NPCBehavior.OnIdle();
+            }
         }
 #endregion
 
-        public void Stop(bool resetPath)
+        public void Stop(bool resetPath, bool idle)
         {
             Debug.LogWarning("TODO: NPC2D.Stop()");
 
             if(resetPath) {
-                ResetPath();
-            } else {
+                ResetPath(idle);
+            } else if(idle) {
                 NPCBehavior.OnIdle();
             }
         }
