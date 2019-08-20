@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 265fd580bc219bc48b1e89e757b98aba, type: 3}
+  m_Name: Male Enemy 01 Combo Data
+  m_EditorClassIdentifier: 
+  _name: Test Player Combo
+  _moves:
+    _items:
+    - _type: 0
+      _attackData: {fileID: 11400000, guid: ab9a56f43fc8bae4d968a82bea7953e2, type: 2}
+      _requireHit: 0
+      _comboPoints: 5
+    - _type: 0
+      _attackData: {fileID: 11400000, guid: d3b1daf1979d6564b821f89875151b62, type: 2}
+      _requireHit: 0
+      _comboPoints: 10

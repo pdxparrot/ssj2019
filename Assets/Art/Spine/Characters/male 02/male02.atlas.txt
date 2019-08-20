@@ -1,0 +1,674 @@
+
+male02.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+male_01/face_hair
+  rotate: false
+  xy: 921, 1452
+  size: 112, 44
+  orig: 112, 44
+  offset: 0, 0
+  index: -1
+male_01/hair
+  rotate: false
+  xy: 1337, 1753
+  size: 323, 248
+  orig: 323, 248
+  offset: 0, 0
+  index: -1
+male_01/pants
+  rotate: false
+  xy: 1662, 1787
+  size: 303, 214
+  orig: 303, 214
+  offset: 0, 0
+  index: -1
+male_01/pantsL
+  rotate: false
+  xy: 450, 1433
+  size: 469, 568
+  orig: 469, 568
+  offset: 0, 0
+  index: -1
+male_01/pantsR
+  rotate: false
+  xy: 2, 181
+  size: 253, 649
+  orig: 253, 649
+  offset: 0, 0
+  index: -1
+male_01/pants_shinL
+  rotate: false
+  xy: 921, 1498
+  size: 414, 503
+  orig: 414, 503
+  offset: 0, 0
+  index: -1
+male_01/pants_shinR
+  rotate: false
+  xy: 2, 832
+  size: 434, 493
+  orig: 434, 493
+  offset: 0, 0
+  index: -1
+male_01/shirt
+  rotate: false
+  xy: 2, 1327
+  size: 446, 674
+  orig: 446, 674
+  offset: 0, 0
+  index: -1
+male_01/shoeL
+  rotate: true
+  xy: 257, 478
+  size: 352, 137
+  orig: 352, 137
+  offset: 0, 0
+  index: -1
+male_01/shoeR
+  rotate: false
+  xy: 257, 203
+  size: 227, 273
+  orig: 227, 273
+  offset: 0, 0
+  index: -1
+male_01/sleeveL
+  rotate: true
+  xy: 2, 2
+  size: 177, 274
+  orig: 177, 274
+  offset: 0, 0
+  index: -1
+male_01/sleeveR
+  rotate: false
+  xy: 1337, 1484
+  size: 278, 267
+  orig: 278, 267
+  offset: 0, 0
+  index: -1
+
+male022.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+male_02/hair
+  rotate: false
+  xy: 453, 70
+  size: 281, 242
+  orig: 281, 242
+  offset: 0, 0
+  index: -1
+male_02/pants
+  rotate: false
+  xy: 450, 314
+  size: 295, 215
+  orig: 295, 215
+  offset: 0, 0
+  index: -1
+male_02/shirt
+  rotate: false
+  xy: 2, 310
+  size: 446, 675
+  orig: 446, 675
+  offset: 0, 0
+  index: -1
+male_02/shoeL
+  rotate: true
+  xy: 850, 652
+  size: 333, 137
+  orig: 333, 137
+  offset: 0, 0
+  index: -1
+male_02/shoeR
+  rotate: true
+  xy: 747, 306
+  size: 223, 211
+  orig: 223, 211
+  offset: 0, 0
+  index: -1
+male_02/shortsL
+  rotate: false
+  xy: 450, 531
+  size: 398, 454
+  orig: 398, 454
+  offset: 0, 0
+  index: -1
+male_02/shortsR
+  rotate: true
+  xy: 2, 40
+  size: 268, 449
+  orig: 268, 449
+  offset: 0, 0
+  index: -1
+
+male023.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+male_03/belt
+  rotate: false
+  xy: 788, 408
+  size: 374, 217
+  orig: 374, 217
+  offset: 0, 0
+  index: -1
+male_03/bootL
+  rotate: false
+  xy: 968, 1152
+  size: 356, 389
+  orig: 356, 389
+  offset: 0, 0
+  index: -1
+male_03/bootR
+  rotate: true
+  xy: 429, 1117
+  size: 300, 537
+  orig: 300, 537
+  offset: 0, 0
+  index: -1
+male_03/collar_back
+  rotate: false
+  xy: 391, 388
+  size: 395, 222
+  orig: 395, 222
+  offset: 0, 0
+  index: -1
+male_03/glasses
+  rotate: true
+  xy: 1921, 1582
+  size: 200, 58
+  orig: 200, 58
+  offset: 0, 0
+  index: -1
+male_03/gloveL
+  rotate: true
+  xy: 720, 34
+  size: 147, 242
+  orig: 147, 242
+  offset: 0, 0
+  index: -1
+male_03/gloveR
+  rotate: false
+  xy: 1146, 227
+  size: 238, 166
+  orig: 238, 166
+  offset: 0, 0
+  index: -1
+male_03/hair
+  rotate: false
+  xy: 697, 183
+  size: 243, 203
+  orig: 243, 203
+  offset: 0, 0
+  index: -1
+male_03/jacketL
+  rotate: true
+  xy: 1339, 1582
+  size: 200, 580
+  orig: 200, 580
+  offset: 0, 0
+  index: -1
+male_03/jacketR
+  rotate: false
+  xy: 2, 444
+  size: 387, 756
+  orig: 387, 756
+  offset: 0, 0
+  index: -1
+male_03/mohawk
+  rotate: true
+  xy: 772, 627
+  size: 488, 381
+  orig: 488, 381
+  offset: 0, 0
+  index: -1
+male_03/pants
+  rotate: false
+  xy: 366, 161
+  size: 329, 225
+  orig: 329, 225
+  offset: 0, 0
+  index: -1
+male_03/pantsL
+  rotate: false
+  xy: 429, 1419
+  size: 472, 617
+  orig: 472, 617
+  offset: 0, 0
+  index: -1
+male_03/pantsR
+  rotate: true
+  xy: 1339, 1784
+  size: 252, 652
+  orig: 252, 652
+  offset: 0, 0
+  index: -1
+male_03/pants_shinL
+  rotate: false
+  xy: 391, 612
+  size: 379, 503
+  orig: 379, 503
+  offset: 0, 0
+  index: -1
+male_03/pants_shinR
+  rotate: false
+  xy: 903, 1543
+  size: 434, 493
+  orig: 434, 493
+  offset: 0, 0
+  index: -1
+male_03/shirt
+  rotate: false
+  xy: 2, 1202
+  size: 425, 834
+  orig: 425, 834
+  offset: 0, 0
+  index: -1
+male_03/shoeL
+  rotate: false
+  xy: 366, 22
+  size: 352, 137
+  orig: 352, 137
+  offset: 0, 0
+  index: -1
+male_03/shoeR
+  rotate: false
+  xy: 1164, 395
+  size: 227, 273
+  orig: 227, 273
+  offset: 0, 0
+  index: -1
+male_03/sleeveL
+  rotate: false
+  xy: 1155, 670
+  size: 213, 480
+  orig: 213, 480
+  offset: 0, 0
+  index: -1
+male_03/sleeveR
+  rotate: false
+  xy: 2, 2
+  size: 362, 440
+  orig: 362, 440
+  offset: 0, 0
+  index: -1
+male_03/sleeve_forearmL
+  rotate: false
+  xy: 964, 69
+  size: 150, 137
+  orig: 150, 137
+  offset: 0, 0
+  index: -1
+male_03/sleeve_forearmR
+  rotate: false
+  xy: 942, 208
+  size: 202, 198
+  orig: 202, 198
+  offset: 0, 0
+  index: -1
+
+male024.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+male_04/collar
+  rotate: false
+  xy: 369, 428
+  size: 334, 296
+  orig: 334, 296
+  offset: 0, 0
+  index: -1
+male_04/collar_back
+  rotate: false
+  xy: 462, 1378
+  size: 130, 93
+  orig: 130, 93
+  offset: 0, 0
+  index: -1
+male_04/hair
+  rotate: false
+  xy: 256, 913
+  size: 429, 447
+  orig: 429, 447
+  offset: 0, 0
+  index: -1
+male_04/handR_fist
+  rotate: false
+  xy: 326, 2
+  size: 211, 166
+  orig: 211, 166
+  offset: 0, 0
+  index: -1
+male_04/necklace
+  rotate: false
+  xy: 1883, 1824
+  size: 136, 218
+  orig: 136, 218
+  offset: 0, 0
+  index: -1
+male_04/pants
+  rotate: true
+  xy: 872, 1149
+  size: 322, 262
+  orig: 322, 262
+  offset: 0, 0
+  index: -1
+male_04/pantsL
+  rotate: false
+  xy: 462, 1473
+  size: 469, 569
+  orig: 469, 569
+  offset: 0, 0
+  index: -1
+male_04/pantsR
+  rotate: false
+  xy: 2, 706
+  size: 252, 654
+  orig: 252, 654
+  offset: 0, 0
+  index: -1
+male_04/pants_shinL
+  rotate: false
+  xy: 933, 1498
+  size: 477, 544
+  orig: 477, 544
+  offset: 0, 0
+  index: -1
+male_04/pants_shinR
+  rotate: false
+  xy: 1412, 1524
+  size: 469, 518
+  orig: 469, 518
+  offset: 0, 0
+  index: -1
+male_04/ringR
+  rotate: false
+  xy: 872, 1102
+  size: 39, 45
+  orig: 39, 45
+  offset: 0, 0
+  index: -1
+male_04/shirt
+  rotate: false
+  xy: 2, 1362
+  size: 458, 680
+  orig: 458, 680
+  offset: 0, 0
+  index: -1
+male_04/shoeL
+  rotate: true
+  xy: 687, 1078
+  size: 393, 183
+  orig: 393, 183
+  offset: 0, 0
+  index: -1
+male_04/shoeR
+  rotate: true
+  xy: 369, 170
+  size: 256, 324
+  orig: 256, 324
+  offset: 0, 0
+  index: -1
+male_04/sleeveL
+  rotate: true
+  xy: 256, 726
+  size: 185, 463
+  orig: 185, 463
+  offset: 0, 0
+  index: -1
+male_04/sleeveR
+  rotate: false
+  xy: 2, 199
+  size: 365, 505
+  orig: 365, 505
+  offset: 0, 0
+  index: -1
+male_04/sleeve_forearmL
+  rotate: false
+  xy: 2, 20
+  size: 322, 177
+  orig: 322, 177
+  offset: 0, 0
+  index: -1
+male_04/sleeve_forearmR
+  rotate: true
+  xy: 1136, 1196
+  size: 300, 212
+  orig: 300, 212
+  offset: 0, 0
+  index: -1
+male_04/watchR
+  rotate: false
+  xy: 687, 983
+  size: 61, 93
+  orig: 61, 93
+  offset: 0, 0
+  index: -1
+
+male025.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+male_nude/face
+  rotate: false
+  xy: 433, 2
+  size: 142, 58
+  orig: 142, 58
+  offset: 0, 0
+  index: -1
+male_nude/footL
+  rotate: false
+  xy: 976, 398
+  size: 327, 143
+  orig: 327, 143
+  offset: 0, 0
+  index: -1
+male_nude/footL_S
+  rotate: true
+  xy: 1253, 45
+  size: 327, 143
+  orig: 327, 143
+  offset: 0, 0
+  index: -1
+male_nude/footR
+  rotate: false
+  xy: 1305, 374
+  size: 212, 244
+  orig: 212, 244
+  offset: 0, 0
+  index: -1
+male_nude/footR_S
+  rotate: false
+  xy: 1519, 459
+  size: 212, 244
+  orig: 212, 244
+  offset: 0, 0
+  index: -1
+male_nude/forearmL
+  rotate: false
+  xy: 1379, 1371
+  size: 352, 167
+  orig: 352, 167
+  offset: 0, 0
+  index: -1
+male_nude/forearmL_S
+  rotate: true
+  xy: 1305, 620
+  size: 352, 167
+  orig: 352, 167
+  offset: 0, 0
+  index: -1
+male_nude/forearmR
+  rotate: false
+  xy: 937, 222
+  size: 314, 174
+  orig: 314, 174
+  offset: 0, 0
+  index: -1
+male_nude/forearmR_S
+  rotate: false
+  xy: 937, 46
+  size: 314, 174
+  orig: 314, 174
+  offset: 0, 0
+  index: -1
+male_nude/handL
+  rotate: true
+  xy: 1398, 23
+  size: 136, 201
+  orig: 136, 201
+  offset: 0, 0
+  index: -1
+male_nude/handL_S
+  rotate: true
+  xy: 1769, 1465
+  size: 136, 201
+  orig: 136, 201
+  offset: 0, 0
+  index: -1
+male_nude/handR_fist
+  rotate: true
+  xy: 1398, 161
+  size: 211, 166
+  orig: 211, 166
+  offset: 0, 0
+  index: -1
+male_nude/handR_fist_S
+  rotate: true
+  xy: 1566, 246
+  size: 211, 166
+  orig: 211, 166
+  offset: 0, 0
+  index: -1
+male_nude/head
+  rotate: false
+  xy: 1447, 1038
+  size: 252, 331
+  orig: 252, 331
+  offset: 0, 0
+  index: -1
+male_nude/head_S
+  rotate: false
+  xy: 1474, 705
+  size: 252, 331
+  orig: 252, 331
+  offset: 0, 0
+  index: -1
+male_nude/neck
+  rotate: false
+  xy: 1601, 33
+  size: 152, 211
+  orig: 152, 211
+  offset: 0, 0
+  index: -1
+male_nude/neck_S
+  rotate: false
+  xy: 1701, 1158
+  size: 152, 211
+  orig: 152, 211
+  offset: 0, 0
+  index: -1
+male_nude/shinL
+  rotate: true
+  xy: 943, 974
+  size: 364, 502
+  orig: 364, 502
+  offset: 0, 0
+  index: -1
+male_nude/shinL_S
+  rotate: true
+  xy: 433, 62
+  size: 364, 502
+  orig: 364, 502
+  offset: 0, 0
+  index: -1
+male_nude/shinR
+  rotate: false
+  xy: 431, 428
+  size: 388, 506
+  orig: 388, 506
+  offset: 0, 0
+  index: -1
+male_nude/shinR_S
+  rotate: false
+  xy: 1379, 1540
+  size: 388, 506
+  orig: 388, 506
+  offset: 0, 0
+  index: -1
+male_nude/thighL
+  rotate: false
+  xy: 431, 1492
+  size: 510, 554
+  orig: 510, 554
+  offset: 0, 0
+  index: -1
+male_nude/thighL_S
+  rotate: false
+  xy: 431, 936
+  size: 510, 554
+  orig: 510, 554
+  offset: 0, 0
+  index: -1
+male_nude/thighR
+  rotate: false
+  xy: 943, 1340
+  size: 216, 706
+  orig: 216, 706
+  offset: 0, 0
+  index: -1
+male_nude/thighR_S
+  rotate: false
+  xy: 1161, 1340
+  size: 216, 706
+  orig: 216, 706
+  offset: 0, 0
+  index: -1
+male_nude/torso
+  rotate: false
+  xy: 2, 1197
+  size: 427, 849
+  orig: 427, 849
+  offset: 0, 0
+  index: -1
+male_nude/torso_S
+  rotate: false
+  xy: 2, 346
+  size: 427, 849
+  orig: 427, 849
+  offset: 0, 0
+  index: -1
+male_nude/upperarmL
+  rotate: false
+  xy: 1769, 1603
+  size: 153, 443
+  orig: 153, 443
+  offset: 0, 0
+  index: -1
+male_nude/upperarmL_S
+  rotate: false
+  xy: 821, 491
+  size: 153, 443
+  orig: 153, 443
+  offset: 0, 0
+  index: -1
+male_nude/upperarmR
+  rotate: true
+  xy: 2, 17
+  size: 327, 429
+  orig: 327, 429
+  offset: 0, 0
+  index: -1
+male_nude/upperarmR_S
+  rotate: false
+  xy: 976, 543
+  size: 327, 429
+  orig: 327, 429
+  offset: 0, 0
+  index: -1

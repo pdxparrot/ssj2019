@@ -802,6 +802,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skeletonRenderer: {fileID: 0}
   boneName: 
+  followXYPosition: 1
   followZPosition: 1
   followBoneRotation: 1
   followSkeletonFlip: 1
@@ -1054,6 +1055,8 @@ MonoBehaviour:
   _skinNames:
   - female_hero1
   - female_hero2
+  - male_hero1
+  - male_hero2
 --- !u!114 &1402089305333961099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1358,6 +1361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skeletonRenderer: {fileID: 0}
   boneName: 
+  followXYPosition: 1
   followZPosition: 1
   followBoneRotation: 1
   followSkeletonFlip: 1

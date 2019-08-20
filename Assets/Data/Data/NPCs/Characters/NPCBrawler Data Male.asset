@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3af18c5c8030414799cefcc5cede99b, type: 3}
   m_Name: NPCBrawler Data Male
   m_EditorClassIdentifier: 
-  _brawlerModelPrefab: {fileID: 3982071459547463407, guid: b613a646a4d53ca47a45cc6ea627ec3c,
+  _brawlerModelPrefab: {fileID: 3982071459547463407, guid: 497fee7476f6b8848acedb89af31a5cd,
     type: 3}
-  _skinIndex: 0
-  _brawlerData: {fileID: 11400000, guid: 21a5e19c47152ef48bf0091784cbd26d, type: 2}
+  _skinIndex: 3
+  _brawlerData: {fileID: 11400000, guid: 72855add01d91fc4b937bd6a27081d86, type: 2}
   _maxTrackDistance: 5
   _stateCooldownMs: 250
   _attackCooldownMs: 250

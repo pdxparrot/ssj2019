@@ -486,6 +486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skeletonRenderer: {fileID: 0}
   boneName: 
+  followXYPosition: 1
   followZPosition: 1
   followBoneRotation: 1
   followSkeletonFlip: 1
@@ -570,6 +571,8 @@ MonoBehaviour:
   - female_enemyA1
   - female_enemyB1
   - female_enemyD1
+  - male_enemyA1
+  - male_enemyB1
 --- !u!114 &1655421340564284999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1363,6 +1366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skeletonRenderer: {fileID: 0}
   boneName: 
+  followXYPosition: 1
   followZPosition: 1
   followBoneRotation: 1
   followSkeletonFlip: 1

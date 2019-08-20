@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a3e15959c80bc458141f086bd0d809, type: 3}
   m_Name: Player E CharacterData
   m_EditorClassIdentifier: 
-  _name: Player E
+  _name: 5th Man
   _characterPortraitPrefab: {fileID: 1473069155688468161, guid: 77842d31f70744e4c80bfb3659db1407,
     type: 3}
-  _brawlerModelPrefab: {fileID: 3982071459547463407, guid: 8fef7378fc77b0e42a67ea760f4dc331,
+  _brawlerModelPrefab: {fileID: 3204080472430291362, guid: efeecae118b39ad4cbf148e91c5da99b,
     type: 3}
-  _brawlerData: {fileID: 11400000, guid: 705369aa8222dd14b8af2e4915847463, type: 2}
+  _skinIndex: 3
+  _brawlerData: {fileID: 11400000, guid: fca504050c3406d4aa22915e6acc04c5, type: 2}
