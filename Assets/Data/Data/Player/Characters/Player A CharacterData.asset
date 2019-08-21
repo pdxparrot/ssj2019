@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a3e15959c80bc458141f086bd0d809, type: 3}
   m_Name: Player A CharacterData
   m_EditorClassIdentifier: 
-  _name: Male Hero 1
-  _characterPortraitPrefab: {fileID: -3827779972593526793, guid: 09636935dd366734689b16e6935bf936,
+  _name: Fawkes Kenny
+  _characterPortraitPrefab: {fileID: -4306714259496808722, guid: 5142a366702c3ad4f8716b78c4c80bfd,
     type: 3}
   _brawlerModelPrefab: {fileID: 3204080472430291362, guid: efeecae118b39ad4cbf148e91c5da99b,
     type: 3}
