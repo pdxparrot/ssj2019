@@ -261,6 +261,15 @@ namespace pdxpartyparrot.Core.Audio
             InitAudioMixerGroup(source, _audioData.AmbientMixerGroupName);
         }
 
+        public void StopAllAudio()
+        {
+            StopStinger();
+
+            StopAllMusic();
+
+            StopAmbient();
+        }
+
 #region SFX
         public void PlayOneShot(AudioClip audioClip)
         {

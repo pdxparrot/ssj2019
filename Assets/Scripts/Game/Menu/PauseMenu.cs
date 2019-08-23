@@ -1,4 +1,5 @@
 using pdxpartyparrot.Core;
+using pdxpartyparrot.Core.Audio;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.State;
 
@@ -35,8 +36,12 @@ namespace pdxpartyparrot.Game.Menu
 
         public void OnExitMainMenu()
         {
-            PartyParrotManager.Instance.TogglePause();
+            // stop all audio so when it unducks it doesn't blast all weird
+            AudioManager.Instance.StopAllAudio();
+
             GameStateManager.Instance.TransitionToInitialStateAsync();
+
+            PartyParrotManager.Instance.TogglePause();
         }
 
         public void OnQuitGame()
