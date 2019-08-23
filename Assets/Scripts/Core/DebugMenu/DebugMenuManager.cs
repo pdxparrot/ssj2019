@@ -83,6 +83,11 @@ namespace pdxpartyparrot.Core.DebugMenu
         {
             ResetFrameStats();
 
+#if !UNITY_EDITOR
+            _showRendering = true;
+            _showMemory = true;
+#endif
+
             _window = new DebugWindow(new Rect(10, 10, 800, 600), RenderWindowContents)
             {
                 Title = () => {
