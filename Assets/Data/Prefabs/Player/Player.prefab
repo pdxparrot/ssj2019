@@ -457,6 +457,7 @@ MonoBehaviour:
   _spineAnimationName: jump_apex
   _spineAnimationTrack: 0
   _loop: 0
+  _trackStartTime: 0
   _waitForComplete: 1
 --- !u!114 &1547228666034662538
 MonoBehaviour:
@@ -558,6 +559,7 @@ MonoBehaviour:
   _spineAnimationName: hit_light
   _spineAnimationTrack: 0
   _loop: 0
+  _trackStartTime: 0
   _waitForComplete: 1
 --- !u!114 &490342692407967944
 MonoBehaviour:
@@ -660,6 +662,7 @@ MonoBehaviour:
   _spineAnimationName: idle
   _spineAnimationTrack: 0
   _loop: 1
+  _trackStartTime: 0
   _waitForComplete: 0
 --- !u!1 &3544420512150969447
 GameObject:
@@ -728,6 +731,7 @@ MonoBehaviour:
   _spineAnimationName: idle_causual
   _spineAnimationTrack: 0
   _loop: 1
+  _trackStartTime: 0
   _waitForComplete: 0
 --- !u!1 &3783884987520704992
 GameObject:
@@ -1156,6 +1160,7 @@ MonoBehaviour:
   _spineAnimationName: 
   _spineAnimationTrack: 1
   _loop: 0
+  _trackStartTime: 0
   _waitForComplete: 1
 --- !u!114 &7662537881713715
 MonoBehaviour:
@@ -1300,6 +1305,7 @@ MonoBehaviour:
   _spineAnimationName: unblock
   _spineAnimationTrack: 1
   _loop: 0
+  _trackStartTime: 0
   _waitForComplete: 1
 --- !u!1 &5834506326356446408
 GameObject:
@@ -1445,9 +1451,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rumbleConfig:
-    _seconds: 0.25
+    _seconds: 0.3
     _lowFrequency: 0.25
-    _highFrequency: 0.25
+    _highFrequency: 1
   _gamepadListener: {fileID: 0}
   _waitForComplete: 0
   _isPlaying: 0
@@ -1519,6 +1525,7 @@ MonoBehaviour:
   _spineAnimationName: jump_up
   _spineAnimationTrack: 0
   _loop: 0
+  _trackStartTime: 0
   _waitForComplete: 1
 --- !u!114 &1342408314561257797
 MonoBehaviour:
@@ -1651,6 +1658,7 @@ MonoBehaviour:
   _spineAnimationName: jump_down
   _spineAnimationTrack: 0
   _loop: 0
+  _trackStartTime: 0
   _waitForComplete: 1
 --- !u!114 &1258141278476383129
 MonoBehaviour:
@@ -1733,6 +1741,7 @@ MonoBehaviour:
   _spineAnimationName: walk
   _spineAnimationTrack: 0
   _loop: 1
+  _trackStartTime: 0
   _waitForComplete: 0
 --- !u!1 &7312426625843009653
 GameObject:
@@ -2057,6 +2066,7 @@ MonoBehaviour:
   _spineAnimationName: block
   _spineAnimationTrack: 1
   _loop: 0
+  _trackStartTime: 0
   _waitForComplete: 1
 --- !u!1 &8128243285711847515
 GameObject:
@@ -2318,6 +2328,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424032537796453222, guid: 4ccb41fc5c8ebd44e826dfee305c4881,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ccb41fc5c8ebd44e826dfee305c4881, type: 3}
