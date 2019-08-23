@@ -54,6 +54,16 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         }
 
         [SerializeField]
+        [Min(0.0f)]
+        private float _trackStartTime;
+
+        public float TrackStartTime
+        {
+            get => _trackStartTime;
+            set => _trackStartTime = Mathf.Max(value, 0.0f);
+        }
+
+        [SerializeField]
         private bool _waitForComplete = true;
 
         // don't wait for complete if the animation should loop
@@ -69,11 +79,12 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         {
             if(EffectsManager.Instance.EnableAnimation) {
                 if(EffectsManager.Instance.EnableDebug) {
-                    Debug.Log($"Triggering Spine animation {_spineAnimationName} on track {_spineAnimationTrack}");
+                    Debug.Log($"Triggering Spine animation {_spineAnimationName} on track {_spineAnimationTrack} (loop={Loop}, start time={TrackStartTime})");
                 }
 
                 _trackEntry = _spineAnimation.SetAnimation(_spineAnimationTrack, _spineAnimationName, Loop);
                 if(null != _trackEntry) {
+                    _trackEntry.TrackTime = TrackStartTime;
                     _trackEntry.Complete += OnComplete;
 
                     StartEvent?.Invoke(this, new EventArgs{
@@ -117,6 +128,15 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
             if(entry != _trackEntry) {
                 // is this even possible?
                 return;
+            }
+
+            if(EffectsManager.Instance.EnableDebug) {
+                Debug.Log($"Spine animation {_spineAnimationName} on track {_spineAnimationTrack} complete");
+            }
+
+            // for whatever reason, this is necessary to stop tracks breaking each other
+            if(!entry.Loop) {
+                _spineAnimation.SetEmptyAnimation(_spineAnimationTrack);
             }
 
             Complete();

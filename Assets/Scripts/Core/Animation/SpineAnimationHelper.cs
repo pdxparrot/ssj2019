@@ -62,6 +62,15 @@ namespace pdxpartyparrot.Core.Animation
             }
         }
 
+        public void SetEmptyAnimation(int track)
+        {
+            if(null == SkeletonAnimation) {
+                return;
+            }
+
+            SkeletonAnimation.AnimationState.SetEmptyAnimation(track, 0.0f);
+        }
+
         public void SetFacing(Vector3 direction)
         {
             if(Mathf.Abs(direction.x) < MathUtil.Epsilon) {
