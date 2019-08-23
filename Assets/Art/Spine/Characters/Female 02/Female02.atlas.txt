@@ -4,9 +4,23 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-nude/FootL
+nude/FX_kickswipe
   rotate: true
-  xy: 1487, 599
+  xy: 942, 410
+  size: 383, 372
+  orig: 383, 372
+  offset: 0, 0
+  index: -1
+nude/FX_rightpunchswipe
+  rotate: true
+  xy: 1496, 228
+  size: 315, 83
+  orig: 315, 83
+  offset: 0, 0
+  index: -1
+nude/FootL
+  rotate: false
+  xy: 1758, 513
   size: 272, 129
   orig: 272, 129
   offset: 0, 0
@@ -19,99 +33,99 @@ nude/bicepL
   offset: 0, 0
   index: -1
 nude/bicepL_S
-  rotate: true
-  xy: 285, 6
+  rotate: false
+  xy: 1634, 1478
   size: 175, 263
   orig: 175, 263
   offset: 0, 0
   index: -1
 nude/bicepR
-  rotate: false
-  xy: 873, 25
+  rotate: true
+  xy: 1350, 1131
   size: 338, 300
   orig: 338, 300
   offset: 0, 0
   index: -1
 nude/bicepR_S
   rotate: false
-  xy: 1167, 1441
+  xy: 1350, 829
   size: 337, 300
   orig: 337, 300
   offset: 0, 0
   index: -1
 nude/footL_S
   rotate: false
-  xy: 1215, 275
+  xy: 1149, 6
   size: 272, 129
   orig: 272, 129
   offset: 0, 0
   index: -1
 nude/footR
-  rotate: false
-  xy: 674, 3
+  rotate: true
+  xy: 665, 9
   size: 172, 178
   orig: 172, 178
   offset: 0, 0
   index: -1
 nude/footR_S
   rotate: false
-  xy: 1487, 420
+  xy: 1581, 366
   size: 171, 177
   orig: 171, 177
   offset: 0, 0
   index: -1
 nude/forearmL
-  rotate: true
-  xy: 1801, 1212
+  rotate: false
+  xy: 409, 27
   size: 254, 154
   orig: 254, 154
   offset: 0, 0
   index: -1
 nude/forearmL_S
-  rotate: false
-  xy: 1213, 120
+  rotate: true
+  xy: 1341, 167
   size: 254, 153
   orig: 254, 153
   offset: 0, 0
   index: -1
 nude/forearmR
   rotate: false
-  xy: 1213, 22
+  xy: 1754, 415
   size: 227, 96
   orig: 227, 96
   offset: 0, 0
   index: -1
 nude/forearmR_S
   rotate: false
-  xy: 1571, 1088
+  xy: 1754, 318
   size: 227, 95
   orig: 227, 95
   offset: 0, 0
   index: -1
 nude/handL_fist
   rotate: false
-  xy: 550, 2
+  xy: 285, 2
   size: 122, 179
   orig: 122, 179
   offset: 0, 0
   index: -1
 nude/handL_fist_S
   rotate: true
-  xy: 1489, 297
+  xy: 1316, 423
   size: 121, 178
   orig: 121, 178
   offset: 0, 0
   index: -1
 nude/handR_fist
   rotate: false
-  xy: 1570, 953
+  xy: 845, 2
   size: 150, 133
   orig: 150, 133
   offset: 0, 0
   index: -1
 nude/handR_fist_S
   rotate: false
-  xy: 1722, 953
+  xy: 997, 2
   size: 150, 133
   orig: 150, 133
   offset: 0, 0
@@ -125,91 +139,91 @@ nude/head
   index: -1
 nude/head_S
   rotate: false
-  xy: 1506, 1460
+  xy: 1316, 546
   size: 220, 281
   orig: 220, 281
   offset: 0, 0
   index: -1
 nude/head_back
   rotate: false
-  xy: 1350, 1157
+  xy: 1652, 1194
   size: 219, 282
   orig: 219, 282
   offset: 0, 0
   index: -1
 nude/head_back_S
   rotate: false
-  xy: 1350, 873
+  xy: 1538, 545
   size: 218, 282
   orig: 218, 282
   offset: 0, 0
   index: -1
 nude/head_side
   rotate: false
-  xy: 1571, 1185
+  xy: 1689, 919
   size: 228, 273
   orig: 228, 273
   offset: 0, 0
   index: -1
 nude/head_side_S
   rotate: false
-  xy: 1728, 1468
+  xy: 1758, 644
   size: 228, 273
   orig: 228, 273
   offset: 0, 0
   index: -1
 nude/neck
-  rotate: false
-  xy: 1618, 766
+  rotate: true
+  xy: 1835, 1682
   size: 98, 185
   orig: 98, 185
   offset: 0, 0
   index: -1
 nude/neck_S
   rotate: false
-  xy: 1718, 766
+  xy: 1811, 1495
   size: 97, 185
   orig: 97, 185
   offset: 0, 0
   index: -1
 nude/neck_back
-  rotate: true
-  xy: 1618, 665
+  rotate: false
+  xy: 1581, 183
   size: 99, 181
   orig: 99, 181
   offset: 0, 0
   index: -1
 nude/neck_back_S
   rotate: false
-  xy: 1817, 771
+  xy: 1910, 1500
   size: 98, 180
   orig: 98, 180
   offset: 0, 0
   index: -1
 nude/neck_side
-  rotate: false
-  xy: 1660, 485
+  rotate: true
+  xy: 1682, 226
   size: 90, 178
   orig: 90, 178
   offset: 0, 0
   index: -1
 nude/neck_side_S
-  rotate: false
-  xy: 1957, 1288
+  rotate: true
+  xy: 1682, 135
   size: 89, 178
   orig: 89, 178
   offset: 0, 0
   index: -1
 nude/shinL
-  rotate: false
-  xy: 942, 327
+  rotate: true
+  xy: 873, 137
   size: 271, 466
   orig: 271, 466
   offset: 0, 0
   index: -1
 nude/shinL_S
-  rotate: false
-  xy: 1215, 406
+  rotate: true
+  xy: 1167, 1471
   size: 270, 465
   orig: 270, 465
   offset: 0, 0

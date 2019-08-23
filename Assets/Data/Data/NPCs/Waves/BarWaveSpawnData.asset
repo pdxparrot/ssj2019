@@ -15,4 +15,10 @@ MonoBehaviour:
   _waves:
     _items:
     - {fileID: 11400000, guid: 64ca70024e020ca469855d7a8e20d6ba, type: 2}
-  _musicTransitionSeconds: 1
+    - {fileID: 11400000, guid: f05c6b90c21a5ff4986ef8961d4d9e72, type: 2}
+    - {fileID: 11400000, guid: 72b4c6754b3c94f429ed1c705dae099d, type: 2}
+    - {fileID: 11400000, guid: 6d9ab4555448415449c85ae44b873350, type: 2}
+    - {fileID: 11400000, guid: c07467c3df33eec4cbcde3e07be9b5eb, type: 2}
+    - {fileID: 11400000, guid: d0935c67f7965ea4a971dcc20ae84a2d, type: 2}
+    - {fileID: 11400000, guid: 445805041c32a30419503d0a57987fe2, type: 2}
+    - {fileID: 0}

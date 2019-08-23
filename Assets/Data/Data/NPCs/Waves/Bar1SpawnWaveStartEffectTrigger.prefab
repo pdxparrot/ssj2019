@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _show: 1
-  _text: Begin Wave 1
+  _text: 'Wave 1: Playlist Shuffle'
 --- !u!114 &7710378983811463794
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ebfbb0c6c9e01846bab6a2c49f5c0fa, type: 3}
+  m_Name: Spawn Wave06 Data
+  m_EditorClassIdentifier: 
+  _spawnGroups:
+    _items:
+    - _actorPrefab: {fileID: 7185525476932000284, guid: 908eb1c0011234a4f80fdee0e10fda2f,
+        type: 3}
+      _npcBehaviorData: {fileID: 11400000, guid: b194bd9b93960b74a8a96ac36475b683,
+        type: 2}
+      _tag: bottom_right
+      _delay:
+        _min: 5
+        _max: 10
+      _count:
+        _min: 6
+        _max: 6
+      _poolSize: 10
+      _once: 1
+  _waveStartEffectTriggerPrefab: {fileID: 4914603125408191633, guid: 225f8c256c3547d41bac456224ce6ec5,
+    type: 3}
+  _waveEndEffectTriggerPrefab: {fileID: 0}

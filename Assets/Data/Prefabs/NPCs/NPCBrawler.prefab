@@ -263,6 +263,7 @@ MonoBehaviour:
   _spineAnimationName: hit_light
   _spineAnimationTrack: 0
   _loop: 0
+  _trackStartTime: 0
   _waitForComplete: 1
 --- !u!114 &4787067950933513504
 MonoBehaviour:
@@ -323,6 +324,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxgridslots: 1
+  gridcapacity: 10
+  attackcapacity: 10
   degreesbetweenslots: 90
   attackslotdistance: 0.5
   outerslotdistance: 1
@@ -412,6 +415,7 @@ MonoBehaviour:
   _spineAnimationName: fall_face_up
   _spineAnimationTrack: 0
   _loop: 1
+  _trackStartTime: 0
   _waitForComplete: 0
 --- !u!1 &2861679878649671080
 GameObject:
@@ -569,10 +573,42 @@ MonoBehaviour:
   _skeletonAnimation: {fileID: 0}
   _skinNames:
   - female_enemyA1
+  - female_enemyA1
+  - female_enemyA2
+  - female_enemyA3
+  - female_enemyA4
   - female_enemyB1
+  - female_enemyB2
+  - female_enemyB3
+  - female_enemyB4
+  - female_enemyC1
+  - female_enemyC2
+  - female_enemyC3
+  - female_enemyC4
   - female_enemyD1
+  - female_enemyD2
+  - female_enemyD3
+  - female_enemyD4
+  - female_hero1
+  - female_hero2
   - male_enemyA1
+  - male_enemyA2
+  - male_enemyA3
+  - male_enemyA4
   - male_enemyB1
+  - male_enemyB2
+  - male_enemyB3
+  - male_enemyB4
+  - male_enemyC1
+  - male_enemyC2
+  - male_enemyC3
+  - male_enemyC4
+  - male_enemyD1
+  - male_enemyD2
+  - male_enemyD3
+  - male_enemyD4
+  - male_hero1
+  - male_hero2
 --- !u!114 &1655421340564284999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,6 +689,7 @@ MonoBehaviour:
   _spineAnimationName: idle
   _spineAnimationTrack: 0
   _loop: 1
+  _trackStartTime: 0
   _waitForComplete: 0
 --- !u!1 &5134342241720023164
 GameObject:
@@ -843,6 +880,7 @@ MonoBehaviour:
   _spineAnimationName: walk
   _spineAnimationTrack: 0
   _loop: 1
+  _trackStartTime: 0
   _waitForComplete: 0
 --- !u!1 &6180652105833528001
 GameObject:
@@ -993,6 +1031,7 @@ MonoBehaviour:
   _spineAnimationName: Unblock
   _spineAnimationTrack: 1
   _loop: 0
+  _trackStartTime: 0
   _waitForComplete: 1
 --- !u!1 &6708938913309655336
 GameObject:
@@ -1206,6 +1245,7 @@ MonoBehaviour:
   _spineAnimationName: block
   _spineAnimationTrack: 1
   _loop: 0
+  _trackStartTime: 0
   _waitForComplete: 1
 --- !u!1 &7603056072392001625
 GameObject:
@@ -1472,6 +1512,7 @@ MonoBehaviour:
   _spineAnimationName: 
   _spineAnimationTrack: 1
   _loop: 0
+  _trackStartTime: 0
   _waitForComplete: 1
 --- !u!114 &5426313696954695828
 MonoBehaviour:

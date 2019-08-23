@@ -18,4 +18,4 @@ MonoBehaviour:
   _brawlerModelPrefab: {fileID: 3204080472430291362, guid: 714f2da0a0e1c964e80a271d467d0dab,
     type: 3}
   _skinIndex: 0
-  _brawlerData: {fileID: 11400000, guid: 712591062b54c1d4999d09232134326a, type: 2}
+  _brawlerData: {fileID: 11400000, guid: fca504050c3406d4aa22915e6acc04c5, type: 2}

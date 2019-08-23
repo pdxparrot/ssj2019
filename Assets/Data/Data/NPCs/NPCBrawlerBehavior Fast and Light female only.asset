@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5017a0fd1db64094e94bdc13c69b6a04, type: 3}
+  m_Name: NPCBrawlerBehavior Fast and Light female only
+  m_EditorClassIdentifier: 
+  _actorLayer:
+    serializedVersion: 2
+    m_Bits: 8192
+  _mass: 45
+  _drag: 0
+  _angularDrag: 0
+  _isKinematic: 0
+  _animateModel: 0
+  _moveSpeed: 10
+  _runThreshold: 0.75
+  _fallSpeedAdjustment: 45
+  _terminalVelocity: 50
+  _allowAirControl: 1
+  _moveXAxisParam: InputX
+  _moveZAxisParam: InputZ
+  _fallingParam: Falling
+  _actionBufferSize: 1
+  _actionBufferTimeoutMs: 500
+  _angularMoveSpeed: 0
+  _moveAcceleration: 5
+  _stoppingDistance: 0.5
+  _brawlerCharacterOptions:
+  - {fileID: 11400000, guid: d0a7aff73b8bdea4bb5a4349ccfd5225, type: 2}
+  - {fileID: 11400000, guid: 971ce822766d2644487779d1f675cfb1, type: 2}

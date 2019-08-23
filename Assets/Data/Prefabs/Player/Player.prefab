@@ -317,7 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db942fc835eb2774cb2937320393ec3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data: {fileID: 0}
+  _data: {fileID: 11400000, guid: ff88e6eaa7fde694daeb3e315877bcae, type: 2}
   _dashEffect: {fileID: 4254428544176821508}
   _wasUseGravity: 0
   _brawlerBehavior: {fileID: 6328656578635918927}
@@ -1585,6 +1585,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxgridslots: 1
+  gridcapacity: 10
+  attackcapacity: 4
   degreesbetweenslots: 90
   attackslotdistance: 0.5
   outerslotdistance: 2
@@ -2328,11 +2330,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4424032537796453222, guid: 4ccb41fc5c8ebd44e826dfee305c4881,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ccb41fc5c8ebd44e826dfee305c4881, type: 3}
