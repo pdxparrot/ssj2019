@@ -11,10 +11,10 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
 {
     public class KungFuGrid : MonoBehaviour
     {
-        int gridcapacity;
-        int attackcapacity;
 
         public int maxgridslots = 1;
+        public int gridcapacity = 10;
+        public int attackcapacity = 10;
         public float degreesbetweenslots = 90;
         public float attackslotdistance = .5f;
         public float outerslotdistance = 1;
@@ -48,7 +48,8 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
             return NewLocation;
         }
 
-        public void FillGridSlot(int i) {
+        public void FillGridSlot(int i, int gridweight) {
+            gridcapacity -= gridweight;
             slotstaken[i] = true;
         }
 
@@ -81,7 +82,10 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
             return NewLocation;
         }
 
-        public bool CanBeAttacked() {
+        public bool HasGridCapacity(int gridweight) {
+            if ((gridcapacity - gridweight) < 0) {
+                return false;
+            }
 
             for (int i = 0; i < maxgridslots; i++)
             {
@@ -91,6 +95,18 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
                 }
             }
             return false;
+        }
+
+        public bool CanBeAttacked(int attackweight) {
+            if ((attackcapacity - attackweight) < 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public void RegisterAttack(int attackweight) {
+            attackcapacity -= attackweight;
         }
 
         private void OnDestroy() {

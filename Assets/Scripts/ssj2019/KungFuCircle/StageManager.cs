@@ -18,7 +18,8 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
         private Dictionary<Actor, KungFuGrid> _KungFuGrids = new Dictionary<Actor, KungFuGrid>();
 
         // This will change in the future but for testing.
-        private Dictionary<Actor, int> filledgridslots = new Dictionary<Actor, int>();
+        private Dictionary<Actor, int> filledgridslotsindex = new Dictionary<Actor, int>();
+        private Dictionary<KungFuGrid, List<Actor>> filledgridslotactors = new Dictionary<KungFuGrid, List<Actor>>();
 
         private void Start() {
             GridCount = 0;
@@ -43,21 +44,69 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
 
             KungFuGrid actorgrid = _KungFuGrids[target];
             // check to see if we have already provided a slot for this NPC
-            if (filledgridslots.ContainsKey(Attacker))
+            if (filledgridslotsindex.ContainsKey(Attacker))
             {
-                return actorgrid.GetAttackSlotLocation(filledgridslots[Attacker]);
+                return actorgrid.GetAttackSlotLocation(filledgridslotsindex[Attacker]);
             }
 
-            // check the attack weight for the target
-            if (actorgrid.CanBeAttacked())
+            if (filledgridslotactors.ContainsKey(actorgrid) && !filledgridslotactors[actorgrid].Contains(Attacker))
+            {
+                Vector3 newattackerdistance = target.Behavior.Movement.Position - Attacker.Behavior.Movement.Position;
+                for (int i = 0; i < filledgridslotactors[actorgrid].Count; i++)
+                {
+                    Actor currentattacker = filledgridslotactors[actorgrid][i];
+                    Vector3 attackerdistance = currentattacker.Behavior.Movement.Position - target.Behavior.Movement.Position;
+
+                    if (newattackerdistance.magnitude < attackerdistance.magnitude)
+                    {
+                        filledgridslotactors[actorgrid].Add(Attacker);
+                        filledgridslotactors[actorgrid].Remove(currentattacker);
+
+                        filledgridslotsindex.Add(Attacker, filledgridslotsindex[currentattacker]);
+                        filledgridslotsindex.Remove(currentattacker);
+
+                        return actorgrid.GetAttackSlotLocation(filledgridslotsindex[Attacker]);
+                    }
+                }
+            }
+            
+            // check the grid weight for the target
+            // hard coded 5 for now, this will change to be data driven,
+            // after i talk with you shane if you read this, 
+            // need to find out the best way to pass this data.
+            if (actorgrid.HasGridCapacity(5))
             {
                 int gridslotindex = actorgrid.GetAvailableGridSlot();
-                filledgridslots.Add(Attacker, gridslotindex);
-                actorgrid.FillGridSlot(gridslotindex);
+                filledgridslotsindex.Add(Attacker, gridslotindex);
+                if (!filledgridslotactors.ContainsKey(actorgrid))
+                    filledgridslotactors.Add(actorgrid, new List<Actor>());
+
+                filledgridslotactors[actorgrid].Add(Attacker);
+                // hard coded 5 for now, this will change to be data driven,
+                // after i talk with you shane if you read this, 
+                // need to find out the best way to pass this data.
+                actorgrid.FillGridSlot(gridslotindex, 5);
                 return actorgrid.GetAttackSlotLocation(gridslotindex);
             }
 
             return actorgrid.GetOuterSlotLocation(Attacker);
+        }
+
+        public bool CanAttackTarget(Actor target, Actor Attacker, int attackweight) {
+            KungFuGrid actorgrid = _KungFuGrids[target];
+
+            // check to see if we have already provided a slot for this NPC
+            // if the NPC does not have a grid slot it cannot attack
+            if (!filledgridslotsindex.ContainsKey(Attacker)) {
+                return false;
+            }
+
+            return actorgrid.CanBeAttacked(attackweight);
+        }
+
+        public void RegisterAttack(Actor target, int attackweight) {
+            KungFuGrid actorgrid = _KungFuGrids[target];
+            actorgrid.RegisterAttack(attackweight);
         }
 
         public void ReleaseKungFuGridSlot(Actor target, Actor Attacker) {
@@ -67,10 +116,11 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
 
             KungFuGrid actorgrid = _KungFuGrids[target];
             // check to see if we have already provided a slot for this NPC
-            if (filledgridslots.ContainsKey(Attacker))
+            if (filledgridslotsindex.ContainsKey(Attacker))
             {
-                actorgrid.EmptyGridSlot(filledgridslots[Attacker]);
-                filledgridslots.Remove(Attacker);
+                actorgrid.EmptyGridSlot(filledgridslotsindex[Attacker]);
+                filledgridslotsindex.Remove(Attacker);
+                filledgridslotactors[actorgrid].Remove(Attacker);
             }
         }
     }
