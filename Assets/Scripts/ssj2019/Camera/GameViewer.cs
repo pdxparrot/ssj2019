@@ -43,7 +43,7 @@ namespace pdxpartyparrot.ssj2019.Camera
             {
             case GameData.ViewerMode.Mode2D:
                 Viewer.Set2D(gameData.ViewportSize);
-                _confiner.m_ConfineScreenEdges = false;
+                _confiner.m_ConfineScreenEdges = true;
                 break;
             case GameData.ViewerMode.Mode3D:
                 Viewer.Set3D();
