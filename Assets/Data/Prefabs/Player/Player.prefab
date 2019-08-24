@@ -873,8 +873,7 @@ MonoBehaviour:
   _triggerOnComplete:
     _items: []
   _components:
-    _items:
-    - {fileID: 6602922218062600653}
+    _items: []
   _isRunning: 0
   _complete: 0
 --- !u!114 &6602922218062600653
@@ -1083,9 +1082,9 @@ GameObject:
   - component: {fileID: 6790831346791328268}
   - component: {fileID: 1146156531379595911}
   - component: {fileID: 2353743976938898440}
+  - component: {fileID: 1572642226244480072}
   - component: {fileID: 148933806714679601}
   - component: {fileID: 7662537881713715}
-  - component: {fileID: 1572642226244480072}
   m_Layer: 12
   m_Name: Attack Effect
   m_TagString: Untagged
@@ -1125,7 +1124,6 @@ MonoBehaviour:
     _items:
     - {fileID: 148933806714679601}
     - {fileID: 7662537881713715}
-    - {fileID: 1572642226244480072}
   _isRunning: 0
   _complete: 0
 --- !u!114 &2353743976938898440
@@ -1142,6 +1140,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _logMessage: player attack
   _level: 0
+--- !u!114 &1572642226244480072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5208298961527488989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b734418421f3b441b54982d78eb3968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolName: floating_text
+  _text: attack
+  _color: {r: 0, g: 0.6666667, b: 0.6666667, a: 1}
+  _spawnLocation: {fileID: 1027202483170108461}
 --- !u!114 &148933806714679601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1175,22 +1189,6 @@ MonoBehaviour:
   _audioClip: {fileID: 0}
   _audioSource: {fileID: 0}
   _waitForComplete: 0
---- !u!114 &1572642226244480072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5208298961527488989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b734418421f3b441b54982d78eb3968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _poolName: floating_text
-  _text: attack
-  _color: {r: 0, g: 0.6666667, b: 0.6666667, a: 1}
-  _spawnLocation: {fileID: 1027202483170108461}
 --- !u!1 &5265333235901902022
 GameObject:
   m_ObjectHideFlags: 0
@@ -2328,6 +2326,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424032537796453222, guid: 4ccb41fc5c8ebd44e826dfee305c4881,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ccb41fc5c8ebd44e826dfee305c4881, type: 3}

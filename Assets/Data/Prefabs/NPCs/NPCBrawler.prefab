@@ -245,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _logMessage: npc unblock
+  _logMessage: npc hit
   _level: 0
 --- !u!114 &7726666953507074508
 MonoBehaviour:
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 1558656942515482246}
   - component: {fileID: 7956647979531835772}
   m_Layer: 13
-  m_Name: KungFuGrid
+  m_Name: KungFuGrid (can this go away?)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -379,7 +379,6 @@ MonoBehaviour:
     _items: []
   _components:
     _items:
-    - {fileID: 7486628691633470105}
     - {fileID: 4868491676262836054}
   _isRunning: 0
   _complete: 0
@@ -892,6 +891,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3265832139180742657}
   - component: {fileID: 2814460364538452983}
+  - component: {fileID: 2939919992997637990}
   - component: {fileID: 7912046545066708525}
   m_Layer: 13
   m_Name: Combo Fail Effect
@@ -929,10 +929,23 @@ MonoBehaviour:
   _triggerOnComplete:
     _items: []
   _components:
-    _items:
-    - {fileID: 7912046545066708525}
+    _items: []
   _isRunning: 0
   _complete: 0
+--- !u!114 &2939919992997637990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6180652105833528001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _logMessage: npc combo fail
+  _level: 0
 --- !u!114 &7912046545066708525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1297,7 +1310,6 @@ MonoBehaviour:
     _items: []
   _components:
     _items:
-    - {fileID: 1156575580783492466}
     - {fileID: 1785281716270807372}
   _isRunning: 0
   _complete: 0
@@ -1437,9 +1449,9 @@ GameObject:
   - component: {fileID: 7319547281115459226}
   - component: {fileID: 6994903446394223841}
   - component: {fileID: 3311323456874845919}
+  - component: {fileID: 624592468706561409}
   - component: {fileID: 2119600318961684256}
   - component: {fileID: 5426313696954695828}
-  - component: {fileID: 624592468706561409}
   m_Layer: 13
   m_Name: Attack Effect
   m_TagString: Untagged
@@ -1479,7 +1491,6 @@ MonoBehaviour:
     _items:
     - {fileID: 2119600318961684256}
     - {fileID: 5426313696954695828}
-    - {fileID: 624592468706561409}
   _isRunning: 0
   _complete: 0
 --- !u!114 &3311323456874845919
@@ -1496,6 +1507,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _logMessage: npc attack
   _level: 0
+--- !u!114 &624592468706561409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8100230599278707358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b734418421f3b441b54982d78eb3968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolName: floating_text
+  _text: attack
+  _color: {r: 0, g: 0.6666667, b: 0.6666667, a: 1}
+  _spawnLocation: {fileID: 1058589801699540057}
 --- !u!114 &2119600318961684256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1529,22 +1556,6 @@ MonoBehaviour:
   _audioClip: {fileID: 0}
   _audioSource: {fileID: 0}
   _waitForComplete: 0
---- !u!114 &624592468706561409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8100230599278707358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b734418421f3b441b54982d78eb3968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _poolName: floating_text
-  _text: attack
-  _color: {r: 0, g: 0.6666667, b: 0.6666667, a: 1}
-  _spawnLocation: {fileID: 1058589801699540057}
 --- !u!1 &8694113334144364361
 GameObject:
   m_ObjectHideFlags: 0
@@ -1635,7 +1646,7 @@ MonoBehaviour:
   _hitAudioEffectTriggerComponent: {fileID: 4787067950933513504}
   _knockDownEffectTrigger: {fileID: 2434604341702964875}
   _deathEffectTrigger: {fileID: 6237249302560061764}
-  _comboFailEffectTrigger: {fileID: 0}
+  _comboFailEffectTrigger: {fileID: 2814460364538452983}
   _attackVolume: {fileID: 4356007661132845643}
   _blockVolume: {fileID: 5793994074923292069}
   _jumpBehaviorComponent: {fileID: 1482694962723182602}
