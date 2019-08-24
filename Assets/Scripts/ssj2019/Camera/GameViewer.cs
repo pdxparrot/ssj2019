@@ -39,16 +39,8 @@ namespace pdxpartyparrot.ssj2019.Camera
 
         public void Initialize(GameData gameData)
         {
-            switch(gameData.SelectedViewerMode)
-            {
-            case GameData.ViewerMode.Mode2D:
-                Viewer.Set2D(gameData.ViewportSize);
-                _confiner.m_ConfineScreenEdges = true;
-                break;
-            case GameData.ViewerMode.Mode3D:
-                Viewer.Set3D();
-                break;
-            }
+            Viewer.Set2D(gameData.ViewportSize);
+            _confiner.m_ConfineScreenEdges = true;
 
             _transposer.m_GroupFramingMode = CinemachineFramingTransposer.FramingMode.HorizontalAndVertical;
             _transposer.m_MinimumOrthoSize = gameData.ViewportSize;
