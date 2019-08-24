@@ -299,10 +299,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerHUD
       objectReference: {fileID: 0}
+    - target: {fileID: 8467181134933230653, guid: 669f79f667940544ea607e29f01ef7ee,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1432496331557089005, guid: 669f79f667940544ea607e29f01ef7ee,
         type: 3}
       propertyPath: m_fontSize
-      value: 20.95
+      value: 27.1
       objectReference: {fileID: 0}
     - target: {fileID: 1432496331557089005, guid: 669f79f667940544ea607e29f01ef7ee,
         type: 3}

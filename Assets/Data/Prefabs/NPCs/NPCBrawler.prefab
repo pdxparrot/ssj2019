@@ -1635,7 +1635,7 @@ MonoBehaviour:
   _hitAudioEffectTriggerComponent: {fileID: 4787067950933513504}
   _knockDownEffectTrigger: {fileID: 2434604341702964875}
   _deathEffectTrigger: {fileID: 6237249302560061764}
-  _comboFailEffectTrigger: {fileID: 2814460364538452983}
+  _comboFailEffectTrigger: {fileID: 0}
   _attackVolume: {fileID: 4356007661132845643}
   _blockVolume: {fileID: 5793994074923292069}
   _jumpBehaviorComponent: {fileID: 1482694962723182602}

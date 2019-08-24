@@ -38,7 +38,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 958825520140196051}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aae9f82cc057aaa40b1540a93de53429, type: 3}
   m_Name: 
@@ -46,5 +46,7 @@ MonoBehaviour:
   _enableKey: 4
   _enabled: 0
   _windowScrollPos: {x: 0, y: 0}
+  _showRendering: 0
+  _showMemory: 0
   _fpsAccumulatorSize: 100
   _frameStepping: 0

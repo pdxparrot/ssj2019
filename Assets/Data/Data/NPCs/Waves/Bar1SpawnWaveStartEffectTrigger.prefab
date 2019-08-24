@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _show: 1
-  _text: 'Wave 1: Playlist Shuffle'
+  _text: 'Wave 1: Time Machine & Playlist on shuffle'
 --- !u!114 &7710378983811463794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69c235b50e0d9624d85c03d693762b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _seconds: 3
+  _seconds: 5
   _isWaiting: 0
 --- !u!1 &8747309472346465145
 GameObject:

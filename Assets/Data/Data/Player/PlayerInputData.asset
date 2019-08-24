@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3045c444cc071f54086a5aa500edc9dd, type: 3}
   m_Name: PlayerInputData
   m_EditorClassIdentifier: 
-  _movementLerpSpeed: 5
+  _movementLerpSpeed: 12
   _lookLerpSpeed: 10
   _inputBufferSize: 5
-  _inputQueueTimeout: 500
+  _inputBufferTimeoutMs: 500

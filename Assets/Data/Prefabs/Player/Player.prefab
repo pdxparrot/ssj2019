@@ -50,7 +50,6 @@ MonoBehaviour:
     _items: []
   _components:
     _items:
-    - {fileID: 7167662138795055160}
     - {fileID: 2166185025869763349}
   _isRunning: 0
   _complete: 0
@@ -368,8 +367,7 @@ MonoBehaviour:
   _triggerOnComplete:
     _items: []
   _components:
-    _items:
-    - {fileID: 5803313516412793750}
+    _items: []
   _isRunning: 0
   _complete: 0
 --- !u!114 &5803313516412793750

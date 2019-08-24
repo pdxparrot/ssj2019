@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1011391a36fda02429da9d8b82d3fedc, type: 3}
   m_Name: Enemy Attack - right punch Med Data
   m_EditorClassIdentifier: 
-  _name: Med Punch R
+  _name: 
   _attackDirection: 0
   _airAttack: 0
   _unblockable: 0
