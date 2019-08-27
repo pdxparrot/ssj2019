@@ -1,17 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-using pdxpartyparrot.Core.Actors;
-using pdxpartyparrot.Core.Collections;
+﻿using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.ssj2019.KungFuCircle
 {
     public class KungFuGrid : MonoBehaviour
     {
-
+        // TODO: clean these up so they're not public
         public int maxgridslots = 1;
         public int gridcapacity = 10;
         public int attackcapacity = 10;
@@ -20,98 +17,106 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
         public float outerslotdistance = 1;
 
         [SerializeField]
-        private Actor owner;
+        [FormerlySerializedAs("owner")]
+        private Actor _owner;
 
-        public Actor Owner => owner;
+        public Actor Owner => _owner;
 
-        bool[] slotstaken;
-        float[] innergridslotsdegrees;
+        [SerializeField]
+        [ReadOnly]
+        private int[] _slotsTaken;
 
-        // Start is called before the first frame update
-        void Start() {
-            StageManager.Instance.Register(this);
-            slotstaken = new bool[maxgridslots];
-            innergridslotsdegrees = new float[maxgridslots];
+        [SerializeField]
+        [ReadOnly]
+        private float[] _innerGridSlotsDegrees;
 
-            float currentdegrees = degreesbetweenslots;
-            for (int i = 0; i < maxgridslots; i++) {
-                innergridslotsdegrees[i] += currentdegrees;
-                currentdegrees += degreesbetweenslots;
-            }
-        }
-
-        public Vector3 GetAttackSlotLocation(int i) {
-            // Get the vector form from a quaternion ( i had no idea how else to get it in unity) 
-            Vector3 NewDirection = Quaternion.AngleAxis(innergridslotsdegrees[i], new Vector3(0, 1, 0)) * new Vector3(1, 1, 1);
-            NewDirection.Normalize();
-            Vector3 NewLocation = (Owner.Behavior.Movement.Position + (NewDirection * attackslotdistance));
-            return NewLocation;
-        }
-
-        public void FillGridSlot(int i, int gridweight) {
-            gridcapacity -= gridweight;
-            slotstaken[i] = true;
-        }
-
-        public void EmptyGridSlot(int i) {
-            slotstaken[i] = false;
-        }
-
-        public bool IsGridSlotAvailable(int i)
+#region Unity Lifecycle
+        private void Awake()
         {
-            return slotstaken[i];
-        }
+            _slotsTaken = new int[maxgridslots];
+            _innerGridSlotsDegrees = new float[maxgridslots];
 
-
-        public int GetAvailableGridSlot() {
-            for (int i = 0; i < maxgridslots; i++)
-            {
-                if (!slotstaken[i])
-                {
-                    return i;
-                }
+            float currentDegrees = degreesbetweenslots;
+            for(int i = 0; i < maxgridslots; ++i) {
+                _innerGridSlotsDegrees[i] += currentDegrees;
+                currentDegrees += degreesbetweenslots;
             }
-            return -1;
         }
+#endregion
 
-        public Vector3 GetOuterSlotLocation(Actor Attacker) {
+        public Vector3 GetAttackSlotLocation(int i)
+        {
             // Get the vector form from a quaternion ( i had no idea how else to get it in unity) 
-            Vector3 ToVector = Attacker.Behavior.Movement.Position - Owner.Behavior.Movement.Position;
-            ToVector.Normalize();
-            Vector3 NewLocation = (Owner.Behavior.Movement.Position + (ToVector * outerslotdistance));
-            return NewLocation;
+            Vector3 newDirection = Quaternion.AngleAxis(_innerGridSlotsDegrees[i], new Vector3(0.0f, 1.0f, 0.0f)) * new Vector3(1.0f, 1.0f, 1.0f);
+            newDirection.Normalize();
+            return Owner.Behavior.Movement.Position + (newDirection * attackslotdistance);
         }
 
-        public bool HasGridCapacity(int gridweight) {
-            if ((gridcapacity - gridweight) < 0) {
+        public bool HasGridCapacity(int gridWeight)
+        {
+            if(gridcapacity - gridWeight < 0) {
                 return false;
             }
 
-            for (int i = 0; i < maxgridslots; i++)
-            {
-                if (!slotstaken[i])
-                {
+            for(int i = 0; i < _slotsTaken.Length; ++i) {
+                if(_slotsTaken[i] <= 0)  {
                     return true;
                 }
             }
             return false;
         }
 
-        public bool CanBeAttacked(int attackweight) {
-            if ((attackcapacity - attackweight) < 0)
-            {
+        public void FillGridSlot(int i, int gridWeight)
+        {
+            gridcapacity -= gridWeight;
+            _slotsTaken[i] = gridWeight;
+        }
+
+        public void EmptyGridSlot(int i)
+        {
+            gridcapacity += _slotsTaken[i];
+            _slotsTaken[i] = 0;
+        }
+
+        public bool IsGridSlotAvailable(int i)
+        {
+            return _slotsTaken[i] <= 0;
+        }
+
+        public int GetAvailableGridSlot()
+        {
+            for(int i = 0; i < _slotsTaken.Length; i++) {
+                if(_slotsTaken[i] <= 0) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        public Vector3 GetOuterSlotLocation(Actor attacker)
+        {
+            // Get the vector form from a quaternion ( i had no idea how else to get it in unity) 
+            Vector3 toVector = attacker.Behavior.Movement.Position - Owner.Behavior.Movement.Position;
+            toVector.Normalize();
+            return Owner.Behavior.Movement.Position + (toVector * outerslotdistance);
+        }
+
+        // TODO: make use of these I guess?
+        // these are pretty bad tho because we have no RAII around it...
+
+        public bool AllocateAttack(int attackWeight)
+        {
+            if(attackcapacity - attackWeight < 0) {
                 return false;
             }
+
+            attackcapacity -= attackWeight;
             return true;
         }
 
-        public void RegisterAttack(int attackweight) {
-            attackcapacity -= attackweight;
-        }
-
-        private void OnDestroy() {
-            if (StageManager.HasInstance)
-                StageManager.Instance.Unregister(this);
+        public void ReleaseAttack(int attackWeight)
+        {
+            attackcapacity += attackWeight;
         }
     }
 }

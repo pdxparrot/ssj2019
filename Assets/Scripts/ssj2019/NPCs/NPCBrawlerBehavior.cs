@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
@@ -28,6 +29,38 @@ namespace pdxpartyparrot.ssj2019.NPCs
     [RequireComponent(typeof(NPCFidgetBehavior))]
     public sealed class NPCBrawlerBehavior : NPCBehavior, IBrawlerBehaviorActions
     {
+        [Serializable]
+        private struct Target
+        {
+            [CanBeNull]
+            public Actor Actor { get; private set; }
+
+            [CanBeNull]
+            public KungFuGrid TargetGrid { get; private set; }
+
+            public int TargetGridSlot { get; private set; }
+
+            // TODO: if we can ever target non-players this will need to change
+            public bool IsValid => null != Actor && null != TargetGrid && TargetGridSlot >= 0;
+
+            public void ReTarget([CanBeNull] Actor actor)
+            {
+                if(null != TargetGrid) {
+                    TargetGrid.EmptyGridSlot(TargetGridSlot);
+                }
+                TargetGrid = null;
+                TargetGridSlot = -1;
+
+                Actor = actor;
+
+                Player player = Actor as Player;
+                if(null != player) {
+                    TargetGrid = player.KungFuGrid;
+                    TargetGridSlot = TargetGrid.GetAvailableGridSlot();
+                }
+            }
+        }
+
         private enum State
         {
             Idle,
@@ -79,11 +112,11 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         [SerializeField]
         [ReadOnly]
-        [CanBeNull]
-        private Actor _target;
+        private Target _target;
+
         [SerializeField]
         [ReadOnly]
-        private Vector3 attackslotlocation;
+        private int _attackSlotIndex;
 
         private BrawlerBehavior _brawlerBehavior;
 
@@ -196,13 +229,22 @@ namespace pdxpartyparrot.ssj2019.NPCs
             _stateCooldown.Start(NPCBrawler.NPCBrawlerData.StateCooldownSeconds);
         }
 
-        private void SetTarget(Actor target)
+        private bool SetTarget(IReadOnlyCollection<Actor> targets)
         {
-            if(NPCManager.Instance.DebugBehavior) {
-                Debug.Log($"NPC {Owner.Id} targeting {target.Id}");
+            foreach(Actor target in targets) {
+                _target.ReTarget(target);
+                if(!_target.IsValid) {
+                    continue;
+                }
+
+                if(NPCManager.Instance.DebugBehavior) {
+                    Debug.Log($"NPC {Owner.Id} targeting {target.Id}");
+                }
+                return true;
             }
 
-            _target = target;
+            _target.ReTarget(null);
+            return false;
         }
 
         private void HandleIdle()
@@ -211,30 +253,36 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return;
             }
 
-            // if we have something we can attack, attack it
-            var interactablePlayers = _interactables.GetInteractables<Player>();
-            if(interactablePlayers.Count > 0) {
-                SetTarget(interactablePlayers.ElementAt(0) as Player);
+            Actor previousTarget = _target.Actor;
 
+            // if we have something nearby we can attack, attack it
+            // TODO: make this list a class member to avoid re-allocation
+            List<Player> interactablePlayers = new List<Player>();
+            _interactables.GetInteractables(interactablePlayers);
+            if(SetTarget(interactablePlayers)) {
                 SetState(State.Attack);
                 return;
             }
 
-            // if we already have a target, track it
-            if(null != _target) {
+            // if we already had a target, track it
+            if(null != previousTarget) {
+                _target.ReTarget(previousTarget);
+
                 SetState(State.Track);
                 return;
             }
 
             // look for something to track
-            Player player = ActorManager.Instance.GetActors<Player>().NearestManhattan(Movement.Position, out float distance) as Player;
-            if(null != player && NPCBrawler.NPCBrawlerData.CanTrackDistance(distance)) {
-                SetTarget(player);
+            // TODO: make this list a class member to avoid re-allocation
+            List<Actor> targets = new List<Actor>();
 
+            ActorManager.Instance.GetActors<Player>().WithinDistance(Movement.Position, NPCBrawler.NPCBrawlerData.MaxTrackDistance, targets);
+            if(SetTarget(targets)) {
                 SetState(State.Track);
                 return;
             }
 
+            // still idle...
             _fidgetBehavior.Fidget();
         }
 
@@ -251,28 +299,27 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             // TODO: from here we're assuming our target is a Player, but what if it isn't?
 
-            var interactablePlayers = _interactables.GetInteractables<Player>();
-
             // is our target interactable?
-            if(interactablePlayers.Contains(_target as Player)) {
+            // TODO: make this list a class member to avoid re-allocation
+            List<Player> interactablePlayers = new List<Player>();
+            _interactables.GetInteractables(interactablePlayers);
+            if(interactablePlayers.Contains(_target.Actor as Player)) {
                 SetState(State.Attack);
                 return;
             }
 
-            // if we have something else we can attack, attack it
-            if(interactablePlayers.Count > 0) {
-                SetTarget(interactablePlayers.ElementAt(0) as Player);
+            Actor previousTarget = _target.Actor;
+
+            // if we have something else nearby we can attack, attack it
+            if(SetTarget(interactablePlayers)) {
                 SetState(State.Attack);
                 return;
             }
 
-            // This will change in the future where the target will become the grid position,
-            // Not just the targets location, if the actor has a Grid script
-            // can't attack our target, so follow it
-            attackslotlocation = StageManager.Instance.RequestAttackSlotLocation(_target, Owner);
+            _target.ReTarget(previousTarget);
     
-            if(!NPCBrawler.UpdatePath(attackslotlocation)) {
-                SetState(State.Attack);
+            if(!NPCBrawler.UpdatePath(_target.TargetGrid.GetAttackSlotLocation(_target.TargetGridSlot))) {
+                SetState(State.Idle);
                 return;
             }
         }
@@ -290,25 +337,28 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             // TODO: from here we're assuming our target is a Player, but what if it isn't?
 
-            var interactablePlayers = _interactables.GetInteractables<Player>();
-
             // is our target interactable?
-            if(interactablePlayers.Contains(_target as Player)) {
+            // TODO: make this list a class member to avoid re-allocation
+            List<Player> interactablePlayers = new List<Player>();
+            _interactables.GetInteractables(interactablePlayers);
+            if(interactablePlayers.Contains(_target.Actor as Player)) {
                 // TODO: pass in last move
                 Attack(Vector3.zero);
                 return;
             }
 
-            // if we have something else we can attack, attack it
-            if(interactablePlayers.Count > 0) {
-                SetTarget(interactablePlayers.ElementAt(0) as Player);
+            Actor previousTarget = _target.Actor;
 
+            // if we have something else nearby we can attack, attack it
+            if(SetTarget(interactablePlayers)) {
                 // TODO: pass in last move
                 Attack(Vector3.zero);
+
                 return;
             }
 
             // go back to tracking
+            _target.ReTarget(previousTarget);
             SetState(State.Track);
         }
 #endregion
@@ -316,7 +366,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
         private bool EnsureTarget()
         {
             // lost target?
-            if(null == _target) {
+            if(!_target.IsValid) {
                 if(NPCManager.Instance.DebugBehavior) {
                     Debug.Log($"NPC {Owner.Id} lost target while attacking");
                 }
@@ -326,7 +376,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             }
 
             // dead target?
-            if(_target is Player player && player.IsDead) {
+            if(_target.Actor is Player player && player.IsDead) {
                 if(NPCManager.Instance.DebugBehavior) {
                     Debug.Log($"NPC {Owner.Id} attack target died");
                 }
@@ -345,6 +395,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             // TODO: add a small window of immunity on spawn
             _immune = false;
+
+            _target.ReTarget(null);
         }
 
         public override void OnReSpawn(SpawnPoint spawnpoint)
@@ -353,6 +405,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             // TODO: add a small window of immunity on respawn
             _immune = false;
+
+            _target.ReTarget(null);
         }
 
         public override void OnDeSpawn()
@@ -384,7 +438,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public void OnDead()
         {
-            StageManager.Instance.ReleaseKungFuGridSlot(_target, Owner);
+            _target.ReTarget(null);
+
             ClearActionBuffer();
 
             GameManager.Instance.NPCBrawlerKilled(NPCBrawler.NPCBrawlerData.Points);

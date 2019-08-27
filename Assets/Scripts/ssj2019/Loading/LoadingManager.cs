@@ -31,7 +31,6 @@ namespace pdxpartyparrot.ssj2019.Loading
             GameManager.CreateFromPrefab(_gameManagerPrefab, ManagersContainer);
             PlayerManager.CreateFromPrefab(_playerManagerPrefab, ManagersContainer);
             NPCManager.CreateFromPrefab(_npcManagerPrefab, ManagersContainer);
-            StageManager.Create(ManagersContainer);
         }
     }
 }

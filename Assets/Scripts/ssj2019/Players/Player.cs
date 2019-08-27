@@ -2,17 +2,15 @@
 
 using JetBrains.Annotations;
 
-using pdxpartyparrot.Core.Actors;
-using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.Game.Interactables;
-using pdxpartyparrot.Game.UI;
 using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Characters.Brawlers;
 using pdxpartyparrot.ssj2019.Data.Players;
+using pdxpartyparrot.ssj2019.KungFuCircle;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -37,6 +35,11 @@ namespace pdxpartyparrot.ssj2019.Players
 
         [SerializeField]
         private PlayerIndicator _playerIndicator;
+
+        [SerializeField]
+        private KungFuGrid _kungFuGrid;
+
+        public KungFuGrid KungFuGrid => _kungFuGrid;
 
         private GameViewer PlayerGameViewer => (GameViewer)Viewer;
 

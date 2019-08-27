@@ -1586,7 +1586,9 @@ MonoBehaviour:
   degreesbetweenslots: 90
   attackslotdistance: 0.5
   outerslotdistance: 2
-  owner: {fileID: 463285651185603561}
+  _owner: {fileID: 463285651185603561}
+  _slotstaken: 
+  _innergridslotsdegrees: []
 --- !u!1 &7152924620666103387
 GameObject:
   m_ObjectHideFlags: 0
@@ -1982,6 +1984,7 @@ MonoBehaviour:
   _input: {fileID: 2194374668728194188}
   _playerCharacterData: {fileID: 0}
   _playerIndicator: {fileID: 7662034392016381256}
+  _kungFuGrid: {fileID: 6254564640636822816}
 --- !u!1 &7835375812971009641
 GameObject:
   m_ObjectHideFlags: 0

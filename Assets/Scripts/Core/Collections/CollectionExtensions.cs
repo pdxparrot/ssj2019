@@ -118,5 +118,17 @@ namespace pdxpartyparrot.Core.Collections
 
             return bestIdx < 0 ? null : collection.ElementAt(bestIdx);
         }
+
+        public static void WithinDistance<T>(this IReadOnlyCollection<T> collection, Vector3 position, float distance, IList<T> matches) where T: Component
+        {
+            foreach(T element in collection) {
+                Vector3 epos = element.transform.position;
+
+                float dist = Mathf.Abs(epos.x - position.x) + Mathf.Abs(epos.y - position.y) + Mathf.Abs(epos.z - position.z);
+                if(dist <= distance) {
+                    matches.Add(element);
+                }
+            }
+        }
     }
 }

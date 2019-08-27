@@ -28,6 +28,16 @@ namespace pdxpartyparrot.Game.Interactables
             return _interactables.GetOrAdd(typeof(T));
         }
 
+        public void GetInteractables<T>(ICollection<T> interactables) where T: class, IInteractable
+        {
+            IReadOnlyCollection<IInteractable> n = GetInteractables<T>();
+            foreach(IInteractable interactable in n) {
+                if(interactable is T scratch) {
+                    interactables.Add(scratch);
+                }
+            }
+        }
+
         public IEnumerator<IInteractable> GetEnumerator()
         {
             foreach(var kvp in _interactables) {
