@@ -40,34 +40,33 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
 
         [SerializeField]
         [ReadOnly]
-        private float[] _innerGridSlotsDegrees;
+        private float[] _innerGridSlotsRadians;
 
         [SerializeField]
         [ReadOnly]
-        private float _degreesBetweenSlots;
+        private float _radiansBetweenSlots;
 
 #region Unity Lifecycle
         private void Awake()
         {
             _slotsTaken = new int[_maxGridSlots];
-            _innerGridSlotsDegrees = new float[_maxGridSlots];
+            _innerGridSlotsRadians = new float[_maxGridSlots];
 
-            _degreesBetweenSlots = 360.0f / _maxGridSlots;
+            // TODO: do this smarter
+            _radiansBetweenSlots = (360.0f / _maxGridSlots) * Mathf.Deg2Rad;
 
-            float currentDegrees = _degreesBetweenSlots;
+            float currentRadians = _radiansBetweenSlots;
             for(int i = 0; i < _maxGridSlots; ++i) {
-                _innerGridSlotsDegrees[i] += currentDegrees;
-                currentDegrees += _degreesBetweenSlots;
+                _innerGridSlotsRadians[i] += currentRadians;
+                currentRadians += _radiansBetweenSlots;
             }
         }
 #endregion
 
         public Vector3 GetAttackSlotLocation(int i)
         {
-            // Get the vector form from a quaternion ( i had no idea how else to get it in unity) 
-            Vector3 newDirection = Quaternion.AngleAxis(_innerGridSlotsDegrees[i], new Vector3(0.0f, 1.0f, 0.0f)) * new Vector3(1.0f, 1.0f, 1.0f);
-            newDirection.Normalize();
-            return Owner.Behavior.Movement.Position + (newDirection * _attackSlotDistance);
+            float angle = _innerGridSlotsRadians[i];
+            return Owner.Behavior.Movement.Position + new Vector3(Mathf.Cos(angle), 0.0f, Mathf.Sin(angle)) * _attackSlotDistance;
         }
 
         public bool HasGridCapacity(int gridWeight)
@@ -113,10 +112,8 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
 
         public Vector3 GetOuterSlotLocation(Actor attacker)
         {
-            // Get the vector form from a quaternion ( i had no idea how else to get it in unity) 
-            Vector3 toVector = attacker.Behavior.Movement.Position - Owner.Behavior.Movement.Position;
-            toVector.Normalize();
-            return Owner.Behavior.Movement.Position + (toVector * _outerSlotDistance);
+            Vector3 direction = (attacker.Behavior.Movement.Position - Owner.Behavior.Movement.Position).normalized;
+            return Owner.Behavior.Movement.Position + (direction * _outerSlotDistance);
         }
 
         // TODO: make use of these I guess?
