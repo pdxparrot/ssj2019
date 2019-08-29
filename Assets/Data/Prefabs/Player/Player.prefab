@@ -1580,15 +1580,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8cd0537f5b0c44fb9af95ab3d97eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxgridslots: 1
-  gridcapacity: 10
-  attackcapacity: 4
-  degreesbetweenslots: 90
-  attackslotdistance: 0.5
-  outerslotdistance: 2
+  _maxGridSlots: 4
+  _gridCapacity: 10
+  _attackCapacity: 4
+  _attackSlotDistance: 0.5
+  _outerSlotDistance: 2
   _owner: {fileID: 463285651185603561}
-  _slotstaken: 
-  _innergridslotsdegrees: []
+  _slotsTaken: 
+  _innerGridSlotsDegrees: []
+  _degreesBetweenSlots: 0
 --- !u!1 &7152924620666103387
 GameObject:
   m_ObjectHideFlags: 0

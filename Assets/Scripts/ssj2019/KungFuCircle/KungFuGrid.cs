@@ -8,13 +8,25 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
 {
     public class KungFuGrid : MonoBehaviour
     {
-        // TODO: clean these up so they're not public
-        public int maxgridslots = 1;
-        public int gridcapacity = 10;
-        public int attackcapacity = 10;
-        public float degreesbetweenslots = 90;
-        public float attackslotdistance = .5f;
-        public float outerslotdistance = 1;
+        [SerializeField]
+        [FormerlySerializedAs("maxgridslots")]
+        private int _maxGridSlots = 4;
+
+        [SerializeField]
+        [FormerlySerializedAs("gridcapacity")]
+        private int _gridCapacity = 10;
+
+        [SerializeField]
+        [FormerlySerializedAs("attackcapacity")]
+        private int _attackCapacity = 10;
+
+        [SerializeField]
+        [FormerlySerializedAs("attackslotdistance")]
+        private float _attackSlotDistance = 0.5f;
+
+        [SerializeField]
+        [FormerlySerializedAs("outerslotdistance")]
+        private float _outerSlotDistance = 1.0f;
 
         [SerializeField]
         [FormerlySerializedAs("owner")]
@@ -30,16 +42,22 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
         [ReadOnly]
         private float[] _innerGridSlotsDegrees;
 
+        [SerializeField]
+        [ReadOnly]
+        private float _degreesBetweenSlots;
+
 #region Unity Lifecycle
         private void Awake()
         {
-            _slotsTaken = new int[maxgridslots];
-            _innerGridSlotsDegrees = new float[maxgridslots];
+            _slotsTaken = new int[_maxGridSlots];
+            _innerGridSlotsDegrees = new float[_maxGridSlots];
 
-            float currentDegrees = degreesbetweenslots;
-            for(int i = 0; i < maxgridslots; ++i) {
+            _degreesBetweenSlots = 360.0f / _maxGridSlots;
+
+            float currentDegrees = _degreesBetweenSlots;
+            for(int i = 0; i < _maxGridSlots; ++i) {
                 _innerGridSlotsDegrees[i] += currentDegrees;
-                currentDegrees += degreesbetweenslots;
+                currentDegrees += _degreesBetweenSlots;
             }
         }
 #endregion
@@ -49,12 +67,12 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
             // Get the vector form from a quaternion ( i had no idea how else to get it in unity) 
             Vector3 newDirection = Quaternion.AngleAxis(_innerGridSlotsDegrees[i], new Vector3(0.0f, 1.0f, 0.0f)) * new Vector3(1.0f, 1.0f, 1.0f);
             newDirection.Normalize();
-            return Owner.Behavior.Movement.Position + (newDirection * attackslotdistance);
+            return Owner.Behavior.Movement.Position + (newDirection * _attackSlotDistance);
         }
 
         public bool HasGridCapacity(int gridWeight)
         {
-            if(gridcapacity - gridWeight < 0) {
+            if(_gridCapacity - gridWeight < 0) {
                 return false;
             }
 
@@ -68,13 +86,13 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
 
         public void FillGridSlot(int i, int gridWeight)
         {
-            gridcapacity -= gridWeight;
+            _gridCapacity -= gridWeight;
             _slotsTaken[i] = gridWeight;
         }
 
         public void EmptyGridSlot(int i)
         {
-            gridcapacity += _slotsTaken[i];
+            _gridCapacity += _slotsTaken[i];
             _slotsTaken[i] = 0;
         }
 
@@ -98,7 +116,7 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
             // Get the vector form from a quaternion ( i had no idea how else to get it in unity) 
             Vector3 toVector = attacker.Behavior.Movement.Position - Owner.Behavior.Movement.Position;
             toVector.Normalize();
-            return Owner.Behavior.Movement.Position + (toVector * outerslotdistance);
+            return Owner.Behavior.Movement.Position + (toVector * _outerSlotDistance);
         }
 
         // TODO: make use of these I guess?
@@ -106,17 +124,17 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
 
         public bool AllocateAttack(int attackWeight)
         {
-            if(attackcapacity - attackWeight < 0) {
+            if(_attackCapacity - attackWeight < 0) {
                 return false;
             }
 
-            attackcapacity -= attackWeight;
+            _attackCapacity -= attackWeight;
             return true;
         }
 
         public void ReleaseAttack(int attackWeight)
         {
-            attackcapacity += attackWeight;
+            _attackCapacity += attackWeight;
         }
     }
 }
