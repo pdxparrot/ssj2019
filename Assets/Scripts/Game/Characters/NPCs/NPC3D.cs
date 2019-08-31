@@ -8,6 +8,8 @@ using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.ObjectPool;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data.Characters;
+using pdxpartyparrot.Game.State;
+using pdxpartyparrot.Game.UI;
 
 using UnityEngine;
 using UnityEngine.AI;
@@ -70,9 +72,19 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         [ReadOnly]
         private int _stuckCheckCount;
 
+#region Debug
+        [SerializeField]
+        [CanBeNull]
+        private Transform _debugTextTarget;
+
+        [SerializeField]
+        [CanBeNull]
+        private FloatingTextQueue _debugTextQueue;
+
 #if UNITY_EDITOR
         private LineRenderer _debugPathRenderer;
 #endif
+#endregion
 
 #region Unity Lifecycle
         protected override void Awake()
@@ -143,13 +155,13 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         public bool UpdatePath(Vector3 target)
         {
             if(!_agent.SetDestination(target)) {
-                Debug.LogWarning($"Failed to set NPC destination: {target}");
+                Debug.LogWarning($"Failed to set NPC {Id} destination: {target}");
                 return false;
             }
-            
-            // TODO: whenever NPCManager moves to Game,
-            // we can do this when DebugBehavior is true
-            //Debug.Log($"NPC {Id} updating path from {Behavior.Movement.Position} to {target}");
+
+            if(GameStateManager.Instance.NPCManager.DebugBehavior) {
+                DisplayDebugText($"Pathing to {target}", Color.green);
+            }
 
             return true;
         }
@@ -203,9 +215,9 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             _lastStuckCheckPosition = Behavior.Movement.Position;
             _stuckCheckCount = 0;
 
-            // TODO: make this configurable
-            WaitForSeconds wait = new WaitForSeconds(0.5f);
+            WaitForSeconds wait = new WaitForSeconds(GameStateManager.Instance.NPCManager.StuckCheckSeconds);
             while(true) {
+                // if we don't have a path, we can't technically be stuck
                 if(!_agent.hasPath || _agent.pathPending) {
                     _lastStuckCheckPosition = Behavior.Movement.Position;
                     _stuckCheckCount = 0;
@@ -225,11 +237,10 @@ namespace pdxpartyparrot.Game.Characters.NPCs
                 }
 
                 // are we stuck?
-                // TODO: make this configurable
-                if(_stuckCheckCount >= 2) {
-                    // TODO: whenever NPCManager moves to Game,
-                    // we can do this when DebugBehavior is true
-                    //Debug.Log($"NPC {Id} is stuck");
+                if(_stuckCheckCount >= GameStateManager.Instance.NPCManager.StuckCheckMaxPasses) {
+                    if(GameStateManager.Instance.NPCManager.DebugBehavior) {
+                        DisplayDebugText("Stuck", Color.magenta);
+                    }
 
                     Stop(true, true);
                 }
@@ -245,6 +256,16 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             _agentStuckCheck = null;
 
             OnDeSpawn();
+        }
+#endregion
+
+#region Debug
+        public void DisplayDebugText(string text, Color color)
+        {
+            Debug.Log($"[NPC {Id}]: {text}");
+            if(null != _debugTextQueue) {
+                _debugTextQueue.QueueFloatingText(text, color, () => null == _debugTextTarget ? transform.position : _debugTextTarget.position);
+            }
         }
 #endregion
     }

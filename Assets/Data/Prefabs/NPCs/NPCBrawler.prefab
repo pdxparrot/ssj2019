@@ -163,6 +163,8 @@ MonoBehaviour:
   _isPathStale: 0
   _lastStuckCheckPosition: {x: 0, y: 0, z: 0}
   _stuckCheckCount: 0
+  _debugTextTarget: {fileID: 1058589801699540057}
+  _debugTextQueue: {fileID: 1508617855748037129}
   _npcBrawlerData: {fileID: 0}
 --- !u!114 &2803644518033097450
 MonoBehaviour:

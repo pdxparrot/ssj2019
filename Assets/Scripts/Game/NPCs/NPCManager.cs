@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using pdxpartyparrot.Core.DebugMenu;
+using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.NPCs;
 using pdxpartyparrot.Game.State;
@@ -11,6 +12,13 @@ namespace pdxpartyparrot.Game.NPCs
 {
     public interface INPCManager
     {
+        bool NPCsImmune { get; }
+
+        bool DebugBehavior { get; }
+
+        float StuckCheckSeconds { get; }
+
+        int StuckCheckMaxPasses { get; }
     }
 
     public abstract class NPCManager<T> : SingletonBehavior<T>, INPCManager where T: NPCManager<T>
@@ -25,6 +33,23 @@ namespace pdxpartyparrot.Game.NPCs
         private bool _debugNPCBehavior;
 
         public bool DebugBehavior => _debugNPCBehavior;
+#endregion
+
+        [Space(10)]
+
+#region Stuck Check
+        [Header("Stuck Check")]
+
+        [SerializeField]
+        private int _stuckCheckMs = 500;
+
+        public float StuckCheckSeconds => _stuckCheckMs * TimeManager.MilliSecondsToSeconds;
+
+        [SerializeField]
+        [Tooltip("How many passes through the stuck check should we fail before being considered stuck")]
+        private int _stuckCheckMaxPasses = 2;
+
+        public int StuckCheckMaxPasses => _stuckCheckMaxPasses;
 #endregion
 
         private readonly HashSet<INPC> _npcs = new HashSet<INPC>();
