@@ -2,6 +2,7 @@
 
 using JetBrains.Annotations;
 
+using pdxpartyparrot.Game.Players;
 using pdxpartyparrot.Game.UI;
 using pdxpartyparrot.ssj2019.Data.Players;
 
@@ -10,7 +11,7 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ssj2019.Players
 {
-    public sealed class PlayerManager : Game.Players.PlayerManager<PlayerManager, Player>
+    public sealed class PlayerManager : PlayerManager<PlayerManager>
     {
         [SerializeField]
         private PlayerData _playerData;

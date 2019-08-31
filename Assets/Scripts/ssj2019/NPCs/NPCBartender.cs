@@ -36,7 +36,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return false;
             }
 
-            NPCManager.Instance.Register(this);
+            NPCManager.Instance.RegisterNPC(this);
 
             return true;
         }
@@ -47,14 +47,14 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return false;
             }
 
-            NPCManager.Instance.Register(this);
+            NPCManager.Instance.RegisterNPC(this);
 
             return true;
         }
 
         public override void OnDeSpawn()
         {
-            NPCManager.Instance.Unregister(this);
+            NPCManager.Instance.UnregisterNPC(this);
 
             base.OnDeSpawn();
         }

@@ -14,6 +14,7 @@ using pdxpartyparrot.Game.State;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Networking;
+using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.Game.Players
 {
@@ -30,7 +31,7 @@ namespace pdxpartyparrot.Game.Players
         void DespawnPlayers();
     }
 
-    public abstract class PlayerManager<T, TV> : SingletonBehavior<T>, IPlayerManager where T: PlayerManager<T, TV> where TV: Actor, IPlayer
+    public abstract class PlayerManager<T> : SingletonBehavior<T>, IPlayerManager where T: PlayerManager<T>
     {
 #region Debug
         [SerializeField]
@@ -44,15 +45,19 @@ namespace pdxpartyparrot.Game.Players
         public bool DebugInput => _debugInput;
 #endregion
 
+        // TODO: what if we have different types of players?
         [SerializeField]
         private CharacterBehaviorData _playerBehaviorData;
 
         public CharacterBehaviorData PlayerBehaviorData => _playerBehaviorData;
 
         [SerializeField]
-        private TV _playerPrefab;
+        [FormerlySerializedAs("_playerPrefab")]
+        private Actor _playerActorPrefab;
 
-        private TV PlayerPrefab => _playerPrefab;
+        private Actor PlayerActorPrefab => _playerActorPrefab;
+
+        private IPlayer PlayerPrefab => (IPlayer)_playerActorPrefab;
 
         private readonly HashSet<IPlayer> _players = new HashSet<IPlayer>();
 

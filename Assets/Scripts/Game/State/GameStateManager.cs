@@ -13,9 +13,11 @@ using pdxpartyparrot.Core.UI;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Camera;
 using pdxpartyparrot.Game.Network;
+using pdxpartyparrot.Game.NPCs;
 using pdxpartyparrot.Game.Players;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Networking;
 
 namespace pdxpartyparrot.Game.State
@@ -88,6 +90,13 @@ namespace pdxpartyparrot.Game.State
 
         [CanBeNull]
         public IPlayerManager PlayerManager => _playerManager;
+
+        [SerializeField]
+        [ReadOnly]
+        private INPCManager _npcManager;
+
+        [CanBeNull]
+        public INPCManager NPCManager => _npcManager;
 #endregion
 
 #region Unity Lifecycle
@@ -127,6 +136,7 @@ namespace pdxpartyparrot.Game.State
 #region Register Game Managers
         public void RegisterGameManager(IGameManager gameManager)
         {
+            Assert.IsNull(_gameManager);
             _gameManager = gameManager;
         }
 
@@ -137,12 +147,24 @@ namespace pdxpartyparrot.Game.State
 
         public void RegisterPlayerManager(IPlayerManager playerManager)
         {
+            Assert.IsNull(_playerManager);
             _playerManager = playerManager;
         }
 
         public void UnregisterPlayerManager()
         {
-            _gameManager = null;
+            _playerManager = null;
+        }
+
+        public void RegisterNPCManager(INPCManager npcManager)
+        {
+            Assert.IsNull(_npcManager);
+            _npcManager = npcManager;
+        }
+
+        public void UnregisterNPCManager()
+        {
+            _npcManager = null;
         }
 #endregion
 

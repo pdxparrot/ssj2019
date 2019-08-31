@@ -77,7 +77,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return false;
             }
 
-            NPCManager.Instance.Register(this);
+            NPCManager.Instance.RegisterNPC(this);
 
             Brawler.OnSpawn();
 
@@ -90,7 +90,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return false;
             }
 
-            NPCManager.Instance.Register(this);
+            NPCManager.Instance.RegisterNPC(this);
 
             Brawler.OnReSpawn();
 
@@ -99,7 +99,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public override void OnDeSpawn()
         {
-            NPCManager.Instance.Unregister(this);
+            NPCManager.Instance.UnregisterNPC(this);
 
             base.OnDeSpawn();
         }
