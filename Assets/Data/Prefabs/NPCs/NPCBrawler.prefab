@@ -188,7 +188,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8367300055314557411}
   - component: {fileID: 6631989109035438992}
-  - component: {fileID: 8518554696486808840}
   - component: {fileID: 7726666953507074508}
   - component: {fileID: 4787067950933513504}
   m_Layer: 13
@@ -232,20 +231,6 @@ MonoBehaviour:
     - {fileID: 4787067950933513504}
   _isRunning: 0
   _complete: 0
---- !u!114 &8518554696486808840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2006412280590400529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: npc hit
-  _level: 0
 --- !u!114 &7726666953507074508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,7 +274,6 @@ GameObject:
   m_Component:
   - component: {fileID: 72540964976889972}
   - component: {fileID: 2434604341702964875}
-  - component: {fileID: 7486628691633470105}
   - component: {fileID: 4868491676262836054}
   m_Layer: 12
   m_Name: KnockDown Effect
@@ -331,22 +315,6 @@ MonoBehaviour:
     - {fileID: 4868491676262836054}
   _isRunning: 0
   _complete: 0
---- !u!114 &7486628691633470105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2829092881001045515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b734418421f3b441b54982d78eb3968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _poolName: floating_text
-  _text: knocked down
-  _color: {r: 0, g: 1, b: 0, a: 0}
-  _spawnLocation: {fileID: 0}
 --- !u!114 &4868491676262836054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -840,8 +808,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3265832139180742657}
   - component: {fileID: 2814460364538452983}
-  - component: {fileID: 2939919992997637990}
-  - component: {fileID: 7912046545066708525}
   m_Layer: 13
   m_Name: Combo Fail Effect
   m_TagString: Untagged
@@ -881,36 +847,6 @@ MonoBehaviour:
     _items: []
   _isRunning: 0
   _complete: 0
---- !u!114 &2939919992997637990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6180652105833528001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: npc combo fail
-  _level: 0
---- !u!114 &7912046545066708525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6180652105833528001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b734418421f3b441b54982d78eb3968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _poolName: floating_text
-  _text: Combo Fail
-  _color: {r: 1, g: 0, b: 0, a: 1}
-  _spawnLocation: {fileID: 1058589801699540057}
 --- !u!1 &6679099646180853450
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,7 +857,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7419802528756265072}
   - component: {fileID: 6163520276177178404}
-  - component: {fileID: 3949677230404003929}
   - component: {fileID: 6588978275413240049}
   m_Layer: 13
   m_Name: Block End Effect
@@ -963,20 +898,6 @@ MonoBehaviour:
     - {fileID: 6588978275413240049}
   _isRunning: 0
   _complete: 0
---- !u!114 &3949677230404003929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6679099646180853450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: npc unblock
-  _level: 0
 --- !u!114 &6588978275413240049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1054,7 +975,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6970363255316021077}
   - component: {fileID: 5641737771736793805}
-  - component: {fileID: 388331679547234100}
   - component: {fileID: 389664334633880357}
   m_Layer: 13
   m_Name: Block Effect
@@ -1096,20 +1016,6 @@ MonoBehaviour:
     - {fileID: 389664334633880357}
   _isRunning: 0
   _complete: 0
---- !u!114 &388331679547234100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6752568096242502146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: npc blocked
-  _level: 0
 --- !u!114 &389664334633880357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1135,7 +1041,6 @@ GameObject:
   m_Component:
   - component: {fileID: 562440987492900035}
   - component: {fileID: 2970808422812650086}
-  - component: {fileID: 3984627566495939527}
   - component: {fileID: 8877237017341337870}
   m_Layer: 13
   m_Name: Block Begin Effect
@@ -1177,20 +1082,6 @@ MonoBehaviour:
     - {fileID: 8877237017341337870}
   _isRunning: 0
   _complete: 0
---- !u!114 &3984627566495939527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6916013039419557787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: npc block
-  _level: 0
 --- !u!114 &8877237017341337870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1219,8 +1110,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6288140937166054733}
   - component: {fileID: 4321034046357433653}
-  - component: {fileID: 809819477716694817}
-  - component: {fileID: 1156575580783492466}
   - component: {fileID: 1785281716270807372}
   m_Layer: 13
   m_Name: Dash Effect
@@ -1262,36 +1151,6 @@ MonoBehaviour:
     - {fileID: 1785281716270807372}
   _isRunning: 0
   _complete: 0
---- !u!114 &809819477716694817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7603056072392001625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: npc dash
-  _level: 0
---- !u!114 &1156575580783492466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7603056072392001625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b734418421f3b441b54982d78eb3968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _poolName: floating_text
-  _text: dash
-  _color: {r: 0, g: 0.6666667, b: 0.6666667, a: 1}
-  _spawnLocation: {fileID: 1058589801699540057}
 --- !u!114 &1785281716270807372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1397,8 +1256,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7319547281115459226}
   - component: {fileID: 6994903446394223841}
-  - component: {fileID: 3311323456874845919}
-  - component: {fileID: 624592468706561409}
   - component: {fileID: 2119600318961684256}
   - component: {fileID: 5426313696954695828}
   m_Layer: 13
@@ -1442,36 +1299,6 @@ MonoBehaviour:
     - {fileID: 5426313696954695828}
   _isRunning: 0
   _complete: 0
---- !u!114 &3311323456874845919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8100230599278707358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: npc attack
-  _level: 0
---- !u!114 &624592468706561409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8100230599278707358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b734418421f3b441b54982d78eb3968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _poolName: floating_text
-  _text: attack
-  _color: {r: 0, g: 0.6666667, b: 0.6666667, a: 1}
-  _spawnLocation: {fileID: 1058589801699540057}
 --- !u!114 &2119600318961684256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1515,7 +1342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1058589801699540057}
   m_Layer: 13
-  m_Name: Head
+  m_Name: Debug Text Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1602,6 +1429,7 @@ MonoBehaviour:
   _attackBehaviorComponent: {fileID: 5887927068430922675}
   _blockBehaviorComponent: {fileID: 171347820613495406}
   _dashBehaviorComponent: {fileID: 4945914547374958261}
+  _debugTextTarget: {fileID: 1058589801699540057}
 --- !u!114 &7354327572179901474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1731,7 +1559,6 @@ MonoBehaviour:
   _attackEffectTrigger: {fileID: 6994903446394223841}
   _attackAnimationEffectTriggerComponent: {fileID: 2119600318961684256}
   _attackAudioEffectTriggerComponent: {fileID: 5426313696954695828}
-  _attackFloatingTextEffectTriggerComponent: {fileID: 624592468706561409}
 --- !u!114 &171347820613495406
 MonoBehaviour:
   m_ObjectHideFlags: 0

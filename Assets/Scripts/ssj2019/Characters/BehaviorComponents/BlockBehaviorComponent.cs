@@ -50,7 +50,7 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
             }
 
             if(GameManager.Instance.DebugBrawlers) {
-                Debug.Log($"Brawler {Behavior.Owner.Id} starting block");
+                _brawlerBehavior.DisplayDebugText("Begin Block", Color.cyan);
             }
 
             _brawlerBehavior.CancelActions(false);
@@ -73,7 +73,7 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
             }
 
             if(GameManager.Instance.DebugBrawlers) {
-                Debug.Log($"Brawler {Behavior.Owner.Id} stopping block");
+                _brawlerBehavior.DisplayDebugText("End Block", Color.cyan);
             }
 
             _blockEndEffectTrigger.Trigger(() => {

@@ -23,7 +23,7 @@ namespace pdxpartyparrot.ssj2019.Characters.BehaviorComponents
             }
 
             if(GameManager.Instance.DebugBrawlers) {
-                Debug.Log($"Brawler {Behavior.Owner.Id} starting dash");
+                _brawlerBehavior.DisplayDebugText("Dash", Color.cyan);
             }
 
             _brawlerBehavior.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Dash);

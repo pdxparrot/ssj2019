@@ -1,7 +1,6 @@
 ﻿using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Math;
-using pdxpartyparrot.Game.Effects.EffectTriggerComponents;
 using pdxpartyparrot.ssj2019.Characters.Brawlers;
 using pdxpartyparrot.ssj2019.Data.Brawlers;
 using pdxpartyparrot.ssj2019.Volumes;
@@ -71,9 +70,6 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
         [SerializeField]
         private AudioEffectTriggerComponent _attackAudioEffectTriggerComponent;
 
-        [SerializeField]
-        private FloatingTextEffectTriggerComponent _attackFloatingTextEffectTriggerComponent;
-
         public override bool OnPerformed(CharacterBehaviorAction action)
         {
             if(!(action is AttackAction attackAction)) {
@@ -86,7 +82,7 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
             }
 
             if(GameManager.Instance.DebugBrawlers) {
-                Debug.Log($"Brawler {Behavior.Owner.Id} starting attack {_brawlerBehavior.CurrentAttack.Name}");
+                _brawlerBehavior.DisplayDebugText($"Attack: {_brawlerBehavior.CurrentAttack.Name}", Color.cyan);
             }
 
             // TODO: calling Initialize() here is dumb, but we can't do it in our own Initialize()
@@ -96,7 +92,6 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
 
             _attackAnimationEffectTriggerComponent.SpineAnimationName = _brawlerBehavior.CurrentAttack.AnimationName;
             _attackAudioEffectTriggerComponent.AudioClip = _brawlerBehavior.CurrentAttack.AttackAudioClip;
-            _attackFloatingTextEffectTriggerComponent.Text = $"{_brawlerBehavior.CurrentAttack.Name}";
 
             _brawlerBehavior.Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Attack);
 

@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4790981211668434238}
   - component: {fileID: 4254428544176821508}
-  - component: {fileID: 8379026244741991667}
-  - component: {fileID: 7167662138795055160}
   - component: {fileID: 2166185025869763349}
   m_Layer: 12
   m_Name: Dash Effect
@@ -53,36 +51,6 @@ MonoBehaviour:
     - {fileID: 2166185025869763349}
   _isRunning: 0
   _complete: 0
---- !u!114 &8379026244741991667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 94780056344037258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: player dash
-  _level: 0
---- !u!114 &7167662138795055160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 94780056344037258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b734418421f3b441b54982d78eb3968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _poolName: floating_text
-  _text: dash
-  _color: {r: 0, g: 0.6666667, b: 0.6666667, a: 1}
-  _spawnLocation: {fileID: 1027202483170108461}
 --- !u!114 &2166185025869763349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +133,7 @@ MonoBehaviour:
   _attackBehaviorComponent: {fileID: 2342830165173679034}
   _blockBehaviorComponent: {fileID: 1883176091393127105}
   _dashBehaviorComponent: {fileID: 8802302069288872394}
+  _debugTextTarget: {fileID: 1027202483170108461}
 --- !u!114 &1466622540529787529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,7 +256,6 @@ MonoBehaviour:
   _attackEffectTrigger: {fileID: 1146156531379595911}
   _attackAnimationEffectTriggerComponent: {fileID: 148933806714679601}
   _attackAudioEffectTriggerComponent: {fileID: 7662537881713715}
-  _attackFloatingTextEffectTriggerComponent: {fileID: 1572642226244480072}
 --- !u!114 &1883176091393127105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,7 +298,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4411125482566629139}
   - component: {fileID: 5169714982919284938}
-  - component: {fileID: 5803313516412793750}
   m_Layer: 12
   m_Name: Combo Fail Effect
   m_TagString: Untagged
@@ -370,22 +337,6 @@ MonoBehaviour:
     _items: []
   _isRunning: 0
   _complete: 0
---- !u!114 &5803313516412793750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 435160514742176093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b734418421f3b441b54982d78eb3968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _poolName: floating_text
-  _text: Combo Fail
-  _color: {r: 1, g: 0, b: 0, a: 1}
-  _spawnLocation: {fileID: 1027202483170108461}
 --- !u!1 &444373045944589312
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,7 +348,6 @@ GameObject:
   - component: {fileID: 1810502874660691583}
   - component: {fileID: 8635509093160306210}
   - component: {fileID: 6353053455918519961}
-  - component: {fileID: 1547228666034662538}
   m_Layer: 12
   m_Name: Jump Apex
   m_TagString: Untagged
@@ -457,20 +407,6 @@ MonoBehaviour:
   _loop: 0
   _trackStartTime: 0
   _waitForComplete: 1
---- !u!114 &1547228666034662538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 444373045944589312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: Jump Start
-  _level: 0
 --- !u!1 &2485863649417268582
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,7 +417,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1949689036593770953}
   - component: {fileID: 1079242178650208271}
-  - component: {fileID: 8326711592244486354}
   - component: {fileID: 6129758529191386186}
   - component: {fileID: 490342692407967944}
   - component: {fileID: 5874353902780632619}
@@ -527,20 +462,6 @@ MonoBehaviour:
     - {fileID: 5874353902780632619}
   _isRunning: 0
   _complete: 0
---- !u!114 &8326711592244486354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2485863649417268582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: player hit
-  _level: 0
 --- !u!114 &6129758529191386186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -836,7 +757,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3537234643010495901}
   - component: {fileID: 9163237243729841478}
-  - component: {fileID: 6602922218062600653}
   m_Layer: 12
   m_Name: KnockDown Effect
   m_TagString: Untagged
@@ -876,22 +796,6 @@ MonoBehaviour:
     _items: []
   _isRunning: 0
   _complete: 0
---- !u!114 &6602922218062600653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3837256140448164912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b734418421f3b441b54982d78eb3968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _poolName: floating_text
-  _text: knocked down
-  _color: {r: 0, g: 1, b: 0, a: 0}
-  _spawnLocation: {fileID: 1027202483170108461}
 --- !u!1 &4152845487771813311
 GameObject:
   m_ObjectHideFlags: 0
@@ -902,7 +806,6 @@ GameObject:
   m_Component:
   - component: {fileID: 985820185993223690}
   - component: {fileID: 6478466866726388021}
-  - component: {fileID: 521827892685099031}
   - component: {fileID: 2539221798010161628}
   - component: {fileID: 453035800899343187}
   m_Layer: 12
@@ -946,20 +849,6 @@ MonoBehaviour:
     - {fileID: 453035800899343187}
   _isRunning: 0
   _complete: 0
---- !u!114 &521827892685099031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4152845487771813311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: player blocked
-  _level: 0
 --- !u!114 &2539221798010161628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1081,8 +970,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6790831346791328268}
   - component: {fileID: 1146156531379595911}
-  - component: {fileID: 2353743976938898440}
-  - component: {fileID: 1572642226244480072}
   - component: {fileID: 148933806714679601}
   - component: {fileID: 7662537881713715}
   m_Layer: 12
@@ -1126,36 +1013,6 @@ MonoBehaviour:
     - {fileID: 7662537881713715}
   _isRunning: 0
   _complete: 0
---- !u!114 &2353743976938898440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5208298961527488989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: player attack
-  _level: 0
---- !u!114 &1572642226244480072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5208298961527488989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b734418421f3b441b54982d78eb3968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _poolName: floating_text
-  _text: attack
-  _color: {r: 0, g: 0.6666667, b: 0.6666667, a: 1}
-  _spawnLocation: {fileID: 1027202483170108461}
 --- !u!114 &148933806714679601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1199,7 +1056,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1027202483170108461}
   m_Layer: 12
-  m_Name: Head
+  m_Name: Debug Text Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1229,7 +1086,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4870319420291113269}
   - component: {fileID: 6966623934742709282}
-  - component: {fileID: 2827403654806373311}
   - component: {fileID: 4756346590148829104}
   m_Layer: 12
   m_Name: Block End Effect
@@ -1271,20 +1127,6 @@ MonoBehaviour:
     - {fileID: 4756346590148829104}
   _isRunning: 0
   _complete: 0
---- !u!114 &2827403654806373311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5420301058010389892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: player unblock
-  _level: 0
 --- !u!114 &4756346590148829104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1464,7 +1306,6 @@ GameObject:
   - component: {fileID: 3432349245759820060}
   - component: {fileID: 6268327122031432007}
   - component: {fileID: 5370051212059392413}
-  - component: {fileID: 1342408314561257797}
   m_Layer: 12
   m_Name: Jump Up
   m_TagString: Untagged
@@ -1523,20 +1364,6 @@ MonoBehaviour:
   _loop: 0
   _trackStartTime: 0
   _waitForComplete: 1
---- !u!114 &1342408314561257797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6729836444510437217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: Mid Jump
-  _level: 0
 --- !u!1 &6949157458772260453
 GameObject:
   m_ObjectHideFlags: 0
@@ -1584,11 +1411,10 @@ MonoBehaviour:
   _gridCapacity: 10
   _attackCapacity: 4
   _attackSlotDistance: 0.5
-  _outerSlotDistance: 2
   _owner: {fileID: 463285651185603561}
   _slotsTaken: 
-  _innerGridSlotsDegrees: []
-  _degreesBetweenSlots: 0
+  _innerGridSlotsRadians: []
+  _radiansBetweenSlots: 0
 --- !u!1 &7152924620666103387
 GameObject:
   m_ObjectHideFlags: 0
@@ -1600,7 +1426,6 @@ GameObject:
   - component: {fileID: 4761377939630512076}
   - component: {fileID: 2041207559425830554}
   - component: {fileID: 4081494732230848954}
-  - component: {fileID: 1258141278476383129}
   m_Layer: 12
   m_Name: Jump Down
   m_TagString: Untagged
@@ -1660,20 +1485,6 @@ MonoBehaviour:
   _loop: 0
   _trackStartTime: 0
   _waitForComplete: 1
---- !u!114 &1258141278476383129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7152924620666103387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: 
-  _level: 0
 --- !u!1 &7225779730989231392
 GameObject:
   m_ObjectHideFlags: 0
@@ -1995,7 +1806,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5471448559866563293}
   - component: {fileID: 7159524601455611885}
-  - component: {fileID: 1068261223425734473}
   - component: {fileID: 4786865428053294427}
   m_Layer: 12
   m_Name: Block Begin Effect
@@ -2037,20 +1847,6 @@ MonoBehaviour:
     - {fileID: 4786865428053294427}
   _isRunning: 0
   _complete: 0
---- !u!114 &1068261223425734473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7835375812971009641}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: player block
-  _level: 0
 --- !u!114 &4786865428053294427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2129,7 +1925,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4627852137223526028}
   - component: {fileID: 6433857838732750911}
-  - component: {fileID: 5675363421848045140}
   - component: {fileID: 4489978042281282601}
   - component: {fileID: 3839242922462266750}
   - component: {fileID: 9142755120627191815}
@@ -2174,20 +1969,6 @@ MonoBehaviour:
     - {fileID: 9142755120627191815}
   _isRunning: 0
   _complete: 0
---- !u!114 &5675363421848045140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8777259801603241557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d199b427708cd4787c56906e2a7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _logMessage: player died
-  _level: 0
 --- !u!114 &4489978042281282601
 MonoBehaviour:
   m_ObjectHideFlags: 0

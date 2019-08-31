@@ -53,7 +53,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             set
             {
                 if(GameManager.Instance.DebugBrawlers) {
-                    Debug.Log($"Brawler {Actor.Id} setting action {value}");
+                    _brawlerBehavior.DisplayDebugText($"Action: {value}", Color.magenta);
                 }
                 _currentAction = value;
             }

@@ -146,6 +146,11 @@ namespace pdxpartyparrot.Game.UI
         }
 
 #region Floating Text
+        public void QueueFloatingText(string text, Color color, Func<Vector3> position)
+        {
+            QueueFloatingText(DefaultFloatingTextPoolName, text, color, position);
+        }
+
         public void QueueFloatingText(string poolName, string text, Color color, Func<Vector3> position)
         {
             _floatingText.Enqueue(new FloatingTextEntry

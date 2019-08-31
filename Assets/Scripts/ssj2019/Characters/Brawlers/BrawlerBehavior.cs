@@ -8,6 +8,7 @@ using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
+using pdxpartyparrot.Game.UI;
 using pdxpartyparrot.ssj2019.Data.Brawlers;
 using pdxpartyparrot.ssj2019.Players.BehaviorComponents;
 using pdxpartyparrot.ssj2019.Volumes;
@@ -150,6 +151,13 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         [SerializeField]
         private DashBehaviorComponent _dashBehaviorComponent;
 
+        [Space(10)]
+
+        [Header("Debug")]
+
+        [SerializeField]
+        private Transform _debugTextTarget;
+
         public IBrawlerBehaviorActions ActionHandler { get; set; }
 
         public Actor Owner => Brawler.Actor;
@@ -266,6 +274,26 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         }
 #endregion
 
+        public void CancelActions(bool force)
+        {
+            if(!force && !Brawler.CurrentAction.Cancellable) {
+                return;
+            }
+
+            // if we're not inside a cancel window,
+            // we need to make sure we clean up after
+            // any animations that might be doing stuff
+
+            // cancel blocks
+            _blockVolume.EnableVolume(false);
+
+            // cancel attacks
+            _attackVolume.EnableVolume(false);
+
+            // idle out
+            Idle();
+        }
+
 #region Combos
         public bool AdvanceCombo(CharacterBehaviorComponent.CharacterBehaviorAction action)
         {
@@ -290,7 +318,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             ActionHandler.OnComboMove(isOpener, _currentComboEntry.Move, Brawler.CurrentAction);
 
             if(GameManager.Instance.DebugBrawlers) {
-                Debug.Log($"Brawler {Owner.Id} advancing combo to {_currentComboEntry.Move.Id}");
+                DisplayDebugText($"Advance combo: {_currentComboEntry.Move.Id}", Color.green);
             }
 
             return true;
@@ -312,7 +340,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         private void Combo()
         {
             if(GameManager.Instance.DebugBrawlers) {
-                Debug.Log($"Brawler {Owner.Id} attempting to combo from {_currentComboEntry.Move.Id}");
+                DisplayDebugText($"Attempting combo: {_currentComboEntry.Move.Id}", Color.yellow);
             }
 
             CharacterBehaviorComponent.CharacterBehaviorAction action = ActionHandler.NextAction;
@@ -328,7 +356,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         public void ComboFail()
         {
             if(GameManager.Instance.DebugBrawlers) {
-                Debug.Log($"Brawler {Owner.Id} combo failed / exhausted");
+                DisplayDebugText("Combo failed / exhausted", Color.red);
             }
 
             _currentComboEntry = null;
@@ -337,6 +365,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         }
 #endregion
 
+#region Damage
         public bool Damage(Game.Actors.DamageData damageData)
         {
             if(ActionHandler.IsDead || ActionHandler.IsImmune) {
@@ -352,7 +381,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 }
 
                 if(GameManager.Instance.DebugBrawlers) {
-                    Debug.Log($"Brawler {Owner.Id} blocked damaged by {dd.Source.Id} for {dd.AttackData.DamageAmount} (took {dd.AttackData.BlockDamageAmount}");
+                    DisplayDebugText($"Blocked damage for {dd.AttackData.DamageAmount} (took {dd.AttackData.BlockDamageAmount})", Color.blue);
                 }
 
                 if(null != dd.BrawlerActionHandler) {
@@ -375,7 +404,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             if(GameManager.Instance.DebugBrawlers) {
-                Debug.Log($"Brawler {Owner.Id} damaged by {dd.Source.Id} for {dd.AttackData.DamageAmount}");
+                DisplayDebugText($"Damage: {dd.AttackData.DamageAmount}", Color.red);
             }
 
             CancelActions(false);
@@ -403,8 +432,10 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 return false;
             }
 
+            // TODO: instead just move the thing forward, fuck it
             damageData.Source.Behavior.Movement.AddImpulse(-damageData.Direction * damageData.AttackData.MoveFoward);
 
+            // TODO: set velocity instead of using an impulse
             Vector3 force = damageData.Direction * damageData.AttackData.PushBackAmount + damageData.AttackData.KnockDownForce * Vector3.down + damageData.AttackData.KnockUpForce * Vector3.up;
             Owner.Behavior.Movement.AddImpulse(force);
 
@@ -424,26 +455,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
             return false;
         }
-
-        public void CancelActions(bool force)
-        {
-            if(!force && !Brawler.CurrentAction.Cancellable) {
-                return;
-            }
-
-            // if we're not inside a cancel window,
-            // we need to make sure we clean up after
-            // any animations that might be doing stuff
-
-            // cancel blocks
-            _blockVolume.EnableVolume(false);
-
-            // cancel attacks
-            _attackVolume.EnableVolume(false);
-
-            // idle out
-            Idle();
-        }
+#endregion
 
 #region Effects
         private void InitializeEffects()
@@ -514,8 +526,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         private void AttackAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
-            BrawlerAction action = Brawler.CurrentAction;
-
             if(Brawler.BrawlerData.AttackVolumeSpawnEvent == evt.Data.Name) {
                _attackVolume.EnableVolume(true);
             } else if(Brawler.BrawlerData.AttackVolumeDeSpawnEvent == evt.Data.Name) {
@@ -525,8 +535,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             } else {
                 Debug.LogWarning($"Unhandled attack event: {evt.Data.Name}");
             }
-
-            Brawler.CurrentAction = action;
         }
 
         private void BlockBeginAnimationStartHandler(object sender, SpineAnimationEffectTriggerComponent.EventArgs args)
@@ -568,15 +576,11 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         private void BlockEndAnimationEvent(TrackEntry trackEntry, Spine.Event evt)
         {
-            BrawlerAction action = Brawler.CurrentAction;
-
             if(Brawler.BrawlerData.BlockVolumeDeSpawnEvent == evt.Data.Name) {
                 _blockVolume.EnableVolume(false);
             } else {
                 Debug.LogWarning($"Unhandled block end event: {evt.Data.Name}");
             }
-
-            Brawler.CurrentAction = action;
         }
 
         // TODO: this is temporary until we have an actual dash animation
@@ -611,6 +615,14 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             Brawler.CurrentAction = action;
+        }
+#endregion
+
+#region Debug
+        public void DisplayDebugText(string text, Color color)
+        {
+            Debug.Log($"Brawler debug: {text}");
+            GameUIManager.Instance.QueueFloatingText(text, color, () => _debugTextTarget.position);
         }
 #endregion
     }
