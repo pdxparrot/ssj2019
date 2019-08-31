@@ -43,9 +43,9 @@ namespace pdxpartyparrot.ssj2019.NPCs
             // TODO: if we can ever target non-players this will need to change
             public bool IsValid => null != Actor && null != TargetGrid && TargetGridSlot >= 0;
 
-            public void ReTarget([CanBeNull] Actor actor)
+            public void ReTarget([CanBeNull] Actor actor, int gridWeight)
             {
-                if(null != TargetGrid) {
+                if(null != TargetGrid && TargetGridSlot >= 0) {
                     TargetGrid.EmptyGridSlot(TargetGridSlot);
                 }
                 TargetGrid = null;
@@ -56,7 +56,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 Player player = Actor as Player;
                 if(null != player) {
                     TargetGrid = player.KungFuGrid;
-                    TargetGridSlot = TargetGrid.GetAvailableGridSlot();
+                    TargetGridSlot = TargetGrid.GetAvailableGridSlot(gridWeight);
                 }
             }
         }
@@ -232,7 +232,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
         private bool SetTarget(IReadOnlyCollection<Actor> targets)
         {
             foreach(Actor target in targets) {
-                _target.ReTarget(target);
+                _target.ReTarget(target, NPCBrawlerBehaviorData.KungFuGridWeight);
                 if(!_target.IsValid) {
                     continue;
                 }
@@ -243,7 +243,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return true;
             }
 
-            _target.ReTarget(null);
+            _target.ReTarget(null, NPCBrawlerBehaviorData.KungFuGridWeight);
             return false;
         }
 
@@ -266,7 +266,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
             // if we already had a target, track it
             if(null != previousTarget) {
-                _target.ReTarget(previousTarget);
+                _target.ReTarget(previousTarget, NPCBrawlerBehaviorData.KungFuGridWeight);
 
                 SetState(State.Track);
                 return;
@@ -316,7 +316,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
                 return;
             }
 
-            _target.ReTarget(previousTarget);
+            _target.ReTarget(previousTarget, NPCBrawlerBehaviorData.KungFuGridWeight);
     
             if(!NPCBrawler.UpdatePath(_target.TargetGrid.GetAttackSlotLocation(_target.TargetGridSlot))) {
                 SetState(State.Idle);
@@ -358,7 +358,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             }
 
             // go back to tracking
-            _target.ReTarget(previousTarget);
+            _target.ReTarget(previousTarget, NPCBrawlerBehaviorData.KungFuGridWeight);
             SetState(State.Track);
         }
 #endregion
@@ -396,7 +396,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             // TODO: add a small window of immunity on spawn
             _immune = false;
 
-            _target.ReTarget(null);
+            _target.ReTarget(null, NPCBrawlerBehaviorData.KungFuGridWeight);
         }
 
         public override void OnReSpawn(SpawnPoint spawnpoint)
@@ -406,7 +406,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
             // TODO: add a small window of immunity on respawn
             _immune = false;
 
-            _target.ReTarget(null);
+            _target.ReTarget(null, NPCBrawlerBehaviorData.KungFuGridWeight);
         }
 
         public override void OnDeSpawn()
@@ -438,7 +438,7 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public void OnDead()
         {
-            _target.ReTarget(null);
+            _target.ReTarget(null, NPCBrawlerBehaviorData.KungFuGridWeight);
 
             ClearActionBuffer();
 

@@ -19,5 +19,12 @@ namespace pdxpartyparrot.ssj2019.Data.NPCs
         private NPCBrawlerData[] _brawlerCharacterOptions;
 
         public IReadOnlyCollection<NPCBrawlerData> BrawlerCharacterOptions => _brawlerCharacterOptions;
+
+        [Space(10)]
+
+        [SerializeField]
+        private int _kungFuGridWeight = 5;
+
+        public int KungFuGridWeight => _kungFuGridWeight;
     }
 }

@@ -25,10 +25,6 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
         private float _attackSlotDistance = 0.5f;
 
         [SerializeField]
-        [FormerlySerializedAs("outerslotdistance")]
-        private float _outerSlotDistance = 1.0f;
-
-        [SerializeField]
         [FormerlySerializedAs("owner")]
         private Actor _owner;
 
@@ -69,51 +65,26 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
             return Owner.Behavior.Movement.Position + new Vector3(Mathf.Cos(angle), 0.0f, Mathf.Sin(angle)) * _attackSlotDistance;
         }
 
-        public bool HasGridCapacity(int gridWeight)
-        {
-            if(_gridCapacity - gridWeight < 0) {
-                return false;
-            }
-
-            for(int i = 0; i < _slotsTaken.Length; ++i) {
-                if(_slotsTaken[i] <= 0)  {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public void FillGridSlot(int i, int gridWeight)
-        {
-            _gridCapacity -= gridWeight;
-            _slotsTaken[i] = gridWeight;
-        }
-
         public void EmptyGridSlot(int i)
         {
             _gridCapacity += _slotsTaken[i];
             _slotsTaken[i] = 0;
         }
 
-        public bool IsGridSlotAvailable(int i)
+        public int GetAvailableGridSlot(int gridWeight)
         {
-            return _slotsTaken[i] <= 0;
-        }
+            if(_gridCapacity - gridWeight < 0) {
+                return -1;
+            }
 
-        public int GetAvailableGridSlot()
-        {
             for(int i = 0; i < _slotsTaken.Length; i++) {
                 if(_slotsTaken[i] <= 0) {
+                    _gridCapacity -= gridWeight;
+                    _slotsTaken[i] = gridWeight;
                     return i;
                 }
             }
             return -1;
-        }
-
-        public Vector3 GetOuterSlotLocation(Actor attacker)
-        {
-            Vector3 direction = (attacker.Behavior.Movement.Position - Owner.Behavior.Movement.Position).normalized;
-            return Owner.Behavior.Movement.Position + (direction * _outerSlotDistance);
         }
 
         // TODO: make use of these I guess?
