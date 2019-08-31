@@ -87,8 +87,7 @@ namespace pdxpartyparrot.ssj2019.KungFuCircle
             return -1;
         }
 
-        // TODO: make use of these I guess?
-        // these are pretty bad tho because we have no RAII around it...
+        // TODO: make use of these (need to know when the attack completes first)
 
         public bool AllocateAttack(int attackWeight)
         {
