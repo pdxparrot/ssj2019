@@ -1,6 +1,5 @@
 ﻿using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Effects;
-using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Effects.EffectTriggerComponents;
 
 using UnityEngine;

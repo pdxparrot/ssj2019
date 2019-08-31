@@ -12,9 +12,9 @@ using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Actors;
 using pdxpartyparrot.Game.Characters.NPCs;
 using pdxpartyparrot.Game.Interactables;
+using pdxpartyparrot.Game.KungFuCircle;
 using pdxpartyparrot.ssj2019.Characters.Brawlers;
 using pdxpartyparrot.ssj2019.Data.NPCs;
-using pdxpartyparrot.ssj2019.KungFuCircle;
 using pdxpartyparrot.ssj2019.Level;
 using pdxpartyparrot.ssj2019.Players;
 

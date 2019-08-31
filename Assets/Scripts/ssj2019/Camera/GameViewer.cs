@@ -9,6 +9,8 @@ using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Camera
 {
+    // TODO: a lot of this could move to core
+
     [RequireComponent(typeof(CinemachineFramingTransposer))]
     [RequireComponent(typeof(CinemachinePOV))]
     [RequireComponent(typeof(CinemachineConfiner))]

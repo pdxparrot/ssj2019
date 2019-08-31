@@ -4,7 +4,7 @@ using pdxpartyparrot.Core.Util;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace pdxpartyparrot.ssj2019.KungFuCircle
+namespace pdxpartyparrot.Game.KungFuCircle
 {
     public class KungFuGrid : MonoBehaviour
     {
