@@ -1,4 +1,6 @@
-﻿using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
+﻿using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Game.UI;
 
 using UnityEngine;
@@ -29,13 +31,17 @@ namespace pdxpartyparrot.Game.Effects.EffectTriggerComponents
         }
 
         [SerializeField]
+        private FloatingTextQueue _queue;
+
+        [SerializeField]
+        [CanBeNull]
         private Transform _spawnLocation;
 
         public override bool WaitForComplete => false;
 
         public override void OnStart()
         {
-            GameUIManager.Instance.QueueFloatingText(_poolName, _text, _color, () => null == _spawnLocation ? transform.position : _spawnLocation.position);
+            _queue.QueueFloatingText(_poolName, _text, _color, () => null == _spawnLocation ? transform.position : _spawnLocation.position);
         }
 
         public override void OnStop()

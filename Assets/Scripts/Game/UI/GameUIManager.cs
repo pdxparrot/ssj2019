@@ -1,14 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Core;
-using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.ObjectPool;
-using pdxpartyparrot.Core.UI;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -19,17 +15,6 @@ namespace pdxpartyparrot.Game.UI
     // so that games can override things like the PlayerUI
     public sealed class GameUIManager : SingletonBehavior<GameUIManager>
     {
-        private struct FloatingTextEntry
-        {
-            public string poolName;
-
-            public string text;
-
-            public Color color;
-
-            public Func<Vector3> position;
-        }
-
 #region UI / Menus
         [SerializeField]
         private PlayerUI _playerUIPrefab;
@@ -52,25 +37,11 @@ namespace pdxpartyparrot.Game.UI
         private string _defaultFloatingTextPoolName = "floating_text";
 
         public string DefaultFloatingTextPoolName => _defaultFloatingTextPoolName;
-
-        [SerializeField]
-        private float _floatingTextSpawnRate = 0.1f;
-
-        [SerializeField]
-        private float _floatingTextSpawnOffset = 0.5f;
-
-        [SerializeField]
-        [ReadOnly]
-        private float _nextFloatingTextSpawnOffset;
 #endregion
 
         private GameObject _uiContainer;
 
         private GameObject _floatingTextContainer;
-
-        private readonly Queue<FloatingTextEntry> _floatingText = new Queue<FloatingTextEntry>();
-
-        private Coroutine _floatingTextRoutine;
 
 #region Unity Lifecycle
         private void Awake()
@@ -79,8 +50,6 @@ namespace pdxpartyparrot.Game.UI
             _floatingTextContainer = new GameObject("Floating Text");
 
             PartyParrotManager.Instance.PauseEvent += PauseEventHandler;
-
-            InitDebugMenu();
         }
 
         protected override void OnDestroy()
@@ -105,8 +74,6 @@ namespace pdxpartyparrot.Game.UI
             if(null != _pauseMenu) {
                 _pauseMenu.gameObject.SetActive(PartyParrotManager.Instance.IsPaused);
             }
-
-            _floatingTextRoutine = StartCoroutine(FloatingTextRoutine());
         }
 
         public void InitializePlayerUI(UnityEngine.Camera camera)
@@ -121,13 +88,6 @@ namespace pdxpartyparrot.Game.UI
 
         public void Shutdown()
         {
-            if(null != _floatingTextRoutine) {
-                StopCoroutine(_floatingTextRoutine);
-            }
-            _floatingTextRoutine = null;
-
-            _floatingText.Clear();
-
             if(null != _playerUI) {
                 Destroy(_playerUI.gameObject);
             }
@@ -145,23 +105,11 @@ namespace pdxpartyparrot.Game.UI
             return null == prefab ? null : Instantiate(prefab, _uiContainer.transform);
         }
 
-#region Floating Text
-        public void QueueFloatingText(string text, Color color, Func<Vector3> position)
+        // helper for instantiating floating text under the floating text container
+        public FloatingText InstantiateFloatingText(string poolName)
         {
-            QueueFloatingText(DefaultFloatingTextPoolName, text, color, position);
+            return ObjectPoolManager.Instance.GetPooledObject<FloatingText>(poolName, _floatingTextContainer.transform);
         }
-
-        public void QueueFloatingText(string poolName, string text, Color color, Func<Vector3> position)
-        {
-            _floatingText.Enqueue(new FloatingTextEntry
-            {
-                poolName = poolName,
-                text = text,
-                color = color,
-                position = position
-            });
-        }
-#endregion
 
 #region Event Handlers
         private void PauseEventHandler(object sender, EventArgs args)
@@ -188,49 +136,5 @@ namespace pdxpartyparrot.Game.UI
             }
         }
 #endregion
-
-        private IEnumerator FloatingTextRoutine()
-        {
-            // start at an extremity
-            _nextFloatingTextSpawnOffset = _floatingTextSpawnOffset;
-
-            WaitForSeconds wait = new WaitForSeconds(_floatingTextSpawnRate);
-            while(true) {
-                yield return wait;
-
-                if(_floatingText.Count < 1) {
-                    continue;
-                }
-
-                FloatingTextEntry entry = _floatingText.Dequeue();
-
-                FloatingText floatingText = ObjectPoolManager.Instance.GetPooledObject<FloatingText>(entry.poolName, _floatingTextContainer.transform);
-                if(null == floatingText) {
-                    Debug.LogWarning($"Failed to get floating text from pool {entry.poolName}!");
-                    continue;
-                }
-
-                // offset our starting x (TODO: offset z also ?)
-                Vector3 position = entry.position();
-                position.x += _nextFloatingTextSpawnOffset;
-                _nextFloatingTextSpawnOffset = -_nextFloatingTextSpawnOffset;
-
-                floatingText.Text.text = entry.text;
-                floatingText.Text.color = entry.color;
-                floatingText.Show(position);
-            }
-        }
-
-        private void InitDebugMenu()
-        {
-            DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "Game.GameUIManager");
-            debugMenuNode.RenderContentsAction = () => {
-                GUILayout.Label($"Queued floating text: {_floatingText.Count}");
-                if(GUIUtils.LayoutButton("Spawn Floating Text")) {
-                    // TODO: need to be able to input the params to this
-                    QueueFloatingText(DefaultFloatingTextPoolName, "Test", Color.black, () => Vector3.zero);
-                }
-            };
-        }
     }
 }

@@ -1341,8 +1341,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1058589801699540057}
+  - component: {fileID: 1508617855748037129}
   m_Layer: 13
-  m_Name: Debug Text Target
+  m_Name: Debug Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1362,6 +1363,21 @@ Transform:
   m_Father: {fileID: 809502310432792466}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1508617855748037129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8694113334144364361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efd4970abde18464ca9d0115567cf7a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnRate: 0.1
+  _spawnOffset: 0.5
+  _nextSpawnOffset: 0
 --- !u!1 &9003367007530177534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,6 +1446,7 @@ MonoBehaviour:
   _blockBehaviorComponent: {fileID: 171347820613495406}
   _dashBehaviorComponent: {fileID: 4945914547374958261}
   _debugTextTarget: {fileID: 1058589801699540057}
+  _debugTextQueue: {fileID: 1508617855748037129}
 --- !u!114 &7354327572179901474
 MonoBehaviour:
   m_ObjectHideFlags: 0

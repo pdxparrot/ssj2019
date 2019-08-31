@@ -31,6 +31,52 @@ Transform:
   m_Father: {fileID: 8332846079228471583}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1815571869717318121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2929035834041767809}
+  - component: {fileID: 7530321622366660281}
+  m_Layer: 13
+  m_Name: Floating Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2929035834041767809
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815571869717318121}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8332846079228471583}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7530321622366660281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815571869717318121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efd4970abde18464ca9d0115567cf7a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnRate: 0.1
+  _spawnOffset: 0.5
+  _nextSpawnOffset: 0
 --- !u!1 &4474650949650482318
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,7 +108,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8332846079228471583}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3943076536039479633
 MonoBehaviour:
@@ -82,6 +128,7 @@ MonoBehaviour:
     _items:
     - {fileID: 4520711601193786648}
   _isRunning: 0
+  _complete: 0
 --- !u!114 &4074663506619132686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _logMessage: training dummy damaged
+  _level: 0
 --- !u!114 &4520711601193786648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +158,8 @@ MonoBehaviour:
   _poolName: floating_text
   _text: 
   _color: {r: 1, g: 0, b: 0, a: 1}
-  _spawnLocation: {fileID: 0}
+  _queue: {fileID: 7530321622366660281}
+  _spawnLocation: {fileID: 2929035834041767809}
 --- !u!1 &5549779340169179720
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,6 +225,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -245,6 +295,7 @@ MonoBehaviour:
   _spawnEffect: {fileID: 0}
   _respawnEffect: {fileID: 0}
   _despawnEffect: {fileID: 0}
+  _isAlive: 0
   _damageEffect: {fileID: 3943076536039479633}
   _floatingTextEffectTriggerComponent: {fileID: 4520711601193786648}
 --- !u!114 &1620814297342209898
@@ -292,6 +343,7 @@ Transform:
   m_Children:
   - {fileID: 2869408954681955766}
   - {fileID: 8732333646566767790}
+  - {fileID: 2929035834041767809}
   - {fileID: 5886233656534460886}
   m_Father: {fileID: 0}
   m_RootOrder: 0

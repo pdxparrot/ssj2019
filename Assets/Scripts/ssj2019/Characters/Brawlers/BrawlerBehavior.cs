@@ -153,10 +153,15 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         [Space(10)]
 
+#region Debug
         [Header("Debug")]
 
         [SerializeField]
         private Transform _debugTextTarget;
+
+        [SerializeField]
+        private FloatingTextQueue _debugTextQueue;
+#endregion
 
         public IBrawlerBehaviorActions ActionHandler { get; set; }
 
@@ -622,7 +627,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         public void DisplayDebugText(string text, Color color)
         {
             Debug.Log($"Brawler debug: {text}");
-            GameUIManager.Instance.QueueFloatingText(text, color, () => _debugTextTarget.position);
+            _debugTextQueue.QueueFloatingText(text, color, () => _debugTextTarget.position);
         }
 #endregion
     }
