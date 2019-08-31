@@ -1,7 +1,7 @@
 ﻿using pdxpartyparrot.Game.Loading;
-using pdxpartyparrot.ssj2019.KungFuCircle;
 using pdxpartyparrot.ssj2019.NPCs;
 using pdxpartyparrot.ssj2019.Players;
+using pdxpartyparrot.ssj2019.UI;
 
 using UnityEngine;
 
@@ -18,6 +18,9 @@ namespace pdxpartyparrot.ssj2019.Loading
         private GameManager _gameManagerPrefab;
 
         [SerializeField]
+        private GameUIManager _gameUiManagerPrefab;
+
+        [SerializeField]
         private PlayerManager _playerManagerPrefab;
 
         [SerializeField]
@@ -29,6 +32,7 @@ namespace pdxpartyparrot.ssj2019.Loading
             base.CreateManagers();
 
             GameManager.CreateFromPrefab(_gameManagerPrefab, ManagersContainer);
+            GameUIManager.CreateFromPrefab(_gameUiManagerPrefab, ManagersContainer);
             PlayerManager.CreateFromPrefab(_playerManagerPrefab, ManagersContainer);
             NPCManager.CreateFromPrefab(_npcManagerPrefab, ManagersContainer);
         }

@@ -11,6 +11,7 @@ using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Characters.Brawlers;
 using pdxpartyparrot.ssj2019.Data.Players;
 using pdxpartyparrot.ssj2019.KungFuCircle;
+using pdxpartyparrot.ssj2019.UI;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -81,7 +82,7 @@ namespace pdxpartyparrot.ssj2019.Players
                 GamePlayerInput.SetGamepad((Gamepad)device);
             }
 
-            PlayerManager.Instance.GamePlayerUI.HUD.ShowCharacterPanel(NetworkPlayer.ControllerId, _playerCharacterData);
+            GameUIManager.Instance.GamePlayerUI.HUD.ShowCharacterPanel(NetworkPlayer.ControllerId, _playerCharacterData);
 
             Brawler.Initialize(this, _playerCharacterData.BrawlerData);
 

@@ -1,7 +1,6 @@
 ﻿using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Game.State;
-using pdxpartyparrot.Game.UI;
-using pdxpartyparrot.ssj2019.Players;
+using pdxpartyparrot.ssj2019.UI;
 
 using UnityEngine;
 
@@ -30,7 +29,7 @@ namespace pdxpartyparrot.ssj2019.State
 
             // need this before players spawn
             GameUIManager.Instance.InitializePlayerUI(GameManager.Instance.Viewer.UICamera);
-            PlayerManager.Instance.GamePlayerUI.HUD.SetScore(0);
+            GameUIManager.Instance.GamePlayerUI.HUD.SetScore(0);
 
             if(!base.InitializeClient()) {
                 Debug.LogWarning("Failed to initialize client!");

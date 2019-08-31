@@ -3,10 +3,8 @@
 using pdxpartyparrot.Core.Loading;
 using pdxpartyparrot.Game.Cinematics;
 using pdxpartyparrot.Game.State;
-using pdxpartyparrot.Game.UI;
 
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.Game.Loading
 {
@@ -21,10 +19,6 @@ namespace pdxpartyparrot.Game.Loading
         private GameStateManager _gameStateManagerPrefab;
 
         [SerializeField]
-        [FormerlySerializedAs("_uiManagerPrefab")]
-        private GameUIManager _gameUIManagerPrefab;
-
-        [SerializeField]
         private DialogueManager _dialogManagerPrefab;
 
         [SerializeField]
@@ -36,7 +30,6 @@ namespace pdxpartyparrot.Game.Loading
             base.CreateManagers();
 
             GameStateManager.CreateFromPrefab(_gameStateManagerPrefab, ManagersContainer);
-            GameUIManager.CreateFromPrefab(_gameUIManagerPrefab, ManagersContainer);
             CinematicsManager.CreateFromPrefab(_cinematicsManagerPrefab, ManagersContainer);
             DialogueManager.CreateFromPrefab(_dialogManagerPrefab, ManagersContainer);
             HighScoreManager.Create(ManagersContainer);

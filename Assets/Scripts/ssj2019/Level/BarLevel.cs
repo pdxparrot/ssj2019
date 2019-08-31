@@ -3,7 +3,7 @@
 using pdxpartyparrot.Game.NPCs;
 using pdxpartyparrot.ssj2019.Data.NPCs;
 using pdxpartyparrot.ssj2019.NPCs;
-using pdxpartyparrot.ssj2019.Players;
+using pdxpartyparrot.ssj2019.UI;
 
 using UnityEngine;
 
@@ -74,8 +74,8 @@ namespace pdxpartyparrot.ssj2019.Level
         {
             base.GameStartClientEventHandler(sender, args);
 
-            PlayerManager.Instance.GamePlayerUI.HUD.SetWave(1);
-            PlayerManager.Instance.GamePlayerUI.HUD.SetScore(0);
+            GameUIManager.Instance.GamePlayerUI.HUD.SetWave(1);
+            GameUIManager.Instance.GamePlayerUI.HUD.SetScore(0);
 
             // TODO: server needs to do this as well, but local server/client shouldn't do it twice :(
             // probably would be easier all around if we just spawned the damn thing normally
@@ -104,7 +104,7 @@ namespace pdxpartyparrot.ssj2019.Level
 
         private void WaveStartEventHandler(object sender, SpawnWaveEventArgs args)
         {
-            PlayerManager.Instance.GamePlayerUI.HUD.SetWave(args.WaveIndex + 1);
+            GameUIManager.Instance.GamePlayerUI.HUD.SetWave(args.WaveIndex + 1);
         }
 
         private void WaveCompleteEventHandler(object sender, SpawnWaveEventArgs args)

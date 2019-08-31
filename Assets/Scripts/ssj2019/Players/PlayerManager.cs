@@ -3,7 +3,6 @@
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Game.Players;
-using pdxpartyparrot.Game.UI;
 using pdxpartyparrot.ssj2019.Data.Players;
 
 using UnityEngine;
@@ -17,10 +16,6 @@ namespace pdxpartyparrot.ssj2019.Players
         private PlayerData _playerData;
 
         public PlayerData PlayerData => _playerData;
-
-        // TODO: this is a massive hack to get around GameUIManager being the Game assembly
-        // whenever that gets abstracted out this can move into the game's GameUIManager
-        public UI.PlayerUI GamePlayerUI => (UI.PlayerUI)GameUIManager.Instance.PlayerUI;
 
 #region Unity Lifecycle
         protected override void Awake()

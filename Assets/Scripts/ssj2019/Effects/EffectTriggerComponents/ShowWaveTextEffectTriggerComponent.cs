@@ -1,5 +1,5 @@
 ﻿using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
-using pdxpartyparrot.ssj2019.Players;
+using pdxpartyparrot.ssj2019.UI;
 
 using UnityEngine;
 
@@ -18,9 +18,9 @@ namespace pdxpartyparrot.ssj2019.Effects.EffectTriggerComponents
         public override void OnStart()
         {
             if(_show) {
-                PlayerManager.Instance.GamePlayerUI.ShowWaveText(_text);
+                GameUIManager.Instance.GamePlayerUI.ShowWaveText(_text);
             } else {
-                PlayerManager.Instance.GamePlayerUI.HideWaveText();
+                GameUIManager.Instance.GamePlayerUI.HideWaveText();
             }
         }
     }

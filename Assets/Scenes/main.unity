@@ -278,13 +278,13 @@ MonoBehaviour:
     type: 3}
   _gameStateManagerPrefab: {fileID: 5367487814220047283, guid: a9bcba3db09169c46ac16b646d05c13d,
     type: 3}
-  _gameUIManagerPrefab: {fileID: 6141025429896587798, guid: e04cb7c1d3cc6424dae127a8da540f87,
-    type: 3}
   _dialogManagerPrefab: {fileID: 3423672891971432254, guid: c345e5f1d0d30a345a807a576fb5e868,
     type: 3}
   _cinematicsManagerPrefab: {fileID: 6643921667076601226, guid: 3a2e0835e204734409eb56dc42c9b23b,
     type: 3}
   _gameManagerPrefab: {fileID: 3961162130779980102, guid: 5ea398d4d5436a24a8051aef0425f9c0,
+    type: 3}
+  _gameUiManagerPrefab: {fileID: 7889224627678160789, guid: e04cb7c1d3cc6424dae127a8da540f87,
     type: 3}
   _playerManagerPrefab: {fileID: 4161473966796991426, guid: 1224400b947db7d43a9208be5709be6f,
     type: 3}
@@ -886,7 +886,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 60.6
+  m_fontSize: 53.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

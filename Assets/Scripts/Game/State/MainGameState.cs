@@ -131,7 +131,7 @@ namespace pdxpartyparrot.Game.State
                 return false;
             }
 
-            GameUIManager.Instance.Initialize();
+            GameStateManager.Instance.GameUIManager.Initialize();
 
             Core.Network.NetworkManager.Instance.LocalClientReady(GameStateManager.Instance.NetworkClient?.connection);
 
@@ -196,8 +196,8 @@ namespace pdxpartyparrot.Game.State
                 ViewerManager.Instance.FreeAllViewers();
             }
 
-            if(GameUIManager.HasInstance) {
-                GameUIManager.Instance.Shutdown();
+            if(GameStateManager.HasInstance && null != GameStateManager.Instance.GameUIManager) {
+                GameStateManager.Instance.GameUIManager.Shutdown();
             }
 
             if(AudioManager.HasInstance) {

@@ -28,10 +28,10 @@ namespace pdxpartyparrot.Game.State
 
             InputManager.Instance.EventSystem.UIModule.EnableAllActions();
 
-            Menu = GameUIManager.Instance.InstantiateUIPrefab(_menuPrefab);
+            Menu = GameStateManager.Instance.GameUIManager.InstantiateUIPrefab(_menuPrefab);
             Menu.Initialize();
 
-            TitleScreen = GameUIManager.Instance.InstantiateUIPrefab(_titleScreenPrefab);
+            TitleScreen = GameStateManager.Instance.GameUIManager.InstantiateUIPrefab(_titleScreenPrefab);
         }
 
         protected override void DoExit()

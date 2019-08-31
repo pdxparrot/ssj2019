@@ -6,14 +6,26 @@ using pdxpartyparrot.Core;
 using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.ObjectPool;
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 
 namespace pdxpartyparrot.Game.UI
 {
-    // TODO: this needs to be abstract the same as the GameManager, etc
-    // so that games can override things like the PlayerUI
-    public sealed class GameUIManager : SingletonBehavior<GameUIManager>
+    public interface IGameUIManager
+    {
+        string DefaultFloatingTextPoolName { get; }
+
+        void Initialize();
+
+        void Shutdown();
+
+        TV InstantiateUIPrefab<TV>(TV prefab) where TV: Component;
+
+        FloatingText InstantiateFloatingText(string poolName);
+    }
+
+    public abstract class GameUIManager<T> : SingletonBehavior<T>, IGameUIManager where T: GameUIManager<T>
     {
 #region UI / Menus
         [SerializeField]
@@ -50,10 +62,16 @@ namespace pdxpartyparrot.Game.UI
             _floatingTextContainer = new GameObject("Floating Text");
 
             PartyParrotManager.Instance.PauseEvent += PauseEventHandler;
+
+            GameStateManager.Instance.RegisterGameUIManager(this);
         }
 
         protected override void OnDestroy()
         {
+            if(GameStateManager.HasInstance) {
+                GameStateManager.Instance.UnregisterGameUIManager();
+            }
+
             if(PartyParrotManager.HasInstance) {
                 PartyParrotManager.Instance.PauseEvent -= PauseEventHandler;
             }

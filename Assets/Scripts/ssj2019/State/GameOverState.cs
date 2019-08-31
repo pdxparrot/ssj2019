@@ -1,5 +1,5 @@
 ﻿using pdxpartyparrot.Game.State;
-using pdxpartyparrot.ssj2019.Players;
+using pdxpartyparrot.ssj2019.UI;
 
 namespace pdxpartyparrot.ssj2019.State
 {
@@ -9,7 +9,7 @@ namespace pdxpartyparrot.ssj2019.State
         {
             base.DoEnter();
 
-            PlayerManager.Instance.GamePlayerUI.HUD.HideAllCharacterPanels();
+            GameUIManager.Instance.GamePlayerUI.HUD.HideAllCharacterPanels();
         }
     }
 }

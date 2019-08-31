@@ -3,9 +3,9 @@ using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Actors;
-using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.ssj2019.Characters.Brawlers;
 using pdxpartyparrot.ssj2019.Data.Players;
+using pdxpartyparrot.ssj2019.UI;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -103,7 +103,7 @@ namespace pdxpartyparrot.ssj2019.Players
 #region Brawler Actions
         public void OnHit(bool blocked)
         {
-            PlayerManager.Instance.GamePlayerUI.HUD.SetPlayerHealthPercent(GamePlayerOwner.NetworkPlayer.ControllerId, Brawler.HealthPercent);
+            GameUIManager.Instance.GamePlayerUI.HUD.SetPlayerHealthPercent(GamePlayerOwner.NetworkPlayer.ControllerId, Brawler.HealthPercent);
             GameManager.Instance.PlayerHit(PlayerManager.Instance.PlayerData.HitPoints);
         }
 

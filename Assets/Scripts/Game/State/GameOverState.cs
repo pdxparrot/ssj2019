@@ -1,6 +1,5 @@
 using pdxpartyparrot.Core.Audio;
 using pdxpartyparrot.Core.Input;
-using pdxpartyparrot.Game.UI;
 
 using UnityEngine;
 
@@ -30,7 +29,7 @@ namespace pdxpartyparrot.Game.State
             if(null != _menuPrefab) {
                 InputManager.Instance.EventSystem.UIModule.EnableAllActions();
 
-                _menu = GameUIManager.Instance.InstantiateUIPrefab(_menuPrefab);
+                _menu = GameStateManager.Instance.GameUIManager.InstantiateUIPrefab(_menuPrefab);
                 _menu.Initialize();
             }
         }

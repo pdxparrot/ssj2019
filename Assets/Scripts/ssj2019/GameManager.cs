@@ -9,11 +9,11 @@ using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.ObjectPool;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game;
-using pdxpartyparrot.Game.UI;
 using pdxpartyparrot.ssj2019.Camera;
 using pdxpartyparrot.ssj2019.Data;
 using pdxpartyparrot.ssj2019.Data.Players;
 using pdxpartyparrot.ssj2019.Players;
+using pdxpartyparrot.ssj2019.UI;
 
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -180,19 +180,19 @@ namespace pdxpartyparrot.ssj2019
         public void NPCBrawlerKilled(int points)
         {
             _score += points;
-            PlayerManager.Instance.GamePlayerUI.HUD.SetScore(_score);
+            GameUIManager.Instance.GamePlayerUI.HUD.SetScore(_score);
         }
 
         public void PlayerCombo(int points)
         {
             _score += points;
-            PlayerManager.Instance.GamePlayerUI.HUD.SetScore(_score);
+            GameUIManager.Instance.GamePlayerUI.HUD.SetScore(_score);
         }
 
         public void PlayerHit(int points)
         {
             _score = Mathf.Max(_score - points, 0);
-            PlayerManager.Instance.GamePlayerUI.HUD.SetScore(_score);
+            GameUIManager.Instance.GamePlayerUI.HUD.SetScore(_score);
         }
 #endregion
 

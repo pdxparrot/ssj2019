@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 
@@ -42,7 +43,7 @@ namespace pdxpartyparrot.Game.UI
 
         public void QueueFloatingText(string text, Color color, Func<Vector3> position)
         {
-            QueueFloatingText(GameUIManager.Instance.DefaultFloatingTextPoolName, text, color, position);
+            QueueFloatingText(GameStateManager.Instance.GameUIManager.DefaultFloatingTextPoolName, text, color, position);
         }
 
         public void QueueFloatingText(string poolName, string text, Color color, Func<Vector3> position)
@@ -71,7 +72,7 @@ namespace pdxpartyparrot.Game.UI
 
                 FloatingTextEntry entry = _floatingText.Dequeue();
 
-                FloatingText floatingText = GameUIManager.Instance.InstantiateFloatingText(entry.poolName);
+                FloatingText floatingText = GameStateManager.Instance.GameUIManager.InstantiateFloatingText(entry.poolName);
                 if(null == floatingText) {
                     Debug.LogWarning($"Failed to get floating text from pool {entry.poolName}!");
                     continue;
