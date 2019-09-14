@@ -70,6 +70,12 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
         [SerializeField]
         private AudioEffectTriggerComponent _attackAudioEffectTriggerComponent;
 
+        // TODO: this sucks but since we initialize it in OnPerformed we need a way to clean up :(
+        public void Shutdown()
+        {
+            _attackVolume.Shutdown();
+        }
+
         public override bool OnPerformed(CharacterBehaviorAction action)
         {
             if(!(action is AttackAction attackAction)) {

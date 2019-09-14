@@ -90,16 +90,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
         }
 
-        public void ShutdownModel(ActorBehavior behavior)
-        {
-            if(null != Model) {
-                Model.ShutdownBehavior(behavior);
-
-                Destroy(Model.gameObject);
-                Model = null;
-            }
-        }
-
 #region Spawn
         public void OnSpawn()
         {
@@ -117,6 +107,18 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
 
             _brawlerBehavior.OnReSpawn();
+        }
+
+        public void OnDeSpawn(ActorBehavior behavior)
+        {
+            if(null != Model) {
+                Model.ShutdownBehavior(behavior);
+
+                Destroy(Model.gameObject);
+                Model = null;
+            }
+
+            _brawlerBehavior.OnDeSpawn();
         }
 #endregion
     }

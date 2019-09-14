@@ -506,6 +506,12 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         {
             _currentComboEntry = null;
         }
+
+        public void OnDeSpawn()
+        {
+            _attackVolume.Shutdown();
+            _blockVolume.Shutdown();
+        }
 #endregion
 
 #region Event Handlers

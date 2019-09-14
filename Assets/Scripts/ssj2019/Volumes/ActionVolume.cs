@@ -68,6 +68,11 @@ namespace pdxpartyparrot.ssj2019.Volumes
             BoneFollower.SkeletonRenderer = skeletonRenderer;
         }
 
+        public void Shutdown()
+        {
+            BoneFollower.SkeletonRenderer = null;
+        }
+
         public virtual void EnableVolume(bool enable)
         {
             IsEnabled = enable;

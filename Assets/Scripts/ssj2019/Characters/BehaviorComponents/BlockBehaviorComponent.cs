@@ -34,6 +34,12 @@ namespace pdxpartyparrot.ssj2019.Players.BehaviorComponents
         [SerializeField]
         private EffectTrigger _blockEndEffectTrigger;
 
+        // TODO: this sucks but since we initialize it in OnPerformed we need a way to clean up :(
+        public void Shutdown()
+        {
+            _blockVolume.Shutdown();
+        }
+
         public override bool OnPerformed(CharacterBehaviorAction action)
         {
             if(!(action is BlockAction blockAction)) {
