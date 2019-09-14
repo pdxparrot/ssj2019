@@ -29,6 +29,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         CharacterBehaviorComponent.CharacterBehaviorAction NextAction { get; }
 
+        bool CanApplyAttackForce { get; }
+
         bool IsGrounded { get; }
 
         bool IsDead { get; }
@@ -140,6 +142,12 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         [Space(10)]
 
         [SerializeField]
+        [ReadOnly]
+        private Vector3 _velocityModifier;
+
+        [Space(10)]
+
+        [SerializeField]
         private JumpBehaviorComponent _jumpBehaviorComponent;
 
         [SerializeField]
@@ -210,6 +218,13 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             _dashBehaviorComponent.DashBehaviorComponentData = Brawler.BrawlerData.DashBehaviorComponentData;
         }
 
+        public void PhysicsUpdate(float dt)
+        {
+            if(ActionHandler.CanApplyAttackForce) {
+                Owner.Behavior.Movement.Move(_velocityModifier * dt);
+            }
+        }
+
 #region Actions
         public void Jump()
         {
@@ -276,6 +291,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
 
             _currentComboEntry = null;
+            _velocityModifier = Vector3.zero;
 
             ActionHandler.OnIdle();
         }
@@ -367,6 +383,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             _currentComboEntry = null;
+            _velocityModifier = Vector3.zero;
 
             _comboFailEffectTrigger.Trigger();
         }
@@ -444,12 +461,19 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 return false;
             }
 
-            // TODO: instead just move the thing forward, fuck it
-            damageData.Source.Behavior.Movement.AddImpulse(damageData.Direction * damageData.AttackData.MoveFoward);
+            // push the source
+            if(null != damageData.SourceBrawlerActionHandler) {
+                damageData.SourceBrawlerActionHandler.Brawler.BrawlerBehavior._velocityModifier = damageData.Direction * damageData.AttackData.MoveFoward;
+            }
 
-            // TODO: set velocity instead of using an impulse
-            Vector3 force = damageData.Direction * damageData.AttackData.PushBackAmount + damageData.AttackData.KnockDownForce * Vector3.down + damageData.AttackData.KnockUpForce * Vector3.up;
-            Owner.Behavior.Movement.AddImpulse(force);
+            // push the recipient
+            _velocityModifier = damageData.Direction * damageData.AttackData.PushBackAmount;
+
+            // vertical push
+            if(damageData.AttackData.KnockUpForce > 0.0f) {
+                Owner.Behavior.Movement.PrepareJump();
+            }
+            Owner.Behavior.Movement.Velocity += damageData.AttackData.KnockDownForce * Vector3.down + damageData.AttackData.KnockUpForce * Vector3.up;
 
             _hitAudioEffectTriggerComponent.AudioClip = damageData.AttackData.ImpactAudioCip;
             if(damageData.AttackData.KnockDown) {
@@ -609,6 +633,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         public bool DashAnimationCompleteHandler()
         {
             Combo();
+
             return null != _currentComboEntry;
         }
 

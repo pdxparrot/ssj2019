@@ -121,6 +121,13 @@ namespace pdxpartyparrot.Core.Actors
             // TODO
         }
 
+        // force physics to a sane state for the first frame of the jump
+        // this can also be used to prepare for other y-direction velocity changes
+        public virtual void PrepareJump()
+        {
+            UseGravity = true;
+        }
+
         public virtual void Teleport(Vector3 position)
         {
             if(ActorManager.Instance.EnableDebug) {

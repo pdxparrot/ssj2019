@@ -106,6 +106,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
 
         public override bool CanMove => base.CanMove && !IsDead && !Brawler.CurrentAction.IsStunned;
 
+        public bool CanApplyAttackForce => base.CanMove && !IsDead;
+
         [SerializeField]
         [ReadOnly]
         private State _state = State.Idle;
@@ -181,6 +183,13 @@ namespace pdxpartyparrot.ssj2019.NPCs
             base.Initialize(behaviorData);
 
             _brawlerBehavior.ActionHandler = this;
+        }
+
+        protected override void PhysicsUpdate(float dt)
+        {
+            _brawlerBehavior.PhysicsUpdate(dt);
+
+            base.PhysicsUpdate(dt);
         }
 
         public override void Think(float dt)

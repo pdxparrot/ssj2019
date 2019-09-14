@@ -84,15 +84,20 @@ namespace pdxpartyparrot.Game.Characters
             RigidBody.collisionDetectionMode = enable ? CollisionDetectionMode.ContinuousDynamic : CollisionDetectionMode.ContinuousSpeculative;
         }
 
+        public override void PrepareJump()
+        {
+            base.PrepareJump();
+
+            CharacterBehavior.IsGrounded = false;
+        }
+
         public virtual void Jump(float height)
         {
             if(!CharacterBehavior.CanMove) {
                 return;
             }
 
-            // force physics to a sane state for the first frame of the jump
-            UseGravity = true;
-            CharacterBehavior.IsGrounded = false;
+            PrepareJump();
 
             // factor in fall speed adjust
             float gravity = -Physics.gravity.y + CharacterBehavior.CharacterBehaviorData.FallSpeedAdjustment;

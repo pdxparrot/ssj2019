@@ -37,6 +37,8 @@ namespace pdxpartyparrot.ssj2019.Players
 
         public override bool CanMove => base.CanMove && !IsDead && !Brawler.CurrentAction.IsStunned;
 
+        public bool CanApplyAttackForce => base.CanMove && !IsDead;
+
         private BrawlerBehavior _brawlerBehavior;
 
 #region Unity Lifecycle
@@ -80,6 +82,13 @@ namespace pdxpartyparrot.ssj2019.Players
 
             rumbleEffect = _brawlerBehavior.DeathEffectTrigger.GetEffectTriggerComponent<RumbleEffectTriggerComponent>();
             rumbleEffect.GamepadListener = GamePlayerOwner.GamePlayerInput.GamepadListener;
+        }
+
+        protected override void PhysicsUpdate(float dt)
+        {
+            _brawlerBehavior.PhysicsUpdate(dt);
+
+            base.PhysicsUpdate(dt);
         }
 
 #region Spawn
