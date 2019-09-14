@@ -89,7 +89,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
             Vector3 moveDirection = Behavior.Owner.FacingDirection;
             Vector3 velocity = moveDirection * DashBehaviorComponentData.DashSpeed;
 
-            Behavior.Movement.Teleport(Behavior.Movement.Position + velocity * dt);
+            Behavior.Movement.Move(velocity * dt);
 
             return true;
         }

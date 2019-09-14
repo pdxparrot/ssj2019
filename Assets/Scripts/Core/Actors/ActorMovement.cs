@@ -129,6 +129,11 @@ namespace pdxpartyparrot.Core.Actors
             _transform.position = position;
         }
 
+        public virtual void Move(Vector3 amount)
+        {
+            _transform.position = Position + amount;
+        }
+
         public virtual void MoveTowards(Vector3 position, float speed, float dt)
         {
             Vector3 newPosition = Vector3.MoveTowards(Position, position, speed * dt);

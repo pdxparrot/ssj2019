@@ -113,7 +113,7 @@ namespace pdxpartyparrot.Game.Characters.Players
             velocity = rotation * velocity;
 
             if(Movement.IsKinematic) {
-                Movement.Teleport(Movement.Position + velocity * dt);
+                Movement.Move(velocity * dt);
             } else {
                 velocity.y = Movement.Velocity.y;
                 Movement.Velocity = velocity;

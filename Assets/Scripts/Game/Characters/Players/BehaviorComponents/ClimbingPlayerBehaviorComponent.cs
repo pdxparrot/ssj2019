@@ -301,7 +301,7 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
                 if(_groundChecker.DidGroundCheckCollide && velocity.y < 0.0f) {
                     velocity.y = 0.0f;
                 }
-                Behavior.Movement.Teleport(Behavior.Movement.Position + velocity * dt);
+                Behavior.Movement.Move(velocity * dt);
                 return true;
             case ClimbMode.Hanging:
                 break;
