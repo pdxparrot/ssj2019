@@ -1,4 +1,4 @@
-﻿using pdxpartyparrot.Core.Actors;
+using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data.Characters;
@@ -17,9 +17,10 @@ namespace pdxpartyparrot.Game.Characters
             get => base.UseGravity;
             set
             {
+                bool changed = base.UseGravity != value;
                 base.UseGravity = value;
-                if(!value) {
-                    Velocity = Vector3.zero;
+                if(changed && !value) {
+                    Velocity = new Vector3(Velocity.x, 0.0f, Velocity.z);
                 }
             }
         }
