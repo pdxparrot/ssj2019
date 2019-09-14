@@ -10,7 +10,7 @@ namespace pdxpartyparrot.ssj2019.Actors
     public sealed class DamageData : Game.Actors.DamageData
     {
         [CanBeNull]
-        public IBrawlerBehaviorActions BrawlerActionHandler { get; set; }
+        public IBrawlerBehaviorActions SourceBrawlerActionHandler { get; set; }
 
         public AttackData AttackData { get; set; }
 

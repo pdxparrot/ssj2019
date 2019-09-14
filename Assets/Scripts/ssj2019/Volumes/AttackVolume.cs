@@ -104,7 +104,7 @@ namespace pdxpartyparrot.ssj2019.Volumes
 
             Actors.DamageData damageData = new Actors.DamageData{
                 Source = Owner,
-                BrawlerActionHandler = Owner.Behavior as IBrawlerBehaviorActions,
+                SourceBrawlerActionHandler = Owner.Behavior as IBrawlerBehaviorActions,
 
                 AttackData = _attackData,
                 Bounds = _collider.bounds,

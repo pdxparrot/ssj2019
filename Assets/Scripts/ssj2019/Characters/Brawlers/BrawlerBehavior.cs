@@ -25,6 +25,8 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
     // eg - action handling, state checking, etc
     public interface IBrawlerBehaviorActions
     {
+        Brawler Brawler { get; }
+
         CharacterBehaviorComponent.CharacterBehaviorAction NextAction { get; }
 
         bool IsGrounded { get; }
@@ -389,7 +391,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                     DisplayDebugText($"Blocked damage for {dd.AttackData.DamageAmount} (took {dd.AttackData.BlockDamageAmount})", Color.blue);
                 }
 
-                if(null != dd.BrawlerActionHandler) {
+                if(null != dd.SourceBrawlerActionHandler) {
                     BrawlerAction currentAction = Brawler.CurrentAction;
                     currentAction.WasBlocked = true;
                     Brawler.CurrentAction = currentAction;
