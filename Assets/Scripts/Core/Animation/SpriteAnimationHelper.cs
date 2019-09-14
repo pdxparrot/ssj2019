@@ -9,7 +9,7 @@ namespace pdxpartyparrot.Core.Animation
     public class SpriteAnimationHelper : MonoBehaviour
     {
         [SerializeField]
-        private HashSet<SpriteRenderer> _renderers;
+        private List<SpriteRenderer> _renderers;
 
         public void AddRenderer(SpriteRenderer renderer)
         {
