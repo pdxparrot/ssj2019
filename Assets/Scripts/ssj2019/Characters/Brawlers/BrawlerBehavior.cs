@@ -443,7 +443,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             // TODO: instead just move the thing forward, fuck it
-            damageData.Source.Behavior.Movement.AddImpulse(-damageData.Direction * damageData.AttackData.MoveFoward);
+            damageData.Source.Behavior.Movement.AddImpulse(damageData.Direction * damageData.AttackData.MoveFoward);
 
             // TODO: set velocity instead of using an impulse
             Vector3 force = damageData.Direction * damageData.AttackData.PushBackAmount + damageData.AttackData.KnockDownForce * Vector3.down + damageData.AttackData.KnockUpForce * Vector3.up;
