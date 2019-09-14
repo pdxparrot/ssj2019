@@ -19,8 +19,8 @@ MonoBehaviour:
   _damageType: 
   _damageAmount: 20
   _blockDamageAmount: 0
-  _moveForward: 0
-  _pushBackAmount: 10
+  _moveForward: 0.75
+  _pushBackAmount: 1
   _knockUpForce: 0
   _knockDownForce: 0
   _knockDown: 0
