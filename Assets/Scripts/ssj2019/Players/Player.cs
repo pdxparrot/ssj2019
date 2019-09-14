@@ -144,7 +144,7 @@ namespace pdxpartyparrot.ssj2019.Players
         {
             PlayerGameViewer.RemoveTarget(this);
 
-            Brawler.OnDeSpawn();
+            Brawler.ShutdownModel(Behavior);
 
             base.OnDeSpawn();
         }

@@ -79,12 +79,24 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         public void InitializeModel(ActorBehavior behavior, BrawlerModel modelPrefab, GameObject parent, int skinIndex)
         {
+            Debug.Assert(null == Model);
+
             Model = Instantiate(modelPrefab, parent.transform);
             Model.InitializeBehavior(behavior, skinIndex);
 
             Billboard billboard = parent.GetComponent<Billboard>();
             if(billboard != null) {
                 billboard.Camera = GameManager.Instance.Viewer.Camera;
+            }
+        }
+
+        public void ShutdownModel(ActorBehavior behavior)
+        {
+            if(null != Model) {
+                Model.ShutdownBehavior(behavior);
+
+                Destroy(Model.gameObject);
+                Model = null;
             }
         }
 
@@ -105,14 +117,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
 
             _brawlerBehavior.OnReSpawn();
-        }
-
-        public void OnDeSpawn()
-        {
-            if(null != Model) {
-                Destroy(Model.gameObject);
-                Model = null;
-            }
         }
 #endregion
     }

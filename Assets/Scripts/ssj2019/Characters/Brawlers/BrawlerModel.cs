@@ -37,7 +37,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
                 behavior.SpineAnimationHelper.SkeletonAnimation = SpineModel;
 
                 behavior.SpineSkinHelper.SkeletonAnimation = SpineModel;
-               if(skinIndex < 0) {
+                if(skinIndex < 0) {
                     behavior.SpineSkinHelper.SetRandomSkin();
                 } else {
                     behavior.SpineSkinHelper.SetSkin(skinIndex);
@@ -45,6 +45,21 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             }
 
             behavior.SpriteAnimationHelper.AddRenderer(ShadowSprite);
+        }
+
+        public void ShutdownBehavior(ActorBehavior behavior)
+        {
+            if(null != ModelSprite) {
+                behavior.SpriteAnimationHelper.RemoveRenderer(ModelSprite);
+            }
+
+            if(null != SpineModel) {
+                behavior.SpineAnimationHelper.SkeletonAnimation = null;
+
+                behavior.SpineSkinHelper.SkeletonAnimation = null;
+            }
+
+            behavior.SpriteAnimationHelper.RemoveRenderer(ShadowSprite);
         }
     }
 }

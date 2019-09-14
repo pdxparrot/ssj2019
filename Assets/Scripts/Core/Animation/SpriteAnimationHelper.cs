@@ -9,11 +9,16 @@ namespace pdxpartyparrot.Core.Animation
     public class SpriteAnimationHelper : MonoBehaviour
     {
         [SerializeField]
-        private List<SpriteRenderer> _renderers;
+        private HashSet<SpriteRenderer> _renderers;
 
         public void AddRenderer(SpriteRenderer renderer)
         {
             _renderers.Add(renderer);
+        }
+
+        public void RemoveRenderer(SpriteRenderer renderer)
+        {
+            _renderers.Remove(renderer);
         }
 
         public void SetFacing(Vector3 direction)
