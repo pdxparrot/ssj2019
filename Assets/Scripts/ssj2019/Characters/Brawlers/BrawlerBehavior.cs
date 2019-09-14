@@ -436,6 +436,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
                     return true;
                 }
+            }
 
             if(blocked) {
                 return false;
