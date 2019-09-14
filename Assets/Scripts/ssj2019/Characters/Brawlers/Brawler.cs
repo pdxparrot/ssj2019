@@ -45,7 +45,15 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         [ReadOnly]
         private BrawlerAction _currentAction;
 
-        public BrawlerModel Model { get; private set; }
+        [SerializeField]
+        [ReadOnly]
+        private BrawlerModel _model;
+
+        public BrawlerModel Model
+        {
+            get => _model;
+            private set => _model = value;
+        }
 
         public BrawlerAction CurrentAction
         {
@@ -97,6 +105,14 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Idle);
 
             _brawlerBehavior.OnReSpawn();
+        }
+
+        public void OnDeSpawn()
+        {
+            if(null != Model) {
+                Destroy(Model.gameObject);
+                Model = null;
+            }
         }
 #endregion
     }

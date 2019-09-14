@@ -58,7 +58,7 @@ namespace pdxpartyparrot.ssj2019.Level
                 return;
             }
 
-            Destroy(WaveSpawner);
+            Destroy(WaveSpawner.gameObject);
             WaveSpawner = null;
         }
 

@@ -60,7 +60,7 @@ namespace pdxpartyparrot.ssj2019.Menu
         protected override void OnDestroy()
         {
             foreach(Character character in _characters) {
-                Destroy(character.PlayerCharacterPortrait);
+                Destroy(character.PlayerCharacterPortrait.gameObject);
             }
 
             Destroy(_characterPortraitContainer);

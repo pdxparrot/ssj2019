@@ -41,7 +41,7 @@ namespace pdxpartyparrot.ssj2019.Players
             Actions.Player.SetCallbacks(null);
 
             if(null != GamepadListener) {
-                Destroy(GamepadListener);
+                Destroy(GamepadListener.gameObject);
             }
             GamepadListener = null;
 

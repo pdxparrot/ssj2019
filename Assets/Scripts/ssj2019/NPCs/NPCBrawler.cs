@@ -101,6 +101,8 @@ namespace pdxpartyparrot.ssj2019.NPCs
         {
             NPCManager.Instance.UnregisterNPC(this);
 
+            Brawler.OnDeSpawn();
+
             base.OnDeSpawn();
         }
 #endregion
