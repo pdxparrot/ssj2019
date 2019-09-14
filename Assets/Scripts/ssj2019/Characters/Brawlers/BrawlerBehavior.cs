@@ -99,8 +99,6 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         private EffectTrigger _knockDownEffectTrigger;
 
         private ITimer _knockDownTimer;
-
-        public bool IsKnockedDown => _knockDownTimer.IsRunning;
 #endregion
 
 #region Death Animations
@@ -169,13 +167,13 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
         public Actor Owner => Brawler.Actor;
 
-        private bool CanJump => !IsKnockedDown && !ActionHandler.IsDead && Brawler.CurrentAction.Cancellable;
+        private bool CanJump => !ActionHandler.IsDead && Brawler.CurrentAction.Cancellable;
 
-        private bool CanAttack => !IsKnockedDown && !ActionHandler.IsDead && Brawler.CurrentAction.Cancellable;
+        private bool CanAttack => !ActionHandler.IsDead && Brawler.CurrentAction.Cancellable;
 
-        public bool CanBlock => !IsKnockedDown && !ActionHandler.IsDead && ActionHandler.IsGrounded && Brawler.CurrentAction.Cancellable;
+        public bool CanBlock => !ActionHandler.IsDead && ActionHandler.IsGrounded && Brawler.CurrentAction.Cancellable;
 
-        private bool CanDash => !IsKnockedDown && !ActionHandler.IsDead && Brawler.CurrentAction.Cancellable;
+        private bool CanDash => !ActionHandler.IsDead && Brawler.CurrentAction.Cancellable;
 
 #region Unity Lifecycle
         private void Awake()
@@ -375,7 +373,7 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 #region Damage
         public bool Damage(Game.Actors.DamageData damageData)
         {
-            if(ActionHandler.IsDead || ActionHandler.IsImmune) {
+            if(ActionHandler.IsDead) {
                 return false;
             }
 
@@ -421,19 +419,23 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             return true;
         }
 
+        // returns true if the hit kills the brawler
         private bool DoDamage(Actors.DamageData damageData, bool blocked)
         {
-            Brawler.Health -= damageData.AttackData.DamageAmount;
-            if(ActionHandler.IsDead) {
-                Brawler.Health = 0;
+            if(!ActionHandler.IsImmune) {
+                Brawler.Health -= damageData.AttackData.DamageAmount;
 
-                _deathEffectTrigger.Trigger(() => ActionHandler.OnDeathComplete());
+                // TODO: we shouldn't actually die until we're done being combo'd to death
+                if(ActionHandler.IsDead) {
+                    Brawler.Health = 0;
 
-                ActionHandler.OnHit(false);
-                ActionHandler.OnDead();
+                    _deathEffectTrigger.Trigger(() => ActionHandler.OnDeathComplete());
 
-                return true;
-            }
+                    ActionHandler.OnHit(false);
+                    ActionHandler.OnDead();
+
+                    return true;
+                }
 
             if(blocked) {
                 return false;
@@ -448,10 +450,14 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
 
             _hitAudioEffectTriggerComponent.AudioClip = damageData.AttackData.ImpactAudioCip;
             if(damageData.AttackData.KnockDown) {
+                Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.KnockedDown);
+
                 // TODO: make the time configurable
                 _knockDownEffectTrigger.Trigger();
                 _knockDownTimer.Start(1.0f);
             } else {
+                Brawler.CurrentAction = new BrawlerAction(BrawlerAction.ActionType.Stunned);
+
                 _hitEffectTrigger.Trigger(() => {
                     Idle();
                 });

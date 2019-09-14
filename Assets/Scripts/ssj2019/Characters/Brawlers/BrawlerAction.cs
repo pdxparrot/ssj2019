@@ -12,10 +12,14 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
         public enum ActionType
         {
             Idle,
+
             Attack,
             Block,
             Parry,
-            Dash
+            Dash,
+
+            Stunned,
+            KnockedDown,
         }
 
         [SerializeField]
@@ -118,6 +122,12 @@ namespace pdxpartyparrot.ssj2019.Characters.Brawlers
             if(ActionType.Dash == Type) {
                 _stunned = true;
                 _immune = true;
+            }
+
+            // stunned / knocked down specialization
+            if(ActionType.Stunned == Type || ActionType.KnockedDown == Type) {
+                _cancellable = false;
+                _stunned = true;
             }
         }
 
