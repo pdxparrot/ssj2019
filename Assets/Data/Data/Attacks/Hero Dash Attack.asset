@@ -27,6 +27,6 @@ MonoBehaviour:
   _attackVolumeOffset: {x: 0, y: 0, z: 0}
   _attackVolumeSize: {x: 2, y: 2, z: 2}
   _boneName: handR
-  _animationName: footR
+  _animationName: dash_full
   _attackAudioClip: {fileID: 8300000, guid: eb0da95111f53cc4f857cae707144e25, type: 3}
   _impactAudioClip: {fileID: 8300000, guid: bf7cc2648c9c4f74eaa026a00c121c0b, type: 3}
