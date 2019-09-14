@@ -17,7 +17,7 @@ MonoBehaviour:
   _airAttack: 0
   _unblockable: 0
   _damageType: 
-  _damageAmount: 50
+  _damageAmount: 30
   _blockDamageAmount: 0
   _moveForward: 0
   _pushBackAmount: 25
