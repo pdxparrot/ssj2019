@@ -317,13 +317,13 @@ namespace pdxpartyparrot.ssj2019.Input
     ""controlSchemes"": []
 }");
             // Player
-            m_Player = asset.GetActionMap("Player");
-            m_Player_pause = m_Player.GetAction("pause");
-            m_Player_move = m_Player.GetAction("move");
-            m_Player_jump = m_Player.GetAction("jump");
-            m_Player_attack = m_Player.GetAction("attack");
-            m_Player_block = m_Player.GetAction("block");
-            m_Player_dash = m_Player.GetAction("dash");
+            m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+            m_Player_pause = m_Player.FindAction("pause", throwIfNotFound: true);
+            m_Player_move = m_Player.FindAction("move", throwIfNotFound: true);
+            m_Player_jump = m_Player.FindAction("jump", throwIfNotFound: true);
+            m_Player_attack = m_Player.FindAction("attack", throwIfNotFound: true);
+            m_Player_block = m_Player.FindAction("block", throwIfNotFound: true);
+            m_Player_dash = m_Player.FindAction("dash", throwIfNotFound: true);
         }
 
         ~PlayerControls()

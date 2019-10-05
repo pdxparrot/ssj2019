@@ -160,14 +160,14 @@ namespace pdxpartyparrot.Game.Input
     ""controlSchemes"": []
 }");
             // ServerSpectator
-            m_ServerSpectator = asset.GetActionMap("ServerSpectator");
-            m_ServerSpectator_moveforward = m_ServerSpectator.GetAction("move forward");
-            m_ServerSpectator_movebackward = m_ServerSpectator.GetAction("move backward");
-            m_ServerSpectator_moveleft = m_ServerSpectator.GetAction("move left");
-            m_ServerSpectator_moveright = m_ServerSpectator.GetAction("move right");
-            m_ServerSpectator_moveup = m_ServerSpectator.GetAction("move up");
-            m_ServerSpectator_movedown = m_ServerSpectator.GetAction("move down");
-            m_ServerSpectator_look = m_ServerSpectator.GetAction("look");
+            m_ServerSpectator = asset.FindActionMap("ServerSpectator", throwIfNotFound: true);
+            m_ServerSpectator_moveforward = m_ServerSpectator.FindAction("move forward", throwIfNotFound: true);
+            m_ServerSpectator_movebackward = m_ServerSpectator.FindAction("move backward", throwIfNotFound: true);
+            m_ServerSpectator_moveleft = m_ServerSpectator.FindAction("move left", throwIfNotFound: true);
+            m_ServerSpectator_moveright = m_ServerSpectator.FindAction("move right", throwIfNotFound: true);
+            m_ServerSpectator_moveup = m_ServerSpectator.FindAction("move up", throwIfNotFound: true);
+            m_ServerSpectator_movedown = m_ServerSpectator.FindAction("move down", throwIfNotFound: true);
+            m_ServerSpectator_look = m_ServerSpectator.FindAction("look", throwIfNotFound: true);
         }
 
         ~ServerSpectatorControls()
