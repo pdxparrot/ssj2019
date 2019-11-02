@@ -1,5 +1,6 @@
 // GENERATED AUTOMATICALLY FROM 'Assets/Data/Input/PlayerControls.inputactions'
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
@@ -7,7 +8,7 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace pdxpartyparrot.ssj2019.Input
 {
-    public class PlayerControls : IInputActionCollection
+    public class PlayerControls : IInputActionCollection, IDisposable
     {
         private InputActionAsset asset;
         public PlayerControls()
@@ -326,7 +327,7 @@ namespace pdxpartyparrot.ssj2019.Input
             m_Player_dash = m_Player.FindAction("dash", throwIfNotFound: true);
         }
 
-        ~PlayerControls()
+        public void Dispose()
         {
             UnityEngine.Object.Destroy(asset);
         }

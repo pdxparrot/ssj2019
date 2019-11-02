@@ -1,5 +1,6 @@
 // GENERATED AUTOMATICALLY FROM 'Assets/Data/Input/ServerSpectator.inputactions'
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
@@ -7,7 +8,7 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace pdxpartyparrot.Game.Input
 {
-    public class ServerSpectatorControls : IInputActionCollection
+    public class ServerSpectatorControls : IInputActionCollection, IDisposable
     {
         private InputActionAsset asset;
         public ServerSpectatorControls()
@@ -170,7 +171,7 @@ namespace pdxpartyparrot.Game.Input
             m_ServerSpectator_look = m_ServerSpectator.FindAction("look", throwIfNotFound: true);
         }
 
-        ~ServerSpectatorControls()
+        public void Dispose()
         {
             UnityEngine.Object.Destroy(asset);
         }
