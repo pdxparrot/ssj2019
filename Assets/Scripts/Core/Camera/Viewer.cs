@@ -105,7 +105,7 @@ namespace pdxpartyparrot.Core.Camera
             }
         }
 
-#region Orthographic/Perspective
+#region Orthographic / Perspective
         public virtual void Set2D()
         {
             Camera.orthographic = true;

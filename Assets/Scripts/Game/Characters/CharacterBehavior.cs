@@ -18,6 +18,7 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Game.Characters
 {
+    // TODO: would composition make more sense than inheritance here?
     public abstract class CharacterBehavior : ActorBehavior
     {
         private struct ActionBufferEntry

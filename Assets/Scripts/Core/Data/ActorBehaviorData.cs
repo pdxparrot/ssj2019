@@ -16,24 +16,25 @@ namespace pdxpartyparrot.Core.Data
         [Header("Actor Physics")]
 
         [SerializeField]
-        [Tooltip("Mass in Kg")]
+        [Tooltip("Mass in Kg. Overrides Rigidbody mass setting")]
         private float _mass = 45.0f;
 
         public float Mass => _mass;
 
         [SerializeField]
-        [Tooltip("Drag coefficient")]
+        [Tooltip("Drag coefficient. Overrides Rigidbody drag setting")]
         private float _drag = 0.0f;
 
         public float Drag => _drag;
 
         [SerializeField]
-        [Tooltip("Angular drag coefficient")]
+        [Tooltip("Angular drag coefficient. Overrides Ridigbody angular drag setting")]
         private float _angularDrag = 0.0f;
 
         public float AngularDrag => _angularDrag;
 
         [SerializeField]
+        [Tooltip("Is this actor kinematic. Overrides Rigidbody kinematic setting")]
         private bool _isKinematic = false;
 
         public bool IsKinematic => _isKinematic;

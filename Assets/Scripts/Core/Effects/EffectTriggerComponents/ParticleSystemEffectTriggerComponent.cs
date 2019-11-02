@@ -19,7 +19,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         {
             base.Initialize(owner);
 
-            var main = _vfx.main;
+            ParticleSystem.MainModule main = _vfx.main;
             Assert.IsFalse(main.playOnAwake, $"ParticleSystem '{_vfx.name}' should not have playOnAwake set!");
         }
 

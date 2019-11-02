@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.ssj2019.Effects.EffectTriggerComponents
 {
+    // TODO: this could move to Game
     public sealed class ShowWaveTextEffectTriggerComponent : EffectTriggerComponent
     {
         [SerializeField]

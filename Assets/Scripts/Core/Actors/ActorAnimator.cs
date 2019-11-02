@@ -8,6 +8,7 @@ using UnityEngine.Profiling;
 
 namespace pdxpartyparrot.Core.Actors
 {
+    // TODO: rename ActorManualAnimator
     public class ActorAnimator : MonoBehaviour
     {
         [Serializable]

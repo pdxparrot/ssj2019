@@ -8,6 +8,7 @@ namespace pdxpartyparrot.Game.KungFuCircle
 {
     public class KungFuGrid : MonoBehaviour
     {
+        // TODO: move this stuff to a data object
         [SerializeField]
         [FormerlySerializedAs("maxgridslots")]
         private int _maxGridSlots = 4;

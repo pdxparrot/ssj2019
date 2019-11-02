@@ -144,7 +144,7 @@ namespace pdxpartyparrot.Game.Menu
 
         private void EnableDoneButton(bool enable)
         {
-           if(enable) {
+            if(enable) {
                 _doneButton.Select();
                 _doneButton.Highlight();
             }

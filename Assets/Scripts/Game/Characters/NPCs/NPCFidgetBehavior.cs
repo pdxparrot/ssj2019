@@ -1,6 +1,7 @@
 ﻿using pdxpartyparrot.Core;
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -32,9 +33,9 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             {
                 _origin = value;
 
-                // TODO: whenever NPCManager moves to Game,
-                // we can do this when DebugBehavior is true
-                //Debug.Log($"NPC {_owner.Id} reset fidget origin to {_origin}");
+                if(GameStateManager.Instance.NPCManager.DebugBehavior) {
+                    Debug.Log($"NPC {_owner.Id} reset fidget origin to {_origin}");
+                }
             }
         }
 
@@ -72,9 +73,9 @@ namespace pdxpartyparrot.Game.Characters.NPCs
                 return;
             }
 
-            // TODO: whenever NPCManager moves to Game,
-            // we can do this when DebugBehavior is true
-            //Debug.Log($"NPC {_owner.Id} fidgeting");
+            if(GameStateManager.Instance.NPCManager.DebugBehavior) {
+                Debug.Log($"NPC {_owner.Id} fidgeting");
+            }
 
             _offset = new Vector3(_fidgetRange.GetRandomValue() * PartyParrotManager.Instance.Random.NextSign(),
                                   0.0f,

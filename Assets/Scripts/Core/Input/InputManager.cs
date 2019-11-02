@@ -11,8 +11,8 @@ using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.Core.Input
 {
-    // TODO: InputSystem is still fleshing out multiple controller support
-    // so this will need an update once that's done
+    // TODO: if GamepadListener is replaced with Unity's PlayerInput
+    // this should be updated to work with that
     public sealed class InputManager : SingletonBehavior<InputManager>
     {
         // config keys

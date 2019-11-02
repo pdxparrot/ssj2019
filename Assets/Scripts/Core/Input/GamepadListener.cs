@@ -8,8 +8,7 @@ using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.Core.Input
 {
-    // TODO: InputSystem is still fleshing out multiple controller support
-    // so this will need an update once that's done
+    // TODO: would it make sense to replace this with using Unity's PlayerInput behavior?
     public sealed class GamepadListener : MonoBehaviour
     {
         [SerializeField]
