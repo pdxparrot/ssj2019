@@ -8,10 +8,10 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace pdxpartyparrot.Game.Input
 {
-    public class ServerSpectatorControls : IInputActionCollection, IDisposable
+    public class @ServerSpectatorControls : IInputActionCollection, IDisposable
     {
         private InputActionAsset asset;
-        public ServerSpectatorControls()
+        public @ServerSpectatorControls()
         {
             asset = InputActionAsset.FromJson(@"{
     ""name"": ""ServerSpectator"",
@@ -227,8 +227,8 @@ namespace pdxpartyparrot.Game.Input
         private readonly InputAction m_ServerSpectator_look;
         public struct ServerSpectatorActions
         {
-            private ServerSpectatorControls m_Wrapper;
-            public ServerSpectatorActions(ServerSpectatorControls wrapper) { m_Wrapper = wrapper; }
+            private @ServerSpectatorControls m_Wrapper;
+            public ServerSpectatorActions(@ServerSpectatorControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @moveforward => m_Wrapper.m_ServerSpectator_moveforward;
             public InputAction @movebackward => m_Wrapper.m_ServerSpectator_movebackward;
             public InputAction @moveleft => m_Wrapper.m_ServerSpectator_moveleft;
@@ -245,52 +245,52 @@ namespace pdxpartyparrot.Game.Input
             {
                 if (m_Wrapper.m_ServerSpectatorActionsCallbackInterface != null)
                 {
-                    moveforward.started -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveforward;
-                    moveforward.performed -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveforward;
-                    moveforward.canceled -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveforward;
-                    movebackward.started -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMovebackward;
-                    movebackward.performed -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMovebackward;
-                    movebackward.canceled -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMovebackward;
-                    moveleft.started -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveleft;
-                    moveleft.performed -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveleft;
-                    moveleft.canceled -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveleft;
-                    moveright.started -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveright;
-                    moveright.performed -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveright;
-                    moveright.canceled -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveright;
-                    moveup.started -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveup;
-                    moveup.performed -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveup;
-                    moveup.canceled -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveup;
-                    movedown.started -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMovedown;
-                    movedown.performed -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMovedown;
-                    movedown.canceled -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMovedown;
-                    look.started -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnLook;
-                    look.performed -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnLook;
-                    look.canceled -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnLook;
+                    @moveforward.started -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveforward;
+                    @moveforward.performed -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveforward;
+                    @moveforward.canceled -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveforward;
+                    @movebackward.started -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMovebackward;
+                    @movebackward.performed -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMovebackward;
+                    @movebackward.canceled -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMovebackward;
+                    @moveleft.started -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveleft;
+                    @moveleft.performed -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveleft;
+                    @moveleft.canceled -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveleft;
+                    @moveright.started -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveright;
+                    @moveright.performed -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveright;
+                    @moveright.canceled -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveright;
+                    @moveup.started -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveup;
+                    @moveup.performed -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveup;
+                    @moveup.canceled -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMoveup;
+                    @movedown.started -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMovedown;
+                    @movedown.performed -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMovedown;
+                    @movedown.canceled -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnMovedown;
+                    @look.started -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnLook;
+                    @look.performed -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnLook;
+                    @look.canceled -= m_Wrapper.m_ServerSpectatorActionsCallbackInterface.OnLook;
                 }
                 m_Wrapper.m_ServerSpectatorActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    moveforward.started += instance.OnMoveforward;
-                    moveforward.performed += instance.OnMoveforward;
-                    moveforward.canceled += instance.OnMoveforward;
-                    movebackward.started += instance.OnMovebackward;
-                    movebackward.performed += instance.OnMovebackward;
-                    movebackward.canceled += instance.OnMovebackward;
-                    moveleft.started += instance.OnMoveleft;
-                    moveleft.performed += instance.OnMoveleft;
-                    moveleft.canceled += instance.OnMoveleft;
-                    moveright.started += instance.OnMoveright;
-                    moveright.performed += instance.OnMoveright;
-                    moveright.canceled += instance.OnMoveright;
-                    moveup.started += instance.OnMoveup;
-                    moveup.performed += instance.OnMoveup;
-                    moveup.canceled += instance.OnMoveup;
-                    movedown.started += instance.OnMovedown;
-                    movedown.performed += instance.OnMovedown;
-                    movedown.canceled += instance.OnMovedown;
-                    look.started += instance.OnLook;
-                    look.performed += instance.OnLook;
-                    look.canceled += instance.OnLook;
+                    @moveforward.started += instance.OnMoveforward;
+                    @moveforward.performed += instance.OnMoveforward;
+                    @moveforward.canceled += instance.OnMoveforward;
+                    @movebackward.started += instance.OnMovebackward;
+                    @movebackward.performed += instance.OnMovebackward;
+                    @movebackward.canceled += instance.OnMovebackward;
+                    @moveleft.started += instance.OnMoveleft;
+                    @moveleft.performed += instance.OnMoveleft;
+                    @moveleft.canceled += instance.OnMoveleft;
+                    @moveright.started += instance.OnMoveright;
+                    @moveright.performed += instance.OnMoveright;
+                    @moveright.canceled += instance.OnMoveright;
+                    @moveup.started += instance.OnMoveup;
+                    @moveup.performed += instance.OnMoveup;
+                    @moveup.canceled += instance.OnMoveup;
+                    @movedown.started += instance.OnMovedown;
+                    @movedown.performed += instance.OnMovedown;
+                    @movedown.canceled += instance.OnMovedown;
+                    @look.started += instance.OnLook;
+                    @look.performed += instance.OnLook;
+                    @look.canceled += instance.OnLook;
                 }
             }
         }
